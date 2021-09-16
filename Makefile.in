@@ -117,10 +117,10 @@ valgrind/%: build/test/%
 	$(VALGRIND) --leak-check=full --track-origins=yes $<
 
 build/test/%: %.c $(SOURCES) $(HEADERS) | build
-	$(CC) $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS)
+	$(CC) $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 build/time/%: %.c $(SOURCES) $(HEADERS) | build
-	$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) 
+	$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'
