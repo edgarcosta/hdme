@@ -17,13 +17,16 @@
 #include "theta.h"
 #include "igusa.h"
 
-#define SIEGEL_START_PREC_MUL 15
-#define SIEGEL_START_PREC_ADD 200
-#define HILBERT_START_PREC 50
+#define SIEGEL_START_PREC_MUL 30
+#define SIEGEL_START_PREC_ADD 0
 #define SIEGEL_MUL_PREC 1.5
-#define HILBERT_MUL_PREC 1.5
 #define SIEGEL_RED_TOL_BITS 50
 #define SIEGEL_MAX_PREC n_pow(10,6)
+/* Todo: use this in functions. */
+#define SIEGEL_VERBOSE 1 
+
+#define HILBERT_START_PREC 50
+#define HILBERT_MUL_PREC 1.5
 
 /* Siegel modular equations */
 

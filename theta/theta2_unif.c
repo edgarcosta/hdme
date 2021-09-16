@@ -19,7 +19,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   int flag_naive, flag_newton;
   int res;
   slong i, j;
-  int v = THETA_NEWTON_VERBOSE;
+  int v = THETA_VERBOSE;
 
   fmpz_mat_init(aux, 2*g, 2*g);
   sp2gz_init(eta, g);
@@ -127,7 +127,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   _acb_vec_set(th2, current_th2, n_pow(2, 2*g));
 
   /* Print warning */
-  if (!res)
+  if (!res && (v>0))
     {
       flint_printf("(theta2_unif) Warning: computation failed for the matrix\n");
       acb_mat_printd(tau, 10);

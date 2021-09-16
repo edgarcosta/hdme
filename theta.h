@@ -16,9 +16,11 @@
 #define THETA_NEWTON_BASEPREC 4000
 #define THETA_NEWTON_Y1 5000
 #define THETA_NEWTON_Y2MAX 10
-#define THETA_NEWTON_VERBOSE 1
 #define THETA_NEWTON_TOL_EXP -5
 #define BORCHARDT_ARG_GAP_EXP -20
+
+#define BORCHARDT_VERBOSE 0
+#define THETA_VERBOSE 0
 
 int acb_sqrt_goodpos(acb_t r, const acb_t z, slong prec);
 

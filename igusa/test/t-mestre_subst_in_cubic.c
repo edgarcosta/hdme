@@ -7,7 +7,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("mestre....");
+  flint_printf("mestre_subst_in_cubic....");
   fflush(stdout);
   
   flint_randinit(state);

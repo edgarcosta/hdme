@@ -31,7 +31,7 @@ int main()
 
       slong g = 2;
       slong bits = 1 + n_randint(state, 500);
-      slong prec = 5 * bits;
+      slong prec = 10 + 5 * bits;
       slong chance = n_randint(state, 10);
 
       arb_init(y1);

@@ -8,6 +8,9 @@ int main()
   acb_ptr reorder;
   slong k, perm;
 
+  flint_printf("thomae_reorder....");
+  fflush(stdout);
+
   roots = _acb_vec_init(6);
   reorder = _acb_vec_init(6);
   

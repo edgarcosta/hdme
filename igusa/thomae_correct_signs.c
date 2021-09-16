@@ -18,6 +18,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   acb_mat_t tau;
   int res = 1;
   int tau_success;
+  int v = THOMAE_VERBOSE;
   
   int removed_ps[720][16];
   int removed_p[720];
@@ -38,7 +39,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   
   while ((nb_candidates > 1) && (current_prec < prec))
     {
-      flint_printf("(thomae_correct_signs) Trying precision %wd\n", current_prec);
+      if(v) flint_printf("(thomae_correct_signs) Trying precision %wd\n", current_prec);
       nb_candidates = 0;
       for (p = 0; p < 720; p++)
 	{
@@ -84,14 +85,14 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 	  /* Else p was removed: do nothing */
 	}
       /* End for(p) loop */
-      flint_printf("(thomae_correct_signs) Remaining candidates: %wd\n", nb_candidates);
+      if(v) flint_printf("(thomae_correct_signs) Remaining candidates: %wd\n", nb_candidates);
       current_prec *= THOMAE_MULPREC;
     }
   
   /* Then we have a last run at prec: this time we want to succeed in computing tau */
   if (nb_candidates > 1)
     {
-      flint_printf("(thomae_correct_signs) Last run at precision %wd\n", prec);
+      if(v) flint_printf("(thomae_correct_signs) Last run at precision %wd\n", prec);
       nb_candidates = 0;
       igusa_from_cov(j_test, I, prec);
       for (p = 0; p < 720; p++)
@@ -135,7 +136,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 		}
 	    }
 	}
-      flint_printf("(thomae_correct_signs) Remaining candidates: %wd\n", nb_candidates);
+      if(v) flint_printf("(thomae_correct_signs) Remaining candidates: %wd\n", nb_candidates);
     }
   if (nb_candidates == 0) res = 0;
   else

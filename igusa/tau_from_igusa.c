@@ -9,6 +9,7 @@ int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec)
   acb_ptr ros;
   acb_ptr th2, th4;
   int res;
+  int v = THOMAE_VERBOSE;
 
   acb_poly_init(crv);
   roots = _acb_vec_init(6);
@@ -21,13 +22,13 @@ int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec)
   if (res) res = thomae_correct_signs(&perm, &signs, roots, I, prec);
   if (res)
     {
-      flint_printf("(tau_from_igusa) Computing period matrix at high precision...\n");
+      if(v) flint_printf("(tau_from_igusa) Computing period matrix at high precision...\n");
       thomae_reorder(roots, roots, perm);
       thomae_rosenhain(ros, roots, prec);
       thomae_theta4(th4, ros, prec);
       thomae_theta2(th2, th4, ros, signs, prec);
       res = theta2_inverse(tau, th2, prec);
-      flint_printf("(tau_from_igusa) Done.\n");
+      if(v) flint_printf("(tau_from_igusa) Done.\n");
     }
 
   acb_poly_clear(crv);

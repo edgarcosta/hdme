@@ -7,7 +7,7 @@ borchardt_mean_nb_steps_before_quad_conv(fmpz_t nb, acb_srcptr a, slong prec)
   arb_t m0, M0, Delta0, num, den;
   arf_t sup;
   slong g = 2;
-  /* slong k; */
+  slong k;
   int res = 1;
 
   arb_init(m0);
@@ -25,10 +25,11 @@ borchardt_mean_nb_steps_before_quad_conv(fmpz_t nb, acb_srcptr a, slong prec)
       || !arb_is_finite(m0)
       || !arb_is_finite(M0)
       || !arb_is_finite(Delta0)
-      || !arb_is_positive(Delta0)) res = 0;
+      || arb_contains_negative(Delta0)) res = 0;
 
-  /* if (!res)
+  if (!res && BORCHARDT_VERBOSE)
     {
+      flint_printf("(borchardt_mean_nb_steps_before_quad_conv) Failure values:\n");
       flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");
       flint_printf("M0 = "); arb_printd(M0, 30); flint_printf("\n");
       flint_printf("Delta0 = "); arb_printd(Delta0, 30); flint_printf("\n");
@@ -38,7 +39,7 @@ borchardt_mean_nb_steps_before_quad_conv(fmpz_t nb, acb_srcptr a, slong prec)
 	{
 	  acb_printd(&a[k], 30); flint_printf("\n");
 	}
-	} */
+    }
   
   if (res)
     {      
