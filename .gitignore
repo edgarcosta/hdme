@@ -1,0 +1,13 @@
+*.out
+*.blg
+*.bbl
+*.aux
+*.log
+*.pdf
+*.ps
+*~
+*#*
+*.a
+*.png
+build/
+*.exe
