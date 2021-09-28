@@ -6,6 +6,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   fmpz_lll_t fl;
   fmpz_mat_t B;
   fmpz_mat_t U;
+  fmpz_t discr;
   acb_t coeff;
   slong k;
   int res;
@@ -14,6 +15,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   fmpz_mat_init(B, 7, 5);
   fmpz_mat_init(U, 5, 5);
   acb_init(coeff);
+  fmpz_init(discr);
 
   /* Set up LLL matrix */
   fmpz_one(fmpz_mat_entry(B, 0, 0));
@@ -30,7 +32,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
   
-  acb_mul_2exp_si(coeff, acb_mat_entry(tau, 1, 1), prec/2);
+  acb_mul_2exp_si(coeff, acb_mat_entry(tau, 0, 1), prec/2);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 1),
 	       arb_midref(acb_realref(coeff)),
 	       ARF_RND_NEAR);  
@@ -38,7 +40,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
   
-  acb_mul_2exp_si(coeff, acb_mat_entry(tau, 0, 1), prec/2);
+  acb_mul_2exp_si(coeff, acb_mat_entry(tau, 1, 1), prec/2);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 2),
 	       arb_midref(acb_realref(coeff)),
 	       ARF_RND_NEAR);  
@@ -47,6 +49,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
 	       ARF_RND_NEAR);
 
   acb_mat_det(coeff, tau, prec);
+  acb_neg(coeff, coeff);
   acb_mul_2exp_si(coeff, coeff, prec/2);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 3),
 	       arb_midref(acb_realref(coeff)),
@@ -73,11 +76,15 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
       fmpz_set(&abcde[k], fmpz_mat_entry(B, k, 0));
     }
 
-  /* Do some kind of check */
-  res = 1;
+  /* Check discriminant */
+  fmpz_mul(discr, &abcde[1], &abcde[1]);
+  fmpz_submul(discr, &abcde[0], &abcde[2]);
+  fmpz_submul(discr, &abcde[3], &abcde[4]); 
+  res = fmpz_equal_si(discr, delta);
   
   fmpz_mat_clear(B);
   fmpz_mat_clear(U);
   acb_init(coeff);
+  fmpz_clear(discr);
   return res;
 }
