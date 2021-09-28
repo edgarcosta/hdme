@@ -7,6 +7,7 @@
 #include "ulong_extras.h"
 #include "fmpz_poly_mat.h"
 #include "fmpq_mpoly.h"
+#include "fmpz_lll.h"
 #include "acb.h"
 #include "acb_poly.h"
 #include "acb_mat.h"
@@ -40,7 +41,11 @@ void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
 void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
 			 slong prec);
 
+void hilbert_R(acb_mat_t R, slong delta, slong prec);
+
 void hilbert_map(acb_mat_t tau, const acb_t t1, const acb_t t2, slong delta, slong prec);
+
+int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, slong prec);
 
 int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
 		    slong delta, slong prec);
