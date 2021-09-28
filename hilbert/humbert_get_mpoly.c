@@ -25,7 +25,9 @@ void humbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
   res = fmpq_mpoly_set_str_pretty(pol, str, vars, ctx);
   if (res == -1)
     {
-      flint_printf("(humbert_get_mpoly) Warning: error parsing string: %s\n", str);
+      flint_printf("(humbert_get_mpoly) Error parsing string: %s\n", str);
+      fflush(stdout);
+      flint_abort();
     }
   fclose(file);
 }

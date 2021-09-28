@@ -6,7 +6,7 @@ int main()
 
   slong delta;
   char** vars;
-  int print = 1;
+  int print = 0;
 
   fmpq_mpoly_ctx_t ctx;
   fmpq_mpoly_t test;
