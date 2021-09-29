@@ -41,6 +41,8 @@ void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
 void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
 			 slong prec);
 
+void hilbert_halfspace_randtest(acb_t t1, acb_t t2, flint_rand_t state, slong prec);
+
 void hilbert_R(acb_mat_t R, slong delta, slong prec);
 
 void hilbert_map(acb_mat_t tau, const acb_t t1, const acb_t t2, slong delta, slong prec);
