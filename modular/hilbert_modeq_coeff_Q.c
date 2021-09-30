@@ -2,12 +2,14 @@
 #include "hilbert.h"
 
 static int
-cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec)
+cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec, slong tol_exp)
 {
   int res = 0;    
   arf_get_fmpz(r, current, ARF_RND_FLOOR);
+  /* arf_printd(current, 30); flint_printf("\n"); */
   arf_sub_fmpz(next, current, r, prec, ARF_RND_NEAR);
-  if (arf_cmp_2exp_si(next, -50) < 0)
+  /* arf_printd(next, 30); flint_printf("\n"); */
+  if (arf_cmp_2exp_si(next, tol_exp) < 0)
     {
       res = 1;
     }
@@ -43,11 +45,12 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
   acb_t z;
   arf_t current;
   mpz_t n, d;
-  int res = 0;
+  int res = 1;
   int stop = 0;
   slong max_steps = cont_frac_max_nb_steps(x, prec);
   fmpz* r_vec;
   slong k;
+  slong tol_exp;
 
   acb_init(z);
   arf_init(current);
@@ -67,7 +70,18 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
       k = 0;
       while (!stop && (k < max_steps))
 	{
-	  stop = cont_frac_step(&r_vec[k], current, current, prec);
+	  if (k < 2)
+	    {
+	      tol_exp = -prec/2;
+	    }
+	  else
+	    {
+	      tol_exp = -prec/16;
+	    }
+	  stop = cont_frac_step(&r_vec[k], current, current, prec, tol_exp);
+	  /*
+	  flint_printf("Step %wd: ", k);
+	  fmpz_print(&r_vec[k]); flint_printf("\nStop: %d\n", stop); */
 	  k++;
 	}
       if (k == max_steps)
