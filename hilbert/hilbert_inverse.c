@@ -15,7 +15,7 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
   fmpz_mat_init(R0, 4, 4);
   fmpz_mat_init(R1, 4, 4);
 
-  fmpz_xgcd(g0, alpha, beta, &abcde[2], &abcde[4]);
+  fmpz_xgcd(g0, alpha, beta, &abcde[4], &abcde[2]);
   fmpz_neg(beta, beta);
 
   fmpz_mat_zero(M0);
@@ -41,7 +41,7 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
   fmpz_set(fmpz_mat_entry(R0, 0, 3), &abcde[3]);
   fmpz_neg(fmpz_mat_entry(R0, 1, 0), &abcde[2]);
   fmpz_set(fmpz_mat_entry(R0, 1, 1), &abcde[1]);
-  fmpz_neg(fmpz_mat_entry(R0, 1, 2), &abcde[2]);
+  fmpz_neg(fmpz_mat_entry(R0, 1, 2), &abcde[3]);
   fmpz_set(fmpz_mat_entry(R0, 2, 1), &abcde[4]);
   fmpz_neg(fmpz_mat_entry(R0, 2, 3), &abcde[2]);
   fmpz_neg(fmpz_mat_entry(R0, 3, 0), &abcde[4]);
@@ -72,7 +72,7 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
   fmpz_neg(fmpz_mat_entry(R1, 1, 0), &abcde[2]);
   fmpz_set(fmpz_mat_entry(R1, 1, 1), &abcde[1]);
   fmpz_set(fmpz_mat_entry(R1, 2, 1), &abcde[4]);
-  fmpz_neg(fmpz_mat_entry(R1, 2, 4), &abcde[2]);
+  fmpz_neg(fmpz_mat_entry(R1, 2, 3), &abcde[2]);
   fmpz_neg(fmpz_mat_entry(R1, 3, 0), &abcde[4]);
   fmpz_set(fmpz_mat_entry(R1, 3, 2), &abcde[0]);
   fmpz_set(fmpz_mat_entry(R1, 3, 3), &abcde[1]);
@@ -183,7 +183,7 @@ hilbert_bw_M2(sp2gz_t m, fmpz* abcde)
   fmpz_neg(fmpz_mat_entry(R2, 1, 0), &abcde[2]);
   fmpz_set(fmpz_mat_entry(R2, 1, 1), &abcde[1]);
   fmpz_set(fmpz_mat_entry(R2, 2, 1), &abcde[4]);
-  fmpz_neg(fmpz_mat_entry(R2, 2, 4), &abcde[2]);
+  fmpz_neg(fmpz_mat_entry(R2, 2, 3), &abcde[2]);
   fmpz_neg(fmpz_mat_entry(R2, 3, 0), &abcde[4]);
   fmpz_set(fmpz_mat_entry(R2, 3, 2), &abcde[0]);
   fmpz_set(fmpz_mat_entry(R2, 3, 3), &abcde[1]);
@@ -249,7 +249,7 @@ hilbert_bw_M3(sp2gz_t m, fmpz* abcde)
 
   fmpz_mat_zero(M3);
   fmpz_one(fmpz_mat_entry(M3, 0, 0));
-  fmpz_one(fmpz_mat_entry(M3, 0, 0));
+  fmpz_one(fmpz_mat_entry(M3, 0, 2));
   fmpz_divexact(fmpz_mat_entry(M3, 1, 1), &abcde[2], g3);
   fmpz_neg(fmpz_mat_entry(M3, 1, 3), &abcde[0]);
   fmpz_divexact(fmpz_mat_entry(M3, 1, 3), fmpz_mat_entry(M3, 1, 3), g3);
