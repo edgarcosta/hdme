@@ -78,7 +78,10 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
     }
   
   fmpz_mat_transpose(Bt, B);
+  flint_printf("(hilbert_linear_combination) Start LLL at precision %wd...", exp);
+  fflush(stdout);
   fmpz_lll(Bt, U, fl);
+  flint_printf(" done.\n"); fflush(stdout);
   fmpz_mat_transpose(B, Bt);
 
   if (verbose)

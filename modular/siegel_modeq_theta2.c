@@ -18,6 +18,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   slong n = siegel_nb_cosets(ell);
   arb_t tol;
   int res;
+  int v = SIEGEL_VERBOSE;
 
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
@@ -30,7 +31,10 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
 
   for (k = 0; k < n; k++)
     {
-      flint_printf("(siegel_theta2) Computing theta constants at isogenous period matrices (%wd/%wd)\n", k+1, n);
+      if (v)
+	{
+	  flint_printf("(siegel_modeq_theta2) Computing theta constants at isogenous period matrices (%wd/%wd)\n", k+1, n);
+	}
       siegel_coset(eta, k, ell);
       res = siegel_transform(im, eta, tau, prec);
       if (res) res = siegel_fundamental_domain(red, eta, im, tol, prec);

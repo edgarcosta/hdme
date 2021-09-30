@@ -94,6 +94,8 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
   fmpz_mat_clear(R1);
 }
 
+
+/* Change from Birkenhake-Wilhelm: we only need p coprime to c1. */
 static void
 hilbert_bw_M1(sp2gz_t m, fmpz* abcde)
 {
@@ -113,11 +115,15 @@ hilbert_bw_M1(sp2gz_t m, fmpz* abcde)
   fmpz_divexact(pstep, &abcde[0], g1);
   fmpz_abs(pstep, pstep);
   fmpz_abs(absc1, &abcde[2]);
+  
+  /* Use g1 in coprimality test */
   fmpz_zero(n);
-  while (!fmpz_is_prime(p) || (fmpz_cmp(p, absc1) <= 0))
+  fmpz_gcd(g1, p, absc1);
+  while (!fmpz_is_one(g1))
     {
       fmpz_add_si(n, n, 1);
       fmpz_add(p, p, pstep);
+      fmpz_gcd(g1, p, absc1);
     }
   
   fmpz_mat_one(M1);
@@ -296,11 +302,11 @@ hilbert_bw_M3(sp2gz_t m, fmpz* abcde)
 
   /* Check that new R3 is indeed the right R4 */
   fmpz_mat_zero(R4);
-  fmpz_set(fmpz_mat_entry(R4, 0, 1), &abcde[0]);
+  fmpz_mul(fmpz_mat_entry(R4, 0, 1), &abcde[0], &abcde[2]);
   fmpz_neg(fmpz_mat_entry(R4, 1, 0), &abcde[2]);
   fmpz_set(fmpz_mat_entry(R4, 1, 1), &abcde[1]);
   fmpz_neg(fmpz_mat_entry(R4, 2, 3), &abcde[2]);
-  fmpz_set(fmpz_mat_entry(R4, 3, 2), &abcde[0]);
+  fmpz_mul(fmpz_mat_entry(R4, 3, 2), &abcde[0], &abcde[2]);
   fmpz_set(fmpz_mat_entry(R4, 3, 3), &abcde[1]);
   if (!fmpz_mat_equal(R3, R4))
     {
@@ -383,11 +389,11 @@ hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
     }
 
   fmpz_mat_zero(R4);
-  fmpz_set(fmpz_mat_entry(R4, 0, 1), &abcde[0]);
+  fmpz_mul(fmpz_mat_entry(R4, 0, 1), &abcde[0], &abcde[2]);
   fmpz_neg(fmpz_mat_entry(R4, 1, 0), &abcde[2]);
   fmpz_set(fmpz_mat_entry(R4, 1, 1), &abcde[1]);
   fmpz_neg(fmpz_mat_entry(R4, 2, 3), &abcde[2]);
-  fmpz_set(fmpz_mat_entry(R4, 3, 2), &abcde[0]);
+  fmpz_mul(fmpz_mat_entry(R4, 3, 2), &abcde[0], &abcde[2]);
   fmpz_set(fmpz_mat_entry(R4, 3, 3), &abcde[1]);
 
   fmpz_mat_transpose(M4, M4);
@@ -436,6 +442,7 @@ hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
   fmpz_mat_clear(R5);
 }
 
+/* Change from Birkenhake-Wilhelm: we want b'=-1 if b5 is odd. */
 static void
 hilbert_bw_M5(sp2gz_t m, fmpz* abcde)
 {
@@ -451,7 +458,7 @@ hilbert_bw_M5(sp2gz_t m, fmpz* abcde)
     }
   else
     {
-      fmpz_sub_si(t, &abcde[1], 1);
+      fmpz_add_si(t, &abcde[1], 1);
       fmpz_divexact_si(t, t, 2);
     }
 
@@ -523,6 +530,7 @@ int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
     }  
   
   _fmpz_vec_clear(abcde, 5);
+  sp2gz_clear(m);
   acb_mat_clear(im);
   acb_mat_clear(R);
   return res;

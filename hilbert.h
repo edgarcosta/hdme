@@ -21,6 +21,12 @@
 
 int hilbert_is_fundamental(slong delta);
 
+int hilbert_is_totally_positive(const fmpz_poly_t x, slong delta);
+
+int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta);
+
+void hilbert_conjugate(fmpz_poly_t xbar, fmpz_poly_t x, slong delta);
+
 char** humbert_vars_init();
 
 void humbert_vars_clear(char** vars);
@@ -61,8 +67,6 @@ void hilbert_star(acb_t z, const fmpz_poly_mat_t m, const acb_t t1, const acb_t 
 
 void hilbert_transform(acb_t z1, acb_t z2, const fmpz_poly_mat_t m, const acb_t t1,
 		       const acb_t t2, slong delta, slong prec);
-
-int hilbert_is_totally_positive(const fmpz_poly_t x, slong delta);
 
 void hilbert_scalar_mul(acb_t z1, acb_t z2, const fmpz_poly_t x, const acb_t t1,
 			const acb_t t2, slong delta, slong prec);

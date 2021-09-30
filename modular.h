@@ -7,6 +7,7 @@
 #include "fmpq_vec.h"
 #include "fmpz_mod.h"
 #include "fmpz_mod_poly.h"
+#include "fmpz_poly_mat.h"
 #include "ulong_extras.h"
 #include "arb.h"
 #include "acb.h"
@@ -16,6 +17,7 @@
 #include "siegel.h"
 #include "theta.h"
 #include "igusa.h"
+#include "hilbert.h"
 
 #define SIEGEL_START_PREC_MUL 30
 #define SIEGEL_START_PREC_ADD 0
@@ -25,8 +27,10 @@
 /* Todo: use this in functions. */
 #define SIEGEL_VERBOSE 1 
 
-#define HILBERT_START_PREC 50
-#define HILBERT_MUL_PREC 1.5
+#define HILBERT_START_PREC_MUL 30
+#define HILBERT_MUL_PREC 2
+#define HILBERT_MAX_PREC n_pow(10,6)
+#define HILBERT_VERBOSE 1
 
 /* Siegel modular equations */
 
@@ -132,6 +136,44 @@ int siegel_modeq_deval_fp(fmpz_mod_poly_struct* pols, const fmpz* j, slong ell,
 
 
 /* Hilbert modular equations */
+
+slong hilbert_nb_cosets(slong ell, slong delta);
+
+void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta);
+
+int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
+			 const fmpz_poly_t beta, slong ell, slong delta, slong prec);
+
+void hilbert_modeq_cov(acb_ptr I_vec, acb_srcptr th2_vec, slong ell,
+		       slong delta, slong prec);
+
+void hilbert_modeq_sym_igusa_C(acb_poly_t pol1, acb_poly_t pol2, acb_poly_t pol3,
+			       acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
+			       slong ell, slong delta, slong prec);
+
+int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
+			  const fmpz_t probable_den, slong prec);
+
+int hilbert_modeq_sym_igusa_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
+			      fmpz_t den, const acb_poly_t pol1_acb,
+			      const acb_poly_t pol2_acb, const acb_poly_t pol3_acb,
+			      slong ell);
+
+slong hilbert_modeq_height(fmpq* rs, slong len);
+
+slong hilbert_modeq_sym_igusa_startprec(fmpq* rs, slong ell);
+
+slong hilbert_modeq_sym_igusa_nextprec(slong current_prec);
+
+void hilbert_modeq_sym_igusa_simplify(fmpz_poly_t num1, fmpz_poly_t num2,
+				      fmpz_poly_t num3, fmpz_t den, slong ell);
+
+int hilbert_modeq_sym_j_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
+			       fmpz_t den, fmpq* rs, slong ell);
+
+int hilbert_modeq_sym_j_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
+				fmpz_mod_poly_t pol3,
+				const fmpz* rs, slong ell, const fmpz_mod_ctx_t ctx);
 
 /* Derivatives of Hilbert modular equations */
 		   
