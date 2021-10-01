@@ -150,6 +150,10 @@ int main()
 	  fmpz_set_si(coeff, crv2_coeffs[k]);
 	  fmpz_poly_set_coeff_fmpz(crv2, k, coeff);	  
 	}
+      flint_printf("p = "); fmpz_print(p); flint_printf(", ell = %wd\n", ell);
+      flint_printf("Check existence of %wd-isogeny between:\n", ell);
+      flint_printf("y^2 = "); fmpz_poly_print_pretty(crv1, "x"); flint_printf("\n");
+      flint_printf("y^2 = "); fmpz_poly_print_pretty(crv2, "x"); flint_printf("\n");
 
       igusa_from_curve_fmpz(j1_Q, crv1);
       igusa_from_curve_fmpz(j2_Q, crv2);
