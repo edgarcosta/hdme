@@ -14,6 +14,8 @@ void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
   if (delta == 33)
     {
       _acb_vec_set(I, AA1BB1B2, 4);
+      acb_div(&I[0], &I[0], &AA1BB1B2[4], prec);
+      acb_div(&I[2], &I[2], &AA1BB1B2[4], prec);
       acb_mul(temp, &I[0], &I[1], prec);
       acb_mul_si(&I[2], &I[2], -3, prec);
       acb_add(&I[2], &I[2], temp, prec);

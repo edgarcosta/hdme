@@ -39,6 +39,8 @@ void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr va
 	}
       acb_add(res, res, temp, prec);
     }
+
+  acb_set(ev, res);
   
   acb_clear(res);
   acb_clear(temp);

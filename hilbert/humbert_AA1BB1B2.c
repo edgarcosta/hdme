@@ -28,11 +28,19 @@ void humbert_AA1BB1B2(acb_ptr AA1BB1B2, const acb_t r, const acb_t s, slong delt
       fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[2], pol, vals, ctx, prec);
       humbert_get_mpoly(pol, (const char**) vars, "I10", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[3], pol, vals, ctx, prec);
+      humbert_get_mpoly(pol, (const char**) vars, "den", delta, ctx);
+      fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[4], pol, vals, ctx, prec);
     }
   else
     {
       humbert_get_mpoly(pol, (const char**) vars, "A", delta, ctx);
-      fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[0], pol, vals, ctx, prec);      
+      fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[0], pol, vals, ctx, prec);
+      
+      /* acb_printd(&vals[0], 30); flint_printf("\n"); */
+      /* acb_printd(&vals[1], 30); flint_printf("\n"); */
+      /* fmpq_mpoly_print_pretty(pol, (const char**) vars, ctx); flint_printf("\n"); */
+      /* acb_printd(&AA1BB1B2[0], 30); flint_printf("\n"); */
+      
       humbert_get_mpoly(pol, (const char**) vars, "A1", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(&AA1BB1B2[1], pol, vals, ctx, prec);      
       humbert_get_mpoly(pol, (const char**) vars, "B", delta, ctx);

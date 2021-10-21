@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("siegel_modeq_eval_Q....");
+  flint_printf("hilbert_modeq_sym_igusa_eval_Q....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -18,6 +18,7 @@ int main()
       slong delta;
       slong ell;
       fmpz_poly_t beta;
+      fmpz_poly_t betabar;
       fmpq* rs;
       slong rs_bits = 1 + n_randint(state, 10);
       slong k;
@@ -30,6 +31,7 @@ int main()
       fmpz_poly_init(num3);
       fmpz_init(den);
       fmpz_poly_init(beta);
+      fmpz_poly_init(betabar);
       rs = _fmpq_vec_init(2);
       
       for (delta = 5; delta < delta_max; delta++)
@@ -44,7 +46,12 @@ int main()
 			{
 			  fmpq_randtest_not_zero(&rs[k], state, rs_bits);
 			}
-		      flint_printf("delta = %wd; ell = %wd; parameters are\n", delta, ell);
+		      hilbert_conjugate(betabar, beta, delta);
+		      flint_printf("delta = %wd; ell = %wd; beta = ", delta, ell);
+		      fmpz_poly_print_pretty(beta, "x");
+		      flint_printf(", betabar = ");
+		      fmpz_poly_print_pretty(betabar, "x");
+		      flint_printf(", parameters are\n");		      
 		      fmpq_print(&rs[0]); flint_printf("\n");
 		      fmpq_print(&rs[1]); flint_printf("\n");		      
 		      res = hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
@@ -68,6 +75,7 @@ int main()
       fmpz_poly_clear(num3);
       fmpz_clear(den);
       fmpz_poly_clear(beta);
+      fmpz_poly_clear(betabar);
       _fmpq_vec_clear(rs, 2);
     }
 
