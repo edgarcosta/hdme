@@ -43,7 +43,6 @@ void hilbert_modeq_sym_igusa_C(acb_poly_t pol1, acb_poly_t pol2, acb_poly_t pol3
   product_tree_1(pol1, xi, yi, 2*n, prec);
   product_tree_2(pol2, xi, yi, j2vec, 2*n, prec);
   product_tree_2(pol3, xi, yi, j3vec, 2*n, prec);
-  acb_poly_printd(pol1, prec/3);
   if (v) flint_printf("(hilbert_modeq_sym_igusa_C) Done.\n");
 
   _acb_vec_clear(j1vec, 2*n);

@@ -27,8 +27,8 @@
 /* Todo: use this in functions. */
 #define SIEGEL_VERBOSE 1 
 
-#define HILBERT_START_PREC_MUL 30
-#define HILBERT_MUL_PREC 2
+#define HILBERT_START_PREC_MUL 1
+#define HILBERT_MUL_PREC 1.8
 #define HILBERT_MAX_PREC n_pow(10,6)
 #define HILBERT_VERBOSE 1
 

@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("hilbert_modeq_sym_igusa_eval_Q....");
+  flint_printf("humbert_parametrize....");
   fflush(stdout);
 
   flint_randinit(state);

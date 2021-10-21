@@ -14,7 +14,7 @@ void hilbert_star(acb_t z, const fmpz_poly_mat_t m, const acb_t t1, const acb_t 
   arb_sqrt_ui(acb_realref(sqrtd), delta, prec);
   hilbert_sigma1(c, fmpz_poly_mat_entry(m, 1, 0), delta, prec);
   hilbert_sigma1(d, fmpz_poly_mat_entry(m, 1, 1), delta, prec);
-  acb_div(c, c, sqrtd, prec);
+  acb_mul(c, c, sqrtd, prec);
   
   acb_mul(res, c, t1, prec);
   acb_add(res, res, d, prec);
@@ -22,7 +22,7 @@ void hilbert_star(acb_t z, const fmpz_poly_mat_t m, const acb_t t1, const acb_t 
   hilbert_sigma2(c, fmpz_poly_mat_entry(m, 1, 0), delta, prec);
   hilbert_sigma2(d, fmpz_poly_mat_entry(m, 1, 1), delta, prec);
   acb_neg(sqrtd, sqrtd);
-  acb_div(c, c, sqrtd, prec);
+  acb_mul(c, c, sqrtd, prec);
   
   acb_mul(temp, c, t2, prec);
   acb_add(temp, temp, d, prec);

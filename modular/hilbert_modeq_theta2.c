@@ -33,7 +33,7 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
       if (res)
 	{
 	  hilbert_coset(m, k, ell, delta);
-	  fmpz_poly_mat_print(m, "x");
+	  /* fmpz_poly_mat_print(m, "x"); */
 	  hilbert_transform(z1, z2, m, t1, t2, delta, prec);
 	  hilbert_scalar_div(z1, z2, beta, z1, z2, delta, prec);
 	  hilbert_map(tau, z1, z2, delta, prec);

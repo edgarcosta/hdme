@@ -20,11 +20,11 @@ int main()
       fmpz_poly_t beta;
       fmpz_poly_t betabar;
       fmpq* rs;
-      slong rs_bits = 1 + n_randint(state, 10);
+      slong rs_bits = 5 + n_randint(state, 10);
       slong k;
       int res;
-      slong delta_max = 100;
-      slong ell_max = 50;
+      slong delta_max = 10;
+      slong ell_max = 15;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);
@@ -44,7 +44,7 @@ int main()
 		    {
 		      for (k = 0; k < 2; k++)
 			{
-			  fmpq_randtest_not_zero(&rs[k], state, rs_bits);
+			  fmpq_randbits(&rs[k], state, rs_bits);
 			}
 		      hilbert_conjugate(betabar, beta, delta);
 		      flint_printf("delta = %wd; ell = %wd; beta = ", delta, ell);

@@ -43,13 +43,9 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
       acb_set_fmpq(r_acb, &rs[0], prec);
       acb_set_fmpq(s_acb, &rs[1], prec);
       humbert_parametrize(I, r_acb, s_acb, delta, prec);
-
-      acb_printd(&I[0], 30); flint_printf("\n");
-      acb_printd(&I[1], 30); flint_printf("\n");
-      acb_printd(&I[2], 30); flint_printf("\n");
-      acb_printd(&I[3], 30); flint_printf("\n");
-      
+      if (v) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Computing period matrix...\n");        
       valid = tau_from_igusa(tau, I, prec);
+      if (v && valid) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Done.\n");    
       if (v && !valid) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Out of precision during computation of period matrix\n");
       if (valid)
 	{
@@ -79,7 +75,7 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
 	}
     }
 
-  if (v && prec >= HILBERT_MAX_PREC) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Maximum allowed precision reached: end of computation\n");
+  if (v && prec >= HILBERT_MAX_PREC) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Maximum allowed precision reached: end of computation.\n");
 
   acb_clear(r_acb);
   acb_clear(s_acb);
