@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
-				   fmpz_t den, fmpq* rs, slong ell)
+				   fmpz_t den, fmpq* rs, slong ell, slong delta)
 {
   slong prec = hilbert_modeq_sym_igusa_startprec(rs, ell, 2);
   acb_t r_acb, s_acb;
@@ -35,14 +35,14 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
   acb_poly_init(pol3);
 
   valid = hilbert_splits(beta, ell, delta);
-  if (valid) hilbert_conjugate(betabar, ell, delta);
+  if (valid) hilbert_conjugate(betabar, beta, delta);
 
-  while (valid && !success)
+  while (valid && !success && prec < HILBERT_MAX_PREC)
     {
       if (v) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Start new run at precision %wd\n", prec);    
       acb_set_fmpq(r_acb, &rs[0], prec);
       acb_set_fmpq(s_acb, &rs[1], prec);
-      hilbert_parametrize(I, r_acb, s_acb, delta, prec);
+      humbert_parametrize(I, r_acb, s_acb, delta, prec);
       valid = tau_from_igusa(tau, I, prec);
       if (valid) valid = hilbert_inverse(t1, t2, eta, tau, delta, prec);
       if (valid) valid = hilbert_modeq_theta2(th2_vec, t1, t2, beta, ell, delta, prec);
@@ -57,7 +57,7 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
 	  hilbert_modeq_sym_igusa_C(pol1, pol2, pol3, I_vec_beta,
 				    I_vec_betabar, ell, delta, prec);
 	  success = hilbert_modeq_sym_igusa_Q(num1, num2, num3, den,
-					      pol1, pol2, pol3, ell, prec);
+					      pol1, pol2, pol3, ell, delta, prec);
 	  if (v && !success) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Not enough precision to recognize rational coefficients\n");
 	  if (v && success) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Heuristic success in recognizing coeffients: end of computation\n");
 	}
@@ -67,6 +67,8 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
 	  valid = 1;
 	}
     }
+
+  if (v && prec >= HILBERT_MAX_PREC) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Maximum allowed precision reached: end of computation\n");
 
   acb_clear(r_acb);
   acb_clear(s_acb);
@@ -84,5 +86,5 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
   acb_poly_clear(pol2);
   acb_poly_clear(pol3);
 
-  
+  return success;
 }

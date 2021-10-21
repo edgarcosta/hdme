@@ -1,11 +1,10 @@
 
-#include "hilbert.h"
-
+#include "modular.h"
 
 int hilbert_modeq_sym_igusa_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 			      fmpz_t den, const acb_poly_t pol1_acb,
 			      const acb_poly_t pol2_acb, const acb_poly_t pol3_acb,
-			      slong ell, slong prec)
+			      slong ell, slong delta, slong prec)
 {
   fmpq_t c;
   fmpz_t c_num;
@@ -64,14 +63,14 @@ int hilbert_modeq_sym_igusa_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t nu
       fmpq_poly_scalar_mul_fmpz(pol3, pol3, den);
       for (k = 0; k <= 2*n-1; k++)
 	{
-	  fmpq_poly_get_coeff_fmpz(c_num, pol1, k, c);
+	  fmpq_poly_get_coeff_fmpz(c_num, pol1, k);
 	  fmpz_poly_set_coeff_fmpz(num1, k, c_num);
-	  fmpq_poly_get_coeff_fmpz(c_num, pol2, k, c);
+	  fmpq_poly_get_coeff_fmpz(c_num, pol2, k);
 	  fmpz_poly_set_coeff_fmpz(num2, k, c_num);
-	  fmpq_poly_get_coeff_fmpz(c_num, pol2, k, c);
+	  fmpq_poly_get_coeff_fmpz(c_num, pol2, k);
 	  fmpz_poly_set_coeff_fmpz(num2, k, c_num);
 	}
-      fmpq_poly_get_coeff_fmpz(c_num, pol1, 2*n, c);
+      fmpq_poly_get_coeff_fmpz(c_num, pol1, 2*n);
       fmpz_poly_set_coeff_fmpz(num1, 2*n, c_num);
     }
 

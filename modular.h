@@ -157,7 +157,7 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
 int hilbert_modeq_sym_igusa_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 			      fmpz_t den, const acb_poly_t pol1_acb,
 			      const acb_poly_t pol2_acb, const acb_poly_t pol3_acb,
-			      slong ell, slong prec);
+			      slong ell, slong delta, slong prec);
 
 slong hilbert_modeq_height(fmpq* params, slong len);
 
