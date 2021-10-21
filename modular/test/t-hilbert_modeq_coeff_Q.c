@@ -40,6 +40,19 @@ int main()
 	  flint_abort();
 	}
 
+      fmpq_randbits(c, state, 2 * prec/3);
+      acb_set_fmpq(x, c, prec);
+      res = hilbert_modeq_coeff_Q(r, den, x, den, prec);
+      if (res && !fmpq_equal(r, c))
+	{
+	  flint_printf("FAIL (spurious coefficient recognized)\n", prec);
+	  fmpq_print(c); flint_printf("\n");
+	  acb_printd(x, 30); flint_printf("\n");
+	  fmpq_print(r); flint_printf("\n");	  
+	  fflush(stdout);
+	  flint_abort();
+	}
+      
       fmpq_clear(c);
       fmpq_clear(r);
       fmpz_clear(den);

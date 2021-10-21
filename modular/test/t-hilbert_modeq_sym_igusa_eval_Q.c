@@ -20,11 +20,11 @@ int main()
       fmpz_poly_t beta;
       fmpz_poly_t betabar;
       fmpq* rs;
-      slong rs_bits = 5 + n_randint(state, 10);
+      slong rs_bits = 2 + n_randint(state, 5);
       slong k;
       int res;
-      slong delta_max = 10;
-      slong ell_max = 15;
+      slong delta_max = 15;
+      slong ell_max = 30;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);
@@ -55,6 +55,10 @@ int main()
 		      fmpq_print(&rs[0]); flint_printf("\n");
 		      fmpq_print(&rs[1]); flint_printf("\n");		      
 		      res = hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+		      flint_printf("Denominator is a %wd-bit integer\n", 
+				   fmpz_bits(den));
+		      /* fmpz_print(den); flint_printf("\n");*/
+		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
 		      if (!res)
 			{
 			  flint_printf("FAIL\n");

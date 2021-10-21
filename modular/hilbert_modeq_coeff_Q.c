@@ -11,6 +11,8 @@ cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec, slong tol_
   /* arf_printd(next, 30); flint_printf("\n"); */
   if (arf_cmp_2exp_si(next, tol_exp) < 0)
     {
+      /* flint_printf("Stop cont_frac with value ");
+	 arf_printd(next, 30); flint_printf("\n"); */
       res = 1;
     }
   else
@@ -45,6 +47,7 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
   acb_t z;
   arf_t current;
   mpz_t n, d;
+  fmpz_t d_fmpz;
   int res = 1;
   int stop = 0;
   slong max_steps = cont_frac_max_nb_steps(x, prec);
@@ -56,11 +59,13 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
   arf_init(current);
   mpz_init(n);
   mpz_init(d);
+  fmpz_init(d_fmpz);
   r_vec = _fmpz_vec_init(max_steps);
   
   acb_mul_fmpz(z, x, probable_den, prec);
   
-  if (!arb_contains_zero(acb_imagref(z)))
+  if (!arb_contains_zero(acb_imagref(z)) ||
+      mag_cmp_2exp_si(arb_radref(acb_realref(z)), 0) > 0)
     {
       res = 0;
     }
@@ -76,7 +81,7 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
 	    }
 	  else
 	    {
-	      tol_exp = -prec/16;
+	      tol_exp = -prec/8;
 	    }
 	  stop = cont_frac_step(&r_vec[k], current, current, prec, tol_exp);
 	  /*
@@ -94,7 +99,8 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
 	  cont_frac_get_fmpq(c, r_vec, k);
 	  fmpq_div_fmpz(c, c, probable_den);
 	  fmpq_get_mpz_frac(n, d, c);
-	  fmpz_set_mpz(den, d);
+	  fmpz_set_mpz(d_fmpz, d);
+	  fmpz_lcm(den, d_fmpz, probable_den);
 	}
     }
 
@@ -102,6 +108,7 @@ int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
   arf_clear(current);
   mpz_clear(n);
   mpz_clear(d);
+  fmpz_clear(d_fmpz);
   _fmpz_vec_clear(r_vec, max_steps);
   return res;
 }
