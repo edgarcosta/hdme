@@ -32,7 +32,7 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
     {
       if (v)
 	{
-	  flint_printf("(hilbert_modeq_theta2) Computing theta constants at isogenous period matrices (%wd/%wd)\n", k+1, n);
+	  flint_printf("(hilbert_modeq_theta2) Computing theta constants (%wd/%wd)\n", k+1, n);
 	}
       if (res)
 	{

@@ -33,7 +33,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
     {
       if (v)
 	{
-	  flint_printf("(siegel_modeq_theta2) Computing theta constants at isogenous period matrices (%wd/%wd)\n", k+1, n);
+	  flint_printf("(siegel_modeq_theta2) Computing theta constants (%wd/%wd)\n", k+1, n);
 	}
       siegel_coset(eta, k, ell);
       res = siegel_transform(im, eta, tau, prec);
