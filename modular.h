@@ -159,21 +159,19 @@ int hilbert_modeq_sym_igusa_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t nu
 			      const acb_poly_t pol2_acb, const acb_poly_t pol3_acb,
 			      slong ell, slong prec);
 
-slong hilbert_modeq_height(fmpq* rs, slong len);
+slong hilbert_modeq_height(fmpq* params, slong len);
 
-slong hilbert_modeq_sym_igusa_startprec(fmpq* rs, slong ell);
+slong hilbert_modeq_sym_igusa_startprec(fmpq* params, slong ell, slong len);
 
-slong hilbert_modeq_sym_igusa_nextprec(slong current_prec);
+slong hilbert_modeq_nextprec(slong current_prec);
 
-void hilbert_modeq_sym_igusa_simplify(fmpz_poly_t num1, fmpz_poly_t num2,
-				      fmpz_poly_t num3, fmpz_t den, slong ell);
+int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
+				   fmpz_t den, fmpq* rs, slong ell, slong delta);
 
-int hilbert_modeq_sym_j_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
-			       fmpz_t den, fmpq* rs, slong ell);
-
-int hilbert_modeq_sym_j_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
-				fmpz_mod_poly_t pol3,
-				const fmpz* rs, slong ell, const fmpz_mod_ctx_t ctx);
+int hilbert_modeq_sym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
+				    fmpz_mod_poly_t pol3,
+				    const fmpz* rs, slong ell, slong delta,
+				    const fmpz_mod_ctx_t ctx);
 
 /* Derivatives of Hilbert modular equations */
 		   
