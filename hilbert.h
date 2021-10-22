@@ -17,7 +17,8 @@
 #include "igusa.h"
 
 #define HILBERT_MAX_STRLEN 4096
-#define HILBERT_DATA_PATH HDME_PATH"/data/humbert"
+#define HUMBERT_DATA_PATH HDME_PATH"/data/humbert"
+#define HILBERT_DATA_PATH HDME_PATH"/data/hilbert"
 
 int hilbert_is_fundamental(slong delta);
 
@@ -36,6 +37,9 @@ void humbert_vars_set(char** vars, slong delta);
 void humbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 		       slong delta, const fmpq_mpoly_ctx_t ctx);
 
+void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
+		       slong delta, const fmpq_mpoly_ctx_t ctx);
+
 void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr vals,
 				 const fmpq_mpoly_ctx_t ctx, slong prec);
 
@@ -46,6 +50,8 @@ void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
 
 void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
 			 slong prec);
+
+void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, slong prec);
 
 void hilbert_halfspace_randtest(acb_t t1, acb_t t2, flint_rand_t state, slong prec);
 
