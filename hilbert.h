@@ -19,6 +19,7 @@
 #define HILBERT_MAX_STRLEN 4096
 #define HUMBERT_DATA_PATH HDME_PATH"/data/humbert"
 #define HILBERT_DATA_PATH HDME_PATH"/data/hilbert"
+#define GUNDLACH_DATA_PATH HDME_PATH"/data/gundlach"
 
 int hilbert_is_fundamental(slong delta);
 
@@ -40,6 +41,9 @@ void humbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 		       slong delta, const fmpq_mpoly_ctx_t ctx);
 
+void gundlach_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
+			slong delta, const fmpq_mpoly_ctx_t ctx);
+
 void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr vals,
 				 const fmpq_mpoly_ctx_t ctx, slong prec);
 
@@ -52,6 +56,10 @@ void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
 			 slong prec);
 
 void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, slong prec);
+
+void gundlach_from_igusa(acb_ptr g, acb_srcptr I, slong delta, slong prec);
+
+void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec);
 
 void hilbert_halfspace_randtest(acb_t t1, acb_t t2, flint_rand_t state, slong prec);
 

@@ -29,6 +29,8 @@ void igusa_h16(acb_t h16, acb_srcptr theta2, slong prec);
 
 void igusa_h(acb_ptr h, acb_srcptr theta2, slong prec);
 
+void cov_from_h(acb_ptr I, acb_srcptr h, slong prec);
+
 void cov_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec);
 
 void igusa_from_theta2(acb_ptr j, acb_srcptr theta2, slong prec);
