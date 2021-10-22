@@ -31,7 +31,7 @@ void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec)
   
   if (delta != 5)
     {
-      flint_printf("(gundlach_from_igusa) Error: Gundlach invariants only implemented for discriminant 5\n");
+      flint_printf("(igusa_from_gundlach) Error: Gundlach invariants only implemented for discriminant 5\n");
       fflush(stdout);
       flint_abort();
     }
