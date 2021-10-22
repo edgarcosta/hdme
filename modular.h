@@ -63,6 +63,9 @@ void siegel_modeq_den(acb_t den, acb_srcptr I_vec, const acb_t scal,
 
 int siegel_modeq_round_coeff(fmpz_t c, const acb_t x);
 
+int siegel_modeq_round_poly(fmpz_poly_t pol, arf_t max_radius,
+			    const acb_poly_t pol_acb, slong degree);
+
 int siegel_modeq_round(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 		       fmpz_t den, const acb_poly_t num1_acb, const acb_poly_t num2_acb,
 		       const acb_poly_t num3_acb, const acb_t den_acb, slong ell);
@@ -145,6 +148,10 @@ void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta);
 int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
 			 const fmpz_poly_t beta, slong ell, slong delta, slong prec);
 
+int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
+			      const acb_t t1, const acb_t t2,
+			      const fmpz_poly_t beta, slong ell, slong delta, slong prec);
+
 void hilbert_modeq_cov(acb_ptr I_vec, acb_srcptr th2_vec, slong ell,
 		       slong delta, slong prec);
 
@@ -156,11 +163,30 @@ void hilbert_modeq_nonsym_igusa_C(acb_poly_t pol1, acb_poly_t pol2,
 				  acb_poly_t pol3, acb_srcptr I_vec, slong ell,
 				  slong delta, slong prec);
 
+void hilbert_modeq_gundlach_exps(slong* e, slong* a, slong* b, slong ell, slong delta);
+
+void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr stardets,
+				   slong ell, slong delta, slong prec);
+
+void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
+				acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
+				const acb_t scal,
+				slong ell, slong delta, slong prec);
+
+void hilbert_modeq_gundach_den(acb_t den, acb_srcptr I_vec_beta,
+			       acb_srcptr I_vec_betabar, const acb_t scal,
+			       slong ell, slong delta, slong prec);
+
 int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
 			  const fmpz_t probable_den, slong prec);
 
 int hilbert_modeq_poly_Q(fmpq_poly_t num, const acb_poly_t pol_acb,
 			 slong degree, slong prec);
+
+int hilbert_modeq_gundlach_round(fmpz_poly_t num1, fmpz_poly_t num2,
+				 fmpz_t den, const acb_poly_t num1_acb,
+				 const acb_poly_t num2_acb,
+				 const acb_t den_acb, slong ell, slong delta);
 
 slong hilbert_modeq_height(fmpq* params, slong len);
 
@@ -168,13 +194,21 @@ slong hilbert_modeq_sym_igusa_startprec(fmpq* params, slong ell, slong len);
 
 slong hilbert_modeq_nextprec(slong current_prec);
 
+void hilbert_modeq_gundlach_fmpq_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
+
+void hilbert_modeq_gundlach_simplify(fmpz_poly_t num1, fmpz_poly_t num2,
+				     fmpz_t den, slong ell, slong delta);
+
 int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 				   fmpz_t den, fmpq* rs, slong ell, slong delta);
 
 int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 				      fmpz_t den, fmpq* rs, slong ell, fmpz_poly_t beta,
 				      slong delta);
-				      
+
+int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
+				  fmpz_t den, fmpq* g, slong ell, slong delta);
+
 int hilbert_modeq_sym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
 				    fmpz_mod_poly_t pol3,
 				    const fmpz* rs, slong ell, slong delta,
