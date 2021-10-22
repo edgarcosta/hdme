@@ -76,5 +76,6 @@ void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec)
   free(vars[0]);
   free(vars[1]);
   free(vars[2]);
-  free(vars);  
+  free(vars);
+  _acb_vec_clear(vals, 3);
 }

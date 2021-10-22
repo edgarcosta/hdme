@@ -44,9 +44,9 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_div(j3, j3, &I[3], prec);
 
   /* Get polynomials */
-  strcpy(vars[0], "j1");
-  strcpy(vars[1], "j2");
-  strcpy(vars[2], "j3");
+  strcpy(vars[0], "a");
+  strcpy(vars[1], "b");
+  strcpy(vars[2], "c");
   acb_set(&vals[0], j1);
   acb_set(&vals[1], j2);
   acb_set(&vals[2], j3);
@@ -78,5 +78,6 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   free(vars[0]);
   free(vars[1]);
   free(vars[2]);
-  free(vars);  
+  free(vars);
+  _acb_vec_clear(vals, 3);
 }

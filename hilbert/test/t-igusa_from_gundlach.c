@@ -12,7 +12,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 50 * arb_test_multiplier(); iter++)
     {
       slong delta = 5;
       acb_ptr j, g, I, test;
@@ -44,15 +44,36 @@ int main()
       if (!res)
 	{
 	  flint_printf("FAIL (Igusa)\n");
+	  flint_printf("Igusa covariants:\n");
+	  for (k = 0; k < 4; k++)
+	    {
+	      acb_printd(&I[k], 30); flint_printf("\n");
+	    }
+	  flint_printf("Igusa invariants:\n");
+	  for (k = 0; k < 3; k++)
+	    {
+	      acb_printd(&j[k], 30); flint_printf("\n");
+	    }
+	  flint_printf("Gundlach invariants:\n");
+	  for (k = 0; k < 2; k++)
+	    {
+	      acb_printd(&g[k], 30); flint_printf("\n");
+	    }	  
+	  flint_printf("Test (j-invariants):\n");
+	  for (k = 0; k < 3; k++)
+	    {
+	      acb_printd(&test[k], 30); flint_printf("\n");
+	    }
 	  fflush(stdout);
-	  flint_abort();
+	  /*flint_abort();*/
 	}
 
       /* g -> j -> g */
       acb_randtest_precise(&g[0], state, prec, mag_bits);
       acb_randtest_precise(&g[1], state, prec, mag_bits);
       igusa_from_gundlach(j, g, delta, prec);
-      gundlach_from_igusa(test, j, delta, prec);
+      cov_from_igusa(I, j, prec);
+      gundlach_from_igusa(test, I, delta, prec);
       
       for (k = 0; k < 2; k++)
 	{
@@ -61,6 +82,26 @@ int main()
       if (!res)
 	{
 	  flint_printf("FAIL (Gundlach)\n");
+	  flint_printf("Gundlach invariants:\n");
+	  for (k = 0; k < 2; k++)
+	    {
+	      acb_printd(&g[k], 30); flint_printf("\n");
+	    }	  
+	  flint_printf("Igusa invariants:\n");
+	  for (k = 0; k < 3; k++)
+	    {
+	      acb_printd(&j[k], 30); flint_printf("\n");
+	    }
+	  flint_printf("Igusa covariants:\n");
+	  for (k = 0; k < 4; k++)
+	    {
+	      acb_printd(&I[k], 30); flint_printf("\n");
+	    }
+	  flint_printf("Test (g-invariants):\n");
+	  for (k = 0; k < 2; k++)
+	    {
+	      acb_printd(&test[k], 30); flint_printf("\n");
+	    }
 	  fflush(stdout);
 	  flint_abort();
 	}      
