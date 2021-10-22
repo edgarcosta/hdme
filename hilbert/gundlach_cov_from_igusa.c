@@ -12,7 +12,7 @@ static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
   acb_sub(F6, F6, temp, prec);
   acb_div_si(F6, F6, -864, prec);
 
-  acb_div_si(F10, &I[3], n_pow(2,10), prec);
+  acb_div_si(F10, &I[3], n_pow(2,12), prec);
 
   acb_mul(x, &I[0], &I[3], prec);
   acb_div_si(x, x, n_pow(2,15), prec);
@@ -21,7 +21,6 @@ static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
   acb_mul(temp, G2, F10, prec);
   acb_mul_si(temp, temp, 2, prec);
   acb_sub(y, y, temp, prec);
-  acb_mul_si(y, y, -12, prec);
 
   acb_clear(temp);
 }
