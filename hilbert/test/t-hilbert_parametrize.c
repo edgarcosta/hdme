@@ -39,7 +39,7 @@ int main()
 		}
 	      acb_set_fmpq(r_acb, &rs[0], prec);
 	      acb_set_fmpq(s_acb, &rs[1], prec);
-	      humbert_parametrize(I, r_acb, s_acb, delta, prec);
+	      hilbert_parametrize(I, r_acb, s_acb, delta, prec);
 	    }
 	}
 

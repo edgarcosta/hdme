@@ -1,12 +1,13 @@
 
 #include "modular.h"
 
+
 int main()
 {
   slong iter;
   flint_rand_t state;
   
-  flint_printf("hilbert_modeq_sym_igusa_eval_Q....");
+  flint_printf("hilbert_modeq_nonsym_igusa_eval_Q....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -15,6 +16,8 @@ int main()
     {
       fmpz_poly_t num1, num2, num3;
       fmpz_t den;
+      fmpz_poly_t num1b, num2b, num3b;
+      fmpz_t denb;
       slong delta;
       slong ell;
       fmpz_poly_t beta;
@@ -23,13 +26,17 @@ int main()
       slong rs_bits = 2 + n_randint(state, 5);
       slong k;
       int res;
-      slong delta_max = 15;
-      slong ell_max = 30;
+      slong delta_max = 20;
+      slong ell_max = 15;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);
       fmpz_poly_init(num3);
       fmpz_init(den);
+      fmpz_poly_init(num1b);
+      fmpz_poly_init(num2b);
+      fmpz_poly_init(num3b);
+      fmpz_init(denb);
       fmpz_poly_init(beta);
       fmpz_poly_init(betabar);
       rs = _fmpq_vec_init(2);
@@ -42,19 +49,18 @@ int main()
 		{
 		  if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 		    {
+		      hilbert_conjugate(betabar, beta, delta);
 		      for (k = 0; k < 2; k++)
 			{
 			  fmpq_randbits(&rs[k], state, rs_bits);
 			}
-		      hilbert_conjugate(betabar, beta, delta);
 		      flint_printf("delta = %wd; ell = %wd; beta = ", delta, ell);
 		      fmpz_poly_print_pretty(beta, "x");
-		      flint_printf(", betabar = ");
-		      fmpz_poly_print_pretty(betabar, "x");
 		      flint_printf(", parameters are\n");		      
 		      fmpq_print(&rs[0]); flint_printf("\n");
 		      fmpq_print(&rs[1]); flint_printf("\n");		      
-		      res = hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+		      res = hilbert_modeq_nonsym_igusa_eval_Q(num1, num2, num3, den,
+							      rs, ell, beta, delta);
 		      /* fmpz_print(den); flint_printf("\n");*/
 		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
 		      if (!res)
@@ -65,6 +71,31 @@ int main()
 			}
 		      flint_printf("Denominator is a %wd-bit integer\n", 
 				   fmpz_bits(den));
+		      		      
+		      flint_printf("delta = %wd; ell = %wd; betabar = ", delta, ell);
+		      fmpz_poly_print_pretty(betabar, "x");
+		      flint_printf(", parameters are\n");		      
+		      fmpq_print(&rs[0]); flint_printf("\n");
+		      fmpq_print(&rs[1]); flint_printf("\n");	
+		      res = hilbert_modeq_nonsym_igusa_eval_Q(num1b, num2b, num3b, denb,
+							      rs, ell, betabar, delta);
+		      /* fmpz_print(den); flint_printf("\n");*/
+		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
+		      if (!res)
+			{
+			  flint_printf("FAIL\n");
+			  fflush(stdout);
+			  flint_abort();
+			}
+		      flint_printf("Denominator is a %wd-bit integer\n", 
+				   fmpz_bits(denb));
+
+		      if (fmpz_poly_equal(num1, num1b))
+			{
+			  flint_printf("FAIL (same polynomials)\n");
+			  fflush(stdout);
+			  flint_abort();
+			}
 		    }
 		}
 	    }
@@ -74,6 +105,10 @@ int main()
       fmpz_poly_clear(num2);
       fmpz_poly_clear(num3);
       fmpz_clear(den);
+      fmpz_poly_clear(num1b);
+      fmpz_poly_clear(num2b);
+      fmpz_poly_clear(num3b);
+      fmpz_clear(denb);
       fmpz_poly_clear(beta);
       fmpz_poly_clear(betabar);
       _fmpq_vec_clear(rs, 2);

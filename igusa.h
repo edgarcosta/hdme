@@ -13,7 +13,7 @@
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 4
-#define THOMAE_VERBOSE 0
+#define THOMAE_VERBOSE 1
 
 /* Igusa invariants from theta constants */
 

@@ -13,6 +13,9 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
   fmpq_mpoly_init(pol, ctx);
   acb_init(g);
   acb_init(h);
+  acb_init(x);
+  acb_init(y);
+  acb_init(z);
   vars = humbert_vars_init();
   vals = _acb_vec_init(2);
 
@@ -23,9 +26,13 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
     {
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
-      humbert_get_mpoly(pol, (const char**) vars, "g", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "g", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(g, pol, vals, ctx, prec);
-      humbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
+
+      strcpy(vars[1], "g");
+      acb_set(&vals[1], g);
+      
+      hilbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(h, pol, vals, ctx, prec);      
     }
 
@@ -33,18 +40,18 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
     {      
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
-      humbert_get_mpoly(pol, (const char**) vars, "rnum", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "rnum", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(g, pol, vals, ctx, prec);      
-      humbert_get_mpoly(pol, (const char**) vars, "rden", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "rden", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(x, pol, vals, ctx, prec);
       acb_div(g, g, x, prec);
 
       strcpy(vars[1], "r");
       acb_set(&vals[1], g);
       
-      humbert_get_mpoly(pol, (const char**) vars, "snum", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "snum", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(h, pol, vals, ctx, prec);      
-      humbert_get_mpoly(pol, (const char**) vars, "sden", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "sden", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(x, pol, vals, ctx, prec);
       acb_div(h, h, x, prec);
     }
@@ -53,9 +60,9 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
     {
       strcpy(vars[0], "f");
       strcpy(vars[1], "g");
-      humbert_get_mpoly(pol, (const char**) vars, "enum", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "enum", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(g, pol, vals, ctx, prec);      
-      humbert_get_mpoly(pol, (const char**) vars, "eden", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "eden", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(x, pol, vals, ctx, prec);
       acb_div(g, g, x, prec); /* g is e */
 
@@ -66,9 +73,9 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
     {    
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
-      humbert_get_mpoly(pol, (const char**) vars, "g2num", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "g2num", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(x, pol, vals, ctx, prec);      
-      humbert_get_mpoly(pol, (const char**) vars, "g2den", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "g2den", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(y, pol, vals, ctx, prec);
       acb_div(x, x, y, prec); /* x is g2 */
       acb_div_si(y, x, 54, prec); /* y is g1 */
@@ -76,7 +83,7 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
       acb_set_si(h, 64);
       acb_div_si(h, h, 27, prec);
       acb_add(h, h, z, prec);
-      acb_one(g);
+      acb_set_si(g, -1);
       acb_div_si(g, g, 54, prec);
       acb_add(g, g, y, prec);
     }
@@ -85,16 +92,16 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
     {
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
-      humbert_get_mpoly(pol, (const char**) vars, "gnum", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "gnum", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(g, pol, vals, ctx, prec);      
-      humbert_get_mpoly(pol, (const char**) vars, "gden", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "gden", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(x, pol, vals, ctx, prec);
       acb_div(g, g, x, prec);
 
       strcpy(vars[1], "g");
       acb_set(&vals[1], g);
 
-      humbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
+      hilbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
       fmpq_mpoly_evaluate_all_acb(h, pol, vals, ctx, prec); 
     }
 
@@ -111,6 +118,9 @@ void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, s
   fmpq_mpoly_ctx_clear(ctx);
   acb_clear(g);
   acb_clear(h);
+  acb_clear(x);
+  acb_clear(y);
+  acb_clear(z);
   humbert_vars_clear(vars);
   _acb_vec_clear(vals, 2);
 }
