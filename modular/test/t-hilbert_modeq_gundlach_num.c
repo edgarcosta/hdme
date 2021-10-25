@@ -30,7 +30,7 @@ int main()
       acb_ptr stardets;
       acb_t scal;
       acb_t temp;
-      acb_t den, den_test;
+      acb_poly_t num1, num2, num1_test, num2_test;
       acb_t star;
       
 
@@ -44,8 +44,10 @@ int main()
       stardets = _acb_vec_init(2*n);
       acb_init(scal);
       acb_init(temp);
-      acb_init(den);
-      acb_init(den_test);
+      acb_poly_init(num1);
+      acb_poly_init(num2);
+      acb_poly_init(num1_test);
+      acb_poly_init(num2_test);
       acb_init(star);
 
       hilbert_splits(beta, ell, delta);
@@ -73,12 +75,13 @@ int main()
 	  acb_pow_si(temp, &stardets[k], -10, prec);
 	  acb_mul(scal, scal, temp, prec);
 	}      
-      hilbert_modeq_gundlach_den(den, I_vec, &I_vec[4*n], scal, ell, delta, prec);
-            
+      hilbert_modeq_gundlach_num(num1, num2, I_vec, &I_vec[4*n], scal, ell, delta, prec);
+      
       hilbert_star(star, m, t1, t2, delta, prec);
       acb_pow_ui(star, star, 2*10*n, prec);
-      acb_mul(den, den, star, prec);
-      
+      acb_poly_scalar_mul(num1, num1, star, prec);
+      acb_poly_scalar_mul(num2, num2, star, prec);
+
       /* Now compare with value at m*(t1,t2) */
       hilbert_transform(t1, t2, m, t1, t2, delta, prec);
       res = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
@@ -100,13 +103,11 @@ int main()
 	  acb_pow_si(temp, &stardets[k], -10, prec);
 	  acb_mul(scal, scal, temp, prec);
 	}      
-      hilbert_modeq_gundlach_den(den_test, I_vec, &I_vec[4*n], scal, ell, delta, prec);
+      hilbert_modeq_gundlach_num(num1_test, num2_test, I_vec, &I_vec[4*n], scal, ell, delta, prec);
       
-      if (!acb_overlaps(den, den_test))
+      if (!acb_poly_overlaps(num1, num1_test) || !acb_poly_overlaps(num2, num2_test))
 	{
 	  flint_printf("FAIL (overlap)\n");
-	  acb_printd(den, 30); flint_printf("\n");
-	  acb_printd(den_test, 30); flint_printf("\n");
 	  fflush(stdout);
 	  flint_abort();
 	}
@@ -121,8 +122,10 @@ int main()
       _acb_vec_clear(stardets, 2*n);
       acb_clear(scal);
       acb_clear(temp);
-      acb_clear(den);
-      acb_clear(den_test);
+      acb_poly_clear(num1);
+      acb_poly_clear(num2);
+      acb_poly_clear(num1_test);
+      acb_poly_clear(num2_test);
       acb_clear(star);
     }
 
