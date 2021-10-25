@@ -36,7 +36,7 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
 
   acb_pow_si(temp, &G[2], a, prec);
   acb_div(res, res, temp, prec);
-  acb_pow_si(temp, &G[1], b, prec);
+  acb_pow_si(temp, &G[0], b, prec);
   acb_div(res, res, temp, prec);
 
   acb_set_si(temp, 2);

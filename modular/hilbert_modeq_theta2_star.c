@@ -9,6 +9,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_t im;
   acb_mat_t red;
   acb_mat_t star;
+  acb_t hstar;
   fmpz_poly_mat_t m;
   sp2gz_t eta;
   arb_t tol;
@@ -22,6 +23,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
   acb_mat_init(star, 2, 2);
+  acb_init(hstar);
   fmpz_poly_mat_init(m, 2, 2);
   sp2gz_init(eta, 2);
   arb_init(tol);
@@ -48,6 +50,8 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	{
 	  siegel_star(star, eta, im, prec);
 	  acb_mat_det(&stardets[k], star, prec);
+	  hilbert_star(hstar, m, t1, t2, delta, prec);
+	  acb_mul(&stardets[k], &stardets[k], hstar, prec);
 	  res = theta2_unif(&th2_vec[16*k], red, prec);
 	}
       if (res) res = theta2_renormalize(&th2_vec[16*k], &th2_vec[16*k], prec);
@@ -63,6 +67,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_clear(im);
   acb_mat_clear(red);
   acb_mat_clear(star);
+  acb_clear(hstar);
   fmpz_poly_mat_clear(m);
   sp2gz_clear(eta);
   arb_clear(tol);

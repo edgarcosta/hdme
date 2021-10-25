@@ -94,4 +94,6 @@ void hilbert_scalar_mul(acb_t z1, acb_t z2, const fmpz_poly_t x, const acb_t t1,
 void hilbert_scalar_div(acb_t z1, acb_t z2, const fmpz_poly_t x, const acb_t t1,
 			const acb_t t2, slong delta, slong prec);
 
+void hilbert_transform_randtest(fmpz_poly_mat_t m, flint_rand_t state, slong bits);
+
 #endif
