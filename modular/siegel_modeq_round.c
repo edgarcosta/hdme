@@ -11,7 +11,7 @@ int siegel_modeq_round(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   slong radius_prec = 100;
   slong radius_bits;
   slong d = siegel_nb_cosets(ell);
-  slong k;
+  /* slong k; */
   int res = 1;
 
   acb_init(coeff);

@@ -7,7 +7,7 @@ void hilbert_modeq_gundlach_simplify(fmpz_poly_t num1, fmpz_poly_t num2,
   fmpz_t gcd;
   fmpz_t coeff;
   slong gcd_bits;
-  slong d = 2*hilbert_nb_cosets(ell);
+  slong d = 2*hilbert_nb_cosets(ell, delta);
   slong k;
 
   fmpz_init(gcd);

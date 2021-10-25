@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
-				   const fmpz* g, slong ell, const fmpz_poly_t beta,
+				   const fmpz* g, slong ell,
 				   slong delta, const fmpz_mod_ctx_t ctx)
 {  
   fmpq* g_lift;
@@ -22,7 +22,7 @@ int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
   fmpq_set_fmpz_frac(&g_lift[0], &g[0], one);
   fmpq_set_fmpz_frac(&g_lift[1], &g[1], one);
   
-  success = hilbert_modeq_gundlach_eval_Q(num1, num2, den, g_lift, ell, beta, delta);
+  success = hilbert_modeq_gundlach_eval_Q(num1, num2, den, g_lift, ell, delta);
   if (success)
     {
       success = fmpz_mod_divides(den, one, den, ctx);

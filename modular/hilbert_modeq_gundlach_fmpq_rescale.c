@@ -6,7 +6,7 @@ void hilbert_modeq_gundlach_fmpq_rescale(fmpz_t scal, fmpq* g, slong ell, slong 
   fmpz_t den;
   fmpz* num;
   fmpq* g_mod;
-  slong exp = (2*hilbert_nb_cosets(ell))/3;
+  slong exp = (2*hilbert_nb_cosets(ell, delta))/3;
 
   fmpz_init(den);
   num = _fmpz_vec_init(2);
@@ -19,5 +19,5 @@ void hilbert_modeq_gundlach_fmpq_rescale(fmpz_t scal, fmpq* g, slong ell, slong 
 
   fmpz_clear(den);
   _fmpz_vec_clear(num, 2);
-  _fmpq_vec_clear(j_mod, 2);
+  _fmpq_vec_clear(g_mod, 2);
 }

@@ -11,8 +11,7 @@ int hilbert_modeq_gundlach_round(fmpz_poly_t num1, fmpz_poly_t num2,
   fmpz_t rd;
   slong radius_prec = 100;
   slong radius_bits;
-  slong d = 2*hilbert_nb_cosets(ell);
-  slong k;
+  slong d = 2*hilbert_nb_cosets(ell, delta);
   int res = 1;
 
   acb_init(coeff);

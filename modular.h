@@ -173,7 +173,7 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
 				const acb_t scal,
 				slong ell, slong delta, slong prec);
 
-void hilbert_modeq_gundach_den(acb_t den, acb_srcptr I_vec_beta,
+void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
 			       acb_srcptr I_vec_betabar, const acb_t scal,
 			       slong ell, slong delta, slong prec);
 
@@ -220,7 +220,7 @@ int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol
 				       slong delta, const fmpz_mod_ctx_t ctx);
 
 int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
-				   const fmpz* g, slong ell, const fmpz_poly_t beta,
+				   const fmpz* g, slong ell,
 				   slong delta, const fmpz_mod_ctx_t ctx);
 
 /* Derivatives of Hilbert modular equations */

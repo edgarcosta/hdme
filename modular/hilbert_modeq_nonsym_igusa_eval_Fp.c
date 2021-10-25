@@ -4,8 +4,8 @@
 
 int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
 				       fmpz_mod_poly_t pol3,
-				       const fmpz* rs, slong ell, fmpz_poly_t beta, slong delta,
-				       const fmpz_mod_ctx_t ctx)
+				       const fmpz* rs, slong ell, const fmpz_poly_t beta,
+				       slong delta, const fmpz_mod_ctx_t ctx)
 {
   fmpq* rs_lift;
   int success;

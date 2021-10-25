@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
-				      fmpz_t den, fmpq* rs, slong ell, fmpz_poly_t beta,
+				      fmpz_t den, fmpq* rs, slong ell, const fmpz_poly_t beta,
 				      slong delta)
 {
   slong prec = hilbert_modeq_sym_igusa_startprec(rs, ell, 2);

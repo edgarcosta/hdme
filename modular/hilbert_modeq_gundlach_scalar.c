@@ -6,7 +6,7 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
 {
   slong e, a, b;
   acb_ptr G;
-  slong wb = 2 * 10 * hilbert_nb_cosets(ell);
+  slong wb = 2 * 10 * hilbert_nb_cosets(ell, delta);
   acb_t temp, res;
   slong k;
   
@@ -21,7 +21,7 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
   acb_init(res);
   G = _acb_vec_init(3);
   
-  hilbert_modeq_gundlach_exps(&e, &a, &b, ell);
+  hilbert_modeq_gundlach_exps(&e, &a, &b, ell, delta);
   gundlach_cov_from_igusa(G, I_tau, delta, prec);
 
   acb_one(res);
@@ -38,7 +38,7 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
   acb_pow_si(temp, temp, wb, prec);
   acb_mul(res, res, temp, prec); /* We can do better here */
 
-  for (k = 0; k < 2*hilbert_nb_cosets(ell); k++)
+  for (k = 0; k < 2*hilbert_nb_cosets(ell, delta); k++)
     {
       acb_pow_si(temp, &stardets[k], -10, prec);
       acb_mul(res, res, temp, prec);

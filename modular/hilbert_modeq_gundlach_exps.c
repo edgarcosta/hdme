@@ -1,8 +1,11 @@
 
 #include "modular.h"
 
-void hilbert_modeq_gundlach_exps(slong* e, slong* a, slong* b, slong ell, slong delta)
+void hilbert_modeq_gundlach_exps(slong* e_p, slong* a_p, slong* b_p, slong ell, slong delta)
 {
+  slong wb = 2*10*siegel_nb_cosets(ell);
+  slong e, a, b;
+  
   
   if (delta != 5)
     {
@@ -10,9 +13,6 @@ void hilbert_modeq_gundlach_exps(slong* e, slong* a, slong* b, slong ell, slong 
       fflush(stdout);
       flint_abort();
     }
-  
-  slong wb = 2*10*siegel_nb_cosets(ell);
-  slong e, a, b;
   
   e = 2*(wb / 6);
 

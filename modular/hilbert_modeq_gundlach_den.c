@@ -13,7 +13,7 @@ void hilbert_modeq_gundach_den(acb_t den, acb_srcptr I_vec_beta,
   G = _acb_vec_init(3);
   
   acb_one(res);
-  for (k = 0; k < hilbert_nb_cosets(ell); k++)
+  for (k = 0; k < hilbert_nb_cosets(ell, delta); k++)
     {
       gundlach_cov_from_igusa(G, &I_vec_beta[4*k], delta, prec);
       acb_mul(res, res, &G[2], prec);

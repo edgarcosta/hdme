@@ -10,13 +10,14 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   int success = 1;
   int v = HILBERT_VERBOSE;
   slong k;
-  slong n = hilbert_nb_cosets(ell);
+  slong n = hilbert_nb_cosets(ell, delta);
   int res;
 
   acb_ptr g_tau;
   acb_ptr j_tau;
   acb_ptr I_tau;
   acb_ptr th2_tau;
+  acb_mat_t tau;
   sp2gz_t eta;
   acb_t t1, t2;
   acb_ptr th2_vec;
@@ -35,6 +36,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   j_tau = _acb_vec_init(3);
   I_tau = _acb_vec_init(4);
   th2_tau = _acb_vec_init(16);
+  acb_mat_init(tau, 2, 2);
   sp2gz_init(eta, 2);
   acb_init(t1);
   acb_init(t2);
@@ -49,8 +51,14 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   fmpz_init(rescale);
   acb_init(rescale_acb);
   
-  valid = hilbert_splits(beta, ell, delta);
-  if (valid) hilbert_conjugate(betabar, beta, delta);
+  success = hilbert_splits(beta, ell, delta);
+  if (success) hilbert_conjugate(betabar, beta, delta);
+  else
+    {
+      if (v) flint_printf("(hilbert_modeq_gundlach_eval_Q) Error: prime does not split correctly\n");
+      stop = 1;
+      res = 0;
+    }
   
   hilbert_modeq_gundlach_fmpq_rescale(rescale, g, ell, delta);
   acb_set_fmpz(rescale_acb, rescale);
@@ -67,14 +75,14 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
       if (v && !success) flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when computing tau\n");
       if (success)
 	{
-	  valid = hilbert_inverse(t1, t2, eta, tau, delta, prec);
+	  success = hilbert_inverse(t1, t2, eta, tau, delta, prec);
 	  if (v && !success) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Out of precision during inversion of Hilbert embedding\n");
 	}      
       if (success)
 	{
 	  success = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
 					      ell, delta, prec)
-	    && hilbert_modeq_theta2_star(&th2vec[16*n], &stardets[n], t1, t2, betabar,
+	    && hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
 					 ell, delta, prec);	  
 	  if (!success)
 	    {
@@ -87,9 +95,9 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	  hilbert_modeq_cov(I_vec_beta, th2_vec, ell, delta, prec);
 	  hilbert_modeq_cov(I_vec_betabar, &th2_vec[16*n], ell, delta, prec);
 	  hilbert_modeq_gundlach_scalar(scal, I_tau, stardets, ell, delta, prec);
-	  hilbert_modeq_gundlach_num(num1, num2, I_vec_beta, I_vec_betabar,
+	  hilbert_modeq_gundlach_num(num1_acb, num2_acb, I_vec_beta, I_vec_betabar,
 				     scal, ell, delta, prec);
-	  hilbert_modeq_gundlach_den(den, I_vec_beta, I_vec_betabar,
+	  hilbert_modeq_gundlach_den(den_acb, I_vec_beta, I_vec_betabar,
 				     scal, ell, delta, prec);
 	  acb_poly_scalar_mul(num1_acb, num1_acb, rescale_acb, prec);
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
@@ -123,6 +131,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   _acb_vec_clear(j_tau, 3);
   _acb_vec_clear(I_tau, 4);
   _acb_vec_clear(th2_tau, 16);
+  acb_mat_clear(tau);
   sp2gz_clear(eta);
   acb_clear(t1);
   acb_clear(t2);

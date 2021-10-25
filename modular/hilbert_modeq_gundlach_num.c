@@ -10,7 +10,7 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
   acb_ptr G;
   acb_t temp;
   slong k;
-  slong n = hilbert_nb_cosets(ell);
+  slong n = hilbert_nb_cosets(ell, delta);
   slong d = 2*n;
   
   xi = _acb_vec_init(d);
@@ -22,7 +22,7 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
     {
       gundlach_cov_from_igusa(G, &I_vec_beta[4*k], delta, prec);      
       acb_pow_si(&yi[k], &G[0], 5, prec);      
-      acb_set(&xi[k], &G[2], prec);
+      acb_set(&xi[k], &G[2]);
       acb_sqr(&zi[k], &G[0], prec);
       acb_mul(&zi[k], &zi[k], &G[1], prec);
     }
@@ -31,7 +31,7 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
     {
       gundlach_cov_from_igusa(G, &I_vec_betabar[4*k], delta, prec);      
       acb_pow_si(&yi[k+n], &G[0], 5, prec);      
-      acb_set(&xi[k+n], &G[2], prec);
+      acb_set(&xi[k+n], &G[2]);
       acb_sqr(&zi[k+n], &G[0], prec);
       acb_mul(&zi[k+n], &zi[k+n], &G[1], prec);
     }
