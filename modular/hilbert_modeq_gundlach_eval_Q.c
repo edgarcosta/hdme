@@ -19,6 +19,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_ptr th2_tau;
   acb_mat_t tau;
   sp2gz_t eta;
+  acb_mat_t star;
   acb_t t1, t2;
   acb_ptr th2_vec;
   acb_ptr stardets;
@@ -38,6 +39,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   th2_tau = _acb_vec_init(16);
   acb_mat_init(tau, 2, 2);
   sp2gz_init(eta, 2);
+  acb_mat_init(star, 2, 2);
   acb_init(t1);
   acb_init(t2);
   th2_vec = _acb_vec_init(2*16*n);
@@ -80,6 +82,10 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	}      
       if (success)
 	{
+	  /* Rescale I_tau using eta */
+	  siegel_star(star, eta, tau, prec);
+	  acb_mat_det(scal, star, prec);
+	  cov_rescale(I_tau, I_tau, scal, prec);
 	  success = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
 					      ell, delta, prec)
 	    && hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
@@ -89,7 +95,6 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	      flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when computing theta constants\n");
 	    }
 	}
-      /* Need to rescale I_tau using eta. */
       if (success)
 	{
 	  hilbert_modeq_cov(I_vec_beta, th2_vec, ell, delta, prec);
@@ -103,6 +108,9 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
 
 	  acb_printd(den_acb, 30); flint_printf("\n");
+	  acb_poly_get_coeff_acb(scal, num1_acb, 0);
+	  acb_div(scal, scal, den_acb, prec);
+	  acb_printd(scal, 30); flint_printf("\n");
 	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
 	  success = hilbert_modeq_gundlach_round(num1, num2, den,
@@ -136,6 +144,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   _acb_vec_clear(th2_tau, 16);
   acb_mat_clear(tau);
   sp2gz_clear(eta);
+  acb_mat_clear(star);
   acb_clear(t1);
   acb_clear(t2);
   _acb_vec_clear(th2_vec, 2*16*n);

@@ -16,11 +16,47 @@ void hilbert_modeq_gundlach_exps(slong* e_p, slong* a_p, slong* b_p, slong ell, 
   
   e = 2*(wb / 6);
 
-  /* 2e + wb = 10a + 2b, 0\leq b \leq 4 */
-  a = (2*e + wb) / 10;
-  b = ((2*e + wb) % 10)/2;
+  /* 2e + wb = 10a + 6b, 0\leq b \leq 4 */
+  a = (2*e + wb) / 30;
+  b = (2*e + wb) % 30;
 
-  if (2*e + wb != 10*a + 2*b) flint_abort();
+  if (b % 6 == 0)
+    {
+      a = 3*a;
+    }
+  else if (b % 6 == 2)
+    {
+      if (b < 20)
+	{
+	  a = 3*a-1;
+	  b = (b+10)/6;
+	}
+      else
+	{
+	  a = 3*a+2;
+	  b = (b-20)%6;
+	}
+    }
+  else /* b%6 == 4 */
+    {
+      if (b < 10)
+	{
+	  a = 3*a-2;
+	  b = (b+20)/6;
+	}
+      else
+	{
+	  a = 3*a+1;
+	  b = (b-10)%6;
+	}
+    }
+
+  if (2*e + wb != 10*a + 6*b)
+    {
+      flint_printf("(hilbert_modeq_gundlach_exps) Error: wrong exponents, %wd != 10*%wd + 6*%wd\n", 2*e+wb, a, b);
+      fflush(stdout);      
+      flint_abort();
+    }
 
   *a_p = a;
   *b_p = b;

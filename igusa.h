@@ -12,7 +12,7 @@
 #include "theta.h"
 
 #define THOMAE_LOWPREC 50
-#define THOMAE_MULPREC 4
+#define THOMAE_MULPREC 16
 #define THOMAE_VERBOSE 1
 
 /* Igusa invariants from theta constants */
@@ -32,6 +32,8 @@ void igusa_h(acb_ptr h, acb_srcptr theta2, slong prec);
 void cov_from_h(acb_ptr I, acb_srcptr h, slong prec);
 
 void cov_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec);
+
+void cov_rescale(acb_ptr I, acb_srcptr S, const acb_t scal, slong prec);
 
 void igusa_from_theta2(acb_ptr j, acb_srcptr theta2, slong prec);
 

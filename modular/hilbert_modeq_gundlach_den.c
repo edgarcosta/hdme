@@ -17,6 +17,8 @@ void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
     {
       gundlach_cov_from_igusa(G, &I_vec_beta[4*k], delta, prec);
       acb_mul(res, res, &G[2], prec);
+      gundlach_cov_from_igusa(G, &I_vec_betabar[4*k], delta, prec);
+      acb_mul(res, res, &G[2], prec);
     }
   acb_mul(res, res, scal, prec);
   acb_set(den, res);
