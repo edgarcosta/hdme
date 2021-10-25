@@ -203,7 +203,7 @@ int hilbert_modeq_sym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly
 				   fmpz_t den, fmpq* rs, slong ell, slong delta);
 
 int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
-				      fmpz_t den, fmpq* rs, slong ell, fmpz_poly_t beta,
+				      fmpz_t den, fmpq* rs, slong ell, const fmpz_poly_t beta,
 				      slong delta);
 
 int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
@@ -216,8 +216,12 @@ int hilbert_modeq_sym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
 
 int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
 				       fmpz_mod_poly_t pol3,
-				       const fmpz* rs, slong ell, fmpz_poly_t beta, slong delta,
-				       const fmpz_mod_ctx_t ctx);
+				       const fmpz* rs, slong ell, const fmpz_poly_t beta,
+				       slong delta, const fmpz_mod_ctx_t ctx);
+
+int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
+				   const fmpz* g, slong ell, const fmpz_poly_t beta,
+				   slong delta, const fmpz_mod_ctx_t ctx);
 
 /* Derivatives of Hilbert modular equations */
 		   
