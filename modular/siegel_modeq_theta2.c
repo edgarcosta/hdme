@@ -47,7 +47,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
       if (res) res = theta2_renormalize(&th2_vec[16*k], &th2_vec[16*k], prec);	
       if (!res)
 	{
-	  flint_printf("(siegel_modeq_theta) Warning: computation aborted due to low precision\n");
+	  flint_printf("(siegel_modeq_theta2) Warning: computation aborted due to low precision\n");
 	  break;
 	}
     }

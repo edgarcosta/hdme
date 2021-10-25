@@ -1,9 +1,9 @@
 
 #include "modular.h"
 
-void hilbert_modeq_gundach_den(acb_t den, acb_srcptr I_vec_beta,
-			       acb_srcptr I_vec_betabar, const acb_t scal,
-			       slong ell, slong delta, slong prec)
+void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
+				acb_srcptr I_vec_betabar, const acb_t scal,
+				slong ell, slong delta, slong prec)
 {
   acb_t res;
   acb_ptr G;

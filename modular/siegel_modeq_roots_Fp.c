@@ -14,10 +14,10 @@ void siegel_modeq_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
   fmpz_init(num);
   fmpz_init(den);
   
-  flint_printf("(siegel_modeq_poly_roots_Fp) Finding roots...\n");
+  flint_printf("(siegel_modeq_roots_Fp) Finding roots...\n");
   fmpz_mod_poly_roots(fac, pol, 1, ctx);
   *nb_roots = fac->num;
-  flint_printf("(siegel_modeq_poly_roots_Fp) Found %wd.\n", *nb_roots);
+  flint_printf("(siegel_modeq_roots_Fp) Found %wd.\n", *nb_roots);
 
   for (k = 0; k < *nb_roots; k++)
     {

@@ -174,8 +174,8 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
 				slong ell, slong delta, slong prec);
 
 void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
-			       acb_srcptr I_vec_betabar, const acb_t scal,
-			       slong ell, slong delta, slong prec);
+				acb_srcptr I_vec_betabar, const acb_t scal,
+				slong ell, slong delta, slong prec);
 
 int hilbert_modeq_coeff_Q(fmpq_t c, fmpz_t den, const acb_t x,
 			  const fmpz_t probable_den, slong prec);

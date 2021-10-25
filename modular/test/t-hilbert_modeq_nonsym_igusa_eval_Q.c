@@ -26,8 +26,8 @@ int main()
       slong rs_bits = 2 + n_randint(state, 5);
       slong k;
       int res;
-      slong delta_max = 20;
-      slong ell_max = 15;
+      slong delta_max = 15;
+      slong ell_max = 12;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);

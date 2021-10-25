@@ -24,7 +24,7 @@ int main()
       slong k;
       int res;
       slong delta_max = 15;
-      slong ell_max = 30;
+      slong ell_max = 12;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);
