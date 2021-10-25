@@ -16,6 +16,7 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
   xi = _acb_vec_init(d);
   yi = _acb_vec_init(d);
   zi = _acb_vec_init(d);
+  acb_init(temp);
   G = _acb_vec_init(3);
   
   for (k = 0; k < n; k++)

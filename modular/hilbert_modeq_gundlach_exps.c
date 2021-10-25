@@ -3,7 +3,7 @@
 
 void hilbert_modeq_gundlach_exps(slong* e_p, slong* a_p, slong* b_p, slong ell, slong delta)
 {
-  slong wb = 2*10*siegel_nb_cosets(ell);
+  slong wb = 2*10*hilbert_nb_cosets(ell, delta);
   slong e, a, b;
   
   

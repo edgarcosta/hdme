@@ -61,6 +61,8 @@ void gundlach_from_igusa(acb_ptr g, acb_srcptr I, slong delta, slong prec);
 
 void gundlach_from_cov(acb_ptr g, acb_srcptr G, slong delta, slong prec);
 
+void cov_from_gundlach(acb_ptr G, acb_srcptr g, slong delta, slong prec);
+
 void gundlach_cov_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);
 
 void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec);

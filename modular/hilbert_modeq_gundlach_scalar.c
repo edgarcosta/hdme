@@ -24,6 +24,11 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
   hilbert_modeq_gundlach_exps(&e, &a, &b, ell, delta);
   gundlach_cov_from_igusa(G, I_tau, delta, prec);
 
+  /* acb_printd(&G[0], 30); flint_printf("\n");
+     acb_printd(&G[1], 30); flint_printf("\n");
+     acb_printd(&G[2], 30); flint_printf("\n");
+     flint_printf("e:%wd, a:%wd, b:%wd\n", e, a, b); */
+
   acb_one(res);
   
   acb_pow_si(temp, &G[0], e, prec);

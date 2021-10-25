@@ -101,6 +101,9 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 				     scal, ell, delta, prec);
 	  acb_poly_scalar_mul(num1_acb, num1_acb, rescale_acb, prec);
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
+
+	  acb_printd(den_acb, 30); flint_printf("\n");
+	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
 	  success = hilbert_modeq_gundlach_round(num1, num2, den,
 						 num1_acb, num2_acb, den_acb,

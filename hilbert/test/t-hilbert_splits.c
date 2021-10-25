@@ -25,13 +25,13 @@ int main()
 		  /*
 		  flint_printf("%wd splits correctly in Q(sqrt(%wd)): %d\n",
 		  ell, delta, splits); */
-		  /* if (splits)
+		  if (splits)
 		    {
-		      flint_printf("%wd splits correctly in Q(sqrt(%wd)), generator: ",
+		      /* flint_printf("%wd splits correctly in Q(sqrt(%wd)), generator: ",
 				   ell, delta);
 		      fmpz_poly_print_pretty(beta, "x");
-		      flint_printf("\n");
-		      } */
+		      flint_printf("\n"); */
+		    }
 		  
 		}
 	    }
