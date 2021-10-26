@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-int hilbert_modeq_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
+int hilbert_modeq_igusa_eval_Q(fmpz_poly_struct* num_vec,
 			       fmpz_t den, fmpq* rs, slong ell, slong delta)
 {
   slong prec = hilbert_modeq_startprec(rs, ell, 2);
@@ -12,13 +12,12 @@ int hilbert_modeq_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t n
   sp2gz_t eta;
   fmpz_poly_t beta, betabar;
   acb_ptr th2_vec, I_vec_beta, I_vec_betabar;
-  fmpq_poly_t pol1, pol2, pol3;
-  fmpz_t den1, den2, den3;
   slong n = hilbert_nb_cosets(ell, delta);
-  acb_poly_t pol1_acb, pol2_acb, pol3_acb;
+  acb_poly_struct pol_vec_acb[3];
   int success = 0;
   int valid = 1;
   int v = MODEQ_VERBOSE;
+  slong k;
 
   acb_init(r_acb);
   acb_init(s_acb);
@@ -32,15 +31,7 @@ int hilbert_modeq_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t n
   th2_vec = _acb_vec_init(16*n);
   I_vec_beta = _acb_vec_init(4*n);
   I_vec_betabar = _acb_vec_init(4*n);
-  fmpq_poly_init(pol1);
-  fmpq_poly_init(pol2);
-  fmpq_poly_init(pol3);
-  fmpz_init(den1);
-  fmpz_init(den2);
-  fmpz_init(den3);
-  acb_poly_init(pol1_acb);
-  acb_poly_init(pol2_acb);
-  acb_poly_init(pol3_acb);
+  for (k = 0; k < 3; k++) acb_poly_init(&pol_vec_acb[k]);
 
   valid = hilbert_splits(beta, ell, delta);
   if (valid) hilbert_conjugate(betabar, beta, delta);
@@ -71,30 +62,14 @@ int hilbert_modeq_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t n
       
       if (valid) /* Try rational reconstruction */
 	{
-	  hilbert_modeq_igusa_C(pol1_acb, pol2_acb, pol3_acb, I_vec_beta,
-				    I_vec_betabar, ell, delta, prec);
-	  success = modeq_rational_poly(pol1, pol1_acb, 2*n, prec);
-	  if (success) success = modeq_rational_poly(pol2, pol2_acb, 2*n-1, prec);
-	  if (success) success = modeq_rational_poly(pol3, pol3_acb, 2*n-1, prec);
+	  hilbert_modeq_igusa_C(pol_vec_acb, I_vec_beta,
+				I_vec_betabar, ell, delta, prec);
+	  success = modeq_rational(num_vec, den, pol_vec_acb, 2*n, 3, prec);
 	  if (v && !success) flint_printf("(hilbert_modeq_igusa_eval_Q) Not enough precision to recognize rational coefficients\n");
 	  if (v && success) flint_printf("(hilbert_modeq_igusa_eval_Q) Heuristic success in recognizing coeffients: end of computation\n");
 	}
       
-      if (success) /* Set output values */
-	{
-	  fmpq_poly_get_denominator(den1, pol1);
-	  fmpq_poly_get_denominator(den2, pol2);
-	  fmpq_poly_get_denominator(den3, pol3);
-	  fmpz_lcm(den, den1, den2);
-	  fmpz_lcm(den, den, den3);
-	  fmpq_poly_scalar_mul_fmpz(pol1, pol1, den);
-	  fmpq_poly_scalar_mul_fmpz(pol2, pol2, den);
-	  fmpq_poly_scalar_mul_fmpz(pol3, pol3, den);
-	  fmpq_poly_get_numerator(num1, pol1);
-	  fmpq_poly_get_numerator(num2, pol2);
-	  fmpq_poly_get_numerator(num3, pol3);
-	}
-      else
+      if (!success) /* Increase prec */
 	{
 	  prec = hilbert_modeq_nextprec(prec);
 	  valid = 1;
@@ -115,15 +90,7 @@ int hilbert_modeq_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t n
   _acb_vec_clear(th2_vec, 16*n);
   _acb_vec_clear(I_vec_beta, 4*n);
   _acb_vec_clear(I_vec_betabar, 4*n);
-  fmpq_poly_clear(pol1);
-  fmpq_poly_clear(pol2);
-  fmpq_poly_clear(pol3);
-  fmpz_clear(den1);
-  fmpz_clear(den2);
-  fmpz_clear(den3);
-  acb_poly_clear(pol1_acb);
-  acb_poly_clear(pol2_acb);
-  acb_poly_clear(pol3_acb);
+  for (k = 0; k < 3; k++) acb_poly_clear(&pol_vec_acb[k]);
 
   return success;
 }

@@ -13,7 +13,7 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      fmpz_poly_t num1, num2;
+      fmpz_poly_struct num_vec[2];
       fmpz_t den;
       slong ell;
       fmpz_poly_t beta;
@@ -24,10 +24,9 @@ int main()
       slong k;
       int res;
       slong delta = 5;
-      slong ell_max = 500;
+      slong ell_max = 20;
 
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
+      for (k = 0; k < 2; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
       fmpz_poly_init(beta);
       fmpz_poly_init(betabar);
@@ -43,7 +42,7 @@ int main()
 	      for (k = 0; k < 2; k++)
 		{
 		  fmpz_randbits(gnum, state, g_bits);
-		  fmpz_one(gden);
+		  fmpz_randbits(gden, state, g_bits);
 		  fmpq_set_fmpz_frac(&g[k], gnum, gden);
 		}
 	      hilbert_conjugate(betabar, beta, delta);
@@ -54,9 +53,7 @@ int main()
 	      flint_printf(", parameters are\n");		      
 	      fmpq_print(&g[0]); flint_printf("\n");
 	      fmpq_print(&g[1]); flint_printf("\n");		      
-	      res = hilbert_modeq_gundlach_eval_Q(num1, num2, den, g, ell, delta);
-	      /* fmpz_print(den); flint_printf("\n");*/
-	      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
+	      res = hilbert_modeq_gundlach_eval_Q(num_vec, den, g, ell, delta);
 	      if (!res)
 		{
 		  flint_printf("FAIL\n");
@@ -68,8 +65,7 @@ int main()
 	    }
 	}
 
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
+      for (k = 0; k < 2; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
       fmpz_poly_clear(beta);
       fmpz_poly_clear(betabar);

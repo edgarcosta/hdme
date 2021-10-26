@@ -18,7 +18,7 @@ int main()
       fmpz_t coeff;
       slong bits = 5 + n_randint(state, 5);
       fmpq* j;
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       slong nb_roots = 0;
       fmpq* roots;
       fmpz_t den;
@@ -30,9 +30,7 @@ int main()
       fmpz_poly_init(crv_factor);
       fmpz_init(coeff);
       j = _fmpq_vec_init(3);
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
       roots = _fmpq_vec_init(15);
 
@@ -54,8 +52,8 @@ int main()
       igusa_from_curve_fmpz(j, crv);
 
       /* Modular equation of level 2 must have roots (Richelot!) */
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
-      modeq_roots_Q(&nb_roots, roots, mults, num1);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
+      modeq_roots_Q(&nb_roots, roots, mults, &num_vec[0]);
       if (nb_roots < 15)
 	{
 	  flint_printf("FAIL (not split)\n");
@@ -64,16 +62,14 @@ int main()
 	    {
 	      fmpq_print(&j[k]); flint_printf("\n");
 	    }
-	  fmpz_poly_print(num1);
+	  fmpz_poly_print(&num_vec[0]);
 	}
 
       fmpz_poly_clear(crv);
       fmpz_poly_clear(crv_factor);
       fmpz_clear(coeff);
       _fmpq_vec_clear(j, 3);
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
       _fmpq_vec_clear(roots, 15);
     }

@@ -30,7 +30,8 @@ int main()
       acb_ptr stardets;
       acb_t scal;
       acb_t temp;
-      acb_poly_t num1, num2, num1_test, num2_test;
+      acb_poly_struct num_vec[2];
+      acb_poly_struct num_vec_test[2];
       acb_t star;
       
 
@@ -44,10 +45,11 @@ int main()
       stardets = _acb_vec_init(2*n);
       acb_init(scal);
       acb_init(temp);
-      acb_poly_init(num1);
-      acb_poly_init(num2);
-      acb_poly_init(num1_test);
-      acb_poly_init(num2_test);
+      for (k = 0; k < 2; k++)
+	{
+	  acb_poly_init(&num_vec[k]);
+	  acb_poly_init(&num_vec_test[k]);
+	}
       acb_init(star);
 
       hilbert_splits(beta, ell, delta);
@@ -75,12 +77,14 @@ int main()
 	  acb_pow_si(temp, &stardets[k], -10, prec);
 	  acb_mul(scal, scal, temp, prec);
 	}      
-      hilbert_modeq_gundlach_num(num1, num2, I_vec, &I_vec[4*n], scal, ell, delta, prec);
+      hilbert_modeq_gundlach_num(num_vec, I_vec, &I_vec[4*n], scal, ell, delta, prec);
       
       hilbert_star(star, m, t1, t2, delta, prec);
       acb_pow_ui(star, star, 2*10*n, prec);
-      acb_poly_scalar_mul(num1, num1, star, prec);
-      acb_poly_scalar_mul(num2, num2, star, prec);
+      for (k = 0; k < 2; k++)
+	{
+	  acb_poly_scalar_mul(&num_vec[k], &num_vec[k], star, prec);
+	}
 
       /* Now compare with value at m*(t1,t2) */
       hilbert_transform(t1, t2, m, t1, t2, delta, prec);
@@ -103,9 +107,13 @@ int main()
 	  acb_pow_si(temp, &stardets[k], -10, prec);
 	  acb_mul(scal, scal, temp, prec);
 	}      
-      hilbert_modeq_gundlach_num(num1_test, num2_test, I_vec, &I_vec[4*n], scal, ell, delta, prec);
-      
-      if (!acb_poly_overlaps(num1, num1_test) || !acb_poly_overlaps(num2, num2_test))
+      hilbert_modeq_gundlach_num(num_vec_test, I_vec, &I_vec[4*n], scal, ell, delta, prec);
+
+      for (k = 0; k < 2; k++)
+	{
+	  if (!acb_poly_overlaps(&num_vec[k], &num_vec_test[k])) res = 0;
+	}
+      if (!res)
 	{
 	  flint_printf("FAIL (overlap)\n");
 	  fflush(stdout);
@@ -122,10 +130,11 @@ int main()
       _acb_vec_clear(stardets, 2*n);
       acb_clear(scal);
       acb_clear(temp);
-      acb_poly_clear(num1);
-      acb_poly_clear(num2);
-      acb_poly_clear(num1_test);
-      acb_poly_clear(num2_test);
+      for (k = 0; k < 2; k++)
+	{
+	  acb_poly_init(&num_vec[k]);
+	  acb_poly_init(&num_vec_test[k]);
+	}
       acb_clear(star);
     }
 

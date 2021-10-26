@@ -9,7 +9,7 @@ int main()
   flint_printf("modeq_isog_invariants_Fp....");
   fflush(stdout);
 
-  for (iter = 0; iter < 4; iter++) /* 4 -> 6 to test with ell=7 */
+  for (iter = 0; iter < 2; iter++) /* 4 for ell=5; 6 for ell=7 */
     {
       
       fmpz_t p;
@@ -26,7 +26,6 @@ int main()
       slong k;
       
       fmpz_mod_ctx_t ctx;
-      fmpz_mod_poly_t pol1, pol2, pol3;
       fmpz_mod_poly_struct pol_vec[3];
       fmpz* roots;
       slong* mults;
@@ -133,9 +132,7 @@ int main()
 	}
       /* Init things depending on iter */
       fmpz_mod_ctx_init(ctx, p);
-      fmpz_mod_poly_init(pol1, ctx);
-      fmpz_mod_poly_init(pol2, ctx);
-      fmpz_mod_poly_init(pol3, ctx);
+      for (k = 0; k < 3; k++) fmpz_mod_poly_init(&pol_vec[k], ctx);
       
       max_len = siegel_nb_cosets(ell);
       roots = _fmpz_vec_init(max_len);
@@ -165,8 +162,8 @@ int main()
 	}
 
       /* Check roots of modular equations */
-      siegel_modeq_eval_Fp(pol1, pol2, pol3, j1, ell, ctx);
-      modeq_roots_Fp(&nb_roots, roots, mults, pol1, ctx);
+      siegel_modeq_eval_Fp(pol_vec, j1, ell, ctx);
+      modeq_roots_Fp(&nb_roots, roots, mults, &pol_vec[0], ctx);
       res = 0;
       for (k = 0; k < nb_roots; k++)
 	{
@@ -187,9 +184,6 @@ int main()
 	  flint_abort();
 	}
       /* Check other Igusa invariants, using j1 as temp */
-      fmpz_mod_poly_set(&pol_vec[0], pol1, ctx);
-      fmpz_mod_poly_set(&pol_vec[1], pol2, ctx);
-      fmpz_mod_poly_set(&pol_vec[2], pol3, ctx);
       res = modeq_isog_invariants_Fp(j1, pol_vec, &j2[0], 3, ctx);
       if (!res)
 	{
@@ -227,10 +221,8 @@ int main()
       _fmpz_vec_clear(j2, 3);
       _fmpq_vec_clear(j1_Q, 3);
       _fmpq_vec_clear(j2_Q, 3);
+      for (k = 0; k < 3; k++) fmpz_mod_poly_clear(&pol_vec[k], ctx);
       
-      fmpz_mod_poly_clear(pol1, ctx);
-      fmpz_mod_poly_clear(pol2, ctx);
-      fmpz_mod_poly_clear(pol3, ctx);
       fmpz_mod_ctx_clear(ctx);
       _fmpz_vec_clear(roots, max_len);
       flint_free(mults);

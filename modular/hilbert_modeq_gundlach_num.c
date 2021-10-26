@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
+void hilbert_modeq_gundlach_num(acb_poly_struct* num_vec_acb,
 				acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
 				const acb_t scal,
 				slong ell, slong delta, slong prec)
@@ -38,12 +38,14 @@ void hilbert_modeq_gundlach_num(acb_poly_t num1, acb_poly_t num2,
     }
   
   flint_printf("(hilbert_modeq_gundlach_num) Building product trees...\n");
-  product_tree_1(num1, xi, yi, d, prec);
-  product_tree_2(num2, xi, yi, zi, d, prec);
+  product_tree_1(&num_vec_acb[0], xi, yi, d, prec);
+  product_tree_2(&num_vec_acb[1], xi, yi, zi, d, prec);
   flint_printf("(hilbert_modeq_gundlach_num) Done.\n");
 
-  acb_poly_scalar_mul(num1, num1, scal, prec);
-  acb_poly_scalar_mul(num2, num2, scal, prec);
+  for (k = 0; k < 2; k++)
+    {
+      acb_poly_scalar_mul(&num_vec_acb[k], &num_vec_acb[k], scal, prec);
+    }
 
   _acb_vec_clear(xi, d);
   _acb_vec_clear(yi, d);

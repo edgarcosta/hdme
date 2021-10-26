@@ -25,11 +25,9 @@ int main()
       acb_ptr stardets;
       acb_ptr th2;
       acb_t scal;
-      acb_poly_t num1_acb, num2_acb, num3_acb;
-      acb_poly_struct num_acb_vec[3];
-      fmpz_poly_struct num_vec[3];
+      acb_poly_struct num_vec_acb[3];
       acb_t den_acb;
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       fmpz_t den;
       slong k;
       int res;
@@ -43,13 +41,9 @@ int main()
       stardets = _acb_vec_init(n);
       th2 = _acb_vec_init(16);
       acb_init(scal);
-      acb_poly_init(num1_acb);
-      acb_poly_init(num2_acb);
-      acb_poly_init(num3_acb);
+      for (k = 0; k < 3; k++) acb_poly_init(&num_vec_acb[k]);
       acb_init(den_acb);
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
 
       for (k = 0; k < 3; k++)
@@ -89,30 +83,22 @@ int main()
       siegel_modeq_scalar(scal, I, stardets, ell, prec);
       
       siegel_modeq_den(den_acb, I_vec, scal, ell, prec);
-      siegel_modeq_num(num1_acb, num2_acb, num3_acb, I_vec, scal, ell, prec);
-
-      acb_poly_set(&num_acb_vec[0], num1_acb);
-      acb_poly_set(&num_acb_vec[1], num2_acb);
-      acb_poly_set(&num_acb_vec[2], num3_acb);
+      siegel_modeq_num(num_vec_acb, I_vec, scal, ell, prec);
       res = modeq_round(num_vec, den,
-			num_acb_vec, den_acb, n, 3);
+			num_vec_acb, den_acb, n, 3);
       if (!res)
 	{
 	  flint_printf("FAIL (integers)\n");
-	  acb_poly_printd(num1_acb, 500);
+	  acb_poly_printd(&num_vec_acb[0], 500);
 	}
-
-      fmpz_poly_set(num1, &num_vec[0]);
-      fmpz_poly_set(num2, &num_vec[1]);
-      fmpz_poly_set(num3, &num_vec[2]);
       
-      res = ((fmpz_poly_degree(num1) == n)
-	     && (fmpz_poly_degree(num2) == n-1)
-	     && (fmpz_poly_degree(num3) == n-1));
+      res = ((fmpz_poly_degree(&num_vec[0]) == n)
+	     && (fmpz_poly_degree(&num_vec[1]) == n-1)
+	     && (fmpz_poly_degree(&num_vec[2]) == n-1));
       if (!res)
 	{
 	  flint_printf("FAIL (degrees)\n");
-	  fmpz_poly_print_pretty(num1, "X");
+	  fmpz_poly_print_pretty(&num_vec[0], "X");
 	}
       
       _acb_vec_clear(j, 3);
@@ -124,13 +110,9 @@ int main()
       _acb_vec_clear(stardets, n);
       _acb_vec_clear(th2, 16);
       acb_clear(scal);
-      acb_poly_clear(num1_acb);
-      acb_poly_clear(num2_acb);
-      acb_poly_clear(num3_acb);
+      for (k = 0; k < 3; k++) acb_poly_clear(&num_vec_acb[k]);
       acb_clear(den_acb);
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
     }
   

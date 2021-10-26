@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
+int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec,
 			 fmpz_t den, fmpq* j, slong ell)
 {
   slong prec = siegel_modeq_startprec_fmpq(j, ell);
@@ -15,10 +15,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   acb_ptr I_vec;
   acb_ptr th2_tau;
   acb_t scal;
-  acb_poly_t num1_acb, num2_acb, num3_acb;
   acb_t den_acb;
-  fmpz_poly_struct num_vec[3];
-  acb_poly_struct num_acb_vec[3];
+  acb_poly_struct num_vec_acb[3];
   fmpz_t rescale;
   acb_t rescale_acb;
   slong k;
@@ -35,12 +33,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   I_vec = _acb_vec_init(4*n);
   th2_tau = _acb_vec_init(16);
   acb_init(scal);
-  acb_poly_init(num1_acb);
-  acb_poly_init(num2_acb);
-  acb_poly_init(num3_acb);
   acb_init(den_acb);
-  for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
-  for (k = 0; k < 3; k++) acb_poly_init(&num_acb_vec[k]);
+  for (k = 0; k < 3; k++) acb_poly_init(&num_vec_acb[k]);
   fmpz_init(rescale);
   acb_init(rescale_acb);
 
@@ -71,18 +65,16 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 	  modeq_cov(I_vec, th2_vec, n, prec);
 	  cov_from_theta2(I_tau, th2_tau, prec);
 	  siegel_modeq_scalar(scal, I_tau, stardets, ell, prec);
-	  siegel_modeq_num(num1_acb, num2_acb, num3_acb, I_vec, scal, ell, prec);
+	  siegel_modeq_num(num_vec_acb, I_vec, scal, ell, prec);
 	  siegel_modeq_den(den_acb, I_vec, scal, ell, prec);
-	  acb_poly_scalar_mul(num1_acb, num1_acb, rescale_acb, prec);
-	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
-	  acb_poly_scalar_mul(num3_acb, num3_acb, rescale_acb, prec);
+	  for (k = 0; k < 3; k++)
+	    {
+	      acb_poly_scalar_mul(&num_vec_acb[k], &num_vec_acb[k],
+				  rescale_acb, prec);
+	    }
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
-
-	  acb_poly_set(&num_acb_vec[0], num1_acb);
-	  acb_poly_set(&num_acb_vec[1], num2_acb);
-	  acb_poly_set(&num_acb_vec[2], num3_acb);	  
 	  success = modeq_round(num_vec, den,
-				num_acb_vec, den_acb, n, 3);
+				num_vec_acb, den_acb, n, 3);
 	  if (v && !success)
 	    {
 	      flint_printf("(siegel_modeq_eval_Q) Out of precision when recognizing integers\n");
@@ -92,9 +84,6 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 	{
 	  if (v) flint_printf("(siegel_modeq_eval_Q) Success at working precision %wd\n", prec);
 	  modeq_simplify(num_vec, den, n, 3);
-	  fmpz_poly_set(num1, &num_vec[0]);
-	  fmpz_poly_set(num2, &num_vec[1]);
-	  fmpz_poly_set(num3, &num_vec[2]);	  
 	  stop = 1;
 	}
       prec = siegel_modeq_nextprec(prec);
@@ -114,12 +103,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   _acb_vec_clear(I_vec, 4*n);
   _acb_vec_clear(th2_tau, 16);
   acb_clear(scal);
-  acb_poly_clear(num1_acb);
-  acb_poly_clear(num2_acb);
-  acb_poly_clear(num3_acb);
   acb_clear(den_acb);
-  for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
-  for (k = 0; k < 3; k++) acb_poly_clear(&num_acb_vec[k]);
+  for (k = 0; k < 3; k++) acb_poly_clear(&num_vec_acb[k]);
   fmpz_clear(rescale);
   acb_clear(rescale_acb);
   return res;

@@ -13,7 +13,7 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       fmpz_t den;
       slong delta;
       slong ell;
@@ -26,9 +26,7 @@ int main()
       slong delta_max = 15;
       slong ell_max = 12;
 
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
       fmpz_poly_init(beta);
       fmpz_poly_init(betabar);
@@ -54,7 +52,7 @@ int main()
 		      flint_printf(", parameters are\n");		      
 		      fmpq_print(&rs[0]); flint_printf("\n");
 		      fmpq_print(&rs[1]); flint_printf("\n");		      
-		      res = hilbert_modeq_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+		      res = hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 		      /* fmpz_print(den); flint_printf("\n");*/
 		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
 		      if (!res)
@@ -70,9 +68,7 @@ int main()
 	    }
 	}
       
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
       fmpz_poly_clear(beta);
       fmpz_poly_clear(betabar);

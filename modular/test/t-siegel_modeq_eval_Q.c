@@ -13,7 +13,7 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       fmpz_t den;
       fmpq* j;
       slong ell =  2; /* n_randprime(state, 3, 1); */ /* 2, 3, 5 or 7 */
@@ -21,9 +21,7 @@ int main()
       slong k;
       int res;
 
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
       j = _fmpq_vec_init(3);
 
@@ -31,7 +29,7 @@ int main()
 	{
 	  fmpq_randtest_not_zero(&j[k], state, j_bits);
 	}
-      res = siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      res = siegel_modeq_eval_Q(num_vec, den, j, ell);
       if (!res)
 	{
 	  flint_printf("FAIL\n");
@@ -43,9 +41,7 @@ int main()
 	  flint_abort();
 	}
       
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+      for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
       _fmpq_vec_clear(j, 3);
     }

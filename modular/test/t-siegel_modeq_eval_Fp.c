@@ -13,7 +13,7 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      fmpz_mod_poly_t pol1, pol2, pol3;
+      fmpz_mod_poly_struct pol_vec[3];
       fmpz_mod_ctx_t ctx;
       fmpz_t p;
       fmpz* j;
@@ -25,10 +25,8 @@ int main()
       fmpz_init(p);
       fmpz_randprime(p, state, p_bits, 1);
       fmpz_mod_ctx_init(ctx, p);
-      
-      fmpz_mod_poly_init(pol1, ctx);
-      fmpz_mod_poly_init(pol2, ctx);
-      fmpz_mod_poly_init(pol3, ctx);
+
+      for (k = 0; k < 3; k++) fmpz_mod_poly_init(&pol_vec[k], ctx);
       j = _fmpz_vec_init(3);
 
       for (k = 0; k < 3; k++)
@@ -40,7 +38,7 @@ int main()
 	  while (fmpz_divisible(&j[k], p)); /* Nonzero mod p */
 	}
       
-      res = siegel_modeq_eval_Fp(pol1, pol2, pol3, j, ell, ctx);
+      res = siegel_modeq_eval_Fp(pol_vec, j, ell, ctx);
       if (!res)
 	{
 	  flint_printf("FAIL\n");
@@ -54,9 +52,7 @@ int main()
 	  flint_abort();
 	}
       
-      fmpz_mod_poly_clear(pol1, ctx);
-      fmpz_mod_poly_clear(pol2, ctx);
-      fmpz_mod_poly_clear(pol3, ctx);
+      for (k = 0; k < 3; k++) fmpz_mod_poly_clear(&pol_vec[k], ctx);
       fmpz_clear(p);
       fmpz_mod_ctx_clear(ctx);
       _fmpz_vec_clear(j, 3);

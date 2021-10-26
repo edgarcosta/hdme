@@ -14,9 +14,9 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       fmpz_t den;
-      fmpz_poly_t num1b, num2b, num3b;
+      fmpz_poly_struct num_vec_b[3];
       fmpz_t denb;
       slong delta;
       slong ell;
@@ -29,13 +29,12 @@ int main()
       slong delta_max = 15;
       slong ell_max = 12;
 
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+      for (k = 0; k < 3; k++)
+	{
+	  fmpz_poly_init(&num_vec[k]);
+	  fmpz_poly_init(&num_vec_b[k]);
+	}
       fmpz_init(den);
-      fmpz_poly_init(num1b);
-      fmpz_poly_init(num2b);
-      fmpz_poly_init(num3b);
       fmpz_init(denb);
       fmpz_poly_init(beta);
       fmpz_poly_init(betabar);
@@ -59,10 +58,8 @@ int main()
 		      flint_printf(", parameters are\n");		      
 		      fmpq_print(&rs[0]); flint_printf("\n");
 		      fmpq_print(&rs[1]); flint_printf("\n");		      
-		      res = hilbert_modeq_nonsym_igusa_eval_Q(num1, num2, num3, den,
+		      res = hilbert_modeq_nonsym_igusa_eval_Q(num_vec, den,
 							      rs, ell, beta, delta);
-		      /* fmpz_print(den); flint_printf("\n");*/
-		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
 		      if (!res)
 			{
 			  flint_printf("FAIL\n");
@@ -76,11 +73,9 @@ int main()
 		      fmpz_poly_print_pretty(betabar, "x");
 		      flint_printf(", parameters are\n");		      
 		      fmpq_print(&rs[0]); flint_printf("\n");
-		      fmpq_print(&rs[1]); flint_printf("\n");	
-		      res = hilbert_modeq_nonsym_igusa_eval_Q(num1b, num2b, num3b, denb,
+		      fmpq_print(&rs[1]); flint_printf("\n");
+		      res = hilbert_modeq_nonsym_igusa_eval_Q(num_vec_b, denb,
 							      rs, ell, betabar, delta);
-		      /* fmpz_print(den); flint_printf("\n");*/
-		      /* fmpz_poly_print_pretty(num1, "x"); flint_printf("\n"); */
 		      if (!res)
 			{
 			  flint_printf("FAIL\n");
@@ -90,7 +85,7 @@ int main()
 		      flint_printf("Denominator is a %wd-bit integer\n", 
 				   fmpz_bits(denb));
 
-		      if (fmpz_poly_equal(num1, num1b))
+		      if (fmpz_poly_equal(&num_vec[0], &num_vec_b[0]))
 			{
 			  flint_printf("FAIL (same polynomials)\n");
 			  fflush(stdout);
@@ -101,13 +96,12 @@ int main()
 	    }
 	}
       
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+      for (k = 0; k < 3; k++)
+	{
+	  fmpz_poly_clear(&num_vec[k]);
+	  fmpz_poly_clear(&num_vec_b[k]);
+	}
       fmpz_clear(den);
-      fmpz_poly_clear(num1b);
-      fmpz_poly_clear(num2b);
-      fmpz_poly_clear(num3b);
       fmpz_clear(denb);
       fmpz_poly_clear(beta);
       fmpz_poly_clear(betabar);

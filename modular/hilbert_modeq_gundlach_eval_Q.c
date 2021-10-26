@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
+int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 				  fmpz_t den, fmpq* g, slong ell, slong delta)
 {
   slong prec = hilbert_modeq_startprec(g, ell, 2);
@@ -26,10 +26,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_ptr I_vec_beta;
   acb_ptr I_vec_betabar;
   acb_t scal;
-  acb_poly_t num1_acb, num2_acb;
+  acb_poly_struct num_vec_acb[2];
   acb_t den_acb;
-  fmpz_poly_struct num_vec[2];
-  acb_poly_struct num_acb_vec[2];
   fmpz_t rescale;
   acb_t rescale_acb;
 
@@ -49,11 +47,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   I_vec_beta = _acb_vec_init(4*n);
   I_vec_betabar = _acb_vec_init(4*n);
   acb_init(scal);
-  acb_poly_init(num1_acb);
-  acb_poly_init(num2_acb);
+  for (k = 0; k < 2; k++) acb_poly_init(&num_vec_acb[k]);
   acb_init(den_acb);
-  for (k = 0; k < 2; k++) fmpz_poly_init(&num_vec[k]);
-  for (k = 0; k < 2; k++) acb_poly_init(&num_acb_vec[k]);
   fmpz_init(rescale);
   acb_init(rescale_acb);
   
@@ -105,18 +100,16 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	  modeq_cov(I_vec_beta, th2_vec, n, prec);
 	  modeq_cov(I_vec_betabar, &th2_vec[16*n], n, prec);
 	  hilbert_modeq_gundlach_scalar(scal, I_tau, stardets, ell, delta, prec);
-	  hilbert_modeq_gundlach_num(num1_acb, num2_acb, I_vec_beta, I_vec_betabar,
+	  hilbert_modeq_gundlach_num(num_vec_acb, I_vec_beta, I_vec_betabar,
 				     scal, ell, delta, prec);
 	  hilbert_modeq_gundlach_den(den_acb, I_vec_beta, I_vec_betabar,
 				     scal, ell, delta, prec);
-	  acb_poly_scalar_mul(num1_acb, num1_acb, rescale_acb, prec);
-	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
-	  
+	  for (k = 0; k < 2; k++)
+	    {
+	      acb_poly_scalar_mul(&num_vec_acb[k], &num_vec_acb[k], rescale_acb, prec);
+	    }	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
-
-	  acb_poly_set(&num_acb_vec[0], num1_acb);
-	  acb_poly_set(&num_acb_vec[1], num2_acb);
-	  success = modeq_round(num_vec, den, num_acb_vec, den_acb, 2*n, 2);
+	  success = modeq_round(num_vec, den, num_vec_acb, den_acb, 2*n, 2);
 	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when recognizing integers\n");
@@ -126,8 +119,6 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	{
 	  if (v) flint_printf("(hilbert_modeq_gundlach_eval_Q) Success at working precision %wd\n", prec);
 	  modeq_simplify(num_vec, den, 2*n, 2);
-	  fmpz_poly_set(num1, &num_vec[0]);
-	  fmpz_poly_set(num2, &num_vec[1]);
 	  stop = 1;
 	  res = 1;
 	}
@@ -156,11 +147,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   _acb_vec_clear(I_vec_beta, 4*n);
   _acb_vec_clear(I_vec_betabar, 4*n);
   acb_clear(scal);
-  acb_poly_clear(num1_acb);
-  acb_poly_clear(num2_acb);
+  for (k = 0; k < 2; k++) acb_poly_clear(&num_vec_acb[k]);
   acb_clear(den_acb);
-  for (k = 0; k < 2; k++) fmpz_poly_clear(&num_vec[k]);
-  for (k = 0; k < 2; k++) acb_poly_clear(&num_acb_vec[k]);
   fmpz_clear(rescale);
   acb_clear(rescale_acb);
   

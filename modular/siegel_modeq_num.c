@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-void siegel_modeq_num(acb_poly_t num1, acb_poly_t num2, acb_poly_t num3,
+void siegel_modeq_num(acb_poly_struct* num_vec_acb,
 		      acb_srcptr I_vec, const acb_t scal,
 		      slong ell, slong prec)
 {
@@ -31,14 +31,15 @@ void siegel_modeq_num(acb_poly_t num1, acb_poly_t num2, acb_poly_t num3,
       acb_pow_ui(&zi3[k], &I_vec[4*k+1], 5, prec);
     }
   flint_printf("(siegel_modeq_num) Building product trees...\n");
-  product_tree_1(num1, xi, yi, d, prec);
-  product_tree_2(num2, xi, yi, zi2, d, prec);
-  product_tree_2(num3, xi, yi, zi3, d, prec);
+  product_tree_1(&num_vec_acb[0], xi, yi, d, prec);
+  product_tree_2(&num_vec_acb[1], xi, yi, zi2, d, prec);
+  product_tree_2(&num_vec_acb[2], xi, yi, zi3, d, prec);
   flint_printf("(siegel_modeq_num) Done.\n");
-  
-  acb_poly_scalar_mul(num1, num1, scal, prec);
-  acb_poly_scalar_mul(num2, num2, scal, prec);
-  acb_poly_scalar_mul(num3, num3, scal, prec);
+
+  for (k = 0; k < 3; k++)
+    {
+      acb_poly_scalar_mul(&num_vec_acb[k], &num_vec_acb[k], scal, prec);
+    }
 
   _acb_vec_clear(xi, d);
   _acb_vec_clear(yi, d);
