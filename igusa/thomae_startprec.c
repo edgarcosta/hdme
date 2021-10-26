@@ -4,9 +4,9 @@
 slong thomae_startprec(slong prec)
 {
   slong res = prec;
-  while (res > 2 * THOMAE_LOWPREC - 2)
+  while (res > THOMAE_MULPREC * (THOMAE_LOWPREC-1))
     {
-      res = (res/2) + 1;
+      res = (res/THOMAE_MULPREC) + 1;
     }
   return res;
 }

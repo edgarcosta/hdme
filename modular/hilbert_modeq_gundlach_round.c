@@ -25,18 +25,18 @@ int hilbert_modeq_gundlach_round(fmpz_poly_t num1, fmpz_poly_t num2,
   arf_zero(max_radius);
   acb_get_rad_ubound_arf(radius, den_acb, radius_prec);
   arf_max(max_radius, max_radius, radius);
-  
+
   res = siegel_modeq_round_coeff(den, den_acb);
 
   if (res)
     {
       res = siegel_modeq_round_poly(num1, radius, num1_acb, d);
-      arf_max(max_radius, max_radius, radius);      
+      arf_max(max_radius, max_radius, radius);
     }
   if (res)
     {
       res = siegel_modeq_round_poly(num2, radius, num2_acb, d-1);
-      arf_max(max_radius, max_radius, radius);      
+      arf_max(max_radius, max_radius, radius);    
     }
   
   radius_bits = arf_abs_bound_lt_2exp_si(max_radius);

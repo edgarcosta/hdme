@@ -4,7 +4,7 @@
 int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 				  fmpz_t den, fmpq* g, slong ell, slong delta)
 {
-  slong prec = hilbert_modeq_sym_igusa_startprec(g, ell, 2);
+  slong prec = hilbert_modeq_startprec(g, ell, 2);
   fmpz_poly_t beta, betabar;
   int stop = 0;
   int success = 1;
@@ -83,6 +83,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
       if (success)
 	{
 	  /* Rescale I_tau using eta */
+	  cov_from_theta2(I_tau, th2_tau, prec);
 	  siegel_star(star, eta, tau, prec);
 	  acb_mat_det(scal, star, prec);
 	  cov_rescale(I_tau, I_tau, scal, prec);
@@ -106,11 +107,6 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 				     scal, ell, delta, prec);
 	  acb_poly_scalar_mul(num1_acb, num1_acb, rescale_acb, prec);
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
-
-	  acb_printd(den_acb, 30); flint_printf("\n");
-	  acb_poly_get_coeff_acb(scal, num1_acb, 0);
-	  acb_div(scal, scal, den_acb, prec);
-	  acb_printd(scal, 30); flint_printf("\n");
 	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
 	  success = hilbert_modeq_gundlach_round(num1, num2, den,
@@ -126,6 +122,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	  flint_printf("(hilbert_modeq_gundlach_eval_Q) Success at working precision %wd\n", prec);
 	  hilbert_modeq_gundlach_simplify(num1, num2, den, ell, delta);
 	  stop = 1;
+	  res = 1;
 	}
       prec = hilbert_modeq_nextprec(prec);
       if (!stop && prec > HILBERT_MAX_PREC)

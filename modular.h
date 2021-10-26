@@ -27,8 +27,8 @@
 /* Todo: use this in functions. */
 #define SIEGEL_VERBOSE 1 
 
-#define HILBERT_START_PREC_MUL 20
-#define HILBERT_START_PREC_ADD 150
+#define HILBERT_START_PREC_MUL 18
+#define HILBERT_START_PREC_ADD 200
 #define HILBERT_MUL_PREC 1.8
 #define HILBERT_MAX_PREC n_pow(10,6)
 #define HILBERT_VERBOSE 1
@@ -190,7 +190,7 @@ int hilbert_modeq_gundlach_round(fmpz_poly_t num1, fmpz_poly_t num2,
 
 slong hilbert_modeq_height(fmpq* params, slong len);
 
-slong hilbert_modeq_sym_igusa_startprec(fmpq* params, slong ell, slong len);
+slong hilbert_modeq_startprec(fmpq* params, slong ell, slong len);
 
 slong hilbert_modeq_nextprec(slong current_prec);
 

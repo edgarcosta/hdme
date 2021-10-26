@@ -12,7 +12,7 @@
 #include "theta.h"
 
 #define THOMAE_LOWPREC 50
-#define THOMAE_MULPREC 16
+#define THOMAE_MULPREC 8
 #define THOMAE_VERBOSE 1
 
 /* Igusa invariants from theta constants */

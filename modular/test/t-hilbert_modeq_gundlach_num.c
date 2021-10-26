@@ -55,7 +55,7 @@ int main()
       hilbert_halfspace_randtest(t1, t2, state, prec);
       hilbert_transform_randtest(m, state, m_bits);
 
-      /* Denominator should be a modular form */
+      /* Each coefficient should be a modular form */
       res = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
 				      ell, delta, prec)
 	&& hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,

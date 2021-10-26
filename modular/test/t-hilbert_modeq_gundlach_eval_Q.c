@@ -19,12 +19,12 @@ int main()
       fmpz_poly_t beta;
       fmpz_poly_t betabar;
       fmpq* g;
-      slong g_bits = 5 + n_randint(state, 5);
+      slong g_bits;
       fmpz_t gnum, gden;
       slong k;
       int res;
       slong delta = 5;
-      slong ell_max = 12;
+      slong ell_max = 500;
 
       fmpz_poly_init(num1);
       fmpz_poly_init(num2);
@@ -39,6 +39,7 @@ int main()
 	{
 	  if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 	    {
+	      g_bits = 5 + n_randint(state, 5);
 	      for (k = 0; k < 2; k++)
 		{
 		  fmpz_randbits(gnum, state, g_bits);

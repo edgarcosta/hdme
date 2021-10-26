@@ -44,7 +44,13 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	  hilbert_transform(z1, z2, m, t1, t2, delta, prec);
 	  hilbert_scalar_div(z1, z2, beta, z1, z2, delta, prec);
 	  hilbert_map(im, z1, z2, delta, prec);
+	  if (v)
+	    {
+	      flint_printf("(hilbert_modeq_theta2_star) Reduction... ");
+	      fflush(stdout);
+	    }
 	  res = siegel_fundamental_domain(red, eta, im, tol, prec);
+	  if (v) flint_printf("done.\n");
 	}
       if (res)
 	{

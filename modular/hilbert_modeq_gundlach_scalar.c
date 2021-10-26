@@ -40,7 +40,7 @@ void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr star
   acb_div(res, res, temp, prec);
 
   acb_set_si(temp, 2);
-  acb_pow_si(temp, temp, wb, prec);
+  acb_pow_si(temp, temp, wb/3, prec);
   acb_mul(res, res, temp, prec); /* We can do better here */
 
   for (k = 0; k < 2*hilbert_nb_cosets(ell, delta); k++)

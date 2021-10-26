@@ -5,7 +5,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_p
 				      fmpz_t den, fmpq* rs, slong ell, const fmpz_poly_t beta,
 				      slong delta)
 {
-  slong prec = hilbert_modeq_sym_igusa_startprec(rs, ell, 2);
+  slong prec = hilbert_modeq_startprec(rs, ell, 2);
   acb_t r_acb, s_acb;
   acb_ptr I;
   acb_mat_t tau;
