@@ -72,12 +72,12 @@ int main()
 	  flint_abort();
 	}
 
-      siegel_modeq_cov(I_vec, th2_vec, ell, prec);
+      modeq_cov(I_vec, th2_vec, n, prec);
       cov_from_theta2(I, th2, prec);
       siegel_modeq_scalar(scal, I, stardets, ell, prec);
       
       siegel_modeq_den(den, I_vec, scal, ell, prec);
-      res = siegel_modeq_round_coeff(temp, den);
+      res = modeq_round_coeff(temp, den);
       if (!res)
 	{
 	  flint_printf("FAIL (integer)\n");

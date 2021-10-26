@@ -26,6 +26,8 @@ int main()
       acb_ptr th2;
       acb_t scal;
       acb_poly_t num1_acb, num2_acb, num3_acb;
+      acb_poly_struct num_acb_vec[3];
+      fmpz_poly_struct num_vec[3];
       acb_t den_acb;
       fmpz_poly_t num1, num2, num3;
       fmpz_t den;
@@ -82,20 +84,28 @@ int main()
 	  flint_abort();
 	}
 
-      siegel_modeq_cov(I_vec, th2_vec, ell, prec);
+      modeq_cov(I_vec, th2_vec, n, prec);
       cov_from_theta2(I, th2, prec);
       siegel_modeq_scalar(scal, I, stardets, ell, prec);
       
       siegel_modeq_den(den_acb, I_vec, scal, ell, prec);
       siegel_modeq_num(num1_acb, num2_acb, num3_acb, I_vec, scal, ell, prec);
-      
-      res = siegel_modeq_round(num1, num2, num3, den,
-			       num1_acb, num2_acb, num3_acb, den_acb, ell);
+
+      acb_poly_set(&num_acb_vec[0], num1_acb);
+      acb_poly_set(&num_acb_vec[1], num2_acb);
+      acb_poly_set(&num_acb_vec[2], num3_acb);
+      res = modeq_round(num_vec, den,
+			num_acb_vec, den_acb, n, 3);
       if (!res)
 	{
 	  flint_printf("FAIL (integers)\n");
 	  acb_poly_printd(num1_acb, 500);
 	}
+
+      fmpz_poly_set(num1, &num_vec[0]);
+      fmpz_poly_set(num2, &num_vec[1]);
+      fmpz_poly_set(num3, &num_vec[2]);
+      
       res = ((fmpz_poly_degree(num1) == n)
 	     && (fmpz_poly_degree(num2) == n-1)
 	     && (fmpz_poly_degree(num3) == n-1));

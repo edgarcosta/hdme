@@ -16,9 +16,9 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   acb_ptr th2_tau;
   acb_t scal;
   acb_poly_t num1_acb, num2_acb, num3_acb;
+  acb_t den_acb;
   fmpz_poly_struct num_vec[3];
   acb_poly_struct num_acb_vec[3];
-  acb_t den_acb;
   fmpz_t rescale;
   acb_t rescale_acb;
   slong k;
@@ -39,6 +39,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   acb_poly_init(num2_acb);
   acb_poly_init(num3_acb);
   acb_init(den_acb);
+  for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
+  for (k = 0; k < 3; k++) acb_poly_init(&num_acb_vec[k]);
   fmpz_init(rescale);
   acb_init(rescale_acb);
 
@@ -116,6 +118,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   acb_poly_clear(num2_acb);
   acb_poly_clear(num3_acb);
   acb_clear(den_acb);
+  for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
+  for (k = 0; k < 3; k++) acb_poly_clear(&num_acb_vec[k]);
   fmpz_clear(rescale);
   acb_clear(rescale_acb);
   return res;

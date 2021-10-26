@@ -77,7 +77,7 @@ void modeq_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* ex
 void modeq_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
 		    const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx);
 
-int modeq_isog_invariants_Fp(fmpz* j, const fmpz_mod_poly_struct* num_vec,
+int modeq_isog_invariants_Fp(fmpz* j, const fmpz_mod_poly_struct* pol_vec,
 			     const fmpz_t root, slong nb,
 			     const fmpz_mod_ctx_t ctx);
 

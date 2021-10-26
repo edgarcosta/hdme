@@ -27,9 +27,9 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_ptr I_vec_betabar;
   acb_t scal;
   acb_poly_t num1_acb, num2_acb;
+  acb_t den_acb;
   fmpz_poly_struct num_vec[2];
   acb_poly_struct num_acb_vec[2];
-  acb_t den_acb;
   fmpz_t rescale;
   acb_t rescale_acb;
 
@@ -52,6 +52,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_poly_init(num1_acb);
   acb_poly_init(num2_acb);
   acb_init(den_acb);
+  for (k = 0; k < 2; k++) fmpz_poly_init(&num_vec[k]);
+  for (k = 0; k < 2; k++) acb_poly_init(&num_acb_vec[k]);
   fmpz_init(rescale);
   acb_init(rescale_acb);
   
@@ -157,6 +159,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_poly_clear(num1_acb);
   acb_poly_clear(num2_acb);
   acb_clear(den_acb);
+  for (k = 0; k < 2; k++) fmpz_poly_clear(&num_vec[k]);
+  for (k = 0; k < 2; k++) acb_poly_clear(&num_acb_vec[k]);
   fmpz_clear(rescale);
   acb_clear(rescale_acb);
   

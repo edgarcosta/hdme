@@ -51,7 +51,7 @@ int main()
       hilbert_modeq_gundlach_scalar(scal, I, stardets, ell, delta, prec);
       acb_pow_ui(temp, &I[2], 10, prec);
       acb_mul(scal, scal, temp, prec);
-      res = siegel_modeq_round_coeff(test, scal);
+      res = modeq_round_coeff(test, scal);
 
       if (!res)
 	{

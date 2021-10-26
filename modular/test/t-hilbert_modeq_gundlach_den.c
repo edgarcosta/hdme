@@ -64,8 +64,8 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}      
-      hilbert_modeq_cov(I_vec, th2_vec, ell, delta, prec);
-      hilbert_modeq_cov(&I_vec[4*n], &th2_vec[16*n], ell, delta, prec);
+      modeq_cov(I_vec, th2_vec, n, prec);
+      modeq_cov(&I_vec[4*n], &th2_vec[16*n], n, prec);
 
       acb_one(scal);
       for (k = 0; k < 2*n; k++)
@@ -91,8 +91,8 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}      
-      hilbert_modeq_cov(I_vec, th2_vec, ell, delta, prec);
-      hilbert_modeq_cov(&I_vec[4*n], &th2_vec[16*n], ell, delta, prec);
+      modeq_cov(I_vec, th2_vec, n, prec);
+      modeq_cov(&I_vec[4*n], &th2_vec[16*n], n, prec);
 
       acb_one(scal);
       for (k = 0; k < 2*n; k++)

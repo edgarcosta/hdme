@@ -6,7 +6,7 @@ int main()
 {
   slong iter;
   
-  flint_printf("siegel_modeq_isog_igusa_Fp....");
+  flint_printf("modeq_isog_invariants_Fp....");
   fflush(stdout);
 
   for (iter = 0; iter < 4; iter++) /* 4 -> 6 to test with ell=7 */
@@ -27,6 +27,7 @@ int main()
       
       fmpz_mod_ctx_t ctx;
       fmpz_mod_poly_t pol1, pol2, pol3;
+      fmpz_mod_poly_struct pol_vec[3];
       fmpz* roots;
       slong* mults;
       int res = 1;
@@ -165,7 +166,7 @@ int main()
 
       /* Check roots of modular equations */
       siegel_modeq_eval_Fp(pol1, pol2, pol3, j1, ell, ctx);
-      siegel_modeq_roots_Fp(&nb_roots, roots, mults, pol1, ctx);
+      modeq_roots_Fp(&nb_roots, roots, mults, pol1, ctx);
       res = 0;
       for (k = 0; k < nb_roots; k++)
 	{
@@ -186,10 +187,13 @@ int main()
 	  flint_abort();
 	}
       /* Check other Igusa invariants, using j1 as temp */
-      res = siegel_modeq_isog_igusa_Fp(j1, pol1, pol2, pol3, &j2[0], ctx);
+      fmpz_mod_poly_set(&pol_vec[0], pol1, ctx);
+      fmpz_mod_poly_set(&pol_vec[1], pol2, ctx);
+      fmpz_mod_poly_set(&pol_vec[2], pol3, ctx);
+      res = modeq_isog_invariants_Fp(j1, pol_vec, &j2[0], 3, ctx);
       if (!res)
 	{
-	  flint_printf("FAIL (isog_igusa)\n");
+	  flint_printf("FAIL (isogenous invariants)\n");
 	  fmpz_print(&j2[0]);
 	  flint_printf("iter = %wd\n", iter);
 	  fflush(stdout);

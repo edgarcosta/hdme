@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("siegel_modeq_isog_igusa_Fp....");
+  flint_printf("modeq_roots_Q....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -55,7 +55,7 @@ int main()
 
       /* Modular equation of level 2 must have roots (Richelot!) */
       siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
-      siegel_modeq_roots_Q(&nb_roots, roots, mults, num1);
+      modeq_roots_Q(&nb_roots, roots, mults, num1);
       if (nb_roots < 15)
 	{
 	  flint_printf("FAIL (not split)\n");

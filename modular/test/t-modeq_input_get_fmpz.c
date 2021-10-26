@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("siegel_modeq_fmpz_input....");
+  flint_printf("modeq_input_get_fmpz....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -31,7 +31,7 @@ int main()
 	{
 	  fmpq_randtest(&j[k], state, bits);
 	}
-      siegel_modeq_fmpz_input(den, num, j, len);
+      modeq_input_get_fmpz(den, num, j, len);
       for (k = 0; k < len; k++)
 	{
 	  fmpq_set_fmpz_frac(&j_test[k], &num[k], den);
