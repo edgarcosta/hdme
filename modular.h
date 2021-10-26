@@ -31,6 +31,7 @@
 #define HILBERT_START_PREC_ADD 200
 #define HILBERT_MUL_PREC 1.8
 
+
 /* Generic functions for all types of modular equations */
 
 void product_tree_1(acb_poly_t P, acb_srcptr xi, acb_srcptr yi, slong d, slong prec);
@@ -84,7 +85,11 @@ int modeq_isog_invariants_Fp(fmpz* j, const fmpz_mod_poly_struct* pol_vec,
 			     const fmpz_t root, slong nb,
 			     const fmpz_mod_ctx_t ctx);
 
-void modeq_input_lift(fmpq* j, fmpz* input);
+void modeq_input_lift(fmpq* j, const fmpz* input, slong nb);
+
+int modeq_reduce(fmpz_mod_poly_struct* red_vec, const fmpz_poly_struct* num_vec,
+		 const fmpz_t den, slong nb, const fmpz_mod_ctx_t ctx);
+
 
 /* Siegel modular equations */
 
@@ -124,33 +129,6 @@ int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec,
 
 int siegel_modeq_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 			 const fmpz* j, slong ell, const fmpz_mod_ctx_t ctx);
-
-
-/* Derivatives of Siegel modular equations */
-
-int siegel_modeq_dtheta(acb_ptr thvec, acb_ptr thder, const acb_mat_t tau,
-				   slong ell, slong prec);
-
-int siegel_modeq_dcov(acb_ptr Ider, acb_srcptr thvec, acb_srcptr thder,
-			 slong k, slong prec);
-
-int siegel_modeq_dnum(acb_poly_struct* nums, const acb_t scal, acb_srcptr thvec,
-		      acb_srcptr thder, slong ell, slong prec);
-
-int siegel_modeq_dden(acb_t den, const acb_t scal, acb_srcptr thvec,
-		      acb_srcptr thder, slong ell, slong prec);
-
-int siegel_modeq_dround(fmpz_poly_struct* nums, fmpz_t den, const acb_poly_struct nums_acb,
-			const acb_t den_acb, slong prec);
-
-int siegel_modeq_deval_zz(fmpz_poly_struct* nums, fmpz_t den, const fmpq* j,
-			   slong ell);
-
-int siegel_modeq_deval_fp(fmpz_mod_poly_struct* pols, const fmpz* j, slong ell,
-			  const fmpz_mod_ctx_t ctx);
-
-/* Todo: also return evaluated modular equations? Do both versions? */
-
 
 
 /* Hilbert modular equations */
@@ -221,7 +199,5 @@ int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 int hilbert_modeq_nonsym_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 					  fmpq* g, slong ell, slong delta,
 					  const fmpz_mod_ctx_t ctx);
-
-/* Derivatives of Hilbert modular equations */
 		   
 #endif 
