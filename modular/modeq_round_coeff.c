@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-int siegel_modeq_round_coeff(fmpz_t c, const acb_t x)
+int modeq_round_coeff(fmpz_t c, const acb_t x)
 {
   fmpz_t re, im;
   int res;

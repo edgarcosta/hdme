@@ -1,15 +1,15 @@
 
 #include "modular.h"
 
-void hilbert_modeq_sym_igusa_C(acb_poly_t pol1, acb_poly_t pol2, acb_poly_t pol3,
-			       acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
-			       slong ell, slong delta, slong prec)
+void hilbert_modeq_igusa_C(acb_poly_t pol1, acb_poly_t pol2, acb_poly_t pol3,
+			   acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
+			   slong ell, slong delta, slong prec)
 {
   acb_ptr j1vec, j2vec, j3vec, j;
   acb_ptr xi, yi;
   slong n = hilbert_nb_cosets(ell, delta);
   slong k;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   j1vec = _acb_vec_init(2*n);
   j2vec = _acb_vec_init(2*n);

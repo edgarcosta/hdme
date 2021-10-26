@@ -16,6 +16,8 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   acb_ptr th2_tau;
   acb_t scal;
   acb_poly_t num1_acb, num2_acb, num3_acb;
+  fmpz_poly_struct num_vec[3];
+  acb_poly_struct num_acb_vec[3];
   acb_t den_acb;
   fmpz_t rescale;
   acb_t rescale_acb;
@@ -23,6 +25,7 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   int stop = 0;
   int success;
   int res = 1;
+  int v = MODEQ_VERBOSE;
 
   j_tau = _acb_vec_init(3);
   I_tau = _acb_vec_init(4);
@@ -39,31 +42,31 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
   fmpz_init(rescale);
   acb_init(rescale_acb);
 
-  siegel_modeq_fmpq_rescale(rescale, j, ell);
+  siegel_modeq_rescale(rescale, j, ell);
   acb_set_fmpz(rescale_acb, rescale);
 
   while (!stop)
     {
-      flint_printf("(siegel_modeq_eval_Q) Start new run at precision %wd\n", prec);
+      if (v) flint_printf("(siegel_modeq_eval_Q) Start new run at precision %wd\n", prec);
       
       for (k = 0; k < 3; k++) acb_set_fmpq(&j_tau[k], &j[k], prec);
       cov_from_igusa(I_tau, j_tau, prec);
       success = tau_theta2_from_igusa(tau, th2_tau, I_tau, prec);
-      if (!success)
+      if (v && !success)
 	{
 	  flint_printf("(siegel_modeq_eval_Q) Out of precision when computing tau\n");
 	}
       if (success)
 	{
 	  success = siegel_modeq_theta2(th2_vec, stardets, tau, ell, prec);
-	  if (!success)
+	  if (v && !success)
 	    {
 	      flint_printf("(siegel_modeq_eval_Q) Out of precision when computing theta constants at isogenous periods\n");
 	    }
 	}
       if (success)
 	{
-	  siegel_modeq_cov(I_vec, th2_vec, ell, prec);
+	  modeq_cov(I_vec, th2_vec, n, prec);
 	  cov_from_theta2(I_tau, th2_tau, prec);
 	  siegel_modeq_scalar(scal, I_tau, stardets, ell, prec);
 	  siegel_modeq_num(num1_acb, num2_acb, num3_acb, I_vec, scal, ell, prec);
@@ -72,23 +75,30 @@ int siegel_modeq_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_poly_t num3,
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
 	  acb_poly_scalar_mul(num3_acb, num3_acb, rescale_acb, prec);
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
-	  success = siegel_modeq_round(num1, num2, num3, den,
-				       num1_acb, num2_acb, num3_acb, den_acb, ell);
-	  if (!success)
+
+	  acb_poly_set(&num_acb_vec[0], num1_acb);
+	  acb_poly_set(&num_acb_vec[1], num2_acb);
+	  acb_poly_set(&num_acb_vec[2], num3_acb);	  
+	  success = modeq_round(num_vec, den,
+				num_acb_vec, den_acb, n, 3);
+	  if (v && !success)
 	    {
 	      flint_printf("(siegel_modeq_eval_Q) Out of precision when recognizing integers\n");
 	    }
 	}
       if (success)
 	{
-	  flint_printf("(siegel_modeq_eval_Q) Success at working precision %wd\n", prec);
-	  siegel_modeq_simplify(num1, num2, num3, den, ell);
+	  if (v) flint_printf("(siegel_modeq_eval_Q) Success at working precision %wd\n", prec);
+	  modeq_simplify(num_vec, den, n, 3);
+	  fmpz_poly_set(num1, &num_vec[0]);
+	  fmpz_poly_set(num2, &num_vec[1]);
+	  fmpz_poly_set(num3, &num_vec[2]);	  
 	  stop = 1;
 	}
       prec = siegel_modeq_nextprec(prec);
-      if (!stop && prec > SIEGEL_MAX_PREC)
+      if (!stop && prec > MODEQ_MAX_PREC)
 	{
-	  flint_printf("(siegel_modeq_eval_Q) Reached maximal allowed precision %wd, abandon.\n", SIEGEL_MAX_PREC);
+	  flint_printf("(siegel_modeq_eval_Q) Reached maximal allowed precision %wd, abandon.\n", MODEQ_MAX_PREC);
 	  stop = 1;
 	  res = 0;
 	}

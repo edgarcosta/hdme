@@ -18,7 +18,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_p
   acb_poly_t pol1_acb, pol2_acb, pol3_acb;
   int success = 0;
   int valid = 1;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   acb_init(r_acb);
   acb_init(s_acb);
@@ -39,7 +39,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_p
   acb_poly_init(pol2_acb);
   acb_poly_init(pol3_acb);
 
-  while (valid && !success && prec < HILBERT_MAX_PREC)
+  while (valid && !success && prec < MODEQ_MAX_PREC)
     {
       if (v) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Start new run at precision %wd\n", prec);
 
@@ -57,16 +57,16 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_p
 	  if (v && !valid) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Out of precision during inversion of Hilbert embedding\n");
 	}
       if (valid) valid = hilbert_modeq_theta2(th2_vec, t1, t2, beta, ell, delta, prec);
-      if (valid) hilbert_modeq_cov(I_vec, th2_vec, ell, delta, prec);      
+      if (valid) modeq_cov(I_vec, th2_vec, n, prec);      
       if (v && !valid) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Out of precision during complex computations\n");
       
       if (valid) /* Try rational reconstruction */
 	{
 	  hilbert_modeq_nonsym_igusa_C(pol1_acb, pol2_acb, pol3_acb, I_vec,
 				       ell, delta, prec);
-	  success = hilbert_modeq_poly_Q(pol1, pol1_acb, n, prec);
-	  if (success) success = hilbert_modeq_poly_Q(pol2, pol2_acb, n-1, prec);
-	  if (success) success = hilbert_modeq_poly_Q(pol3, pol3_acb, n-1, prec);
+	  success = modeq_rational_poly(pol1, pol1_acb, n, prec);
+	  if (success) success = modeq_rational_poly(pol2, pol2_acb, n-1, prec);
+	  if (success) success = modeq_rational_poly(pol3, pol3_acb, n-1, prec);
 	  if (v && !success) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Not enough precision to recognize rational coefficients\n");
 	  if (v && success) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Heuristic success in recognizing coeffients: end of computation\n");
 	}
@@ -92,7 +92,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2, fmpz_p
 	}
     }
 
-  if (v && prec >= HILBERT_MAX_PREC) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Maximum allowed precision reached: end of computation.\n");
+  if (v && prec >= MODEQ_MAX_PREC) flint_printf("(hilbert_modeq_nonsym_igusa_eval_Q) Maximum allowed precision reached: end of computation.\n");
 
   acb_clear(r_acb);
   acb_clear(s_acb);

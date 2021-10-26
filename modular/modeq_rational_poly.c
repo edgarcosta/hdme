@@ -1,8 +1,8 @@
 
 #include "modular.h"
 
-int hilbert_modeq_poly_Q(fmpq_poly_t pol, const acb_poly_t pol_acb,
-			 slong degree, slong prec)
+int modeq_rational_poly(fmpq_poly_t pol, const acb_poly_t pol_acb,
+			slong degree, slong prec)
 {  
   fmpq_t c;
   fmpz_t c_num;
@@ -22,7 +22,7 @@ int hilbert_modeq_poly_Q(fmpq_poly_t pol, const acb_poly_t pol_acb,
   for (k = 0; (k <= degree) && success; k++)
     {      
       acb_poly_get_coeff_acb(x, pol_acb, k);
-      success = hilbert_modeq_coeff_Q(c, current_den, x, current_den, prec);
+      success = modeq_rational_coeff(c, current_den, x, current_den, prec);
       if (success)
 	{
 	  fmpq_poly_set_coeff_fmpq(pol, k, c);

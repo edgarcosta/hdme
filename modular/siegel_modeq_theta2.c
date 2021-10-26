@@ -18,7 +18,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   slong n = siegel_nb_cosets(ell);
   arb_t tol;
   int res;
-  int v = SIEGEL_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
@@ -27,7 +27,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   arb_init(tol);
 
   arb_one(tol);
-  arb_mul_2exp_si(tol, tol, -SIEGEL_RED_TOL_BITS);
+  arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
   for (k = 0; k < n; k++)
     {

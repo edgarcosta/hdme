@@ -8,7 +8,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   fmpz_poly_t beta, betabar;
   int stop = 0;
   int success = 1;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
   slong k;
   slong n = hilbert_nb_cosets(ell, delta);
   int res;
@@ -27,6 +27,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
   acb_ptr I_vec_betabar;
   acb_t scal;
   acb_poly_t num1_acb, num2_acb;
+  fmpz_poly_struct num_vec[2];
+  acb_poly_struct num_acb_vec[2];
   acb_t den_acb;
   fmpz_t rescale;
   acb_t rescale_acb;
@@ -62,7 +64,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
       res = 0;
     }
   
-  hilbert_modeq_gundlach_fmpq_rescale(rescale, g, ell, delta);
+  hilbert_modeq_gundlach_rescale(rescale, g, ell, delta);
   acb_set_fmpz(rescale_acb, rescale);
   
   while (!stop)
@@ -91,15 +93,15 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 					      ell, delta, prec)
 	    && hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
 					 ell, delta, prec);	  
-	  if (!success)
+	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when computing theta constants\n");
 	    }
 	}
       if (success)
 	{
-	  hilbert_modeq_cov(I_vec_beta, th2_vec, ell, delta, prec);
-	  hilbert_modeq_cov(I_vec_betabar, &th2_vec[16*n], ell, delta, prec);
+	  modeq_cov(I_vec_beta, th2_vec, n, prec);
+	  modeq_cov(I_vec_betabar, &th2_vec[16*n], n, prec);
 	  hilbert_modeq_gundlach_scalar(scal, I_tau, stardets, ell, delta, prec);
 	  hilbert_modeq_gundlach_num(num1_acb, num2_acb, I_vec_beta, I_vec_betabar,
 				     scal, ell, delta, prec);
@@ -109,25 +111,28 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_t num1, fmpz_poly_t num2,
 	  acb_poly_scalar_mul(num2_acb, num2_acb, rescale_acb, prec);
 	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
-	  success = hilbert_modeq_gundlach_round(num1, num2, den,
-						 num1_acb, num2_acb, den_acb,
-						 ell, delta);
-	  if (!success)
+
+	  acb_poly_set(&num_acb_vec[0], num1_acb);
+	  acb_poly_set(&num_acb_vec[1], num2_acb);
+	  success = modeq_round(num_vec, den, num_acb_vec, den_acb, 2*n, 2);
+	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when recognizing integers\n");
 	    }
 	}      
       if (success)
 	{
-	  flint_printf("(hilbert_modeq_gundlach_eval_Q) Success at working precision %wd\n", prec);
-	  hilbert_modeq_gundlach_simplify(num1, num2, den, ell, delta);
+	  if (v) flint_printf("(hilbert_modeq_gundlach_eval_Q) Success at working precision %wd\n", prec);
+	  modeq_simplify(num_vec, den, 2*n, 2);
+	  fmpz_poly_set(num1, &num_vec[0]);
+	  fmpz_poly_set(num2, &num_vec[1]);
 	  stop = 1;
 	  res = 1;
 	}
       prec = hilbert_modeq_nextprec(prec);
-      if (!stop && prec > HILBERT_MAX_PREC)
+      if (!stop && prec > MODEQ_MAX_PREC)
 	{
-	  flint_printf("(hilbert_modeq_gundlach_eval_Q) Reached maximal allowed precision %wd, abandon.\n", HILBERT_MAX_PREC);
+	  flint_printf("(hilbert_modeq_gundlach_eval_Q) Reached maximal allowed precision %wd, abandon.\n", MODEQ_MAX_PREC);
 	  stop = 1;
 	  res = 0;
 	}

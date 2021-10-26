@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-void siegel_modeq_fmpz_input(fmpz_t den, fmpz* num, fmpq* j, slong len)
+void modeq_input_get_fmpz(fmpz_t den, fmpz* num, fmpq* j, slong len)
 {
   mpz_t n, d;
   fmpz_t aux, res;

@@ -9,7 +9,7 @@ void hilbert_modeq_nonsym_igusa_C(acb_poly_t pol1, acb_poly_t pol2,
   acb_ptr xi, yi;
   slong n = hilbert_nb_cosets(ell, delta);
   slong k;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   j1vec = _acb_vec_init(n);
   j2vec = _acb_vec_init(n);

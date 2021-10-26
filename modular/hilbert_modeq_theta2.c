@@ -12,7 +12,7 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
   slong k;
   slong n = hilbert_nb_cosets(ell, delta);
   int res = 1;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   acb_init(z1);
   acb_init(z2);
@@ -22,7 +22,7 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
   arb_init(tol);
 
   arb_one(tol);
-  arb_mul_2exp_si(tol, tol, -SIEGEL_RED_TOL_BITS);
+  arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
   for (k = 0; k < n; k++)
     {

@@ -10,7 +10,7 @@ int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol2,
   fmpz_poly_t num1, num2;
   fmpz_t den;
   fmpz_t one;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
   
   g_lift = _fmpq_vec_init(2);
   fmpz_poly_init(num1);

@@ -1,23 +1,24 @@
 
 #include "modular.h"
 
-void siegel_modeq_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
-			   const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx)
+void modeq_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
+		    const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx)
 {
   fmpz_mod_poly_factor_t fac;
   fmpz_mod_poly_t lin;
   fmpz_t num, den;
   slong k;
+  int v = MODEQ_VERBOSE;
 
   fmpz_mod_poly_factor_init(fac, ctx);
   fmpz_mod_poly_init(lin, ctx);
   fmpz_init(num);
   fmpz_init(den);
   
-  flint_printf("(siegel_modeq_roots_Fp) Finding roots...\n");
+  if (v) flint_printf("(modeq_roots_Fp) Finding roots...\n");
   fmpz_mod_poly_roots(fac, pol, 1, ctx);
   *nb_roots = fac->num;
-  flint_printf("(siegel_modeq_roots_Fp) Found %wd.\n", *nb_roots);
+  if (v) flint_printf("(siegel_modeq_roots_Fp) Found %wd.\n", *nb_roots);
 
   for (k = 0; k < *nb_roots; k++)
     {

@@ -17,7 +17,7 @@ slong siegel_modeq_height_fmpq(fmpq* j)
   fmpq_set(&j_mod[1], &j[1]);
   fmpq_set(&j_mod[2], &j[2]);
 
-  siegel_modeq_fmpz_input(den, num, j_mod, 3);
+  modeq_input_get_fmpz(den, num, j_mod, 3);
   h = fmpz_bits(den);
   for (k = 0; k < 3; k++)
     {

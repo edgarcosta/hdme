@@ -12,7 +12,7 @@ int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol
   fmpz_poly_t num1, num2, num3;
   fmpz_t den;
   fmpz_t one;
-  int v = HILBERT_VERBOSE;
+  int v = MODEQ_VERBOSE;
 
   rs_lift = _fmpq_vec_init(2);
   fmpz_poly_init(num1);
@@ -29,7 +29,7 @@ int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_t pol1, fmpz_mod_poly_t pol
   if (success)
     {
       success = fmpz_mod_divides(den, one, den, ctx);
-      if (v && !success)  flint_printf("(hilbert_modeq_sym_igusa_eval_Fp) Denominator reduces to zero in the finite field\n");
+      if (v && !success)  flint_printf("(hilbert_modeq_nonsym_igusa_eval_Fp) Denominator reduces to zero in the finite field\n");
     }
   if (success)
     {
