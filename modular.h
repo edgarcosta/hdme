@@ -165,6 +165,18 @@ void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
 				acb_srcptr I_vec_betabar, const acb_t scal,
 				slong ell, slong delta, slong prec);
 
+void hilbert_modeq_nonsym_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr stardets,
+					  slong ell, slong delta, slong prec);
+
+void hilbert_modeq_nonsym_gundlach_num(acb_poly_struct* num_vec_acb,
+				       acb_srcptr I_vec_beta,
+				       const acb_t scal,
+				       slong ell, slong delta, slong prec);
+
+void hilbert_modeq_nonsym_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
+				       const acb_t scal,
+				       slong ell, slong delta, slong prec);
+
 slong hilbert_modeq_startprec(fmpq* params, slong ell, slong len);
 
 slong hilbert_modeq_nextprec(slong current_prec);
@@ -182,7 +194,8 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 				  fmpz_t den, fmpq* g, slong ell, slong delta);
 
 int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
-					 fmpz_t den, fmpq* g, slong ell, slong delta);
+					 fmpz_t den, fmpq* mn, slong ell,
+					 const fmpz_poly_t beta, slong delta);
 
 int hilbert_modeq_igusa_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 				const fmpz* rs, slong ell, slong delta,
@@ -197,7 +210,8 @@ int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 				   slong delta, const fmpz_mod_ctx_t ctx);
 
 int hilbert_modeq_nonsym_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
-					  fmpq* g, slong ell, slong delta,
+					  fmpq* mn, slong ell,
+					  const fmpz_poly_t beta, slong delta,
 					  const fmpz_mod_ctx_t ctx);
 		   
 #endif 

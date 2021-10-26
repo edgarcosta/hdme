@@ -67,6 +67,8 @@ void gundlach_cov_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);
 
 void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec);
 
+void gundlach_from_hilbert_param(fmpq* g, const fmpq* mn, slong delta);
+
 void hilbert_halfspace_randtest(acb_t t1, acb_t t2, flint_rand_t state, slong prec);
 
 void hilbert_R(acb_mat_t R, slong delta, slong prec);
