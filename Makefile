@@ -6,7 +6,7 @@
 # CURDIR is where the source files lie
 # MYDIR is where the other libraries are installed. See also ARB_DIR, etc.
 
-CURDIR = /home/jean/code/modeq2
+CURDIR = /home/jean/code/hdme
 MYDIR = /home/jean/install
 
 PARITWINE_DIR = $(MYDIR)
@@ -39,7 +39,7 @@ GMP_LIBDIR = $(GMP_DIR)/lib
 SHELL = /bin/sh
 
 CC = gcc
-CFLAGS = -ansi -Wall -pedantic -Werror -g
+CFLAGS = -ansi -Wall -pedantic -Werror -g -DHDME_PATH=\"$(CURDIR)\"
 
 AR = ar
 ARFLAGS = -rcs
@@ -52,13 +52,13 @@ INCS = -I$(CURDIR) -I$(PARITWINE_INCDIR) -I$(ARB_INCDIR) -I$(FLINT_INCDIR) \
 LLIBS = -L$(PARITWINE_LIBDIR) -L$(ARB_LIBDIR) -L$(FLINT_LIBDIR) -L$(PARI_LIBDIR) \
 -L$(MPFR_INCDIR) -L$(GMP_LIBDIR)
 
-lDEPS = arb flint pari mpfr gmp pthread m # paritwine (at the beginning)
+lDEPS = arb flint mpfr gmp pthread m
 lLIBS = $(patsubst %, -l%, $(lDEPS))
 
 
 # Modules to be compiled
 
-MODULES = siegel hilbert pari isogeny acb_mat_extras theta igusa modular
+MODULES = hdme_data siegel theta igusa hilbert modular
 SOURCES = $(wildcard $(patsubst %, %/*.c, $(MODULES)))
 HEADERS = $(patsubst %, %.h, $(MODULES))
 OBJS = $(patsubst %.c, build/%.o, $(SOURCES))
@@ -92,12 +92,13 @@ timings: library $(TIMINGS)
 
 clean:
 	rm -rf build/
-	rm libsea2.a
+	rm libhdme.a
 
-library: libsea2.a
+library: libhdme.a
 
-libsea2.a: $(OBJS) $(SOURCES) $(HEADERS) | build
-	$(AR) $(ARFLAGS) libsea2.a $(OBJS)
+libhdme.a: $(OBJS) $(SOURCES) $(HEADERS) | build
+	@echo AR libhdme.a
+	@$(AR) $(ARFLAGS) libhdme.a $(OBJS)
 
 examples: library
 
@@ -108,7 +109,8 @@ build:
 	$(foreach mod, $(MODULES), build/time/$(mod)/time) 
 
 build/%.o: %.c $(HEADERS) | build
-	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	@echo CC $<
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 run/%: build/test/%
 	@$<
@@ -117,10 +119,12 @@ valgrind/%: build/test/%
 	$(VALGRIND) --leak-check=full --track-origins=yes $<
 
 build/test/%: %.c $(SOURCES) $(HEADERS) | build
-	$(CC) $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@echo CC $<
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 build/time/%: %.c $(SOURCES) $(HEADERS) | build
-	$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@echo CC $<
+	@$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'

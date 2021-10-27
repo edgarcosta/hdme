@@ -11,4 +11,3 @@
 *.png
 build/
 *.exe
-Makefile
