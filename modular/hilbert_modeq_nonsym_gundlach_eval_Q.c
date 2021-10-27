@@ -5,7 +5,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 					 fmpz_t den, fmpq* mn, slong ell,
 					 const fmpz_poly_t beta, slong delta)
 {
-  slong prec = hilbert_modeq_startprec(g, ell, 2);
+  slong prec;
   int stop = 0;
   int success = 1;
   int v = MODEQ_VERBOSE;
@@ -25,7 +25,6 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_ptr th2_vec;
   acb_ptr stardets;
   acb_ptr I_vec_beta;
-  acb_ptr I_vec_betabar;
   acb_t scal;
   acb_poly_struct num_vec_acb[2];
   acb_t den_acb;
@@ -54,6 +53,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   gundlach_from_hilbert_param(g, mn, 5);
   hilbert_modeq_gundlach_rescale(rescale, g, ell, delta); /* Some overkill here? */
   acb_set_fmpz(rescale_acb, rescale);
+  prec = hilbert_modeq_startprec(g, ell, 2)/2;
   
   while (!stop)
     {
@@ -78,7 +78,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 	  acb_mat_det(scal, star, prec);
 	  cov_rescale(I_tau, I_tau, scal, prec);
 	  success = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
-					      ell, delta, prec)
+					      ell, delta, prec);
 	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_nonsym_gundlach_eval_Q) Out of precision when computing theta constants\n");
@@ -98,6 +98,8 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 	    }	  
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
 	  success = modeq_round(num_vec, den, num_vec_acb, den_acb, n, 2);
+
+	  acb_printd(den_acb, 500); flint_printf("\n");
 	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_nonsym_gundlach_eval_Q) Out of precision when recognizing integers\n");
