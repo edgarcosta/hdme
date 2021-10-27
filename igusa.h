@@ -3,10 +3,12 @@
 #define IGUSA_H
 
 #include "ulong_extras.h"
+#include "fmpq_mpoly.h"
 #include "arb.h"
 #include "acb.h"
 #include "acb_poly.h"
 #include "acb_mat.h"
+#include "hdme_data.h"
 #include "siegel.h"
 #include "theta.h"
 
@@ -42,37 +44,9 @@ int igusa_is_defined(acb_srcptr j);
 
 /* Igusa covariants from curve coefficients */
 
-void igusa_I2_autogen(acb_t res, const acb_t a0, const acb_t a1,
-		      const  acb_t a2, const acb_t a3, const acb_t a4,
-		      const acb_t a5, const acb_t a6, slong prec);
+void curve_coeffs(acb_ptr ai, const acb_poly_t crv);
 
-void igusa_I4_autogen(acb_t res, const acb_t a0, const acb_t a1,
-		      const  acb_t a2, const acb_t a3, const acb_t a4,
-		      const acb_t a5, const acb_t a6, slong prec);
-
-void igusa_I6prime_autogen(acb_t res, const acb_t a0, const acb_t a1,
-			   const  acb_t a2, const acb_t a3, const acb_t a4,
-			   const acb_t a5, const acb_t a6, slong prec);
-
-void igusa_I10_autogen(acb_t res, const acb_t a0, const acb_t a1,
-		       const  acb_t a2, const acb_t a3, const acb_t a4,
-		       const acb_t a5, const acb_t a6, slong prec);
-
-void igusa_I2_fmpz(fmpz_t res, const fmpz_t a0, const fmpz_t a1,
-		   const  fmpz_t a2, const fmpz_t a3, const fmpz_t a4,
-		   const fmpz_t a5, const fmpz_t a6);
-
-void igusa_I4_fmpz(fmpz_t res, const fmpz_t a0, const fmpz_t a1,
-		   const  fmpz_t a2, const fmpz_t a3, const fmpz_t a4,
-		   const fmpz_t a5, const fmpz_t a6);
-
-void igusa_I6prime_fmpz(fmpz_t res, const fmpz_t a0, const fmpz_t a1,
-			const  fmpz_t a2, const fmpz_t a3, const fmpz_t a4,
-			const fmpz_t a5, const fmpz_t a6);
-
-void igusa_I10_fmpz(fmpz_t res, const fmpz_t a0, const fmpz_t a1,
-		    const  fmpz_t a2, const fmpz_t a3, const fmpz_t a4,
-		    const fmpz_t a5, const fmpz_t a6);
+void curve_coeffs_fmpz(fmpz* ai, const fmpz_poly_t crv);
 
 void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec);
 
@@ -88,14 +62,19 @@ void igusa_from_curve(acb_ptr j, const acb_poly_t crv, slong prec);
 
 void igusa_from_curve_fmpz(fmpq* j, const fmpz_poly_t crv);
 
+
 /* Different covariants: I6, and Clebsch */
 
 void igusa_I6(acb_t I6, acb_srcptr I, slong prec);
 
 void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec);
 
-void igusa_R2_autogen(acb_t res, const acb_t I2, const acb_t I4, const acb_t I6,
-		      const acb_t I10, slong prec);
+void igusa_R2(acb_t res, acb_srcptr I, slong prec);
+
+
+void
+igusa_R2_autogen(acb_t res, const acb_t I2, const acb_t I4, const acb_t I6,
+                 const acb_t I10, slong prec);
 
 /* Mestre's algorithm */
 

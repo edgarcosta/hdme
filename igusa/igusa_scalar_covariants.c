@@ -3,39 +3,41 @@
 
 void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
 {
-  /* Support weird aliasing */
+  acb_ptr ai;
+  fmpq_mpoly_t pol;
+  fmpq_mpoly_ctx_t ctx;
+  char** vars;
   acb_ptr res;
-  acb_t a0, a1, a2, a3, a4, a5, a6;
+  
+  ai = _acb_vec_init(6);
+  fmpq_mpoly_ctx_init(ctx, 6, ORD_LEX);
+  fmpq_mpoly_init(pol, ctx);
+  vars = hdme_data_vars_init(6);
   res = _acb_vec_init(4);
 
-  acb_init(a0);
-  acb_init(a1);
-  acb_init(a2);
-  acb_init(a3);
-  acb_init(a4);
-  acb_init(a5);
-  acb_init(a6);
+  hdme_data_vars_set(vars, "a", 0);
+  hdme_data_vars_set(vars, "b", 1);
+  hdme_data_vars_set(vars, "c", 2);
+  hdme_data_vars_set(vars, "d", 3);
+  hdme_data_vars_set(vars, "e", 4);
+  hdme_data_vars_set(vars, "f", 5);
 
-  acb_poly_get_coeff_acb(a0, crv, 0);
-  acb_poly_get_coeff_acb(a1, crv, 1);
-  acb_poly_get_coeff_acb(a2, crv, 2);
-  acb_poly_get_coeff_acb(a3, crv, 3);
-  acb_poly_get_coeff_acb(a4, crv, 4);
-  acb_poly_get_coeff_acb(a5, crv, 5);
-  acb_poly_get_coeff_acb(a6, crv, 6);
+  curve_coeffs(ai, crv);
 
-  igusa_I2_autogen(&res[0], a0, a1, a2, a3, a4, a5, a6, prec);
-  igusa_I4_autogen(&res[1], a0, a1, a2, a3, a4, a5, a6, prec);
-  igusa_I6prime_autogen(&res[2], a0, a1, a2, a3, a4, a5, a6, prec);
-  igusa_I10_autogen(&res[3], a0, a1, a2, a3, a4, a5, a6, prec);
+  hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
+  hdme_data_evaluate_acb(&res[0], pol, ai, ctx, prec);
+  hdme_data_read(pol, (const char**) vars, "igusa/I4", ctx);
+  hdme_data_evaluate_acb(&res[1], pol, ai, ctx, prec);
+  hdme_data_read(pol, (const char**) vars, "igusa/I6prime", ctx);
+  hdme_data_evaluate_acb(&res[2], pol, ai, ctx, prec);
+  hdme_data_read(pol, (const char**) vars, "igusa/I10", ctx);
+  hdme_data_evaluate_acb(&res[3], pol, ai, ctx, prec);
+
   _acb_vec_set(I, res, 4);
-  
-  _acb_vec_clear(res, 4);
-  acb_clear(a0);
-  acb_clear(a1);
-  acb_clear(a2);
-  acb_clear(a3);
-  acb_clear(a4);
-  acb_clear(a5);
-  acb_clear(a6);
+
+  _acb_vec_clear(ai, 6);
+  fmpq_mpoly_clear(pol, ctx);
+  fmpq_mpoly_ctx_clear(ctx);
+  hdme_data_vars_clear(vars, 6);
+  _acb_vec_clear(res, 4);  
 }

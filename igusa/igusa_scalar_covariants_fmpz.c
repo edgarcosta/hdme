@@ -2,40 +2,61 @@
 #include "igusa.h"
 
 void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv)
-{
-  /* Support weird aliasing */
+{  
+  fmpz* ai;
+  fmpq* ai_fmpq;
+  fmpz_t one;
+  fmpq_t ev;
+  slong k;
+  
+  fmpq_mpoly_t pol;
+  fmpq_mpoly_ctx_t ctx;
+  char** vars;
   fmpz* res;
-  fmpz_t a0, a1, a2, a3, a4, a5, a6;
+  
+  ai = _fmpz_vec_init(6);
+  ai_fmpq = _fmpq_vec_init(6);
+  fmpz_init(one);
+  fmpq_init(ev);
+  fmpq_mpoly_ctx_init(ctx, 6, ORD_LEX);
+  fmpq_mpoly_init(pol, ctx);
+  vars = hdme_data_vars_init(6);
   res = _fmpz_vec_init(4);
 
-  fmpz_init(a0);
-  fmpz_init(a1);
-  fmpz_init(a2);
-  fmpz_init(a3);
-  fmpz_init(a4);
-  fmpz_init(a5);
-  fmpz_init(a6);
+  hdme_data_vars_set(vars, "a", 0);
+  hdme_data_vars_set(vars, "b", 1);
+  hdme_data_vars_set(vars, "c", 2);
+  hdme_data_vars_set(vars, "d", 3);
+  hdme_data_vars_set(vars, "e", 4);
+  hdme_data_vars_set(vars, "f", 5);
 
-  fmpz_poly_get_coeff_fmpz(a0, crv, 0);
-  fmpz_poly_get_coeff_fmpz(a1, crv, 1);
-  fmpz_poly_get_coeff_fmpz(a2, crv, 2);
-  fmpz_poly_get_coeff_fmpz(a3, crv, 3);
-  fmpz_poly_get_coeff_fmpz(a4, crv, 4);
-  fmpz_poly_get_coeff_fmpz(a5, crv, 5);
-  fmpz_poly_get_coeff_fmpz(a6, crv, 6);
+  curve_coeffs_fmpz(ai, crv);
+  for (k = 0; k < 7; k++)
+    {
+      fmpq_set_fmpz_frac(&ai_fmpq[k], &ai[k], one);
+    }
 
-  igusa_I2_fmpz(&res[0], a0, a1, a2, a3, a4, a5, a6);
-  igusa_I4_fmpz(&res[1], a0, a1, a2, a3, a4, a5, a6);
-  igusa_I6prime_fmpz(&res[2], a0, a1, a2, a3, a4, a5, a6);
-  igusa_I10_fmpz(&res[3], a0, a1, a2, a3, a4, a5, a6);
+  hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
+  fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
+  fmpq_numerator(&res[0], ev);
+  hdme_data_read(pol, (const char**) vars, "igusa/I4", ctx);
+  fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
+  fmpq_numerator(&res[1], ev);
+  hdme_data_read(pol, (const char**) vars, "igusa/I6prime", ctx);
+  fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
+  fmpq_numerator(&res[2], ev);
+  hdme_data_read(pol, (const char**) vars, "igusa/I10", ctx);
+  fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
+  fmpq_numerator(&res[3], ev);
+
   _fmpz_vec_set(I, res, 4);
-  
-  _fmpz_vec_clear(res, 4);
-  fmpz_clear(a0);
-  fmpz_clear(a1);
-  fmpz_clear(a2);
-  fmpz_clear(a3);
-  fmpz_clear(a4);
-  fmpz_clear(a5);
-  fmpz_clear(a6);
+
+  _fmpz_vec_clear(ai, 6);
+  _fmpq_vec_clear(ai_fmpq, 6);
+  fmpz_clear(one);
+  fmpq_clear(ev);
+  fmpq_mpoly_clear(pol, ctx);
+  fmpq_mpoly_ctx_clear(ctx);
+  hdme_data_vars_clear(vars, 6);
+  _fmpz_vec_clear(res, 4);  
 }
