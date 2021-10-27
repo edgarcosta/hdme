@@ -18,6 +18,7 @@
 #define THETA_NEWTON_Y2MAX 10
 #define THETA_NEWTON_TOL_EXP -5
 #define BORCHARDT_ARG_GAP_EXP -20
+#define THETA_DER_LOSS 25
 
 #define BORCHARDT_VERBOSE 0
 #define THETA_VERBOSE 0
@@ -90,7 +91,9 @@ int theta_0123half_inverse_diff(acb_mat_t dtau, const acb_mat_t tau, acb_srcptr 
 				slong prec);
 
 int theta2_newton_step(acb_ptr th_half, const acb_mat_t tau, acb_srcptr th_half_approx,
-		      slong prec);
+		       slong prec);
+
+slong theta2_newton_start_prec(slong prec);
 
 int theta2_newton(acb_ptr th2, const acb_mat_t tau, slong prec);
 
@@ -117,5 +120,27 @@ int theta2_renormalize(acb_ptr th2, acb_srcptr th2_proj, slong prec);
 /* Testing */
 
 void theta2_randtest(acb_ptr theta2, flint_rand_t state, slong prec);
+
+/* Derivatives */
+
+void theta_der_set_pert(arb_t eps, slong prec);
+
+int theta_der_set_error(mag_t error, const acb_mat_t tau, slong prec);
+
+int theta2_der_naive(acb_ptr th2_tau, acb_mat_t dth2_tau,
+		      const acb_mat_t tau, slong prec);
+
+int theta_0123_der_naive(acb_ptr th, acb_mat_t dth,
+			 const acb_mat_t tau, slong prec);
+
+void theta_der_duplication(acb_ptr th2_2tau, acb_mat_t dth2_2tau,
+			   acb_srcptr th_tau, const acb_mat_t dth_tau,
+			   slong prec);
+
+int theta2_der_newton_step(acb_ptr th_half, acb_mat_t dth_approx,
+			   const acb_mat_t tau, acb_srcptr th_half_approx,
+			   slong prec);
+
+int theta2_der_newton(acb_ptr th2, acb_mat_t dth2, const acb_mat_t tau, slong prec);
 
 #endif

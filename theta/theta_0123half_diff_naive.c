@@ -85,7 +85,7 @@ int theta_0123half_diff_naive(acb_mat_t dth, const acb_mat_t tau, slong prec)
     }
 
   /* Add heuristic error */
-  mag_set_ui_2exp_si(err, 1, eps_exp+25);
+  mag_set_ui_2exp_si(err, 1, eps_exp + THETA_DER_LOSS);
   acb_mat_add_error_mag(dth, err);
   
   acb_mat_clear(tau_half);
