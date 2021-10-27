@@ -50,13 +50,13 @@ void igusa_from_gundlach(acb_ptr j, acb_srcptr g, slong delta, slong prec)
   acb_set(&vals[2], f10);
   
   gundlach_get_mpoly(pol, (const char**) vars, "I4", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(&h[0], pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(&h[0], pol, vals, ctx, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "I6", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(&h[1], pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(&h[1], pol, vals, ctx, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "I10", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(&h[2], pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(&h[2], pol, vals, ctx, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "I12", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(&h[3], pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(&h[3], pol, vals, ctx, prec);
   
   /* Set output */
   cov_from_h(h, h, prec);

@@ -51,14 +51,14 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_set(&vals[1], j2);
   acb_set(&vals[2], j3);
   gundlach_get_mpoly(pol, (const char**) vars, "Qnum", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(g2, pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(g2, pol, vals, ctx, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "Qden", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(den, pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(den, pol, vals, ctx, prec);
   acb_div(g2, g2, den, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "J1num", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(g1, pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(g1, pol, vals, ctx, prec);
   gundlach_get_mpoly(pol, (const char**) vars, "J1den", delta, ctx);
-  fmpq_mpoly_evaluate_all_acb(den, pol, vals, ctx, prec);
+  hdme_data_evaluate_acb(den, pol, vals, ctx, prec);
   acb_div(g1, g1, den, prec);
   acb_mul(g2, g2, g1, prec);  
 

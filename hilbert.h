@@ -11,14 +11,10 @@
 #include "acb.h"
 #include "acb_poly.h"
 #include "acb_mat.h"
+#include "hdme_data.h"
 #include "siegel.h"
 #include "theta.h"
 #include "igusa.h"
-
-#define HILBERT_MAX_STRLEN 4096
-#define HUMBERT_DATA_PATH HDME_PATH"/data/humbert"
-#define HILBERT_DATA_PATH HDME_PATH"/data/hilbert"
-#define GUNDLACH_DATA_PATH HDME_PATH"/data/gundlach"
 
 int hilbert_is_fundamental(slong delta);
 
@@ -29,6 +25,15 @@ int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta);
 void hilbert_conjugate(fmpz_poly_t xbar, fmpz_poly_t x, slong delta);
 
 void humbert_vars_set(char** vars, slong delta);
+
+void humbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
+		       slong delta, const fmpq_mpoly_ctx_t ctx);
+
+void gundlach_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
+			slong delta, const fmpq_mpoly_ctx_t ctx);
+  
+void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
+		       slong delta, const fmpq_mpoly_ctx_t ctx);
 
 void humbert_AA1BB1B2(acb_ptr AA1BB1B2, const acb_t r, const acb_t s, slong delta,
 		      slong prec);
