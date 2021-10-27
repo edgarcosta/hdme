@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 void
 acb_mat_set_arb_arb(acb_mat_t z, const arb_mat_t re, const arb_mat_t im)

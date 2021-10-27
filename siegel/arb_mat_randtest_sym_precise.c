@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 void
 arb_mat_randtest_sym_precise(arb_mat_t r, flint_rand_t state, slong prec, slong mag_bits)

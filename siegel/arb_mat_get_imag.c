@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 void
 acb_mat_get_imag(arb_mat_t re, const acb_mat_t z)

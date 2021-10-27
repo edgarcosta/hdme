@@ -7,7 +7,6 @@
 #include "arb.h"
 #include "acb.h"
 #include "acb_mat.h"
-#include "acb_mat_extras.h"
 #include "siegel.h"
 
 #define THETA_NEWTON_MINPREC 100

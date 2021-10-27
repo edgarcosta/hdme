@@ -11,7 +11,6 @@
 #include "acb.h"
 #include "acb_poly.h"
 #include "acb_mat.h"
-#include "acb_mat_extras.h"
 #include "siegel.h"
 #include "theta.h"
 #include "igusa.h"

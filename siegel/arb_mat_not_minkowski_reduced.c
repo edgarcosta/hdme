@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 static int
 not_minkowski_reduced_g2(const arb_mat_t r, slong prec)

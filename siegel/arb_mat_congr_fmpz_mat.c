@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 void
 arb_mat_congr_fmpz_mat(arb_mat_t r, const fmpz_mat_t u, const arb_mat_t m, slong prec)

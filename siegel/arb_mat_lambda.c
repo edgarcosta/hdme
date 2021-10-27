@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 static void
 arb_mat_lambda_g2(arb_t lambda, const arb_mat_t m, slong prec)
