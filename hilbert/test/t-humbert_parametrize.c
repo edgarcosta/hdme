@@ -21,7 +21,7 @@ int main()
       acb_mat_t tau;
       sp2gz_t eta;
       slong rs_bits = 5 + n_randint(state, 10);
-      slong prec = 1000 + n_randint(state, 1000);
+      slong prec = 500;
       slong k;
       int res;
       slong delta_max = 100;
