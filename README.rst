@@ -3,7 +3,8 @@ Description
 
 This repository contains a C library for evaluating higher-dimensional
 modular equations by analytic methods. As it stands now, only a few
-types of modular equations in genus g=2 are supported:
+types of modular equations in genus g=2 are supported, either over the
+rationals or prime finite fields:
 
 - Modular equations of Siegel type in Igusa invariants;
 
@@ -54,3 +55,8 @@ implementation of Mestre's algorithm.
 
 The various parametrizations of Hilbert and Humbert surfaces used here
 appear in the paper `[EK14]`_ by Noam D. Elkies and Abhinav Kumar.
+
+.. _[K21]: https://arxiv.org/abs/2010.10094
+.. _Flint: https://flintlib.org
+.. _Arb: https://arblib.org
+.. _[EK14]: https://arxiv.org/abs/1209.3527
