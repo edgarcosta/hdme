@@ -15,9 +15,9 @@ int main()
     {
       slong delta;
       fmpq* rs;
-      acb_t r_acb, s_acb;
+      acb_ptr rs_acb;
       acb_ptr I, j, j_test;
-      acb_t t1, t2;
+      acb_ptr t;
       acb_mat_t tau;
       fmpz_mat_t eta;
       slong rs_bits = 5 + n_randint(state, 10);
@@ -28,13 +28,11 @@ int main()
       int v = 0;
       
       rs = _fmpq_vec_init(2);
-      acb_init(r_acb);
-      acb_init(s_acb);
+      rs_acb = _acb_vec_init(2);
       I = _acb_vec_init(4);
       j = _acb_vec_init(3);
       j_test = _acb_vec_init(3);
-      acb_init(t1);
-      acb_init(t2);
+      t = _acb_vec_init(2);
       acb_mat_init(tau, 2, 2);
       fmpz_mat_init(eta, 4, 4);
       
@@ -52,9 +50,9 @@ int main()
 		  fmpq_print(&rs[0]); flint_printf("\n");
 		  fmpq_print(&rs[1]); flint_printf("\n");
 		}
-	      acb_set_fmpq(r_acb, &rs[0], prec);
-	      acb_set_fmpq(s_acb, &rs[1], prec);
-	      humbert_parametrize(I, r_acb, s_acb, delta, prec);
+	      acb_set_fmpq(&rs_acb[0], &rs[0], prec);
+	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
+	      humbert_parametrize(I, rs_acb, delta, prec);
 	      res = tau_from_igusa(tau, I, prec);
 	      igusa_from_cov(j, I, prec);
 
@@ -73,7 +71,7 @@ int main()
 		  flint_abort();
 		}
 
-	      res = hilbert_inverse(t1, t2, eta, tau, delta, prec);
+	      res = hilbert_inverse(t, eta, tau, delta, prec);
 	      
 	      if (!res)
 		{
@@ -86,7 +84,7 @@ int main()
 		  flint_abort();
 		}
 
-	      hilbert_map(tau, t1, t2, delta, prec);
+	      hilbert_map(tau, t, delta, prec);
 	      igusa_from_tau(j_test, tau, prec);
 
 	      for (k = 0; k < 2; k++)
@@ -108,11 +106,11 @@ int main()
 	}
 
       _fmpq_vec_clear(rs, 2);
-      acb_clear(r_acb);
-      acb_clear(s_acb);
+      _acb_vec_clear(rs_acb, 2);
       _acb_vec_clear(I, 4);
       _acb_vec_clear(j, 3);
       _acb_vec_clear(j_test, 3);
+      _acb_vec_clear(t, 2);
       fmpz_mat_clear(eta);
     }
 

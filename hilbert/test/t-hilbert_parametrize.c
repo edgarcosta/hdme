@@ -16,7 +16,7 @@ int main()
     {
       slong delta;
       fmpq* rs;
-      acb_t r_acb, s_acb;
+      acb_ptr rs_acb;
       acb_ptr I;
       
       slong rs_bits = 5 + n_randint(state, 10);
@@ -25,8 +25,7 @@ int main()
       slong k;
 
       rs = _fmpq_vec_init(2);
-      acb_init(r_acb);
-      acb_init(s_acb);
+      rs_acb = _acb_vec_init(2);
       I = _acb_vec_init(4);
 	
       for (delta = 5; delta < delta_max; delta++)
@@ -37,15 +36,14 @@ int main()
 		{
 		  fmpq_randbits(&rs[k], state, rs_bits);
 		}
-	      acb_set_fmpq(r_acb, &rs[0], prec);
-	      acb_set_fmpq(s_acb, &rs[1], prec);
-	      hilbert_parametrize(I, r_acb, s_acb, delta, prec);
+	      acb_set_fmpq(&rs_acb[0], &rs[0], prec);
+	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
+	      hilbert_parametrize(I, rs_acb, delta, prec);
 	    }
 	}
 
       _fmpq_vec_clear(rs, 2);
-      acb_clear(r_acb);
-      acb_clear(s_acb);
+      _acb_vec_clear(rs_acb, 2);
       _acb_vec_clear(I, 4);      
     }
 

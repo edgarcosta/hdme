@@ -18,7 +18,7 @@ int main()
       fmpq* mn;
       fmpq* g;
       slong mn_bits = 1 + n_randint(state, 10);
-      acb_t r, s;
+      acb_ptr rs;
       acb_ptr I;
       acb_ptr g_acb;
       acb_ptr j;
@@ -28,8 +28,7 @@ int main()
 
       mn = _fmpq_vec_init(2);
       g = _fmpq_vec_init(2);
-      acb_init(r);
-      acb_init(s);
+      rs = _acb_vec_init(2);
       I = _acb_vec_init(4);
       g_acb = _acb_vec_init(2);
       j = _acb_vec_init(3);
@@ -40,9 +39,9 @@ int main()
       for (k = 0; k < 2; k++) acb_set_fmpq(&g_acb[k], &g[k], prec);
       igusa_from_gundlach(j, g_acb, delta, prec);
       
-      acb_set_fmpq(r, &mn[0], prec);
-      acb_set_fmpq(s, &mn[1], prec);
-      hilbert_parametrize(I, r, s, delta, prec);
+      acb_set_fmpq(&rs[0], &mn[0], prec);
+      acb_set_fmpq(&rs[1], &mn[1], prec);
+      hilbert_parametrize(I, rs, delta, prec);
       igusa_from_cov(j_test, I, prec);
 
       for (k = 0; k < 3; k++)
@@ -63,8 +62,7 @@ int main()
       
       _fmpq_vec_clear(mn, 2);
       _fmpq_vec_clear(g, 2);
-      acb_clear(r);
-      acb_clear(s);
+      _acb_vec_clear(rs, 2);
       _acb_vec_clear(I, 4);
       _acb_vec_clear(g_acb, 2);
       _acb_vec_clear(j, 3);

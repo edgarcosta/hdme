@@ -1,7 +1,7 @@
 
 #include "hilbert.h"
 
-void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
+void humbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta,
 			 slong prec)
 {
   acb_ptr AA1BB1B2;
@@ -10,7 +10,7 @@ void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
   AA1BB1B2 = _acb_vec_init(5);
   acb_init(temp);
 
-  humbert_AA1BB1B2(AA1BB1B2, r, s, delta, prec);
+  humbert_AA1BB1B2(AA1BB1B2, rs, delta, prec);
   if (delta == 33)
     {
       _acb_vec_set(I, AA1BB1B2, 4);

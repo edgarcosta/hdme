@@ -12,7 +12,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   slong exp = prec/2;
   slong k, l, m;
   int res;
-  int verbose = 0;
+  int verbose = HILBERT_LLL_VERBOSE;
 
   fmpz_lll_context_init_default(fl);
   fmpz_mat_init(B, 7, 5);
@@ -78,10 +78,16 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
     }
   
   fmpz_mat_transpose(Bt, B);
-  flint_printf("(hilbert_linear_combination) Start LLL at precision %wd...", exp);
+  if (verbose)
+    {
+      flint_printf("(hilbert_linear_combination) Start LLL at precision %wd...", exp);
+    }
   fflush(stdout);
   fmpz_lll(Bt, U, fl);
-  flint_printf(" done.\n"); fflush(stdout);
+  if (verbose)
+    {
+      flint_printf(" done.\n"); fflush(stdout);
+    }
   fmpz_mat_transpose(B, Bt);
 
   if (verbose)

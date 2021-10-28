@@ -20,7 +20,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_mat_t tau;
   fmpz_mat_t eta;
   acb_mat_t star;
-  acb_t t1, t2;
+  acb_ptr t;
   acb_ptr th2_vec;
   acb_ptr stardets;
   acb_ptr I_vec_beta;
@@ -40,8 +40,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_mat_init(tau, 2, 2);
   fmpz_mat_init(eta, 4, 4);
   acb_mat_init(star, 2, 2);
-  acb_init(t1);
-  acb_init(t2);
+  t = _acb_vec_init(2);
   th2_vec = _acb_vec_init(2*16*n);
   stardets = _acb_vec_init(2*n);
   I_vec_beta = _acb_vec_init(4*n);
@@ -76,7 +75,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
       if (v && !success) flint_printf("(hilbert_modeq_gundlach_eval_Q) Out of precision when computing tau\n");
       if (success)
 	{
-	  success = hilbert_inverse(t1, t2, eta, tau, delta, prec);
+	  success = hilbert_inverse(t, eta, tau, delta, prec);
 	  if (v && !success) flint_printf("(hilbert_modeq_sym_igusa_eval_Q) Out of precision during inversion of Hilbert embedding\n");
 	}      
       if (success)
@@ -86,9 +85,9 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 	  siegel_star(star, eta, tau, prec);
 	  acb_mat_det(scal, star, prec);
 	  cov_rescale(I_tau, I_tau, scal, prec);
-	  success = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
+	  success = hilbert_modeq_theta2_star(th2_vec, stardets, t, beta,
 					      ell, delta, prec)
-	    && hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
+	    && hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t, betabar,
 					 ell, delta, prec);	  
 	  if (v && !success)
 	    {
@@ -140,8 +139,7 @@ int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_mat_clear(tau);
   fmpz_mat_clear(eta);
   acb_mat_clear(star);
-  acb_clear(t1);
-  acb_clear(t2);
+  _acb_vec_clear(t, 2);
   _acb_vec_clear(th2_vec, 2*16*n);
   _acb_vec_clear(stardets, 2*n);
   _acb_vec_clear(I_vec_beta, 4*n);

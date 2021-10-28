@@ -15,7 +15,7 @@ int main()
     {
       slong delta = 5;
       acb_ptr j, g, G, I, test;
-      acb_t r, s;
+      acb_ptr rs;
       slong prec = 100 + n_randint(state, 500);
       slong mag_bits = 1 + n_randint(state, 5);      
       slong k;
@@ -26,13 +26,12 @@ int main()
       G = _acb_vec_init(3);
       I = _acb_vec_init(4);
       test = _acb_vec_init(4);
-      acb_init(r);
-      acb_init(s);
+      rs = _acb_vec_init(2);
 
       /* I (from humbert_parametrize) -> j -> g -> j */
-      acb_randtest_precise(r, state, prec, mag_bits);
-      acb_randtest_precise(s, state, prec, mag_bits);
-      humbert_parametrize(I, r, s, delta, prec);
+      acb_randtest_precise(&rs[0], state, prec, mag_bits);
+      acb_randtest_precise(&rs[1], state, prec, mag_bits);
+      humbert_parametrize(I, rs, delta, prec);
       
       gundlach_cov_from_igusa(G, I, delta, prec);
       gundlach_from_cov(g, G, delta, prec);
@@ -79,8 +78,7 @@ int main()
       _acb_vec_clear(I, 4);
       _acb_vec_clear(G, 3);
       _acb_vec_clear(test, 4);
-      acb_clear(r);
-      acb_clear(s);      
+      _acb_vec_clear(rs, 2);
     }
   
   flint_randclear(state);

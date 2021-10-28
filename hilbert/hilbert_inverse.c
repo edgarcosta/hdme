@@ -479,7 +479,7 @@ hilbert_bw_M5(fmpz_mat_t m, fmpz* abcde)
   fmpz_mat_clear(M5);
 }
 
-int hilbert_inverse(acb_t t1, acb_t t2, fmpz_mat_t eta, const acb_mat_t tau,
+int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
 		    slong delta, slong prec)
 {
   fmpz* abcde;
@@ -525,8 +525,8 @@ int hilbert_inverse(acb_t t1, acb_t t2, fmpz_mat_t eta, const acb_mat_t tau,
     }
   if (res)
     {
-      acb_set(t1, acb_mat_entry(im, 0, 0));
-      acb_set(t2, acb_mat_entry(im, 1, 1));
+      acb_set(&t[0], acb_mat_entry(im, 0, 0));
+      acb_set(&t[1], acb_mat_entry(im, 1, 1));
     }  
   
   _fmpz_vec_clear(abcde, 5);

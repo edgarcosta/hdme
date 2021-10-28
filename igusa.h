@@ -1,3 +1,12 @@
+/*
+    Copyright (C) 2021 Jean Kieffer
+
+    This file is part of the hdme library.
+
+    hdme is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License (GPL v3). See
+    LICENCE or <http://www.gnu.org/licenses/> for more details.
+*/
 
 #ifndef IGUSA_H
 #define IGUSA_H
@@ -14,7 +23,7 @@
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
-#define THOMAE_VERBOSE 1
+#define THOMAE_VERBOSE 0
 
 
 /* Igusa invariants from theta constants */

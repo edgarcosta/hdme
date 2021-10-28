@@ -13,7 +13,7 @@ int main()
 
   for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
-      acb_t t1, t2;
+      acb_ptr t;
       fmpz_poly_mat_t m;
       slong ell = 11;
       fmpz_poly_t beta;
@@ -33,9 +33,7 @@ int main()
       acb_t den, den_test;
       acb_t star;
       
-
-      acb_init(t1);
-      acb_init(t2);
+      t = _acb_vec_init(2);
       fmpz_poly_mat_init(m, 2, 2);
       fmpz_poly_init(beta);
       fmpz_poly_init(betabar);
@@ -50,13 +48,13 @@ int main()
 
       hilbert_splits(beta, ell, delta);
       hilbert_conjugate(betabar, beta, delta);
-      hilbert_halfspace_randtest(t1, t2, state, prec);
+      hilbert_halfspace_randtest(t, state, prec);
       hilbert_transform_randtest(m, state, m_bits);
 
       /* Denominator should be a modular form */
-      res = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
+      res = hilbert_modeq_theta2_star(th2_vec, stardets, t, beta,
 				      ell, delta, prec)
-	&& hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
+	&& hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t, betabar,
 				     ell, delta, prec);
       if (!res)
 	{
@@ -75,15 +73,15 @@ int main()
 	}      
       hilbert_modeq_gundlach_den(den, I_vec, &I_vec[4*n], scal, ell, delta, prec);
             
-      hilbert_star(star, m, t1, t2, delta, prec);
+      hilbert_star(star, m, t, delta, prec);
       acb_pow_ui(star, star, 2*10*n, prec);
       acb_mul(den, den, star, prec);
       
       /* Now compare with value at m*(t1,t2) */
-      hilbert_transform(t1, t2, m, t1, t2, delta, prec);
-      res = hilbert_modeq_theta2_star(th2_vec, stardets, t1, t2, beta,
+      hilbert_transform(t, m, t, delta, prec);
+      res = hilbert_modeq_theta2_star(th2_vec, stardets, t, beta,
 				      ell, delta, prec)
-	&& hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t1, t2, betabar,
+	&& hilbert_modeq_theta2_star(&th2_vec[16*n], &stardets[n], t, betabar,
 				     ell, delta, prec);
       if (!res)
 	{
@@ -110,9 +108,8 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
-      acb_clear(t1);
-      acb_clear(t2);
+
+      _acb_vec_clear(t, 2);
       fmpz_poly_mat_clear(m);
       fmpz_poly_clear(beta);
       fmpz_poly_clear(betabar);

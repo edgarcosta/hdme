@@ -2,10 +2,10 @@
 #include "modular.h"
 
 int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
-			      const acb_t t1, const acb_t t2,
+			      acb_srcptr t,
 			      const fmpz_poly_t beta, slong ell, slong delta, slong prec)
-{ 
-  acb_t z1, z2;
+{
+  acb_ptr z;
   acb_mat_t im;
   acb_mat_t red;
   acb_mat_t star;
@@ -18,8 +18,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   int res = 1;
   int v = MODEQ_VERBOSE;
 
-  acb_init(z1);
-  acb_init(z2);
+  z = _acb_vec_init(2);
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
   acb_mat_init(star, 2, 2);
@@ -41,9 +40,9 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	{
 	  hilbert_coset(m, k, ell, delta);
 	  /* fmpz_poly_mat_print(m, "x"); */
-	  hilbert_transform(z1, z2, m, t1, t2, delta, prec);
-	  hilbert_scalar_div(z1, z2, beta, z1, z2, delta, prec);
-	  hilbert_map(im, z1, z2, delta, prec);
+	  hilbert_transform(z, m, t, delta, prec);
+	  hilbert_scalar_div(z, beta, z, delta, prec);
+	  hilbert_map(im, z, delta, prec);
 	  if (v)
 	    {
 	      flint_printf("(hilbert_modeq_theta2_star) Reduction... ");
@@ -56,7 +55,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	{
 	  siegel_star(star, eta, im, prec);
 	  acb_mat_det(&stardets[k], star, prec);
-	  hilbert_star(hstar, m, t1, t2, delta, prec);
+	  hilbert_star(hstar, m, t, delta, prec);
 	  acb_mul(&stardets[k], &stardets[k], hstar, prec);
 	  res = theta2_unif(&th2_vec[16*k], red, prec);
 	}
@@ -68,8 +67,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	}
     }
 
-  acb_clear(z1);
-  acb_clear(z2);
+  _acb_vec_clear(z, 2);
   acb_mat_clear(im);
   acb_mat_clear(red);
   acb_mat_clear(star);
