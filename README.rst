@@ -42,7 +42,9 @@ Makefile also responds to the standard commands::
 Documentation
 =============
 
-See the `doc` folder for the documentation of the individual modules.
+See the `doc` folder for the documentation of the individual
+modules. For examples of usage, look at the test files in the `test`
+subfolder of each module.
 
 Credits
 =======
@@ -53,7 +55,7 @@ Credits
 - The code written by `Enea Milio`_ has been useful in the
   implementation of Mestre's algorithm and to implement the inversion
   of the Hilbert embedding.
-
+  
 .. _[K21]: https://arxiv.org/abs/2010.10094
 .. _Flint: https://flintlib.org
 .. _Arb: https://arblib.org
