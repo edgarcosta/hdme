@@ -139,9 +139,6 @@ print-%:
 plots:
 	python $(TIMEDIR)/make_plots.py
 
-gp2c:
-	sage $(CURDIR)/gp2c/gp_poly_to_acb.sage
-
-.PHONY: all check clean tests library examples build valgrind gp2c
+.PHONY: all check clean tests library examples build valgrind
 
 .PRECIOUS: Makefile
