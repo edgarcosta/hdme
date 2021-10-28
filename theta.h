@@ -22,6 +22,9 @@
 #define BORCHARDT_VERBOSE 0
 #define THETA_VERBOSE 0
 
+
+/* Borchardt means */
+
 int acb_sqrt_goodpos(acb_t r, const acb_t z, slong prec);
 
 void borchardt_sqrt(acb_t r, const acb_t z, slong prec);
@@ -48,6 +51,9 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec);
 
 int borchardt_mean_invalid(acb_srcptr a, slong prec);
 
+
+/* Theta characteristics */
+
 ulong theta_char_get_a(ulong ch, slong g);
 
 ulong theta_char_get_b(ulong ch, slong g);
@@ -65,6 +71,9 @@ ulong theta_char_set_label_g2(slong label);
 int theta_char_is_goepel(ulong ch1, ulong ch2, ulong ch3, ulong ch4, slong g);
 
 int theta_char_is_syzygous(ulong ch1, ulong ch2, ulong ch3, slong g);
+
+
+/* Theta constants */
 
 void theta_duplication(acb_ptr th2_2tau, acb_srcptr th_tau, slong prec);
 
@@ -116,11 +125,10 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec);
 
 int theta2_renormalize(acb_ptr th2, acb_srcptr th2_proj, slong prec);
 
-/* Testing */
-
 void theta2_randtest(acb_ptr theta2, flint_rand_t state, slong prec);
 
-/* Derivatives */
+
+/* Derivatives of theta constants */
 
 void theta_der_set_pert(arb_t eps, slong prec);
 
@@ -141,5 +149,6 @@ int theta2_der_newton_step(acb_ptr th_half, acb_mat_t dth_approx,
 			   slong prec);
 
 int theta2_der_newton(acb_ptr th2, acb_mat_t dth2, const acb_mat_t tau, slong prec);
+
 
 #endif

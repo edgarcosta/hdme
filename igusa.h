@@ -128,5 +128,6 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec);
 
 int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec);
-			   
+
+
 #endif 
