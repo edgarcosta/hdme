@@ -9,10 +9,10 @@ void fmpz_mat_direct_inv(fmpz_mat_t minv, const fmpz_mat_t m)
   fmpz_init(den);
   fmpz_mat_init(res, fmpz_mat_nrows(m), fmpz_mat_ncols(m));
 
-  fmpz_mat_inv(minv, den, m);
+  fmpz_mat_inv(res, den, m);
   if (!fmpz_is_one(den))
     {
-      fmpz_mat_neg(minv, minv);
+      fmpz_mat_neg(res, res);
       fmpz_neg(den, den);
     }
   if (!fmpz_is_one(den))

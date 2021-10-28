@@ -44,7 +44,7 @@ int siegel_reduce_real(acb_mat_t w, fmpz_mat_t u, const acb_mat_t z,
 	}
     }
   fmpz_mat_neg(round, round);
-  fmpz_mat_set_abcd(u, one, round, zero, round);
+  fmpz_mat_set_abcd(u, one, round, zero, one);
   siegel_transform(w, u, z, prec);
 
   fmpz_mat_clear(round);

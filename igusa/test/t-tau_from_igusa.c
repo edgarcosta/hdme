@@ -11,9 +11,9 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 5 * arb_test_multiplier(); iter++)
     {
-      slong prec = 2000 + n_randint(state, 20000);
+      slong prec = 2000 + n_randint(state, 4000);
       acb_mat_t tau;
       acb_ptr j_test;
       acb_ptr j;

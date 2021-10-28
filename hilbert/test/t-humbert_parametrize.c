@@ -19,9 +19,9 @@ int main()
       acb_ptr I, j, j_test;
       acb_t t1, t2;
       acb_mat_t tau;
-      sp2gz_t eta;
+      fmpz_mat_t eta;
       slong rs_bits = 5 + n_randint(state, 10);
-      slong prec = 500;
+      slong prec = 1000;
       slong k;
       int res;
       slong delta_max = 100;
@@ -36,7 +36,7 @@ int main()
       acb_init(t1);
       acb_init(t2);
       acb_mat_init(tau, 2, 2);
-      sp2gz_init(eta, 2);
+      fmpz_mat_init(eta, 4, 4);
       
       for (delta = 5; delta < delta_max; delta++)
 	{
@@ -113,7 +113,7 @@ int main()
       _acb_vec_clear(I, 4);
       _acb_vec_clear(j, 3);
       _acb_vec_clear(j_test, 3);
-      sp2gz_clear(eta);
+      fmpz_mat_clear(eta);
     }
 
   flint_randclear(state);

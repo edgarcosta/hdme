@@ -21,14 +21,14 @@ int main()
 
       arb_t tol;
       acb_mat_t tau;
-      sp2gz_t m;
+      fmpz_mat_t m;
       acb_ptr th;
       acb_ptr th_test;
       acb_t th0;
 
       arb_init(tol);
       acb_mat_init(tau, g, g);
-      sp2gz_init(m, g);
+      fmpz_mat_init(m, 2*g, 2*g);
       th = _acb_vec_init(16);
       th_test = _acb_vec_init(16);
       acb_init(th0);
@@ -105,7 +105,7 @@ int main()
       
       arb_clear(tol);
       acb_mat_clear(tau);
-      sp2gz_clear(m);
+      fmpz_mat_clear(m);
       _acb_vec_clear(th, 16);
       _acb_vec_clear(th_test, 16);
       acb_clear(th0);

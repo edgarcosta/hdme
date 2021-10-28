@@ -29,14 +29,14 @@ int main()
       acb_mat_t w;
       acb_ptr th2; /* Computed using theta2_unif */
       acb_ptr th2_test; /* Computed using the naive algorithm */
-      sp2gz_t m;
+      fmpz_mat_t m;
       
       arb_init(tol);
       acb_mat_init(tau, g, g);
       acb_mat_init(w, g, g);
       th2 = _acb_vec_init(n);
       th2_test = _acb_vec_init(n);
-      sp2gz_init(m, g);
+      fmpz_mat_init(m, 2*g, 2*g);
       
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
@@ -116,7 +116,7 @@ int main()
       acb_mat_clear(w);
       _acb_vec_clear(th2, n);
       _acb_vec_clear(th2_test, n);
-      sp2gz_clear(m);
+      fmpz_mat_clear(m);
     }
   
   flint_randclear(state);

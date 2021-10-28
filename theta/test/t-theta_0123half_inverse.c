@@ -23,14 +23,14 @@ int main()
       acb_mat_t tau;
       acb_mat_t tau_half;
       acb_mat_t tau_test;
-      sp2gz_t m;
+      fmpz_mat_t m;
       acb_ptr th_half;
 
       arb_init(tol);
       acb_mat_init(tau, g, g);
       acb_mat_init(tau_half, g, g);
       acb_mat_init(tau_test, g, g);
-      sp2gz_init(m, g);
+      fmpz_mat_init(m, 2*g, 2*g);
       th_half = _acb_vec_init(4);
       
       arb_set_si(tol, 1);
@@ -76,7 +76,7 @@ int main()
       acb_mat_clear(tau);
       acb_mat_clear(tau_half);
       acb_mat_clear(tau_test);
-      sp2gz_clear(m);
+      fmpz_mat_clear(m);
       _acb_vec_clear(th_half, 4);
     }
 

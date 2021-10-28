@@ -161,7 +161,7 @@ int main()
   fmpz_mat_t test_mat;
   fmpz_mat_t aux;
   fmpz_mat_t T;
-  sp2gz_t eta;
+  fmpz_mat_t eta;
   int res = 0;
 
   
@@ -172,16 +172,16 @@ int main()
   fmpz_mat_init(test_mat, n_pow(2, 2*g), 3);
   fmpz_mat_init(aux, 2*g, 2*g);
   fmpz_mat_init(T, g, g);
-  sp2gz_init(eta, g);
+  fmpz_mat_init(eta, 2*g, 2*g);
 
-  sp2gz_one(eta);
+  fmpz_mat_one(eta);
   theta_transform_matrix(transf_mat, eta);
   check_dupont_id(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -189,14 +189,14 @@ int main()
       flint_abort();
     }
 
-  sp2gz_J(eta);
+  fmpz_mat_J(eta);
   theta_transform_matrix(transf_mat, eta);
   check_dupont_J(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -204,15 +204,15 @@ int main()
       flint_abort();
     }
   
-  sp2gz_one(eta);
-  fmpz_one(fmpz_mat_entry(&eta->b, 0, 0));
+  fmpz_mat_one(eta);
+  fmpz_one(fmpz_mat_entry(eta, 0, 2));
   theta_transform_matrix(transf_mat, eta);
   check_dupont_M1(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -220,15 +220,15 @@ int main()
       flint_abort();
     }
   
-  sp2gz_one(eta);
-  fmpz_one(fmpz_mat_entry(&eta->b, 1, 1));
+  fmpz_mat_one(eta);
+  fmpz_one(fmpz_mat_entry(eta, 1, 3));
   theta_transform_matrix(transf_mat, eta);
   check_dupont_M2(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -236,16 +236,16 @@ int main()
       flint_abort();
     }
   
-  sp2gz_one(eta);
-  fmpz_one(fmpz_mat_entry(&eta->b, 0, 1));
-  fmpz_one(fmpz_mat_entry(&eta->b, 1, 0));
+  fmpz_mat_one(eta);
+  fmpz_one(fmpz_mat_entry(eta, 0, 3));
+  fmpz_one(fmpz_mat_entry(eta, 1, 2));
   theta_transform_matrix(transf_mat, eta);
   check_dupont_M3(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -255,14 +255,14 @@ int main()
 
   fmpz_mat_one(T);
   fmpz_one(fmpz_mat_entry(T, 0, 1));
-  sp2gz_set_diagonal(eta, T);
+  fmpz_mat_diagonal_symplectic(eta, T);
   theta_transform_matrix(transf_mat, eta);
   check_dupont_I(test_mat);
   res = fmpz_mat_equal(transf_mat, test_mat);
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -275,8 +275,8 @@ int main()
   fmpz_set_si(fmpz_mat_entry(aux, 1, 0), 1);
   fmpz_set_si(fmpz_mat_entry(aux, 2, 3), -1);
   fmpz_set_si(fmpz_mat_entry(aux, 3, 2), 1);
-  sp2gz_set_mat(eta, aux);
-  res = sp2gz_is_correct(eta);
+  fmpz_mat_set(eta, aux);
+  res = fmpz_mat_is_symplectic(eta);
   if (!res)
     {
       flint_printf("FAIL (Not symplectic):\n");
@@ -289,7 +289,7 @@ int main()
   if (!res)
     {
       flint_printf("FAIL: eta =\n");
-      sp2gz_print(eta);
+      fmpz_mat_print(eta);
       flint_printf("\ntransf_mat =\n");
       fmpz_mat_print_pretty(transf_mat);
       flint_printf("\ntest_mat =\n");
@@ -301,7 +301,7 @@ int main()
   fmpz_mat_clear(test_mat);
   fmpz_mat_clear(aux);
   fmpz_mat_clear(T);
-  sp2gz_clear(eta);
+  fmpz_mat_clear(eta);
 
   flint_cleanup();
   flint_printf("PASS\n");

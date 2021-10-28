@@ -17,7 +17,7 @@ int main()
     {
       if (hilbert_is_fundamental(delta))
 	{
-	  for (iter = 0; iter < 5 * arb_test_multiplier(); iter++)
+	  for (iter = 0; iter < 2 * arb_test_multiplier(); iter++)
 	    {
 	      acb_t t1, t2;
 	      acb_mat_t R;
@@ -25,7 +25,7 @@ int main()
 	      fmpz* abcde;
 	      slong prec = 1000 + n_randint(state, 1000);
 	      slong m_bits = 4;
-	      sp2gz_t m;
+	      fmpz_mat_t m;
 	      int res;
 	      
 	      acb_init(t1);
@@ -33,7 +33,7 @@ int main()
 	      acb_mat_init(R, 2, 2);
 	      acb_mat_init(tau, 2, 2);
 	      abcde = _fmpz_vec_init(5);
-	      sp2gz_init(m, 2);
+	      fmpz_mat_init(m, 4, 4);
 	      
 	      hilbert_halfspace_randtest(t1, t2, state, prec);
 	      hilbert_map(tau, t1, t2, delta, prec);
@@ -62,14 +62,14 @@ int main()
 		  flint_printf("e = "); fmpz_print(&abcde[4]); flint_printf("\n");
 		}
 
-	      sp2gz_randtest(m, state, m_bits);
+	      fmpz_mat_randtest_symplectic(m, state, m_bits);
 	      siegel_transform(tau, m, tau, prec);
 	      res = hilbert_linear_combination(abcde, tau, delta, prec);
 
 	      if (!res)
 		{
 		  flint_printf("FAIL (wrong discriminant)\n");
-		  sp2gz_print(m); flint_printf("\n");
+		  fmpz_mat_print(m); flint_printf("\n");
 		  acb_mat_printd(tau, 10); flint_printf("\n");
 		  flint_printf("delta = %wd, LLL result:\n", delta);
 		  flint_printf("a = "); fmpz_print(&abcde[0]); flint_printf("\n");
@@ -96,7 +96,7 @@ int main()
 	      acb_mat_clear(R);
 	      acb_mat_clear(tau);
 	      _fmpz_vec_clear(abcde, 5);
-	      sp2gz_clear(m);
+	      fmpz_mat_clear(m);
 	    }
 	}
     }

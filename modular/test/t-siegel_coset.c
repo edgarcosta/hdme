@@ -16,15 +16,17 @@ int main()
       slong bits = 4;
       slong ell = n_randprime(state, bits, 1); /* Less than 2^bits */
       slong n = siegel_nb_cosets(ell);
-      sp2gz_struct mats[4096]; /* Length is 2^(3*bits) */
+      fmpz_mat_struct mats[4096]; /* Length is 2^(3*bits) */
       fmpz_mat_t temp1, temp2;
+      fmpz_mat_t c;
       fmpz_t det;
       slong k, i;
 
       fmpz_mat_init(temp1, 4, 4);
       fmpz_mat_init(temp2, 4, 4);
+      fmpz_mat_init(c, 2, 2);
       fmpz_init(det);
-      for (k = 0; k < n; k++) sp2gz_init(&mats[k], 2);
+      for (k = 0; k < n; k++) fmpz_mat_init(&mats[k], 4, 4);
       
       for (k = 0; k < n; k++) siegel_coset(&mats[k], k, ell);
       /* Check:
@@ -38,21 +40,22 @@ int main()
 	 i.e., etaR * [100l] * eta * eta'^{-1} * [l001] * etaR^{-1} is NOT divisible by l. */
       for (k = 0; k < n; k++)
 	{
-	  if (!fmpz_mat_is_zero(&(&mats[k])->c))
+	  fmpz_mat_get_c(c, &mats[k]);
+	  if (!fmpz_mat_is_zero(c))
 	    {
 	      flint_printf("FAIL (nonzero c)\n");
 	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      sp2gz_print(&mats[k]);
+	      fmpz_mat_print(&mats[k]);
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	  sp2gz_get_mat(temp1, &mats[k]);
+	  fmpz_mat_set(temp1, &mats[k]);
 	  fmpz_mat_det(det, temp1);
 	  if (!fmpz_equal_si(det, ell*ell))
 	    {
 	      flint_printf("FAIL (determinant)\n");
 	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      sp2gz_print(&mats[k]);
+	      fmpz_mat_print(&mats[k]);
 	      fflush(stdout);
 	      flint_abort();
 	    }
@@ -61,13 +64,13 @@ int main()
 	{
 	  for (i = k+1; i < n; i++)
 	    {
-	      sp2gz_get_mat(temp1, &mats[i]);
+	      fmpz_mat_set(temp1, &mats[i]);
 	      fmpz_mat_inv(temp1, det, temp1); /* det is the denominator */
 	      if (!fmpz_equal_si(det, ell)) /* Then it's l^2: divide by l */
 		{
 		  fmpz_mat_scalar_divexact_si(temp1, temp1, ell);
 		}
-	      sp2gz_get_mat(temp2, &mats[k]);
+	      fmpz_mat_set(temp2, &mats[k]);
 	      fmpz_mat_mul(temp2, temp2, temp1);
 	      fmpz_set_si(det, ell);
 	      fmpz_mat_scalar_smod(temp2, temp2, det);
@@ -77,8 +80,8 @@ int main()
 		  flint_printf("FAIL (not distinct)\n");
 		  flint_printf("ell = %wd, k = %wd, i = %wd\n", ell, k, i);
 		  fmpz_mat_print_pretty(temp1);
-		  sp2gz_print(&mats[k]);
-		  sp2gz_print(&mats[i]);
+		  fmpz_mat_print(&mats[k]);
+		  fmpz_mat_print(&mats[i]);
 		  fflush(stdout);
 		  flint_abort();
 		}
@@ -87,8 +90,9 @@ int main()
 	 
       fmpz_mat_clear(temp1);
       fmpz_mat_clear(temp2);
+      fmpz_mat_clear(c);
       fmpz_clear(det);
-      for (k = 0; k < n; k++) sp2gz_clear(&mats[k]);
+      for (k = 0; k < n; k++) fmpz_mat_clear(&mats[k]);
     }
 
   flint_randclear(state);

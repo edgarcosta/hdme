@@ -20,11 +20,11 @@ int main()
 
       arb_t tol;
       acb_mat_t z;
-      sp2gz_t m;
+      fmpz_mat_t m;
 
       arb_init(tol);
       acb_mat_init(z, g, g);
-      sp2gz_init(m, g);
+      fmpz_mat_init(m, 2*g, 2*g);
       
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
@@ -43,7 +43,7 @@ int main()
 
       arb_clear(tol);
       acb_mat_clear(z);
-      sp2gz_clear(m);
+      fmpz_mat_clear(m);
     }
 
   flint_randclear(state);

@@ -24,13 +24,13 @@ int main()
 
       arb_t tol;
       acb_mat_t tau;
-      sp2gz_t eta;
+      fmpz_mat_t eta;
       acb_ptr th2; /* At eta*tau, computed using theta2_transform */
       acb_ptr th2_test; /* At eta*tau, computed using the naive algorithm */
       
       arb_init(tol);
       acb_mat_init(tau, g, g);
-      sp2gz_init(eta, g);
+      fmpz_mat_init(eta, 2*g, 2*g);
       th2 = _acb_vec_init(n);
       th2_test = _acb_vec_init(n);
       
@@ -47,8 +47,8 @@ int main()
 	  flint_abort();
 	}
       
-      sp2gz_randtest(eta, state, eta_bits);
-      /* sp2gz_print(eta); flint_printf("\n\n"); */
+      fmpz_mat_randtest_symplectic(eta, state, eta_bits);
+      /* fmpz_mat_print(eta); flint_printf("\n\n"); */
 
       res = theta2_naive(th2, tau, prec);
       if (!res)
@@ -66,7 +66,7 @@ int main()
 	  flint_printf("FAIL (Siegel transform)\n");
 	  flint_printf("prec = %wd\n", prec);
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_printf("eta = \n"); sp2gz_print(eta); flint_printf("\n");
+	  flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
 	  flint_abort();
 	}
 
@@ -76,7 +76,7 @@ int main()
 	  flint_printf("FAIL (naive theta at eta*tau)\n");
 	  flint_printf("prec = %wd\n", prec);
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_printf("eta = \n"); sp2gz_print(eta); flint_printf("\n");
+	  flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
 	  flint_abort();
 	}
 
@@ -99,7 +99,7 @@ int main()
 	      flint_printf("FAIL (theta overlap)\n");
 	      flint_printf("prec = %wd\n", prec);
 	      flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	      flint_printf("eta = \n"); sp2gz_print(eta); flint_printf("\n");
+	      flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
 	      flint_printf("i = %wd\n", i);
 	      flint_printf("th2[i] = ");
 	      acb_printd(&th2[i], 30); flint_printf("\n");
@@ -111,7 +111,7 @@ int main()
 
       arb_clear(tol);
       acb_mat_clear(tau);
-      sp2gz_clear(eta);
+      fmpz_mat_clear(eta);
       _acb_vec_clear(th2, n);
       _acb_vec_clear(th2_test, n);
     }

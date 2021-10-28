@@ -14,14 +14,14 @@ int main()
   /* Check the cocycle relation: I_g = m^*(z) m^(-1)*(mz) */
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
-      sp2gz_t m, minv;
+      fmpz_mat_t m, minv;
       acb_mat_t z1, z2, w1, w2, i, t;
       slong g, prec;
       int valid_transform;
       
-      g = 1 + n_randint(state, 10);
-      sp2gz_init(m, g);
-      sp2gz_init(minv, g);
+      g = 1 + n_randint(state, 5);
+      fmpz_mat_init(m, 2*g, 2*g);
+      fmpz_mat_init(minv, 2*g, 2*g);
       acb_mat_init(z1, g, g);
       acb_mat_init(z2, g, g);
       acb_mat_init(w1, g, g);
@@ -30,8 +30,8 @@ int main()
       acb_mat_init(t, g, g);
       
       acb_mat_one(i);
-      sp2gz_randtest(m, state, n_randint(state, 20));
-      sp2gz_inv(minv, m);
+      fmpz_mat_randtest_symplectic(m, state, n_randint(state, 20));
+      fmpz_mat_direct_inv(minv, m);
       
       prec = 200 + n_randint(state, 200);
       
@@ -42,7 +42,7 @@ int main()
 	{
 	  flint_printf("FAIL (insufficient precision to invert)\n");
 	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); sp2gz_print(m); flint_printf("\n\n");
+	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
 	  flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
 	  flint_abort();
 	}
@@ -55,8 +55,8 @@ int main()
         {
 	  flint_printf("FAIL\n");
 	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); sp2gz_print(m); flint_printf("\n\n");
-	  flint_printf("minv = "); sp2gz_print(minv); flint_printf("\n\n");
+	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+	  flint_printf("minv = "); fmpz_mat_print(minv); flint_printf("\n\n");
 	  flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
 	  flint_printf("z2 = "); acb_mat_printd(z2, 30); flint_printf("\n\n");
 	  flint_printf("w1 = "); acb_mat_printd(w1, 30); flint_printf("\n\n");
@@ -65,8 +65,8 @@ int main()
 	  flint_abort();
         }
 
-      sp2gz_clear(m);
-      sp2gz_clear(minv);
+      fmpz_mat_clear(m);
+      fmpz_mat_clear(minv);
       acb_mat_clear(z1);
       acb_mat_clear(z2);
       acb_mat_clear(w1);
