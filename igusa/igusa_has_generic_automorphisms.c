@@ -12,7 +12,7 @@ int igusa_has_generic_automorphisms(acb_srcptr I, slong prec)
   acb_init(R2);
 
   igusa_I6(I6, I, prec);
-  igusa_R2_autogen(R2, &I[0], &I[1], I6, &I[3], prec);
+  igusa_R2(R2, I, prec);
   igusa_clebsch(ABCD, I, prec);
 
   res = !acb_contains_zero(&I[3])
