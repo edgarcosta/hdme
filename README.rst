@@ -5,11 +5,11 @@ This repository contains a C library for evaluating higher-dimensional
 modular equations by analytic methods. As it stands now, only a few
 types of modular equations in genus g=2 are supported:
 
-- Modular equations of Siegel type in Igusa invariants (g=2);
+- Modular equations of Siegel type in Igusa invariants;
 
 - Modular equations of Hilbert type in Igusa invariants, using
   parametrizations of Humbert surfaces for all fundamental
-  discriminants *D* less than 100;
+  discriminants less than 100;
 
 - Modular equations of Hilbert type in Gundlach invariants for
   discriminant 5.
@@ -30,8 +30,10 @@ Installation
 Save the file `Makefile.in` as `Makefile` at the top of the source
 tree, and modify the variables `CURDIR` and `MYDIR` as appropriate. Then, run::
   make
+  
 to compile the library. This will produce an archive file named::
   libhdme.a
+  
 in the source directory. The Makefile also responds to the standard commands::
   make tests
   make check
