@@ -72,10 +72,6 @@ void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec);
 void igusa_R2(acb_t res, acb_srcptr I, slong prec);
 
 
-void
-igusa_R2_autogen(acb_t res, const acb_t I2, const acb_t I4, const acb_t I6,
-                 const acb_t I10, slong prec);
-
 /* Mestre's algorithm */
 
 int igusa_has_generic_automorphisms(acb_srcptr I, slong prec);
