@@ -28,13 +28,12 @@ Installation
 ============
 
 Save the file `Makefile.in` as `Makefile` at the top of the source
-tree, and modify the variables `CURDIR` and `MYDIR` as appropriate. Then, run::
+tree, and modify the variables `CURDIR` and `MYDIR` as appropriate. To
+compile the library, run::
   make
   
-to compile the library. This will produce an archive file named::
-  libhdme.a
-  
-in the source directory. The Makefile also responds to the standard commands::
+This will produce an archive file `libhdme.a` in the source directory. The
+Makefile also responds to the standard commands::
   make tests
   make check
   make clean
