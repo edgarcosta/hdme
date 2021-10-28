@@ -9,14 +9,12 @@
 #
 
 
-# Directories
-
 # MODIFY THIS:
 # CURDIR is where the source files lie
 # MYDIR is where the other libraries are installed. See also ARB_DIR, etc.
 
-CURDIR = /home/jean/code/hdme
-MYDIR = /home/jean/install
+CURDIR = /path/to/hdme
+MYDIR = /path/to/libs
 
 PARITWINE_DIR = $(MYDIR)
 PARITWINE_INCDIR = $(PARITWINE_DIR)/include
