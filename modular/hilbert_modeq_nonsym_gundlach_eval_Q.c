@@ -19,7 +19,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_ptr I_tau;
   acb_ptr th2_tau;
   acb_mat_t tau;
-  sp2gz_t eta;
+  fmpz_mat_t eta;
   acb_mat_t star;
   acb_t t1, t2;
   acb_ptr th2_vec;
@@ -37,7 +37,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   I_tau = _acb_vec_init(4);
   th2_tau = _acb_vec_init(16);
   acb_mat_init(tau, 2, 2);
-  sp2gz_init(eta, 2);
+  fmpz_mat_init(eta, 4, 4);
   acb_mat_init(star, 2, 2);
   acb_init(t1);
   acb_init(t2);
@@ -127,7 +127,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   _acb_vec_clear(I_tau, 4);
   _acb_vec_clear(th2_tau, 16);
   acb_mat_clear(tau);
-  sp2gz_clear(eta);
+  fmpz_mat_clear(eta);
   acb_mat_clear(star);
   acb_clear(t1);
   acb_clear(t2);

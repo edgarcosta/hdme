@@ -77,7 +77,7 @@ void hilbert_map(acb_mat_t tau, const acb_t t1, const acb_t t2, slong delta, slo
 
 int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, slong prec);
 
-int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
+int hilbert_inverse(acb_t t1, acb_t t2, fmpz_mat_t eta, const acb_mat_t tau,
 		    slong delta, slong prec);
 
 void hilbert_sigma1(acb_t z, const fmpz_poly_t x, slong delta, slong prec);

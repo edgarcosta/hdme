@@ -14,7 +14,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_t im;
   acb_mat_t red;
   acb_mat_t star;
-  sp2gz_t eta;
+  fmpz_mat_t eta;
   slong n = siegel_nb_cosets(ell);
   arb_t tol;
   int res;
@@ -23,7 +23,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
   acb_mat_init(star, 2, 2);
-  sp2gz_init(eta, 2);
+  fmpz_mat_init(eta, 4, 4);
   arb_init(tol);
 
   arb_one(tol);
@@ -55,7 +55,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_clear(im);
   acb_mat_clear(red);
   acb_mat_clear(star);
-  sp2gz_clear(eta);
+  fmpz_mat_clear(eta);
   arb_clear(tol);
   return res;
 }

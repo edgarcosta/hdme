@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 static void
-hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M0(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g0, alpha, beta, one;
   fmpz_mat_t M0, R0, R1;
@@ -27,11 +27,11 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
   fmpz_divexact(fmpz_mat_entry(M0, 3, 1), &abcde[2], g0);
   fmpz_divexact(fmpz_mat_entry(M0, 3, 3), &abcde[4], g0);
 
-  sp2gz_set_mat(m, M0);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M0);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M0) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -97,7 +97,7 @@ hilbert_bw_M0(sp2gz_t m, fmpz* abcde)
 
 /* Change from Birkenhake-Wilhelm: we only need p coprime to c1. */
 static void
-hilbert_bw_M1(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M1(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g1, n, p, absc1, pstep;
   fmpz_mat_t M1;
@@ -128,11 +128,11 @@ hilbert_bw_M1(sp2gz_t m, fmpz* abcde)
   
   fmpz_mat_one(M1);
   fmpz_neg(fmpz_mat_entry(M1, 0, 2), n);
-  sp2gz_set_mat(m, M1);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M1);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M1) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -149,7 +149,7 @@ hilbert_bw_M1(sp2gz_t m, fmpz* abcde)
 }
 
 static void
-hilbert_bw_M2(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M2(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g2, gamma, delta, one;
   fmpz_mat_t M2, R2, R3;
@@ -175,11 +175,11 @@ hilbert_bw_M2(sp2gz_t m, fmpz* abcde)
   fmpz_divexact(fmpz_mat_entry(M2, 3, 1), &abcde[2], g2);
   fmpz_divexact(fmpz_mat_entry(M2, 3, 3), &abcde[4], g2);
 
-  sp2gz_set_mat(m, M2);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M2);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M2) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -238,7 +238,7 @@ hilbert_bw_M2(sp2gz_t m, fmpz* abcde)
 }
 
 static void
-hilbert_bw_M3(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M3(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g3, epsilon, eta, one;
   fmpz_mat_t M3, R3, R4;
@@ -267,11 +267,11 @@ hilbert_bw_M3(sp2gz_t m, fmpz* abcde)
   fmpz_set(fmpz_mat_entry(M3, 3, 1), epsilon);
   fmpz_set(fmpz_mat_entry(M3, 3, 3), eta);
 
-  sp2gz_set_mat(m, M3);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M3);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M3) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -327,7 +327,7 @@ hilbert_bw_M3(sp2gz_t m, fmpz* abcde)
 }
 
 static void
-hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M4(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t lhs, mu, nu, one;
   fmpz_mat_t M4, M4prime, R4, R5;
@@ -365,11 +365,11 @@ hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
   fmpz_set(fmpz_mat_entry(M4, 3, 1), mu);
   fmpz_set(fmpz_mat_entry(M4, 3, 3), nu);
 
-  sp2gz_set_mat(m, M4);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M4);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M4) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -379,11 +379,11 @@ hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
   fmpz_one(fmpz_mat_entry(M4prime, 2, 3));
   fmpz_mat_mul(M4, M4, M4prime);
   
-  sp2gz_set_mat(m, M4);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M4);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M4) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -444,7 +444,7 @@ hilbert_bw_M4(sp2gz_t m, fmpz* abcde)
 
 /* Change from Birkenhake-Wilhelm: we want b'=-1 if b5 is odd. */
 static void
-hilbert_bw_M5(sp2gz_t m, fmpz* abcde)
+hilbert_bw_M5(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t t;
   fmpz_mat_t M5;
@@ -466,11 +466,11 @@ hilbert_bw_M5(sp2gz_t m, fmpz* abcde)
   fmpz_set(fmpz_mat_entry(M5, 1, 0), t);
   fmpz_neg(fmpz_mat_entry(M5, 2, 3), t);
 
-  sp2gz_set_mat(m, M5);
-  if (!sp2gz_is_correct(m))
+  fmpz_mat_set(m, M5);
+  if (!fmpz_mat_is_symplectic(m))
     {
       flint_printf("(hilbert_bw_M5) Incorrect m\n");
-      sp2gz_print(m);
+      fmpz_mat_print(m);
       fflush(stdout);
       flint_abort();
     }
@@ -479,17 +479,17 @@ hilbert_bw_M5(sp2gz_t m, fmpz* abcde)
   fmpz_mat_clear(M5);
 }
 
-int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
+int hilbert_inverse(acb_t t1, acb_t t2, fmpz_mat_t eta, const acb_mat_t tau,
 		    slong delta, slong prec)
 {
   fmpz* abcde;
   int res;
-  sp2gz_t m;
+  fmpz_mat_t m;
   acb_mat_t im;
   acb_mat_t R;
 
   abcde = _fmpz_vec_init(5);
-  sp2gz_init(m, 2);
+  fmpz_mat_init(m, 4, 4);
   acb_mat_init(im, 2, 2);
   acb_mat_init(R, 2, 2);
 
@@ -498,17 +498,17 @@ int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
   if (res)
     {
       hilbert_bw_M0(m, abcde);
-      sp2gz_set(eta, m);
+      fmpz_mat_set(eta, m);
       hilbert_bw_M1(m, abcde);
-      sp2gz_mul(eta, m, eta);
+      fmpz_mat_mul(eta, m, eta);
       hilbert_bw_M2(m, abcde);
-      sp2gz_mul(eta, m, eta);
+      fmpz_mat_mul(eta, m, eta);
       hilbert_bw_M3(m, abcde);
-      sp2gz_mul(eta, m, eta);
+      fmpz_mat_mul(eta, m, eta);
       hilbert_bw_M4(m, abcde);
-      sp2gz_mul(eta, m, eta);
+      fmpz_mat_mul(eta, m, eta);
       hilbert_bw_M5(m, abcde);
-      sp2gz_mul(eta, m, eta);
+      fmpz_mat_mul(eta, m, eta);
 
       siegel_transform(im, eta, tau, prec);
       acb_mat_inv(R, R, prec);
@@ -530,7 +530,7 @@ int hilbert_inverse(acb_t t1, acb_t t2, sp2gz_t eta, const acb_mat_t tau,
     }  
   
   _fmpz_vec_clear(abcde, 5);
-  sp2gz_clear(m);
+  fmpz_mat_clear(m);
   acb_mat_clear(im);
   acb_mat_clear(R);
   return res;

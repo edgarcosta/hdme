@@ -11,7 +11,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_t star;
   acb_t hstar;
   fmpz_poly_mat_t m;
-  sp2gz_t eta;
+  fmpz_mat_t eta;
   arb_t tol;
   slong k;
   slong n = hilbert_nb_cosets(ell, delta);
@@ -25,7 +25,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_init(star, 2, 2);
   acb_init(hstar);
   fmpz_poly_mat_init(m, 2, 2);
-  sp2gz_init(eta, 2);
+  fmpz_mat_init(eta, 4, 4);
   arb_init(tol);
 
   arb_one(tol);
@@ -75,7 +75,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   acb_mat_clear(star);
   acb_clear(hstar);
   fmpz_poly_mat_clear(m);
-  sp2gz_clear(eta);
+  fmpz_mat_clear(eta);
   arb_clear(tol);
   return res;
 }

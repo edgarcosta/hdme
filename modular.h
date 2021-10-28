@@ -98,7 +98,7 @@ slong siegel_modeq_height_fmpq(fmpq* j);
 
 slong siegel_nb_cosets(slong ell);
 
-void siegel_coset(sp2gz_t m, slong k, slong ell);
+void siegel_coset(fmpz_mat_t m, slong k, slong ell);
 
 int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
 			const acb_mat_t tau, slong ell, slong prec);

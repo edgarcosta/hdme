@@ -10,7 +10,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_struct* num_vec,
   acb_ptr I;
   acb_mat_t tau;
   acb_t t1, t2;
-  sp2gz_t eta;
+  fmpz_mat_t eta;
   acb_ptr th2_vec, I_vec;
   slong n = hilbert_nb_cosets(ell, delta);
   acb_poly_struct pol_vec_acb[3];
@@ -25,7 +25,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_struct* num_vec,
   acb_mat_init(tau, 2, 2);
   acb_init(t1);
   acb_init(t2);
-  sp2gz_init(eta, 2);
+  fmpz_mat_init(eta, 4, 4);
   th2_vec = _acb_vec_init(16*n);
   I_vec = _acb_vec_init(4*n);
   for (k = 0; k < 3; k++)  acb_poly_init(&pol_vec_acb[k]);
@@ -74,7 +74,7 @@ int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_struct* num_vec,
   acb_mat_clear(tau);
   acb_clear(t1);
   acb_clear(t2);
-  sp2gz_clear(eta);
+  fmpz_mat_clear(eta);
   _acb_vec_clear(th2_vec, 16*n);
   _acb_vec_clear(I_vec, 4*n);
   for (k = 0; k < 3; k++) acb_poly_clear(&pol_vec_acb[k]);

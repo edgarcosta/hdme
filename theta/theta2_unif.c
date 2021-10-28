@@ -7,10 +7,9 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   slong k1 = 0;
   slong k2 = 0;
 
-  fmpz_mat_t aux;
-  sp2gz_t eta, eta_inv;
-  sp2gz_t real_red;
-  sp2gz_t M1;
+  fmpz_mat_t eta, eta_inv;
+  fmpz_mat_t real_red;
+  fmpz_mat_t M1;
   acb_ptr current_th2;
   acb_mat_t w;
   fmpz_t nb_real_red;
@@ -21,11 +20,10 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   slong i, j;
   int v = THETA_VERBOSE;
 
-  fmpz_mat_init(aux, 2*g, 2*g);
-  sp2gz_init(eta, g);
-  sp2gz_init(eta_inv, g);
-  sp2gz_init(real_red, g);
-  sp2gz_init(M1, g);
+  fmpz_mat_init(eta, 2*g, 2*g);
+  fmpz_mat_init(eta_inv, 2*g, 2*g);
+  fmpz_mat_init(real_red, 2*g, 2*g);
+  fmpz_mat_init(M1, 2*g, 2*g);
   current_th2 = _acb_vec_init(n_pow(2, 2*g));
   acb_mat_init(w, g, g);
   fmpz_init(nb_real_red);
@@ -78,23 +76,22 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
     }
   
   /* We're back to the end of the k2 sequence. Propagate again */
-  fmpz_mat_zero(aux);
-  fmpz_set_si(fmpz_mat_entry(aux, 0, 2), 1);
-  fmpz_set_si(fmpz_mat_entry(aux, 1, 1), 1);
-  fmpz_set_si(fmpz_mat_entry(aux, 2, 0), -1);
-  fmpz_set_si(fmpz_mat_entry(aux, 3, 3), 1);
-  sp2gz_set_mat(eta, aux);
-  sp2gz_inv(eta_inv, eta);
+  fmpz_mat_zero(eta);
+  fmpz_set_si(fmpz_mat_entry(eta, 0, 2), 1);
+  fmpz_set_si(fmpz_mat_entry(eta, 1, 1), 1);
+  fmpz_set_si(fmpz_mat_entry(eta, 2, 0), -1);
+  fmpz_set_si(fmpz_mat_entry(eta, 3, 3), 1);
+  fmpz_mat_direct_inv(eta_inv, eta);
   
   /* Real reduction happens only on the y1 coordinate */
-  fmpz_set(nb_real_red, fmpz_mat_entry(&real_red->b, 0, 0));
+  fmpz_set(nb_real_red, fmpz_mat_entry(real_red, 0, 2));
   if (arb_is_positive(acb_realref(acb_mat_entry(tau, 0, 0))))
     {
-      fmpz_set_si(fmpz_mat_entry(&M1->b, 0, 0), 1);
+      fmpz_set_si(fmpz_mat_entry(M1, 0, 2), 1);
     }
   else
     {
-      fmpz_set_si(fmpz_mat_entry(&M1->b, 0, 0), -1);
+      fmpz_set_si(fmpz_mat_entry(M1, 0, 2), -1);
     }
   
   for (i = 0; (i < k2) && res; i++)
@@ -133,11 +130,10 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
       acb_mat_printd(tau, 10);
     }
   
-  fmpz_mat_clear(aux);
-  sp2gz_clear(eta);
-  sp2gz_clear(eta_inv);
-  sp2gz_clear(real_red);
-  sp2gz_clear(M1);
+  fmpz_mat_clear(eta);
+  fmpz_mat_clear(eta_inv);
+  fmpz_mat_clear(real_red);
+  fmpz_mat_clear(M1);
   _acb_vec_clear(current_th2, n_pow(2, 2*g));
   acb_mat_clear(w);
   fmpz_clear(nb_real_red);

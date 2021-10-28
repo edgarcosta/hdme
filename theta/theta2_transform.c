@@ -5,7 +5,7 @@
    compute once and for all the transformations associated with the
    two eta matrices we use. */
 
-void theta2_transform(acb_ptr th2_eta, const sp2gz_t eta, acb_srcptr th2, slong prec)
+void theta2_transform(acb_ptr th2_eta, const fmpz_mat_t eta, acb_srcptr th2, slong prec)
 {
   acb_ptr res;
   slong g = 2;

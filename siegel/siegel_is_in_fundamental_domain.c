@@ -9,14 +9,14 @@ siegel_is_in_fundamental_domain(const acb_mat_t z, const arb_t tol, slong prec)
   int res = 1;
   int j;
 
-  sp2gz_t test;
+  fmpz_mat_t test;
   acb_mat_t star;
   arb_mat_t im;
   acb_t det;
   arb_t absdet;
   arb_t one_minus_eps;
 
-  sp2gz_init(test, g);
+  fmpz_mat_init(test, 2*g, 2*g);
   acb_mat_init(star, g, g);
   arb_mat_init(im, g, g);
   acb_init(det);
@@ -47,7 +47,7 @@ siegel_is_in_fundamental_domain(const acb_mat_t z, const arb_t tol, slong prec)
 	}
     }
   
-  sp2gz_clear(test);
+  fmpz_mat_clear(test);
   acb_mat_clear(star);
   arb_mat_clear(im);
   acb_clear(det);

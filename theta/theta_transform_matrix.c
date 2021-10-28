@@ -1,7 +1,7 @@
 
 #include "theta.h"
 
-void theta_transform_matrix(fmpz_mat_t res, const sp2gz_t eta)
+void theta_transform_matrix(fmpz_mat_t res, const fmpz_mat_t eta)
 {
   slong label;
   ulong ch;

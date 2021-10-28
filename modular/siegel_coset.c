@@ -1,15 +1,15 @@
 
 #include "modular.h"
 
-void siegel_coset(sp2gz_t m, slong k, slong ell)
+void siegel_coset(fmpz_mat_t m, slong k, slong ell)
 {
   slong a, b, c;
-  sp2gz_t eta, etaR;
+  fmpz_mat_t eta, etaR;
   fmpz_mat_t temp;
   slong u, v, w, x, y, z;
   
-  sp2gz_init(eta, 2);
-  sp2gz_init(etaR, 2);
+  fmpz_mat_init(eta, 4, 4);
+  fmpz_mat_init(etaR, 4, 4);
   fmpz_mat_init(temp, 4, 4);
   
   if ((k < 0) || (k >= siegel_nb_cosets(ell)))
@@ -34,9 +34,9 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
       fmpz_set_si(fmpz_mat_entry(temp, 0, 3), b);
       fmpz_set_si(fmpz_mat_entry(temp, 1, 2), b);
       fmpz_set_si(fmpz_mat_entry(temp, 1, 3), c);
-      sp2gz_set_mat(eta, temp);
+      fmpz_mat_set(eta, temp);
       
-      sp2gz_one(etaR);
+      fmpz_mat_one(etaR);
     }
   else if (k < n_pow(ell, 3) + ell + (ell - 1) * ell)
     {
@@ -50,7 +50,7 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
 	  /* Special etaR in this case */
 	  if (c == 0)
 	    {
-	      sp2gz_J(etaR);
+	      fmpz_mat_J(etaR);
 	    }
 	  else
 	    {
@@ -63,7 +63,7 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
 	      fmpz_set_si(fmpz_mat_entry(temp, 2, 1), -ell);
 	      fmpz_set_si(fmpz_mat_entry(temp, 2, 3), c);
 	      fmpz_set_si(fmpz_mat_entry(temp, 3, 0), -1);
-	      sp2gz_set_mat(etaR, temp);
+	      fmpz_mat_set(etaR, temp);
 	    }
 	}
       else
@@ -95,7 +95,7 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
 	  fmpz_one(fmpz_mat_entry(temp, 3, 1));
 	  fmpz_set_si(fmpz_mat_entry(temp, 3, 2), x);
 	  fmpz_set_si(fmpz_mat_entry(temp, 3, 3), y);
-	  sp2gz_set_mat(etaR, temp);
+	  fmpz_mat_set(etaR, temp);
 	}
       /* eta is always given by the same formula */
       fmpz_mat_zero(temp);
@@ -107,7 +107,7 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
       fmpz_one(fmpz_mat_entry(temp, 1, 3));
       fmpz_set_si(fmpz_mat_entry(temp, 2, 0), -1);
       fmpz_set_si(fmpz_mat_entry(temp, 3, 1), -1);
-      sp2gz_set_mat(eta, temp);
+      fmpz_mat_set(eta, temp);
     }
   else if (k < n_pow(ell, 3) + ell*ell + ell)
     {
@@ -121,14 +121,14 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
       fmpz_one(fmpz_mat_entry(temp, 1, 3));
       fmpz_set_si(fmpz_mat_entry(temp, 2, 2), -1);
       fmpz_set_si(fmpz_mat_entry(temp, 3, 1), -1);
-      sp2gz_set_mat(eta, temp);
+      fmpz_mat_set(eta, temp);
 
       fmpz_mat_zero(temp);
       fmpz_set_si(fmpz_mat_entry(temp, 0, 3), -1);
       fmpz_one(fmpz_mat_entry(temp, 1, 0));
       fmpz_one(fmpz_mat_entry(temp, 2, 1));
       fmpz_one(fmpz_mat_entry(temp, 3, 2));
-      sp2gz_set_mat(etaR, temp);
+      fmpz_mat_set(etaR, temp);
     }
   else
     {
@@ -143,7 +143,7 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
       fmpz_one(fmpz_mat_entry(temp, 2, 3));
       fmpz_set_si(fmpz_mat_entry(temp, 3, 0), -1);
       fmpz_one(fmpz_mat_entry(temp, 3, 1));
-      sp2gz_set_mat(eta, temp);
+      fmpz_mat_set(eta, temp);
 
       fmpz_mat_zero(temp);
       fmpz_one(fmpz_mat_entry(temp, 0, 0));
@@ -155,26 +155,32 @@ void siegel_coset(sp2gz_t m, slong k, slong ell)
       fmpz_one(fmpz_mat_entry(temp, 2, 3));
       fmpz_one(fmpz_mat_entry(temp, 3, 0));
       fmpz_set_si(fmpz_mat_entry(temp, 3, 1), -1);
-      sp2gz_set_mat(etaR, temp);
+      fmpz_mat_set(etaR, temp);
     }
   
-  if (!sp2gz_is_correct(eta) || !sp2gz_is_correct(etaR))
+  if (!fmpz_mat_is_symplectic(eta) || !fmpz_mat_is_symplectic(etaR))
     {
-      sp2gz_print(eta);
-      sp2gz_print(etaR);
+      fmpz_mat_print(eta);
+      fmpz_mat_print(etaR);
       flint_printf("k = %wd, a = %wd, b = %wd, c = %wd, ell = %wd\n", k, a, b, c, ell);
-      flint_printf("eta is correct? %wd; etaR is correct? %wd\n",
-		   sp2gz_is_correct(eta), sp2gz_is_correct(etaR));
+      flint_printf("eta is symplectic? %wd; etaR is symplectic? %wd\n",
+		   fmpz_mat_is_symplectic(eta), fmpz_mat_is_symplectic(etaR));
       fflush(stdout);
       flint_abort();
     }
   /* Compute transformation directly: warning, they are only general
      symplectic */
-  fmpz_mat_scalar_mul_si(&eta->c, &eta->c, ell);
-  fmpz_mat_scalar_mul_si(&eta->d, &eta->d, ell);
-  sp2gz_mul(m, etaR, eta);
+  for (u = 2; u < 4; u++)
+    {
+      for (v = 0; v < 4; v++)
+	{
+	  fmpz_mul_si(fmpz_mat_entry(eta, u, v),
+		      fmpz_mat_entry(eta, u, v), ell);
+	}
+    }
+  fmpz_mat_mul(m, etaR, eta);
   
-  sp2gz_clear(eta);
-  sp2gz_clear(etaR);
+  fmpz_mat_clear(eta);
+  fmpz_mat_clear(etaR);
   fmpz_mat_clear(temp);
 }

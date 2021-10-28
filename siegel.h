@@ -44,7 +44,7 @@ void arb_mat_lambda(arb_t lambda, const arb_mat_t m, slong prec);
 
 slong fmpz_mat_half_dim(const fmpz_mat_t m);
 
-void fmpz_mat_J(fmpz_mat_t m);
+void fmpz_mat_direct_inv(fmpz_mat_t minv, const fmpz_mat_t m);
 
 void fmpz_mat_get_a(fmpz_mat_t a, const fmpz_mat_t m);
 
@@ -57,6 +57,8 @@ void fmpz_mat_get_d(fmpz_mat_t a, const fmpz_mat_t m);
 void fmpz_mat_set_abcd(fmpz_mat_t m,
 		       const fmpz_mat_t a, const fmpz_mat_t b,
 		       const fmpz_mat_t c, const fmpz_mat_t d);
+
+void fmpz_mat_J(fmpz_mat_t m);
 
 int fmpz_mat_is_J(const fmpz_mat_t m);
 

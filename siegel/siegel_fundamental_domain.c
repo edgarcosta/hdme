@@ -1,15 +1,16 @@
 
 #include "siegel.h"
 
-int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
+int siegel_fundamental_domain(acb_mat_t w, fmpz_mat_t m,
 			      const acb_mat_t z, const arb_t tol, slong prec)
 {
   int stop = 0;
   int res = 1;
   int j;
-  
-  sp2gz_t test_matrix;
-  sp2gz_t step;
+
+  slong g = fmpz_mat_half_dim(m);
+  fmpz_mat_t test_matrix;
+  fmpz_mat_t step;
   fmpz_mat_t u;
   arb_mat_t im;
   acb_mat_t x;
@@ -17,16 +18,16 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
   acb_t det;
   arb_t absdet;
 
-  sp2gz_init(test_matrix, m->g);
-  sp2gz_init(step, m->g);
-  fmpz_mat_init(u, m->g, m->g);
-  arb_mat_init(im, m->g, m->g);
-  acb_mat_init(x, m->g, m->g);
-  acb_mat_init(star, m->g, m->g);
+  fmpz_mat_init(test_matrix, 2*g, 2*g);
+  fmpz_mat_init(step, 2*g, 2*g);
+  fmpz_mat_init(u, g, g);
+  arb_mat_init(im, g, g);
+  acb_mat_init(x, g, g);
+  acb_mat_init(star, g, g);
   acb_init(det);
   arb_init(absdet);
   
-  sp2gz_one(m);
+  fmpz_mat_one(m);
 
   while (!stop)
     {
@@ -35,7 +36,7 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
       if (!res)
 	{
 	  flint_printf("\n(siegel_fundamental_domain) Precision lost in update:\n");
-	  flint_printf("m = "); sp2gz_print(m); flint_printf("\n\n");
+	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
 	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
 	  flint_printf("tol = "); arb_printd(tol, 5); flint_printf("\n");
 	  break;
@@ -44,9 +45,9 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
       /* Reduce imaginary part */
       acb_mat_get_imag(im, x);
       res = arb_mat_minkowski_reduce(im, u, im, tol, prec);
-      sp2gz_set_diagonal(step, u);
+      fmpz_mat_diagonal_symplectic(step, u);
       
-      sp2gz_mul(m, step, m);
+      fmpz_mat_mul(m, step, m);
       res = res && siegel_transform(x, m, z, prec);
       if (!res)
 	{
@@ -59,7 +60,7 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
       
       /* Reduce real part */
       res = siegel_reduce_real(x, step, x, tol, prec);
-      sp2gz_mul(m, step, m);
+      fmpz_mat_mul(m, step, m);
       if (!res)
 	{
 	  flint_printf("\n(siegel_fundamental_domain) Precision lost in real reduction:\n");
@@ -72,7 +73,7 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
       /* To be improved: compute determinants at smaller precision,
 	 select the smallest one */
       stop = 1;
-      for (j = 0; j < siegel_nb_test_matrices(m->g); j++)
+      for (j = 0; j < siegel_nb_test_matrices(g); j++)
 	{
 	  siegel_test_matrix(step, j);
 	  siegel_star(star, step, x, prec);
@@ -82,7 +83,7 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
 	  if (arb_is_negative(absdet))
 	    {
 	      stop = 0;
-	      sp2gz_mul(m, step, m);
+	      fmpz_mat_mul(m, step, m);
 	      break; /* for loop */
 	    }
 	}
@@ -90,8 +91,8 @@ int siegel_fundamental_domain(acb_mat_t w, sp2gz_t m,
   
   res = res && siegel_transform(w, m, z, prec);
 
-  sp2gz_clear(test_matrix);
-  sp2gz_clear(step);
+  fmpz_mat_clear(test_matrix);
+  fmpz_mat_clear(step);
   fmpz_mat_clear(u);
   arb_mat_clear(im);
   acb_mat_clear(x);

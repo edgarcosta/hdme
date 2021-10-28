@@ -113,13 +113,13 @@ int theta_use_naive(const acb_mat_t tau, slong prec);
 
 int theta_use_newton(const acb_mat_t tau, slong prec);
 
-ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const sp2gz_t eta);
+ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta);
 
-void theta_transform_matrix(fmpz_mat_t res, const sp2gz_t eta);
+void theta_transform_matrix(fmpz_mat_t res, const fmpz_mat_t eta);
 
-void theta_transform(acb_ptr th_eta, const sp2gz_t eta, acb_srcptr th, slong prec);
+void theta_transform(acb_ptr th_eta, const fmpz_mat_t eta, acb_srcptr th, slong prec);
 
-void theta2_transform(acb_ptr th2_eta, const sp2gz_t eta, acb_srcptr th2, slong prec);
+void theta2_transform(acb_ptr th2_eta, const fmpz_mat_t eta, acb_srcptr th2, slong prec);
 
 int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec);
 

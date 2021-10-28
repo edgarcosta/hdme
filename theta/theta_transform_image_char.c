@@ -5,9 +5,10 @@
    are interested in theta constants up to scaling, we ignore the
    common factors \kappa(\gamma) and det(C tau + D)^{1/2}. */
 
-ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const sp2gz_t eta)
+ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
 {
-  slong g = eta->g;
+  slong g = fmpz_mat_half_dim(eta);
+  fmpz_mat_t a, b, c, d;
   fmpz_mat_t eta_tp;
   fmpz_mat_t block; /* CD^t or AB^t */
   fmpz_mat_t alphabeta;
@@ -18,6 +19,10 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const sp2gz_t eta)
   ulong res = 0;
   slong i;
 
+  fmpz_mat_init(a, g, g);
+  fmpz_mat_init(b, g, g);
+  fmpz_mat_init(c, g, g);
+  fmpz_mat_init(d, g, g);
   fmpz_mat_init(eta_tp, 2*g, 2*g);
   fmpz_mat_init(block, g, g);
   fmpz_mat_init(alphabeta, 2*g, 1);
@@ -26,19 +31,22 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const sp2gz_t eta)
   fmpz_mat_init(Lvec, 1, g);
   fmpz_mat_init(coef, 1, 1);
 
-  sp2gz_get_mat(eta_tp, eta);
-  fmpz_mat_transpose(eta_tp, eta_tp);
+  fmpz_mat_get_a(a, eta);
+  fmpz_mat_get_b(b, eta);
+  fmpz_mat_get_c(c, eta);
+  fmpz_mat_get_d(d, eta);
+  fmpz_mat_transpose(eta_tp, eta);
 
   /* Compute blocks and substract diagonals in alphabeta */
-  fmpz_mat_transpose(block, &eta->d);
-  fmpz_mat_mul(block, &eta->c, block);
+  fmpz_mat_transpose(block, d);
+  fmpz_mat_mul(block, c, block);
   for (i = 0; i < g; i++)
     {
       fmpz_sub(fmpz_mat_entry(alphabeta, i, 0),
 	       fmpz_mat_entry(alphabeta, i, 0), fmpz_mat_entry(block, i, i));
     }
-  fmpz_mat_transpose(block, &eta->b);
-  fmpz_mat_mul(block, &eta->a, block);
+  fmpz_mat_transpose(block, b);
+  fmpz_mat_mul(block, a, block);
   for (i = 0; i < g; i++)
     {
       fmpz_sub(fmpz_mat_entry(alphabeta, g+i, 0),
@@ -64,32 +72,32 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const sp2gz_t eta)
 
   fmpz_zero(epsilon);
   
-  fmpz_mat_mul(Cvec_1, &eta->c, beta);
-  fmpz_mat_mul(Cvec_2, &eta->b, alpha);
+  fmpz_mat_mul(Cvec_1, c, beta);
+  fmpz_mat_mul(Cvec_2, b, alpha);
   fmpz_mat_transpose(Lvec, Cvec_2);
   fmpz_mat_mul(coef, Lvec, Cvec_1);
   fmpz_addmul_ui(epsilon, fmpz_mat_entry(coef, 0, 0), 2);
 
-  fmpz_mat_mul(Cvec_1, &eta->b, alpha);
-  fmpz_mat_mul(Cvec_2, &eta->d, alpha);
+  fmpz_mat_mul(Cvec_1, b, alpha);
+  fmpz_mat_mul(Cvec_2, d, alpha);
   fmpz_mat_transpose(Lvec, Cvec_2);
   fmpz_mat_mul(coef, Lvec, Cvec_1);
   fmpz_sub(epsilon, epsilon, fmpz_mat_entry(coef, 0, 0));
 
-  fmpz_mat_mul(Cvec_1, &eta->a, beta);
-  fmpz_mat_mul(Cvec_2, &eta->c, beta);
+  fmpz_mat_mul(Cvec_1, a, beta);
+  fmpz_mat_mul(Cvec_2, c, beta);
   fmpz_mat_transpose(Lvec, Cvec_2);
   fmpz_mat_mul(coef, Lvec, Cvec_1);
   fmpz_sub(epsilon, epsilon, fmpz_mat_entry(coef, 0, 0));
 
-  fmpz_mat_transpose(block, &eta->b);
-  fmpz_mat_mul(block, &eta->a, block);
+  fmpz_mat_transpose(block, b);
+  fmpz_mat_mul(block, a, block);
   for (i = 0; i < g; i++)
     {
       fmpz_set(fmpz_mat_entry(Lvec, 0, i), fmpz_mat_entry(block, i, i));
     }
-  fmpz_mat_mul(Cvec_1, &eta->d, alpha);
-  fmpz_mat_mul(Cvec_2, &eta->c, beta);
+  fmpz_mat_mul(Cvec_1, d, alpha);
+  fmpz_mat_mul(Cvec_2, c, beta);
   fmpz_mat_sub(Cvec_1, Cvec_1, Cvec_2);
   fmpz_mat_mul(coef, Lvec, Cvec_1);
   fmpz_addmul_ui(epsilon, fmpz_mat_entry(coef, 0, 0), 2);
