@@ -47,16 +47,15 @@ See the `doc` folder for the documentation of the individual modules.
 Credits
 =======
 
-The fast evaluation of theta constants in Arb is inspired by the
-`cmh`_ library by Andreas Enge and Emmanuel Thomé.
+- The fast evaluation of theta constants in Arb is inspired by the
+  `cmh`_ library by Andreas Enge and Emmanuel Thomé.
 
-The code written by `Enea Milio`_ has been useful in the
-implementation of Mestre's algorithm.
-
-The various parametrizations of Hilbert and Humbert surfaces used here
-appear in the paper `[EK14]`_ by Noam D. Elkies and Abhinav Kumar.
+- The code written by `Enea Milio`_ has been useful in the
+  implementation of Mestre's algorithm and to implement the inversion
+  of the Hilbert embedding.
 
 .. _[K21]: https://arxiv.org/abs/2010.10094
 .. _Flint: https://flintlib.org
 .. _Arb: https://arblib.org
-.. _[EK14]: https://arxiv.org/abs/1209.3527
+.. _cmh: https://gitlab.inria.fr/cmh/cmh
+.. _Enea Milio: https://members.loria.fr/EMilio/modular-polynomials/
