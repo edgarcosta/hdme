@@ -16,6 +16,7 @@
 #define THOMAE_MULPREC 8
 #define THOMAE_VERBOSE 1
 
+
 /* Igusa invariants from theta constants */
 
 void igusa_h4(acb_t h4, acb_srcptr theta2, slong prec);
@@ -41,6 +42,7 @@ void igusa_from_theta2(acb_ptr j, acb_srcptr theta2, slong prec);
 int igusa_from_tau(acb_ptr j, const acb_mat_t tau, slong prec);
 
 int igusa_is_defined(acb_srcptr j);
+
 
 /* Igusa covariants from curve coefficients */
 
@@ -100,6 +102,7 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
 			     acb_srcptr pt, acb_srcptr conic, slong prec);
 
 int mestre(acb_poly_t crv, acb_srcptr I, slong prec);
+
 
 /* Thomae's formulae */
 

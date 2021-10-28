@@ -16,7 +16,7 @@ int main()
 
   fmpq_mpoly_ctx_init(ctx, 2, ORD_LEX);
   fmpq_mpoly_init(test, ctx);
-  vars = humbert_vars_init();
+  vars = hdme_data_vars_init(2);
 
   for (delta = 0; delta < 100; delta++)
     {
@@ -66,7 +66,7 @@ int main()
 	}
     }
 
-  humbert_vars_clear(vars);
+  hdme_data_vars_clear(vars, 2);
   fmpq_mpoly_clear(test, ctx);
   fmpq_mpoly_ctx_clear(ctx);
 

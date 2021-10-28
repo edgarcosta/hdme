@@ -14,13 +14,13 @@ void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv)
   char** vars;
   fmpz* res;
   
-  ai = _fmpz_vec_init(6);
-  ai_fmpq = _fmpq_vec_init(6);
+  ai = _fmpz_vec_init(7);
+  ai_fmpq = _fmpq_vec_init(7);
   fmpz_init(one);
   fmpq_init(ev);
-  fmpq_mpoly_ctx_init(ctx, 6, ORD_LEX);
+  fmpq_mpoly_ctx_init(ctx, 7, ORD_LEX);
   fmpq_mpoly_init(pol, ctx);
-  vars = hdme_data_vars_init(6);
+  vars = hdme_data_vars_init(7);
   res = _fmpz_vec_init(4);
 
   hdme_data_vars_set(vars, "a", 0);
@@ -29,6 +29,7 @@ void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv)
   hdme_data_vars_set(vars, "d", 3);
   hdme_data_vars_set(vars, "e", 4);
   hdme_data_vars_set(vars, "f", 5);
+  hdme_data_vars_set(vars, "g", 6);
 
   curve_coeffs_fmpz(ai, crv);
   for (k = 0; k < 7; k++)
@@ -51,12 +52,12 @@ void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv)
 
   _fmpz_vec_set(I, res, 4);
 
-  _fmpz_vec_clear(ai, 6);
-  _fmpq_vec_clear(ai_fmpq, 6);
+  _fmpz_vec_clear(ai, 7);
+  _fmpq_vec_clear(ai_fmpq, 7);
   fmpz_clear(one);
   fmpq_clear(ev);
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
-  hdme_data_vars_clear(vars, 6);
+  hdme_data_vars_clear(vars, 7);
   _fmpz_vec_clear(res, 4);  
 }

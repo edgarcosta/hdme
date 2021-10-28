@@ -12,7 +12,7 @@
 #define HDME_DATA_STR_LEN 10000
 #define HDME_DATA_FILE_LEN 1000
 #define HDME_DATA_VAR_LEN 10
-#define HDME_DATA_PATH HDME_PATH"/data"
+#define HDME_DATA_PATH HDME_PATH"/hdme_data"
 
 char** hdme_data_vars_init(slong nb);
 

@@ -8,6 +8,9 @@
 #include "acb_mat.h"
 #include "arb_mat.h"
 
+
+/* Custom type for symplectic matrices */
+
 typedef struct
 {
   fmpz_mat_struct a;
@@ -18,6 +21,9 @@ typedef struct
 } sp2gz_struct;
 
 typedef sp2gz_struct sp2gz_t[1];
+
+
+/* Additional functions for real and complex matrices */
 
 void acb_mat_get_real(arb_mat_t re, const acb_mat_t z);
 

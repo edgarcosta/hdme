@@ -16,14 +16,15 @@ void hdme_data_read(fmpq_mpoly_t pol, const char** vars, const char* name,
   success = fgets(str, HDME_DATA_STR_LEN, file);
   if (success == NULL)
     {
-      flint_printf("(mpoly_read) Error reading file %s\n", filename);
+      flint_printf("(hdme_data_read) Error reading file %s\n", filename);
       fflush(stdout);
       flint_abort();
     }
   res = fmpq_mpoly_set_str_pretty(pol, str, vars, ctx);
   if (res == -1)
     {
-      flint_printf("(mpoly_read) Error parsing string: %s\n", str);
+      flint_printf("(hdme_data_read) Error parsing string: %s\n", str);
+      flint_printf("(hdme_data_read) File name: %s\n", filename);
       fflush(stdout);
       flint_abort();
     }

@@ -11,7 +11,7 @@ int main()
   
   flint_randinit(state);
 
-  for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
       sp2gz_t m, n, p, i;
       slong g = 1 + n_randint(state, 10);

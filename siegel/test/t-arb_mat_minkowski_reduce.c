@@ -1,5 +1,5 @@
 
-#include "acb_mat_extras.h"
+#include "siegel.h"
 
 int main()
 {
@@ -11,7 +11,7 @@ int main()
   
   flint_randinit(state);
 
-  for (iter = 0; iter < 10000 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
     {
       arb_t y1;
       arb_t y2;

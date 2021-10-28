@@ -9,10 +9,10 @@ void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
   char** vars;
   acb_ptr res;
   
-  ai = _acb_vec_init(6);
-  fmpq_mpoly_ctx_init(ctx, 6, ORD_LEX);
+  ai = _acb_vec_init(7);
+  fmpq_mpoly_ctx_init(ctx, 7, ORD_LEX);
   fmpq_mpoly_init(pol, ctx);
-  vars = hdme_data_vars_init(6);
+  vars = hdme_data_vars_init(7);
   res = _acb_vec_init(4);
 
   hdme_data_vars_set(vars, "a", 0);
@@ -21,6 +21,7 @@ void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
   hdme_data_vars_set(vars, "d", 3);
   hdme_data_vars_set(vars, "e", 4);
   hdme_data_vars_set(vars, "f", 5);
+  hdme_data_vars_set(vars, "g", 6);
 
   curve_coeffs(ai, crv);
 
@@ -35,9 +36,9 @@ void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
 
   _acb_vec_set(I, res, 4);
 
-  _acb_vec_clear(ai, 6);
+  _acb_vec_clear(ai, 7);
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
-  hdme_data_vars_clear(vars, 6);
+  hdme_data_vars_clear(vars, 7);
   _acb_vec_clear(res, 4);  
 }

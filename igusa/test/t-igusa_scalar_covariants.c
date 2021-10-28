@@ -63,7 +63,7 @@ int main()
 
       igusa_scalar_covariants(I, crv, prec);
       igusa_I6(R2, I, prec);
-      igusa_R2_autogen(R2, &I[0], &I[1], R2, &I[3], prec);
+      igusa_R2(R2, I, prec);
       
       if (!acb_contains_zero(&I[3])
 	  || !acb_contains_zero(R2))
