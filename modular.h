@@ -136,11 +136,11 @@ slong hilbert_nb_cosets(slong ell, slong delta);
 
 void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta);
 
-int hilbert_modeq_theta2(acb_ptr th2_vec, const acb_t t1, const acb_t t2,
+int hilbert_modeq_theta2(acb_ptr th2_vec, acb_srcptr t,
 			 const fmpz_poly_t beta, slong ell, slong delta, slong prec);
 
 int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
-			      const acb_t t1, const acb_t t2,
+			      acb_srcptr t,
 			      const fmpz_poly_t beta, slong ell, slong delta, slong prec);
 
 void hilbert_modeq_igusa_C(acb_poly_struct* pol_vec,

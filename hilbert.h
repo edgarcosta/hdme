@@ -41,15 +41,14 @@ void gundlach_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 		       slong delta, const fmpq_mpoly_ctx_t ctx);
 
-void humbert_AA1BB1B2(acb_ptr AA1BB1B2, const acb_t r, const acb_t s, slong delta,
+void humbert_AA1BB1B2(acb_ptr AA1BB1B2, acb_srcptr rs, slong delta,
 		      slong prec);
 
 void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
 
-void humbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta,
-			 slong prec);
+void humbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
-void hilbert_parametrize(acb_ptr I, const acb_t r, const acb_t s, slong delta, slong prec);
+void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
 
 /* Gundlach invariants */
@@ -69,32 +68,32 @@ void gundlach_from_hilbert_param(fmpq* g, const fmpq* mn, slong delta);
 
 /* The Hilbert half space */
 
-void hilbert_halfspace_randtest(acb_t t1, acb_t t2, flint_rand_t state, slong prec);
+void hilbert_halfspace_randtest(acb_ptr t, flint_rand_t state, slong prec);
 
 void hilbert_R(acb_mat_t R, slong delta, slong prec);
 
-void hilbert_map(acb_mat_t tau, const acb_t t1, const acb_t t2, slong delta, slong prec);
+void hilbert_map(acb_mat_t tau, acb_srcptr t, slong delta, slong prec);
 
 int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, slong prec);
 
-int hilbert_inverse(acb_t t1, acb_t t2, fmpz_mat_t eta, const acb_mat_t tau,
+int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
 		    slong delta, slong prec);
 
 void hilbert_sigma1(acb_t z, const fmpz_poly_t x, slong delta, slong prec);
 
 void hilbert_sigma2(acb_t z, const fmpz_poly_t x, slong delta, slong prec);
 
-void hilbert_star(acb_t z, const fmpz_poly_mat_t m, const acb_t t1, const acb_t t2,
+void hilbert_star(acb_t z, const fmpz_poly_mat_t m, acb_srcptr t,
 		  slong delta, slong prec);
 
-void hilbert_transform(acb_t z1, acb_t z2, const fmpz_poly_mat_t m, const acb_t t1,
-		       const acb_t t2, slong delta, slong prec);
+void hilbert_transform(acb_ptr z, const fmpz_poly_mat_t m, acb_srcptr t,
+		       slong delta, slong prec);
 
-void hilbert_scalar_mul(acb_t z1, acb_t z2, const fmpz_poly_t x, const acb_t t1,
-			const acb_t t2, slong delta, slong prec);
+void hilbert_scalar_mul(acb_ptr z, const fmpz_poly_t x, acb_srcptr t,
+		        slong delta, slong prec);
 
-void hilbert_scalar_div(acb_t z1, acb_t z2, const fmpz_poly_t x, const acb_t t1,
-			const acb_t t2, slong delta, slong prec);
+void hilbert_scalar_div(acb_ptr z, const fmpz_poly_t x, acb_srcptr t,
+			slong delta, slong prec);
 
 void hilbert_transform_randtest(fmpz_poly_mat_t m, flint_rand_t state, slong bits);
 
