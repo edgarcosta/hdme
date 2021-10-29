@@ -26,7 +26,7 @@
 #define THOMAE_VERBOSE 0
 
 
-/* Igusa invariants from theta constants */
+/* Igusa covariants from theta constants */
 
 void igusa_h4(acb_t h4, acb_srcptr theta2, slong prec);
 

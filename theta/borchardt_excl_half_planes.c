@@ -23,7 +23,7 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
   
   arb_const_pi(pi, prec);
   arf_set_si(gap, 1);
-  arf_mul_2exp_si(gap, gap, BORCHARDT_ARG_GAP_EXP);
+  /* arf_mul_2exp_si(gap, gap, BORCHARDT_ARG_GAP_EXP); */
   /* Lengthen the excluded interval by gap? NO. */
   arf_zero(gap);
   
