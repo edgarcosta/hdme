@@ -255,3 +255,4 @@ enlarged domain *F_2'*, specified by the tolerance parameter
 Set *z* to a "random" matrix in the Siegel fundamental domain whose
 coefficients have precision approximately *prec* and magnitude *O(1)*.
 
+.. _[K21]: https://arxiv.org/abs/2010.10094

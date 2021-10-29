@@ -55,6 +55,10 @@ Credits
 - The code written by `Enea Milio`_ has been useful in the
   implementation of Mestre's algorithm and to implement the inversion
   of the Hilbert embedding.
+
+- The design and semantics of many functions is inspired from existing
+  functions in the libraries Flint and Arb maintained by William Hart
+  and Fredrik Johansson.
   
 .. _[K21]: https://arxiv.org/abs/2010.10094
 .. _Flint: https://flintlib.org
