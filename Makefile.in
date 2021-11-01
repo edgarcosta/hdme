@@ -28,10 +28,6 @@ FLINT_DIR = $(MYDIR)
 FLINT_INCDIR = $(FLINT_DIR)/include/flint
 FLINT_LIBDIR = $(FLINT_DIR)/lib
 
-PARI_DIR = $(MYDIR)
-PARI_INCDIR = $(PARI_DIR)/include/pari
-PARI_LIBDIR = $(PARI_DIR)/lib
-
 MPFR_DIR = $(MYDIR)
 MPFR_INCDIR = $(MPFR_DIR)/include
 MPFR_LIBDIR = $(MPFR_DIR)/lib
@@ -80,6 +76,7 @@ RUNVALGRIND = $(patsubst build/test/%, valgrind/%, $(TESTS))
 
 TIMING_SOURCES = $(wildcard $(patsubst %, %/time/time-*.c, $(MODULES)))
 TIMINGS = $(patsubst %.c, build/time/%, $(TIMING_SOURCES))
+RUNTIMINGS = $(patsubst build/time/%, timerun/%, $(TIMINGS))
 
 # Timing data is written in TIMEDIR
 
@@ -90,6 +87,8 @@ TIMEDIR = $(CURDIR)/time
 all: library
 
 check: library tests $(RUNTESTS)
+
+time: library timings $(RUNTIMINGS)
 
 valgrind: library tests $(RUNVALGRIND)
 
@@ -120,6 +119,9 @@ build/%.o: %.c $(HEADERS) | build
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 run/%: build/test/%
+	@$<
+
+timerun/%: build/time/%
 	@$<
 
 valgrind/%: build/test/%
