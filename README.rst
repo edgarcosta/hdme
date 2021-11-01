@@ -47,15 +47,17 @@ modules. For examples of usage, look at the test files in the `test`
 subfolder of each module.
 
 Example programs are also available in the `time` subfolder of certain
-modules. To compile them, use::
-  make timings
-
-These programs will then be available in the subfolder `build/time` of
-the source directory, and will print timing data to the `time`
-subfolder of the source directory. Then::
+modules. To compile and run them, use::
+  make time
+  
+This will take a few minutes. Otherwise, these programs can be run
+individually from the `build/time` subfolder of the source
+directory. Then::
   make plots
 
-will produce simple graph representations of the raw data.
+will produce simple graph representations of the raw data in the
+`time` subfolder of the source directory, if a Python interpreter is
+available.
   
 Credits
 =======
@@ -68,7 +70,7 @@ Credits
   of the Hilbert embedding.
 
 - The design and semantics of many functions is inspired from existing
-  functions in the libraries Flint and Arb maintained by William Hart
+  functions in the libraries Flint and Arb, maintained by William Hart
   and Fredrik Johansson.
   
 .. _[K21]: https://arxiv.org/abs/2010.10094

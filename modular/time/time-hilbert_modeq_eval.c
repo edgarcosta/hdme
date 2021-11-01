@@ -13,7 +13,7 @@ int main()
   FILE* data8;
   FILE* data13;
   FILE* data17;
-  slong ell_max[4] = {100, 30, 20, 10};
+  slong ell_max[4] = {50, 40, 30, 30};
   slong delta;
   slong k;
   fmpz_poly_t beta;
@@ -44,14 +44,14 @@ int main()
   flint_fprintf(data17, "ell time(s)\n");
 
   delta = 5;
+  for (k = 0; k < 2; k++)
+    {
+      fmpq_randbits(&rs[k], state, rs_bits);
+    }
   for (ell = 2; ell < ell_max[0]; ell++)
     {
       if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 	{
-	  for (k = 0; k < 2; k++)
-	    {
-	      fmpq_randbits(&rs[k], state, rs_bits);
-	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
 	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
@@ -61,14 +61,14 @@ int main()
     }
 
   delta = 8;
+  for (k = 0; k < 2; k++)
+    {
+      fmpq_randbits(&rs[k], state, rs_bits);
+    }
   for (ell = 2; ell < ell_max[1]; ell++)
     {
       if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 	{
-	  for (k = 0; k < 2; k++)
-	    {
-	      fmpq_randbits(&rs[k], state, rs_bits);
-	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
 	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
@@ -78,14 +78,14 @@ int main()
     }
 
   delta = 13;
+  for (k = 0; k < 2; k++)
+    {
+      fmpq_randbits(&rs[k], state, rs_bits);
+    }
   for (ell = 2; ell < ell_max[2]; ell++)
     {
       if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 	{
-	  for (k = 0; k < 2; k++)
-	    {
-	      fmpq_randbits(&rs[k], state, rs_bits);
-	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
 	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
@@ -95,14 +95,14 @@ int main()
     }
 
   delta = 17;
+  for (k = 0; k < 2; k++)
+    {
+      fmpq_randbits(&rs[k], state, rs_bits);
+    }
   for (ell = 2; ell < ell_max[3]; ell++)
     {
       if (n_is_prime(ell) && hilbert_splits(beta, ell, delta))
 	{
-	  for (k = 0; k < 2; k++)
-	    {
-	      fmpq_randbits(&rs[k], state, rs_bits);
-	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
 	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);

@@ -53,6 +53,14 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   hilbert_modeq_nonsym_gundlach_rescale(rescale, g, ell, delta); /* Some overkill here? */
   acb_set_fmpz(rescale_acb, rescale);
   prec = hilbert_modeq_startprec(g, ell, 2)/2;
+
+  
+  if (v)
+    {
+      flint_printf("(hilbert_modeq_nonsym_gundlach_eval_Q) Input values:\n", prec);
+      fmpq_print(&g[0]); flint_printf("\n");
+      fmpq_print(&g[1]); flint_printf("\n");
+    }
   
   while (!stop)
     {

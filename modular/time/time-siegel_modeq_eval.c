@@ -3,7 +3,7 @@
 #include <profiler.h> /* Flint profiler */
 #include "modular.h"
 
-#define TIME_SIEGEL_MODEQ_EVAL_ITER 5
+#define TIME_SIEGEL_MODEQ_EVAL_ITER 4
 #define TIME_SIEGEL_MODEQ_EVAL_STEP 5 /* Up to 25 bits in length */ 
 /* Directory where data is written is TIMEDIR */
 
