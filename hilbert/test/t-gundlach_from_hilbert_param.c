@@ -23,6 +23,7 @@ int main()
       acb_ptr g_acb;
       acb_ptr j;
       acb_ptr j_test;
+      acb_ptr g_test;
       slong k;
       int res = 1;
 
@@ -33,6 +34,7 @@ int main()
       g_acb = _acb_vec_init(2);
       j = _acb_vec_init(3);
       j_test = _acb_vec_init(3);
+      g_test = _acb_vec_init(2);
 
       for (k = 0; k < 2; k++) fmpq_randbits(&mn[k], state, mn_bits);
       gundlach_from_hilbert_param(g, mn, delta);
@@ -41,8 +43,10 @@ int main()
       
       acb_set_fmpq(&rs[0], &mn[0], prec);
       acb_set_fmpq(&rs[1], &mn[1], prec);
+      
       hilbert_parametrize(I, rs, delta, prec);
       igusa_from_cov(j_test, I, prec);
+      gundlach_from_igusa(g_test, I, delta, prec);
 
       for (k = 0; k < 3; k++)
 	{
@@ -51,10 +55,15 @@ int main()
       if (!res)
 	{
 	  flint_printf("FAIL\n");
+	  for (k = 0; k < 2; k++)
+	    {
+	      fmpq_print(&g[k]); flint_printf("\n");
+	      acb_printd(&g_test[k], 300); flint_printf("\n");
+	    }
 	  for (k = 0; k < 3; k++)
 	    {
-	      acb_printd(&j[k], 30); flint_printf("\n");
-	      acb_printd(&j_test[k], 30); flint_printf("\n");
+	      acb_printd(&j[k], 300); flint_printf("\n");
+	      acb_printd(&j_test[k], 300); flint_printf("\n");
 	    }
 	  fflush(stdout);
 	  flint_abort();
@@ -67,7 +76,7 @@ int main()
       _acb_vec_clear(g_acb, 2);
       _acb_vec_clear(j, 3);
       _acb_vec_clear(j_test, 3);
-
+      _acb_vec_clear(g_test, 2);
     }
   
 
