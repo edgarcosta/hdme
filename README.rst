@@ -28,7 +28,7 @@ version 2.8.0 or later.
 Installation
 ============
 
-Save the file `Makefile.in` as `Makefile` at the top of the source
+Save a copy of `Makefile.in` as `Makefile` at the top of the source
 tree, and modify the variables `CURDIR` and `MYDIR` as appropriate. To
 compile the library, run::
   make
@@ -62,14 +62,14 @@ available.
 Credits
 =======
 
-- The fast evaluation of theta constants in Arb is inspired by the
-  `cmh`_ library by Andreas Enge and Emmanuel Thomé.
+- The code for fast evaluation of theta constants using Arb is
+  inspired by the `cmh`_ library by Andreas Enge and Emmanuel Thomé.
 
 - The code written by `Enea Milio`_ has been useful in the
   implementation of Mestre's algorithm and to implement the inversion
   of the Hilbert embedding.
 
-- The design and semantics of many functions is inspired from existing
+- The design and semantics of many functions are inspired from existing
   functions in the libraries Flint and Arb, maintained by William Hart
   and Fredrik Johansson.
   
