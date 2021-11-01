@@ -13,21 +13,19 @@ int main()
   FILE* data8;
   FILE* data13;
   FILE* data17;
-  slong ell_max[4] = {1000, 300, 200, 100};
+  slong ell_max[4] = {100, 30, 20, 10};
   slong delta;
   slong k;
   fmpz_poly_t beta;
   
-  fmpz_poly_t num1, num2, num3;
+  fmpz_poly_struct num_vec[3];
   fmpz_t den;
   fmpq* rs;
   slong rs_bits = 10;
   timeit_t time;
 
   fmpz_poly_init(beta);
-  fmpz_poly_init(num1);
-  fmpz_poly_init(num2);
-  fmpz_poly_init(num3);
+  for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
   fmpz_init(den);
   rs = _fmpq_vec_init(2);
   
@@ -56,7 +54,7 @@ int main()
 	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
-	  hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 	  timeit_stop(time);
 	  flint_fprintf(data5, "%wd %lf\n", ell, (double) time->cpu / 1000);
 	}
@@ -73,7 +71,7 @@ int main()
 	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
-	  hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 	  timeit_stop(time);
 	  flint_fprintf(data8, "%wd %lf\n", ell, (double) time->cpu / 1000);
 	}
@@ -90,7 +88,7 @@ int main()
 	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
-	  hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 	  timeit_stop(time);
 	  flint_fprintf(data13, "%wd %lf\n", ell, (double) time->cpu / 1000);
 	}
@@ -107,16 +105,14 @@ int main()
 	    }
 	  flint_printf("\n(time-hilbert_modeq_eval) delta = %wd, ell = %wd, rs_bits = %wd\n", delta, ell, rs_bits);
 	  timeit_start(time);      
-	  hilbert_modeq_sym_igusa_eval_Q(num1, num2, num3, den, rs, ell, delta);
+	  hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 	  timeit_stop(time);
 	  flint_fprintf(data17, "%wd %lf\n", ell, (double) time->cpu / 1000);
 	}
     }
 
   fmpz_poly_clear(beta);
-  fmpz_poly_clear(num1);
-  fmpz_poly_clear(num2);
-  fmpz_poly_clear(num3);
+  for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
   fmpz_clear(den);
   _fmpq_vec_clear(rs, 2);
   

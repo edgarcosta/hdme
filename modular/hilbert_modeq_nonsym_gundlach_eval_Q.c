@@ -50,7 +50,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
   acb_init(rescale_acb);
 
   gundlach_from_hilbert_param(g, mn, 5);
-  hilbert_modeq_gundlach_rescale(rescale, g, ell, delta); /* Some overkill here? */
+  hilbert_modeq_nonsym_gundlach_rescale(rescale, g, ell, delta); /* Some overkill here? */
   acb_set_fmpz(rescale_acb, rescale);
   prec = hilbert_modeq_startprec(g, ell, 2)/2;
   
@@ -98,7 +98,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
 	  acb_mul_fmpz(den_acb, den_acb, rescale, prec);
 	  success = modeq_round(num_vec, den, num_vec_acb, den_acb, n, 2);
 
-	  acb_printd(den_acb, 500); flint_printf("\n");
+	  /* acb_printd(den_acb, 500); flint_printf("\n"); */
 	  if (v && !success)
 	    {
 	      flint_printf("(hilbert_modeq_nonsym_gundlach_eval_Q) Out of precision when recognizing integers\n");

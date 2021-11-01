@@ -29,7 +29,7 @@ int main()
       slong prec = 10 + n_randint(state, TIME_THETA_NEWTON_MAXPREC);
       slong tol_bits = prec / 5;
       acb_mat_t tau;
-      sp2gz_t m;
+      fmpz_mat_t m;
       acb_ptr th2;
       arb_t tol;
       
@@ -37,7 +37,7 @@ int main()
       slong nb_iter;
 
       acb_mat_init(tau, g, g);
-      sp2gz_init(m, g);
+      fmpz_mat_init(m, 2*g, 2*g);
       th2 = _acb_vec_init(n_pow(2, 2*g));
       arb_init(tol);
 
@@ -66,7 +66,7 @@ int main()
 	}
 
       acb_mat_clear(tau);
-      sp2gz_clear(m);
+      fmpz_mat_clear(m);
       _acb_vec_clear(th2, n_pow(2, 2*g));
       arb_clear(tol);
     }

@@ -401,9 +401,11 @@ equations.
 
 ::
    void hilbert_modeq_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
+   void hilbert_modeq_nonsym_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
 
-Analogue of **siegel_modeq_rescale** in the case of Hilbert modular
-equations in Gundlach invariants for discriminant 5.
+Analogues of **siegel_modeq_rescale** in the case of symmetric
+(resp. nonsymmetric) Hilbert modular equations in Gundlach invariants
+for discriminant 5.
 
 ::
    int hilbert_modeq_igusa_eval_Q(fmpz_poly_struct* num_vec,

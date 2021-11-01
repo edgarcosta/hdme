@@ -35,7 +35,7 @@
 #define SIEGEL_START_PREC_ADD 0
 #define SIEGEL_MUL_PREC 1.5
 
-#define HILBERT_START_PREC_MUL 18
+#define HILBERT_START_PREC_MUL 10
 #define HILBERT_START_PREC_ADD 200
 #define HILBERT_MUL_PREC 1.8
 
@@ -190,6 +190,8 @@ slong hilbert_modeq_startprec(fmpq* params, slong ell, slong len);
 slong hilbert_modeq_nextprec(slong current_prec);
 
 void hilbert_modeq_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
+
+void hilbert_modeq_nonsym_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
 
 int hilbert_modeq_igusa_eval_Q(fmpz_poly_struct* num_vec,
 			       fmpz_t den, fmpq* rs, slong ell, slong delta);

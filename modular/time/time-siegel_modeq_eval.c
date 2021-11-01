@@ -38,7 +38,7 @@ int main()
 
   for (iter = 0; iter < TIME_SIEGEL_MODEQ_EVAL_ITER; iter++)
     {
-      fmpz_poly_t num1, num2, num3;
+      fmpz_poly_struct num_vec[3];
       fmpz_t den;
       fmpq* j;
       fmpz_t j_num, j_den;
@@ -47,10 +47,8 @@ int main()
       timeit_t time;
       
       j_bits += TIME_SIEGEL_MODEQ_EVAL_STEP;
-      
-      fmpz_poly_init(num1);
-      fmpz_poly_init(num2);
-      fmpz_poly_init(num3);
+
+      for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
       j = _fmpq_vec_init(3);
       fmpz_init(j_num);
@@ -67,14 +65,14 @@ int main()
       ell = 2;
       flint_printf("\n(time-siegel_modeq_eval) ell = %wd, j_bits = %wd\n", ell, j_bits);
       timeit_start(time);      
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
       flint_fprintf(data2, "%wd %lf\n", j_bits, (double) time->cpu / 1000);
 
       ell = 3;
       flint_printf("\n(time-siegel_modeq_eval) ell = %wd, j_bits = %wd\n", ell, j_bits);
       timeit_start(time);      
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
       flint_fprintf(data3, "%wd %lf\n", j_bits, (double) time->cpu / 1000);
 
@@ -82,7 +80,7 @@ int main()
       ell = 5;
       flint_printf("\n(time-siegel_modeq_eval) ell = %wd, j_bits = %wd\n", ell, j_bits);
       timeit_start(time);      
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
       flint_fprintf(data5, "%wd %lf\n", j_bits, (double) time->cpu / 1000);
       
@@ -90,21 +88,19 @@ int main()
       ell = 7;
       flint_printf("\n(time-siegel_modeq_eval) ell = %wd, j_bits = %wd\n", ell, j_bits);
       timeit_start(time);      
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
       flint_fprintf(data7, "%wd %lf\n", prec, (double) time->cpu / 1000);
       
       ell = 11;
       flint_printf("\n(time-siegel_modeq_eval) ell = %wd, j_bits = %wd\n", ell, j_bits);
       timeit_start(time);      
-      siegel_modeq_eval_Q(num1, num2, num3, den, j, ell);
+      siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
       flint_fprintf(data11, "%wd %lf\n", prec, (double) time->cpu / 1000);
       */
-      
-      fmpz_poly_clear(num1);
-      fmpz_poly_clear(num2);
-      fmpz_poly_clear(num3);
+
+      for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
       _fmpq_vec_clear(j, 3);
       fmpz_clear(j_num);

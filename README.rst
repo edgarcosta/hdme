@@ -38,7 +38,7 @@ Makefile also responds to the standard commands::
   make tests
   make check
   make clean
-
+  
 Documentation
 =============
 
@@ -46,6 +46,17 @@ See the `doc` folder for the documentation of the individual
 modules. For examples of usage, look at the test files in the `test`
 subfolder of each module.
 
+Example programs are also available in the `time` subfolder of certain
+modules. To compile them, use::
+  make timings
+
+These programs will then be available in the subfolder `build/time` of
+the source directory, and will print timing data to the `time`
+subfolder of the source directory. Then::
+  make plots
+
+will produce simple graph representations of the raw data.
+  
 Credits
 =======
 
