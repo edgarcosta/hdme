@@ -102,6 +102,7 @@ timings: library $(TIMINGS)
 
 clean:
 	rm -rf build/
+	rm -rf time/
 	rm libhdme.a
 
 library: libhdme.a
@@ -113,7 +114,7 @@ libhdme.a: $(OBJS) $(SOURCES) $(HEADERS) | build
 examples: library
 
 build:
-	@mkdir -p build build/test build/time \
+	@mkdir -p build time build/test build/time \
 	$(foreach mod, $(MODULES), build/$(mod)) \
 	$(foreach mod, $(MODULES), build/test/$(mod)/test) \
 	$(foreach mod, $(MODULES), build/time/$(mod)/time) 
