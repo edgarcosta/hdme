@@ -10,6 +10,7 @@
 *.a
 *.png
 build/
-time/
+data-*
+plot-*
 *.exe
 Makefile
