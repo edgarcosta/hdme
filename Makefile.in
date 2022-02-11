@@ -78,6 +78,10 @@ TIMING_SOURCES = $(wildcard $(patsubst %, %/time/time-*.c, $(MODULES)))
 TIMINGS = $(patsubst %.c, build/time/%, $(TIMING_SOURCES))
 RUNTIMINGS = $(patsubst build/time/%, timerun/%, $(TIMINGS))
 
+REPRODUCE_SOURCES = modular/time/time-siegel.c modular/time/time-hilbert.c
+REPRODUCE = $(patsubst %.c, build/time/%, $(REPRODUCE_SOURCES))
+RUNREPRODUCE = $(patsubst build/time/%, timerun/%, $(REPRODUCE))
+
 # Timing data is written in TIMEDIR
 
 TIMEDIR = $(CURDIR)/time
@@ -140,6 +144,8 @@ print-%:
 
 plots:
 	python $(TIMEDIR)/make_plots.py
+
+reproduce: library timings $(RUNREPRODUCE)	
 
 .PHONY: all check clean tests library examples build valgrind
 
