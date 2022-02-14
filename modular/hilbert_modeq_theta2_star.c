@@ -30,7 +30,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   arb_one(tol);
   arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
-  if(v) flint_printf("(hilbert_modeq_theta2_star) Computing theta constants (%wd)\n", n);
+  if(v) flint_printf("(hilbert_modeq_theta2_star) Computing theta constants (%wd)", n);
   fflush(stdout);
   for (k = 0; k < n; k++)
     {

@@ -4,7 +4,7 @@
 #include <profiler.h> /* Flint profiler */
 #include "modular.h"
 
-#define TIME_SIEGEL_NB_PRIMES 4
+#define TIME_SIEGEL_NB_PRIMES 3 /* 6 */
 #define TIME_SIEGEL_BITS 8
 /* Directory where data is written is TIMEDIR */
 
@@ -33,7 +33,7 @@ int main()
       fmpq_set_fmpz_frac(&j[k], j_num, j_den);
     }
   
-  flint_printf("(time_siegel) Evaluate Siegel modular equations at Igusa invariants\n");
+  flint_printf("(time-siegel) Evaluate Siegel modular equations at Igusa invariants\n");
   for (k = 0; k < 3; k++)
     {
       fmpq_print(&j[k]); flint_printf("\n");

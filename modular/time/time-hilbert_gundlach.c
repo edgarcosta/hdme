@@ -4,7 +4,7 @@
 #include <profiler.h> /* Flint profiler */
 #include "modular.h"
 
-#define TIME_HILBERT_NB_PRIMES 30
+#define TIME_HILBERT_NB_PRIMES 20 /* 100 */
 #define TIME_HILBERT_BITS 8
 /* Directory where data is written is TIMEDIR */
 
@@ -19,12 +19,15 @@ int main()
   slong delta = 5;
   slong k;
   
-  data = fopen(TIMEDIR "/data-hilbert", "w");
+  data = fopen(TIMEDIR "/data-hilbert_gundlach", "w");
   flint_randinit(state);
   
   j = _fmpq_vec_init(2);
   fmpz_init(j_num);
   fmpz_init(j_den);
+
+  /* Change starting values */
+  fmpz_randbits(j_num, state, 100);
   
   for (k = 0; k < 2; k++)
     {
@@ -34,7 +37,7 @@ int main()
       fmpq_set_fmpz_frac(&j[k], j_num, j_den);
     }
   
-  flint_printf("(time_hilbert) Evaluate Hilbert modular equations at Gundlach invariants\n");
+  flint_printf("(time-hilbert_gundlach) Evaluate Hilbert modular equations at Gundlach invariants\n");
   for (k = 0; k < 2; k++)
     {
       fmpq_print(&j[k]); flint_printf("\n");
@@ -55,7 +58,7 @@ int main()
       for (k = 0; k < 2; k++) fmpz_poly_init(&num_vec[k]);
       fmpz_init(den);
 
-      flint_printf("\n(time-hilbert) ell = %wd\n", ell);
+      flint_printf("\n(time-hilbert_gundlach) ell = %wd\n", ell);
       timeit_start(time);      
       res = hilbert_modeq_gundlach_eval_Q(num_vec, den, j, ell, delta);
       timeit_stop(time);

@@ -78,7 +78,7 @@ TIMING_SOURCES = $(wildcard $(patsubst %, %/time/time-*.c, $(MODULES)))
 TIMINGS = $(patsubst %.c, build/time/%, $(TIMING_SOURCES))
 RUNTIMINGS = $(patsubst build/time/%, timerun/%, $(TIMINGS))
 
-REPRODUCE_SOURCES = modular/time/time-siegel.c modular/time/time-hilbert.c
+REPRODUCE_SOURCES = modular/time/time-siegel.c modular/time/time-hilbert_gundlach.c modular/time/time-hilbert_igusa.c
 REPRODUCE = $(patsubst %.c, build/time/%, $(REPRODUCE_SOURCES))
 RUNREPRODUCE = $(patsubst build/time/%, timerun/%, $(REPRODUCE))
 
