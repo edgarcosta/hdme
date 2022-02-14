@@ -4,7 +4,7 @@
 #include <profiler.h> /* Flint profiler */
 #include "modular.h"
 
-#define TIME_HILBERT_NB_PRIMES 20 /* 100 */
+#define TIME_HILBERT_NB_PRIMES 100
 #define TIME_HILBERT_BITS 8
 /* Directory where data is written is TIMEDIR */
 

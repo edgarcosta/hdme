@@ -10,7 +10,7 @@ int main()
   slong ell;
   flint_rand_t state;
   FILE* data;
-  slong ell_max = 10; /* 50 */
+  slong ell_max = 50;
   slong delta;
   slong discriminants[30] = {5, 8, 12, 13, 17, 21, 24, 28, 29, 33, 37, 40, 41, 44, 53, 56, 57, 60, 61, 65, 69, 73, 76, 77, 85, 88, 89, 92, 93, 97};
   char filename[200];

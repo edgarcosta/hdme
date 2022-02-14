@@ -4,7 +4,7 @@
 #include <profiler.h> /* Flint profiler */
 #include "modular.h"
 
-#define TIME_SIEGEL_NB_PRIMES 3 /* 6 */
+#define TIME_SIEGEL_NB_PRIMES 8
 #define TIME_SIEGEL_BITS 8
 /* Directory where data is written is TIMEDIR */
 
