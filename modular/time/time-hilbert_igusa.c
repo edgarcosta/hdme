@@ -41,11 +41,12 @@ int main()
     {
       delta = discriminants[j];
       flint_sprintf(filename, TIMEDIR "/data-hilbert_igusa_%wd", delta);
-      data = fopen(filename, "w");
       
       /* First line format: xmin xmax ymin ymax xlabel ylabel 
 	 or: xlabel ylabel */
+      data = fopen(filename, "w");
       flint_fprintf(data, "ell time(s)\n");
+      fclose(data);
       
       flint_printf("(time-hilbert_igusa) Evaluate Hilbert modular equations for discriminant %wd at parameters\n", delta);
       for (k = 0; k < 2; k++)
@@ -60,7 +61,9 @@ int main()
 	      timeit_start(time);      
 	      hilbert_modeq_igusa_eval_Q(num_vec, den, rs, ell, delta);
 	      timeit_stop(time);
+	      data = fopen(filename, "a");
 	      flint_fprintf(data, "%wd %lf\n", ell, (double) time->cpu / 1000);
+	      fclose(data);
 	    }
 	}
       

@@ -18,7 +18,6 @@ int main()
   fmpz_t j_num, j_den;
   slong k;
   
-  data = fopen(TIMEDIR "/data-siegel", "w");
   flint_randinit(state);
   
   j = _fmpq_vec_init(3);
@@ -41,7 +40,9 @@ int main()
 
   /* First line format: xmin xmax ymin ymax xlabel ylabel 
      or: xlabel ylabel */
+  data = fopen(TIMEDIR "/data-siegel", "w");
   flint_fprintf(data, "0 %wd 0 20 l time(s)\n", n_nth_prime(TIME_SIEGEL_NB_PRIMES)+1);
+  fclose(data);
   
   for (iter = 1; iter <= TIME_SIEGEL_NB_PRIMES; iter++)
     {
@@ -57,8 +58,11 @@ int main()
       timeit_start(time);      
       siegel_modeq_eval_Q(num_vec, den, j, ell);
       timeit_stop(time);
+      
+      data = fopen(TIMEDIR "/data-siegel", "a");
       flint_fprintf(data, "%wd %lf\n", ell,
 		    (double) time->cpu / 1000);
+      fclose(data);
 
       for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
       fmpz_clear(den);
@@ -68,7 +72,6 @@ int main()
   fmpz_clear(j_num);
   fmpz_clear(j_den);
 
-  fclose(data);
   flint_randclear(state);
   flint_cleanup();
   flint_printf("Done\n");

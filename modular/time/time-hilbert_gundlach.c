@@ -19,7 +19,6 @@ int main()
   slong delta = 5;
   slong k;
   
-  data = fopen(TIMEDIR "/data-hilbert_gundlach", "w");
   flint_randinit(state);
   
   j = _fmpq_vec_init(2);
@@ -45,7 +44,9 @@ int main()
 
   /* First line format: xmin xmax ymin ymax xlabel ylabel 
      or: xlabel ylabel */
+  data = fopen(TIMEDIR "/data-hilbert_gundlach", "w");
   flint_fprintf(data, "0 %wd 0 200 l time(s)\n", n_nth_prime(TIME_HILBERT_NB_PRIMES)+1);
+  fclose(data);
   
   for (iter = 1; iter <= TIME_HILBERT_NB_PRIMES; iter++)
     {
@@ -64,8 +65,10 @@ int main()
       timeit_stop(time);
       if (res == 1)
 	{
+	  data = fopen(TIMEDIR "/data-hilbert_gundlach", "a");
 	  flint_fprintf(data, "%wd %lf\n", ell,
 			(double) time->cpu / 1000);
+	  fclose(data);
 	}
 
       for (k = 0; k < 2; k++) fmpz_poly_clear(&num_vec[k]);
@@ -76,7 +79,6 @@ int main()
   fmpz_clear(j_num);
   fmpz_clear(j_den);
 
-  fclose(data);
   flint_randclear(state);
   flint_cleanup();
   flint_printf("Done\n");
