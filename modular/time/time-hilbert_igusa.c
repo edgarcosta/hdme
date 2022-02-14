@@ -66,8 +66,6 @@ int main()
 	      fclose(data);
 	    }
 	}
-      
-      fclose(data);
     }
 
   fmpz_poly_clear(beta);
