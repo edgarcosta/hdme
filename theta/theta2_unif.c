@@ -82,6 +82,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   fmpz_set_si(fmpz_mat_entry(eta, 2, 0), -1);
   fmpz_set_si(fmpz_mat_entry(eta, 3, 3), 1);
   fmpz_mat_direct_inv(eta_inv, eta);
+  fmpz_mat_one(M1);
   
   /* Real reduction happens only on the y1 coordinate */
   fmpz_set(nb_real_red, fmpz_mat_entry(real_red, 0, 2));

@@ -19,6 +19,7 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   arb_t tol;
   int res;
   int v = MODEQ_VERBOSE;
+  /* slong i;*/
 
   acb_mat_init(im, 2, 2);
   acb_mat_init(red, 2, 2);
@@ -29,28 +30,49 @@ int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets,
   arb_one(tol);
   arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
+  if (v) flint_printf("(siegel_modeq_theta2) Computing theta constants (%wd)", n);
+  fflush(stdout);
   for (k = 0; k < n; k++)
     {
       if (v)
 	{
-	  flint_printf("(siegel_modeq_theta2) Computing theta constants (%wd/%wd)\n", k+1, n);
+	  if ((k+1) % 100 == 0)
+	    {
+	      flint_printf("\n(siegel_modeq_theta2) (%wd/%wd)", k+1, n);
+	    }
+	  flint_printf("."); fflush(stdout);
 	}
       siegel_coset(eta, k, ell);
+      /*fmpz_mat_print_pretty(eta);*/
       res = siegel_transform(im, eta, tau, prec);
-      if (res) res = siegel_fundamental_domain(red, eta, im, tol, prec);
+      if (res)
+	{
+	  res = siegel_fundamental_domain(red, eta, im, tol, prec);
+	  /* acb_mat_printd(tau, 10);
+	     acb_mat_printd(im, 10);
+	     acb_mat_printd(red, 10); */
+	}
       if (res)
 	{
 	  siegel_star(star, eta, im, prec);
 	  acb_mat_det(&stardets[k], star, prec);
 	  res = theta2_unif(&th2_vec[16*k], red, prec);
 	}
-      if (res) res = theta2_renormalize(&th2_vec[16*k], &th2_vec[16*k], prec);	
+      if (res)
+	{
+	  res = theta2_renormalize(&th2_vec[16*k], &th2_vec[16*k], prec);
+	  /* for (i = 0; i < 16; i++)
+	    {
+	      acb_printd(&th2_vec[16*k+i], 10); flint_printf("\n");
+	      } */
+	}
       if (!res)
 	{
 	  flint_printf("(siegel_modeq_theta2) Warning: computation aborted due to low precision\n");
 	  break;
 	}
     }
+  if (v) flint_printf("\n");
 
   acb_mat_clear(im);
   acb_mat_clear(red);

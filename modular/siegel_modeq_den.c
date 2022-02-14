@@ -19,6 +19,7 @@ void siegel_modeq_den(acb_t den, acb_srcptr I_vec, const acb_t scal,
     {
       acb_sqr(temp, &I_vec[4*k+3], prec);
       acb_mul(res, res, temp, prec);
+      /* acb_printd(&I_vec[4*k+3], 20); flint_printf("\n"); */
     }
   acb_mul(res, res, scal, prec);
   acb_set(den, res);

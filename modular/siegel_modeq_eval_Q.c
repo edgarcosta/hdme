@@ -78,6 +78,8 @@ int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec,
 	  if (v && !success)
 	    {
 	      flint_printf("(siegel_modeq_eval_Q) Out of precision when recognizing integers\n");
+	      /* acb_printd(den_acb, 30); flint_printf("\n");
+		 acb_printd(acb_poly_get_coeff_ptr(&num_vec_acb[2], 0), 30); flint_printf("\n"); */
 	    }
 	}
       if (success)

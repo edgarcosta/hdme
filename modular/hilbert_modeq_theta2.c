@@ -23,11 +23,16 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, acb_srcptr t,
   arb_one(tol);
   arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
+  if (v) flint_printf("(hilbert_modeq_theta2) Computing theta constants (%wd)", n);
   for (k = 0; k < n; k++)
     {
       if (v)
 	{
-	  flint_printf("(hilbert_modeq_theta2) Computing theta constants (%wd/%wd)\n", k+1, n);
+	  if ((k+1) % 100 == 0)
+	    {
+	      flint_printf("\n(hilbert_modeq_theta2) (%wd/%wd)", k+1, n);
+	    }
+	  flint_printf("."); fflush(stdout);
 	}
       if (res)
 	{
@@ -36,14 +41,15 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, acb_srcptr t,
 	  hilbert_transform(z, m, t, delta, prec);
 	  hilbert_scalar_div(z, beta, z, delta, prec);
 	  hilbert_map(tau, z, delta, prec);
-	  if (v)
+	  /*if (v)
 	    {
 	      flint_printf("(hilbert_modeq_theta2) Reduction... ");
 	      fflush(stdout);
-	    }
+	      }*/
 	  res = siegel_fundamental_domain(tau, eta, tau, tol, prec);
-	  if (v) flint_printf("done.\n");
+	  /*if (v) flint_printf("done.\n");*/
 	}
+      
       /* No star computation */
       if (res)
 	{
@@ -55,7 +61,8 @@ int hilbert_modeq_theta2(acb_ptr th2_vec, acb_srcptr t,
 	  flint_printf("(siegel_modeq_theta) Warning: computation aborted due to low precision\n");
 	  break;
 	}
-    }
+    }  
+  if (v) flint_printf("\n");
 
   _acb_vec_clear(z, 2);
   acb_mat_clear(tau);

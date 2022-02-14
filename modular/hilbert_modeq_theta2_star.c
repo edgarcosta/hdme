@@ -30,11 +30,17 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
   arb_one(tol);
   arb_mul_2exp_si(tol, tol, -MODEQ_RED_TOL_BITS);
 
+  if(v) flint_printf("(hilbert_modeq_theta2_star) Computing theta constants (%wd)\n", n);
+  fflush(stdout);
   for (k = 0; k < n; k++)
     {
       if (v)
-	{
-	  flint_printf("(hilbert_modeq_theta2_star) Computing theta constants (%wd/%wd)\n", k+1, n);
+	{	  
+	  if ((k+1) % 100 == 0)
+	    {
+	      flint_printf("\n(hilbert_modeq_theta2_star) (%wd/%wd)", k+1, n);
+	    }
+	  flint_printf("."); fflush(stdout);
 	}
       if (res)
 	{
@@ -45,12 +51,13 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	  hilbert_map(im, z, delta, prec);
 	  if (v)
 	    {
-	      flint_printf("(hilbert_modeq_theta2_star) Reduction... ");
-	      fflush(stdout);
+	      /*flint_printf("(hilbert_modeq_theta2_star) Reduction... ");
+		fflush(stdout);*/
 	    }
 	  res = siegel_fundamental_domain(red, eta, im, tol, prec);
-	  if (v) flint_printf("done.\n");
+	  /* if (v) flint_printf("done.\n"); */
 	}
+	
       if (res)
 	{
 	  siegel_star(star, eta, im, prec);
@@ -66,6 +73,7 @@ int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
 	  break;
 	}
     }
+  if (v) flint_printf("\n");
 
   _acb_vec_clear(z, 2);
   acb_mat_clear(im);
