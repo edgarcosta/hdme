@@ -98,6 +98,8 @@ void modeq_input_lift(fmpq* j, const fmpz* input, slong nb);
 int modeq_reduce(fmpz_mod_poly_struct* red_vec, const fmpz_poly_struct* num_vec,
 		 const fmpz_t den, slong nb, const fmpz_mod_ctx_t ctx);
 
+int modeq_isog_invariants_C(acb_ptr j, const fmpz_poly_struct* num_vec,
+			    const acb_t root, slong nb, slong prec);
 
 /* Siegel modular equations */
 
@@ -138,6 +140,8 @@ int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec,
 int siegel_modeq_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 			 const fmpz* j, slong ell, const fmpz_mod_ctx_t ctx);
 
+int siegel_modeq_eval_C(acb_poly_struct* num_vec, acb_t den, acb_srcptr j, slong ell,
+			slong prec);			
 
 /* Hilbert modular equations */
 

@@ -90,13 +90,15 @@ RUNREPRODUCE = $(patsubst build/time/%, timerun/%, $(REPRODUCE))
 
 PROGRAMS = $(patsubst programs/%.c, %.exe, $(wildcard programs/*.c))
 
+EXAMPLES = $(patsubs %.c, %, $(wildcard examples/*.c))
+
 # Timing data is written in TIMEDIR
 
 TIMEDIR = $(CURDIR)/time
 
 # Targets
 
-all: library programs
+all: library programs examples
 
 check: library tests $(RUNTESTS)
 
@@ -110,19 +112,20 @@ timings: library $(TIMINGS)
 
 programs: library $(PROGRAMS)
 
+examples: library $(EXAMPLES)
+
 clean:
 	rm -rf build/
 	rm libhdme.a
 	rm -rf time/
 	rm *.exe
+	rm examples/*.exe
 
 library: libhdme.a
 
 libhdme.a: $(OBJS) $(SOURCES) $(HEADERS) | build
 	@echo AR libhdme.a
 	@$(AR) $(ARFLAGS) libhdme.a $(OBJS)
-
-examples: library
 
 build:
 	@mkdir -p build time build/test build/time \
@@ -152,8 +155,12 @@ build/time/%: %.c $(SOURCES) $(HEADERS) | build
 	@$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 %.exe: programs/%.c
+	@echo CC $<
 	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
-	@chmod +x $@
+
+examples/%: examples/%.c
+	@echo CC $<
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'

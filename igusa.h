@@ -78,6 +78,10 @@ void igusa_from_curve_fmpz(fmpq* j, const fmpz_poly_t crv);
 
 void igusa_I6(acb_t I6, acb_srcptr I, slong prec);
 
+void igusa_I6prime(acb_t I6prime, acb_srcptr I, slong prec);
+
+void igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* I);
+
 void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec);
 
 void igusa_R2(acb_t res, acb_srcptr I, slong prec);

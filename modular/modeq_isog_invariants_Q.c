@@ -23,7 +23,7 @@ int modeq_isog_invariants_Q(fmpq* j, const fmpz_poly_struct* num_vec,
       fmpq_set(&j[0], root);
       for (k = 1; k < nb; k++)
 	{
-	  fmpz_poly_evaluate_fmpq(num, &num_vec[k], root);
+	  fmpz_poly_evaluate_fmpq(num, &num_vec[k], &j[0]);
 	  fmpq_div(&j[k], num, den);
 	}
     }

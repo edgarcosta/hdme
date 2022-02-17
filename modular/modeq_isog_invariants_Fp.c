@@ -25,7 +25,7 @@ int modeq_isog_invariants_Fp(fmpz* j, const fmpz_mod_poly_struct* num_vec,
       fmpz_set(&j[0], root);
       for (k = 1; k < nb; k++)
 	{
-	  fmpz_mod_poly_evaluate_fmpz(num, &num_vec[k], root, ctx);
+	  fmpz_mod_poly_evaluate_fmpz(num, &num_vec[k], &j[0], ctx);
 	  fmpz_mod_mul(&j[k], num, den, ctx);
 	}
     }
