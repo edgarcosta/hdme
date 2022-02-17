@@ -20,9 +20,6 @@ int fmpz_mat_is_symplectic(const fmpz_mat_t m)
   fmpz_mat_get_c(c, m);
   fmpz_mat_get_d(d, m);
 
-  fmpz_mat_init(prod1, g, g);
-  fmpz_mat_init(prod2, g, g);
-
   fmpz_mat_transpose(prod1, a);
   fmpz_mat_mul(prod1, prod1, c);
   fmpz_mat_transpose(prod2, c);

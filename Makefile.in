@@ -9,6 +9,8 @@
 #
 
 
+# Directories
+
 # MODIFY THIS:
 # CURDIR is where the source files lie
 # MYDIR is where the other libraries are installed. See also ARB_DIR, etc.
@@ -28,6 +30,10 @@ FLINT_DIR = $(MYDIR)
 FLINT_INCDIR = $(FLINT_DIR)/include/flint
 FLINT_LIBDIR = $(FLINT_DIR)/lib
 
+PARI_DIR = $(MYDIR)
+PARI_INCDIR = $(PARI_DIR)/include/pari
+PARI_LIBDIR = $(PARI_DIR)/lib
+
 MPFR_DIR = $(MYDIR)
 MPFR_INCDIR = $(MPFR_DIR)/include
 MPFR_LIBDIR = $(MPFR_DIR)/lib
@@ -42,7 +48,7 @@ GMP_LIBDIR = $(GMP_DIR)/lib
 SHELL = /bin/sh
 
 CC = gcc
-CFLAGS = -ansi -Wall -pedantic -Werror -g -DHDME_PATH=\"$(CURDIR)\"
+CFLAGS = -ansi -Wall -pedantic -Werror -DHDME_PATH=\"$(CURDIR)\"
 
 AR = ar
 ARFLAGS = -rcs
@@ -82,13 +88,15 @@ REPRODUCE_SOURCES = modular/time/time-siegel.c modular/time/time-hilbert_gundlac
 REPRODUCE = $(patsubst %.c, build/time/%, $(REPRODUCE_SOURCES))
 RUNREPRODUCE = $(patsubst build/time/%, timerun/%, $(REPRODUCE))
 
+PROGRAMS = $(patsubst programs/%.c, %.exe, $(wildcard programs/*.c))
+
 # Timing data is written in TIMEDIR
 
 TIMEDIR = $(CURDIR)/time
 
 # Targets
 
-all: library
+all: library programs
 
 check: library tests $(RUNTESTS)
 
@@ -100,10 +108,13 @@ tests: library $(TESTS)
 
 timings: library $(TIMINGS)
 
+programs: library $(PROGRAMS)
+
 clean:
 	rm -rf build/
-	rm -rf time/
 	rm libhdme.a
+	rm -rf time/
+	rm *.exe
 
 library: libhdme.a
 
@@ -140,11 +151,15 @@ build/time/%: %.c $(SOURCES) $(HEADERS) | build
 	@echo CC $<
 	@$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
+%.exe: programs/%.c
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@chmod +x $@
+
 print-%:
 	@echo '$*=$($*)'
 
 plots:
-	python $(TIMEDIR)/make_plots.py
+	python $(CURDIR)/make_plots.py
 
 reproduce: library timings $(RUNREPRODUCE)	
 
