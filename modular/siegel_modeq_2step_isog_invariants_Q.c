@@ -1,4 +1,5 @@
 
+#include <assert.h>
 #include "modular.h"
 
 /* Compute the list of primitive, irreducible polynomials dividing
@@ -56,7 +57,86 @@ static void
 siegel_modeq_2step_rescale(fmpz_t rescale, const fmpz_poly_t fac,
 			   const fmpz_poly_struct* num_vec, slong ell)
 {
-  fmpz_one(rescale);
+  fmpz* denoms;
+  fmpq_poly_struct j_nf[3];
+  fmpq_t coeff;
+  fmpq_poly_t Q, R, fac_fmpq;
+  fmpq_mat_t mult;
+  fmpq_poly_t charpoly;
+  mpz_t num1, den1;
+  fmpz_t den;
+
+  slong d = fmpz_poly_degree(fac);
+  slong exp = (10*siegel_nb_cosets(ell))/3;
+  slong k, m, n;
+
+  denoms = _fmpz_vec_init(3);
+  for (k = 0; k < 3; k++) fmpq_poly_init(&j_nf[3]);
+  fmpq_init(coeff);
+  fmpq_poly_init(Q);
+  fmpq_poly_init(R);
+  fmpq_poly_init(fac_fmpq);
+  fmpq_mat_init(mult, d, d);
+  fmpq_poly_init(charpoly);
+  mpz_init(num1);
+  mpz_init(den1);
+  fmpz_init(den);
+
+  modeq_isog_invariants_nf(j_nf, num_vec, 3, fac);
+  fmpq_poly_set_fmpz_poly(fac_fmpq, fac);
+  
+  for (k = 0; k < 3; k++) fmpz_one(&denoms[k]);
+  for (k = 0; k < 3; k++)
+    {
+      /* Get denominator of each j by computing charpoly of multiplication matrix */
+      for (m = 0; m < d; m++)
+	{
+	  /* Copy coefficients of j_nf[k]*/
+	  for (n = 0; n < d; n++)
+	    {
+	      fmpq_poly_get_coeff_fmpq(coeff, &j_nf[k], n);
+	      fmpq_set(fmpq_mat_entry(mult, n, m), coeff);
+	    }
+	  /* Multiply by x and reduce mod fac */
+	  fmpq_poly_shift_left(&j_nf[k], &j_nf[k], 1);
+	  fmpq_poly_divrem(Q, R, &j_nf[k], fac_fmpq);
+	}
+      fmpq_mat_charpoly(charpoly, mult);
+      for (m = 1; m <= d; m++)
+	{
+	  /* Adjust denominator and charpoly so that all coefficients
+	     from x^d to x^(d-m) are integers */
+	  fmpq_poly_get_coeff_fmpq(coeff, charpoly, d-m);
+	  fmpq_get_mpz_frac(num1, den1, coeff); /* Should be in irreducible form */
+	  fmpz_set_mpz(den, den1);
+	  fmpz_mul(&denoms[k], &denoms[k], den);
+	  /* Rescale charpoly accordingly */
+	  fmpq_one(coeff);
+	  fmpq_mul_fmpz(coeff, coeff, den);
+	  fmpq_poly_rescale(charpoly, charpoly, coeff);
+	}
+      /* Check denominator is now 1 */
+      fmpq_poly_get_denominator(den, charpoly);
+      assert (fmpz_is_one(den));
+    }
+
+  /* Denominators are now computed; compute suitable powers */
+  fmpz_lcm(&denoms[0], &denoms[0], &denoms[1]);
+  fmpz_pow_ui(&denoms[0], &denoms[0], exp);
+  fmpz_pow_ui(&denoms[2], &denoms[2], exp/2); /* Use the fact that degree in j3 is twice less */
+  fmpz_lcm(rescale, &denoms[0], &denoms[2]);
+
+  _fmpz_vec_clear(denoms, 3);
+  for (k = 0; k < 3; k++) fmpq_poly_clear(&j_nf[3]);
+  fmpq_clear(coeff);
+  fmpq_poly_clear(Q);
+  fmpq_poly_clear(R);
+  fmpq_poly_clear(fac_fmpq);
+  fmpq_mat_clear(mult);
+  fmpq_poly_clear(charpoly);
+  mpz_clear(num1);
+  mpz_clear(den1);
+  fmpz_clear(den);
 }
 
 /* Given a concatenation of d tuples of three complex polynomials

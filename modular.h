@@ -101,6 +101,9 @@ int modeq_reduce(fmpz_mod_poly_struct* red_vec, const fmpz_poly_struct* num_vec,
 int modeq_isog_invariants_C(acb_ptr j, const fmpz_poly_struct* num_vec,
 			    const acb_t root, slong nb, slong prec);
 
+int modeq_isog_invariants_nf(fmpq_poly_struct* j, const fmpz_poly_struct* num_vec,
+			     slong nb, const fmpz_poly_t field);
+
 /* Siegel modular equations */
 
 slong siegel_modeq_height_fmpz(const fmpz* j);
