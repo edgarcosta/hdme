@@ -39,6 +39,7 @@ int modeq_isog_invariants_nf(fmpq_poly_struct* j, const fmpz_poly_struct* num_ve
       fmpq_poly_scalar_div_fmpq(inverse, S, coeff); 
       for (k = 1; k < nb; k++)
 	{
+	  flint_printf("(modeq_isog_invariants_nf) Reducing j%wd in number field\n", k+1);
 	  /* Reduce num_vec[k] in number field */
 	  fmpq_poly_set_fmpz_poly(v, &num_vec[k]);
 	  fmpq_poly_rem(v, v, mod_fmpq);
