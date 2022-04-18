@@ -12,8 +12,13 @@ int mestre(acb_poly_t crv, acb_srcptr I, slong prec)
   acb_t U;
   acb_t I10;
   int res = 1;
+
   
-  if (!igusa_has_generic_automorphisms(I, prec)) return 0;
+  if (!igusa_has_generic_automorphisms(I, prec))
+    {
+      flint_printf("(mestre) Error: cannot guarantee that curve doesn't have extra automorphisms\n");
+      return 0;
+    }
 
   conic = _acb_vec_init(6);
   cubic = _acb_vec_init(10);

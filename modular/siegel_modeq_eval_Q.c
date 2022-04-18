@@ -45,8 +45,9 @@ int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec,
     {
       if (v) flint_printf("(siegel_modeq_eval_Q) Start new run at precision %wd\n", prec);
       
-      for (k = 0; k < 3; k++) acb_set_fmpq(&j_tau[k], &j[k], prec);
+      for (k = 0; k < 3; k++) {acb_set_fmpq(&j_tau[k], &j[k], prec);}
       cov_from_igusa(I_tau, j_tau, prec);
+      /* for (k = 0; k < 4; k++) {acb_printd(&I_tau[k], 10);} */
       success = tau_theta2_from_igusa(tau, th2_tau, I_tau, prec);
       if (v && !success)
 	{

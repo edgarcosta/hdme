@@ -154,13 +154,13 @@ build/time/%: %.c $(SOURCES) $(HEADERS) | build
 	@echo CC $<
 	@$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
-%.exe: programs/%.c
+%.exe: programs/%.c library
 	@echo CC $<
 	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
-examples/%: examples/%.c
+examples/%: examples/%.c library
 	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@.exe -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'

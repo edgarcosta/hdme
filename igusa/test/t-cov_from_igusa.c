@@ -47,8 +47,8 @@ int main()
 	      acb_printd(&j[k], 30);
 	      flint_printf("\n");
 	      fflush(stdout);
-	      flint_abort();
 	    }
+	  flint_abort();
 	}
 
       _acb_vec_clear(j_test, 3);

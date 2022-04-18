@@ -23,7 +23,7 @@
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
-#define THOMAE_VERBOSE 0
+#define THOMAE_VERBOSE 1
 
 
 /* Igusa covariants from theta constants */
@@ -53,6 +53,29 @@ int igusa_from_tau(acb_ptr j, const acb_mat_t tau, slong prec);
 int igusa_is_defined(acb_srcptr j);
 
 
+/* Igusa covariants as integers */
+
+void igusa_from_cov(acb_ptr j, acb_srcptr I, slong prec);
+
+void igusa_from_cov_fmpz(fmpq* j, const fmpz* I);
+
+void cov_from_igusa(acb_ptr I, acb_srcptr j, slong prec);
+
+void cov_rescale_fmpz(fmpz* I, fmpz* S, const fmpz_t scal);
+
+int cov_divisible_fmpz(fmpz* I, const fmpz_t scal);
+
+void cov_divexact_fmpz(fmpz* I, fmpz* S, const fmpz_t scal);
+
+void cov_rescale_fmpz_si(fmpz* I, fmpz* S, slong scal);
+
+void cov_divexact_fmpz_si(fmpz* I, fmpz* S, slong scal);
+
+void cov_normalize_fmpz(fmpz* I, fmpz* S);
+
+void cov_from_igusa_fmpz(fmpz* I, fmpq* j);
+
+
 /* Igusa covariants from curve coefficients */
 
 void curve_coeffs(acb_ptr ai, const acb_poly_t crv);
@@ -63,12 +86,6 @@ void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec);
 
 void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv);
 
-void igusa_from_cov(acb_ptr j, acb_srcptr I, slong prec);
-
-void igusa_from_cov_fmpz(fmpq* j, const fmpz* I);
-
-void cov_from_igusa(acb_ptr I, acb_srcptr j, slong prec);
-
 void igusa_from_curve(acb_ptr j, const acb_poly_t crv, slong prec);
 
 void igusa_from_curve_fmpz(fmpq* j, const fmpz_poly_t crv);
@@ -78,9 +95,15 @@ void igusa_from_curve_fmpz(fmpq* j, const fmpz_poly_t crv);
 
 void igusa_I6(acb_t I6, acb_srcptr I, slong prec);
 
+int igusa_I6_fmpz(fmpz_t I6, fmpz* I);
+
+void igusa_switch_I6_fmpz(fmpz* I, fmpz* S);
+
 void igusa_I6prime(acb_t I6prime, acb_srcptr I, slong prec);
 
-void igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* I);
+int igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* I);
+
+void igusa_switch_I6prime_fmpz(fmpz* I, fmpz* S);
 
 void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec);
 

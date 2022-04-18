@@ -174,7 +174,7 @@ siegel_modeq_2step_trace(fmpz_poly_struct* trace_nums, slong* add_prec,
 				 siegel_nb_cosets(ell));
       if (!success)
 	{ 
-	  flint_printf("(siegel_modeq_2step_isog_invariants) Could not recognize integer coefficients: max radius ");
+	  flint_printf("(siegel_modeq_2step_isog_invariants_Q) Could not recognize integer coefficients: max radius ");
 	  arf_printd(max_radius, 10);
 	  arf_frexp(max_radius, exp, max_radius);
 	  *add_prec = fmpz_get_si(exp);
@@ -343,7 +343,7 @@ siegel_modeq_2step_attempt(int* success, slong* add_prec,
       if (*success && fmpz_poly_is_zero(&trace_nums[0]))
 	{
 	  /* Should not happen (monic polynomials) */
-	  flint_printf("(siegel_modeq_2step_isog_invariants) Trace over Q of modular equations at second step is zero: this case is not implemented\n");
+	  flint_printf("(siegel_modeq_2step_isog_invariants_Q) Trace over Q of modular equations at second step is zero: this case is not implemented\n");
 	  *success = 0;
 	  stop = 1;
 	}
@@ -356,7 +356,7 @@ siegel_modeq_2step_attempt(int* success, slong* add_prec,
       *nb_isog_j = 0;
       stop = 1; /* In any case, stop increasing complex precision */
       modeq_roots_Q(&nb_2step_roots, ratl_roots, exps, &trace_nums[0]);
-      flint_printf("(siegel_modeq_2step_isog_invariants) Found %wd rational roots\n", nb_2step_roots);
+      flint_printf("(siegel_modeq_2step_isog_invariants_Q) Found %wd rational roots\n", nb_2step_roots);
       /* Extract only the polynomials nums_acb[3*k] for use in confirm_root */
       for (k = 0; k < d; k++)
 	{
@@ -369,7 +369,7 @@ siegel_modeq_2step_attempt(int* success, slong* add_prec,
 	      && siegel_modeq_2step_confirm_root(&ratl_roots[k], fac,
 						 nums_acb, roots, prec))		      
 	    {
-	      flint_printf("(siegel_modeq_2step_isog_invariants) New rational root confirmed:\n");
+	      flint_printf("(siegel_modeq_2step_isog_invariants_Q) New rational root confirmed:\n");
 	      fmpq_print(&ratl_roots[k]);
 	      flint_printf("\n");
 	      *success = *success && modeq_isog_invariants_Q(&isog_j[3*(*nb_isog_j)],
@@ -464,7 +464,7 @@ int siegel_modeq_2step_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j,
 	    }
 	  if (!stop)
 	    {
-	      if (add_prec != 0) prec += 100*((11*add_prec)/1000);
+	      if (add_prec != 0) prec += 100*(1+(11*add_prec)/1000);
 	      else prec = siegel_modeq_nextprec(prec);
 	      if (prec > MODEQ_MAX_PREC)
 		{
