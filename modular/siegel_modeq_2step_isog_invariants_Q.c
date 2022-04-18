@@ -178,7 +178,7 @@ siegel_modeq_2step_trace(fmpz_poly_struct* trace_nums, slong* add_prec,
 	  arf_printd(max_radius, 10);
 	  arf_frexp(max_radius, exp, max_radius);
 	  *add_prec = fmpz_get_si(exp);
-	  flint_printf("\nAdditional precision: %wd\n", *add_prec);
+	  flint_printf("\n(siegel_modeq_2step_isog_invariants_Q) Additional precision: %wd\n", *add_prec);
 	}
     }
   return success;

@@ -8,7 +8,7 @@ void cov_from_igusa(acb_ptr I, acb_srcptr j, slong prec)
   res = _acb_vec_init(4);
 
   acb_set_si(&res[3], 1);
-  acb_root_ui(&res[1], &j[2], 5, prec);
+  borchardt_root_ui(&res[1], &j[2], 5, prec);
 
   acb_div(&res[2], &j[0], &res[1], prec);
 
