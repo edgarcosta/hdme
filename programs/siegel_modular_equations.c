@@ -17,7 +17,7 @@
    (denominator) giving the modular equations of Siegel type of level
    ell evaluated at that point. Output format follows
    fmpz_poly_print_pretty and fmpz_print, and is separated by
-   newlines. 
+   newlines.
 
    Recall that the Igusa invariants used are
    j1 = I4*I6'/I10, j2 = I2*I4^2/I10, j3 = I4^5/I10^2.
