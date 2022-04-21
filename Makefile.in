@@ -43,24 +43,32 @@ GMP_DIR = $(MYDIR)
 GMP_INCDIR = $(GMP_DIR)/include
 GMP_LIBDIR = $(GMP_DIR)/lib
 
+HDME_PATH = $(CURDIR)
+
 # DO NOT MODIFY
 # Compiling and linking
 
 SHELL = /bin/sh
 
 CC = gcc
-CFLAGS = -ansi -Wall -pedantic -Werror -DHDME_PATH=\"$(CURDIR)\"
+CFLAGS = -ansi -Wall -pedantic -Werror -D'HDME_PATH="$(HDME_PATH)"'
 
 AR = ar
 ARFLAGS = -rcs
 
 VALGRIND = valgrind
 
-INCS = -I$(CURDIR) -I$(PARITWINE_INCDIR) -I$(ARB_INCDIR) -I$(FLINT_INCDIR) \
--I$(PARI_INCDIR) -I$(MPFR_INCDIR) -I$(GMP_INCDIR)
+# recursive function for uniqueness
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 
-LLIBS = -L$(PARITWINE_LIBDIR) -L$(ARB_LIBDIR) -L$(FLINT_LIBDIR) -L$(PARI_LIBDIR) \
--L$(MPFR_INCDIR) -L$(GMP_LIBDIR)
+
+LIBRARIES = ARB FLINT MPFR GMP
+# we remove duplicated paths
+INCDIR_LIBRARIES = $(call uniq, $(sort $(foreach elt, $(patsubst %, %_INCDIR, $(LIBRARIES)), -isystem"$($(elt))")))
+INCS = -I"$(CURDIR)" $(INCDIR_LIBRARIES)
+
+# we remove duplicated paths
+LLIBS = $(call uniq, $(sort $(foreach elt, $(patsubst %, %_LIBDIR, $(LIBRARIES)), -L"$($(elt))"))) 
 
 lDEPS = arb flint mpfr gmp pthread m
 lLIBS = $(patsubst %, -l%, $(lDEPS))
@@ -132,7 +140,7 @@ build:
 	@mkdir -p build time build/test build/time \
 	$(foreach mod, $(MODULES), build/$(mod)) \
 	$(foreach mod, $(MODULES), build/test/$(mod)/test) \
-	$(foreach mod, $(MODULES), build/time/$(mod)/time) 
+	$(foreach mod, $(MODULES), build/time/$(mod)/time)
 
 build/%.o: %.c $(HEADERS) | build
 	@echo CC $<
@@ -157,11 +165,11 @@ build/time/%: %.c $(SOURCES) $(HEADERS) | build
 
 %.exe: programs/%.c library
 	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L'$(CURDIR)' $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 examples/%: examples/%.c library
 	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L$(CURDIR) $< -o $@.exe -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L'$(CURDIR)' $< -o $@.exe -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'
@@ -169,7 +177,7 @@ print-%:
 plots:
 	python $(CURDIR)/make_plots.py
 
-reproduce: library timings $(RUNREPRODUCE)	
+reproduce: library timings $(RUNREPRODUCE)
 
 .PHONY: all check clean tests library examples build valgrind
 
