@@ -5,7 +5,7 @@ char** hdme_data_vars_init(slong nb)
 {
   char** vars;
   slong k;
-  
+
   vars = flint_malloc(nb * sizeof(char*));
   for (k = 0; k < nb; k++)
     {
