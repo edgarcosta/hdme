@@ -12,11 +12,12 @@
 # Directories
 
 # MODIFY THIS:
-# CURDIR is where the source files lie
-# MYDIR is where the other libraries are installed. See also ARB_DIR, etc.
-
-CURDIR = /path/to/hdme
+# is where the other libraries are installed. See also ARB_DIR, etc.
 MYDIR = /path/to/libs
+# and if necessary
+# CURDIR is where the source files lie
+# CURDIR = /path/to/hdme
+# in GNU make, $(CURDIR) is actually a built-in variable, so one can leave it commented out
 
 PARITWINE_DIR = $(MYDIR)
 PARITWINE_INCDIR = $(PARITWINE_DIR)/include
