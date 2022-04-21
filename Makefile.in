@@ -27,7 +27,7 @@ ARB_INCDIR = $(ARB_DIR)/include
 ARB_LIBDIR = $(ARB_DIR)/lib
 
 FLINT_DIR = $(MYDIR)
-FLINT_INCDIR = $(FLINT_DIR)/include/flint
+FLINT_INCDIR = $(FLINT_DIR)/include
 FLINT_LIBDIR = $(FLINT_DIR)/lib
 
 PARI_DIR = $(MYDIR)
