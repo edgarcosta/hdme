@@ -11,11 +11,12 @@
 #ifndef THETA_H
 #define THETA_H
 
+#include <acb.h>
+#include <acb_mat.h>
+#include <arb.h>
+#include <flint/ulong_extras.h>
 #include <stdio.h>
-#include "ulong_extras.h"
-#include "arb.h"
-#include "acb.h"
-#include "acb_mat.h"
+
 #include "siegel.h"
 
 #define THETA_NEWTON_MINPREC 100

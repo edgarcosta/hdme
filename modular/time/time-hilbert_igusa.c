@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <profiler.h> /* Flint profiler */
+#include <flint/profiler.h> /* Flint profiler */
 #include "modular.h"
 
 /* Directory where data is written is TIMEDIR */

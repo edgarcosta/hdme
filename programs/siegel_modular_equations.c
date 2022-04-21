@@ -8,8 +8,6 @@
     LICENCE or <http://www.gnu.org/licenses/> for more details.
 */
 
-#include "flint.h"
-#include "arb.h"
 #include "modular.h"
 
 /* INPUT: Integers I2, I4, I6, I10, ell as strings recognized by

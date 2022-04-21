@@ -11,19 +11,20 @@
 #ifndef HILBERT_H
 #define HILBERT_H
 
+#include <acb.h>
+#include <acb_mat.h>
+#include <acb_poly.h>
+#include <flint/flint.h>
+#include <flint/fmpq_mpoly.h>
+#include <flint/fmpz_lll.h>
+#include <flint/fmpz_poly_mat.h>
+#include <flint/ulong_extras.h>
 #include <stdio.h>
-#include "flint.h"
-#include "ulong_extras.h"
-#include "fmpz_poly_mat.h"
-#include "fmpq_mpoly.h"
-#include "fmpz_lll.h"
-#include "acb.h"
-#include "acb_poly.h"
-#include "acb_mat.h"
+
 #include "hdme_data.h"
+#include "igusa.h"
 #include "siegel.h"
 #include "theta.h"
-#include "igusa.h"
 
 #define HILBERT_LLL_VERBOSE 0
 

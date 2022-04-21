@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <profiler.h> /* Flint profiler */
+#include <flint/profiler.h> /* Flint profiler */
 #include "modular.h"
 
 #define TIME_SIEGEL_MODEQ_EVAL_ITER 4
