@@ -8,8 +8,6 @@
     LICENCE or <http://www.gnu.org/licenses/> for more details.
 */
 
-#include "flint.h"
-#include "arb.h"
 #include "igusa.h"
 
 /* INPUT: Real and imaginary parts of Igusa-Clebsch invariants I2, I4,

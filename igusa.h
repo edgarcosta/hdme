@@ -11,12 +11,13 @@
 #ifndef IGUSA_H
 #define IGUSA_H
 
-#include "ulong_extras.h"
-#include "fmpq_mpoly.h"
-#include "arb.h"
-#include "acb.h"
-#include "acb_poly.h"
-#include "acb_mat.h"
+#include <acb.h>
+#include <acb_mat.h>
+#include <acb_poly.h>
+#include <arb.h>
+#include <flint/fmpq_mpoly.h>
+#include <flint/ulong_extras.h>
+
 #include "hdme_data.h"
 #include "siegel.h"
 #include "theta.h"

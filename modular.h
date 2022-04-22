@@ -11,21 +11,22 @@
 #ifndef MODULAR_H
 #define MODULAR_H
 
-#include "flint.h"
-#include "fmpz_vec.h"
-#include "fmpq_vec.h"
-#include "fmpz_mod.h"
-#include "fmpz_mod_poly.h"
-#include "fmpz_poly_mat.h"
-#include "ulong_extras.h"
-#include "arb.h"
-#include "acb.h"
-#include "acb_poly.h"
-#include "acb_mat.h"
+#include <acb.h>
+#include <acb_mat.h>
+#include <acb_poly.h>
+#include <arb.h>
+#include <flint/flint.h>
+#include <flint/fmpq_vec.h>
+#include <flint/fmpz_mod.h>
+#include <flint/fmpz_mod_poly.h>
+#include <flint/fmpz_poly_mat.h>
+#include <flint/fmpz_vec.h>
+#include <flint/ulong_extras.h>
+
+#include "hilbert.h"
+#include "igusa.h"
 #include "siegel.h"
 #include "theta.h"
-#include "igusa.h"
-#include "hilbert.h"
 
 #define MODEQ_VERBOSE 1
 #define MODEQ_RED_TOL_BITS 50
