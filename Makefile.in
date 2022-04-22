@@ -19,10 +19,6 @@ MYDIR = /path/to/libs
 # CURDIR = /path/to/hdme
 # in GNU make, $(CURDIR) is actually a built-in variable, so one can leave it commented out
 
-PARITWINE_DIR = $(MYDIR)
-PARITWINE_INCDIR = $(PARITWINE_DIR)/include
-PARITWINE_LIBDIR = $(PARITWINE_DIR)/lib
-
 ARB_DIR = $(MYDIR)
 ARB_INCDIR = $(ARB_DIR)/include
 ARB_LIBDIR = $(ARB_DIR)/lib
@@ -30,10 +26,6 @@ ARB_LIBDIR = $(ARB_DIR)/lib
 FLINT_DIR = $(MYDIR)
 FLINT_INCDIR = $(FLINT_DIR)/include
 FLINT_LIBDIR = $(FLINT_DIR)/lib
-
-PARI_DIR = $(MYDIR)
-PARI_INCDIR = $(PARI_DIR)/include/pari
-PARI_LIBDIR = $(PARI_DIR)/lib
 
 MPFR_DIR = $(MYDIR)
 MPFR_INCDIR = $(MPFR_DIR)/include
