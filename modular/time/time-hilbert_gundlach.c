@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <profiler.h> /* Flint profiler */
+#include <flint/profiler.h> /* Flint profiler */
 #include "modular.h"
 
 #define TIME_HILBERT_NB_PRIMES 100

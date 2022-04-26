@@ -1,7 +1,6 @@
 
 #include <assert.h>
-#include "flint.h"
-#include "arb.h"
+
 #include "modular.h"
 
 int main()

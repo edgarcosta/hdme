@@ -11,12 +11,12 @@
 #ifndef HDME_DATA_H
 #define HDME_DATA_H
 
+#include <acb.h>
+#include <arb.h>
+#include <flint/flint.h>
+#include <flint/fmpq_mpoly.h>
+#include <flint/mpoly.h>
 #include <stdio.h>
-#include "flint.h"
-#include "mpoly.h"
-#include "fmpq_mpoly.h"
-#include "arb.h"
-#include "acb.h"
 
 #define HDME_DATA_STR_LEN 10000
 #define HDME_DATA_FILE_LEN 1000

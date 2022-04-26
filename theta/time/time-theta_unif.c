@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <profiler.h> /* Flint profiler */
+#include <flint/profiler.h> /* Flint profiler */
 #include "theta.h"
 
 #define TIME_THETA_UNIF_ITER 200
