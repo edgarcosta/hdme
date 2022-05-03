@@ -147,6 +147,9 @@ int siegel_modeq_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 int siegel_modeq_eval_C(acb_poly_struct* num_vec, acb_t den, acb_srcptr j, slong ell,
 			slong prec);			
 
+int siegel_modeq_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j,
+				   fmpq* j, slong ell);
+
 int siegel_modeq_2step_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j,
 					 fmpq* j, slong ell);
 

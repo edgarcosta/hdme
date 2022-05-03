@@ -22,21 +22,16 @@ int main(int argc, char* argv[])
 {
   fmpz* I;
   fmpq* j;
-  fmpz_poly_struct num_vec[3];
-  fmpz_t den;
   slong ell;
   slong nb_roots = 0;
   slong nmax;
-  slong* mults;
-  fmpq* roots;
+  fmpq* all_isog_j;
   slong k;
   int res;
 
   I = _fmpz_vec_init(4);
   j = _fmpq_vec_init(3);
-  for (k = 0; k < 3; k++) fmpz_poly_init(&num_vec[k]);
-  fmpz_init(den);
-  /* Init roots later: size depends on ell */
+  /* Init all_isog_j later: size depends on ell */
   
   /* Check correct number of arguments */
   if (argc != 6)
@@ -63,27 +58,23 @@ int main(int argc, char* argv[])
 	}
     }
   nmax = siegel_nb_cosets(ell);
-  roots = _fmpq_vec_init(nmax);
-  mults = flint_malloc(nmax * sizeof(slong));
+  all_isog_j = _fmpq_vec_init(3*nmax);
   
   /* Set Igusa invariants */
   igusa_switch_I6prime_fmpz(I, I);
   igusa_from_cov_fmpz(j, I);
   
-  /* Evaluate modular equations */
-  res = siegel_modeq_eval_Q(num_vec, den, j, ell);
-  /* Compute roots */
-  if (res) modeq_roots_Q(&nb_roots, roots, mults, &num_vec[0]);
+  /* Compute isogenous invariants */
+  res = siegel_modeq_isog_invariants_Q(&nb_roots, all_isog_j, j, ell);
+  if (!res)
+    {
+      flint_printf("FAIL\n");
+      flint_abort();
+    }
   
   for (k = 0; k < nb_roots; k++)
     {
-      res = modeq_isog_invariants_Q(j, num_vec, &roots[k], 3);
-      if (!res)
-	{
-	  flint_printf("FAIL (double root)\n");
-	  flint_abort();
-	}
-      cov_from_igusa_fmpz(I, j);
+      cov_from_igusa_fmpz(I, &all_isog_j[3*k]);
       igusa_switch_I6_fmpz(I, I);
       
       flint_printf("\n["); fmpz_print(&I[0]); flint_printf(",\n");
@@ -94,10 +85,7 @@ int main(int argc, char* argv[])
   
   _fmpz_vec_clear(I, 4);
   _fmpq_vec_clear(j, 3);
-  for (k = 0; k < 3; k++) fmpz_poly_clear(&num_vec[k]);
-  fmpz_clear(den);
-  _fmpq_vec_clear(roots, nmax);
-  flint_free(mults);
+  _fmpq_vec_clear(all_isog_j, 3*nmax);
 
   flint_cleanup();  
   return EXIT_SUCCESS;
