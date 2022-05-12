@@ -46,7 +46,7 @@ int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta)
 	  if (fmpz_is_square(discr))
 	    {
 	      fmpz_sqrt(discr, discr);
-	      fmpz_submul_si(discr, a, 2);
+	      fmpz_submul_ui(discr, a, 2);
 	      if (fmpz_fdiv_ui(discr, delta-1) == 0)
 		{
 		  stop = 1;
