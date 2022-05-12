@@ -106,9 +106,9 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   /* Check discriminant */
   fmpz_mul(discr, &abcde[1], &abcde[1]);
   fmpz_mul(temp, &abcde[0], &abcde[2]);
-  fmpz_addmul_si(discr, temp, -4);
+  fmpz_submul_ui(discr, temp, 4);
   fmpz_mul(temp, &abcde[3], &abcde[4]);
-  fmpz_addmul_si(discr, temp, -4);
+  fmpz_submul_ui(discr, temp, 4);
   res = fmpz_equal_si(discr, delta);
 
   if (!res)
@@ -122,14 +122,17 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
 	      for (k = 0; k < 5; k++)
 		{
 		  fmpz_mul_si(&abcde[k], fmpz_mat_entry(B, k, 0), l);
-		  fmpz_addmul_si(&abcde[k], fmpz_mat_entry(B, k, 1), m);
+      if (m > 0)
+        fmpz_addmul_ui(&abcde[k], fmpz_mat_entry(B, k, 1), m);
+      else
+        fmpz_submul_ui(&abcde[k], fmpz_mat_entry(B, k, 1), -m);
 		}
 	      /* Check discriminant */
 	      fmpz_mul(discr, &abcde[1], &abcde[1]);
 	      fmpz_mul(temp, &abcde[0], &abcde[2]);
-	      fmpz_addmul_si(discr, temp, -4);
+	      fmpz_submul_ui(discr, temp, 4);
 	      fmpz_mul(temp, &abcde[3], &abcde[4]);
-	      fmpz_addmul_si(discr, temp, -4);
+	      fmpz_submul_ui(discr, temp, 4);
 	      res = fmpz_equal_si(discr, delta);
 	      if (res) break;
 	    }
