@@ -28,7 +28,11 @@
 #include "siegel.h"
 #include "theta.h"
 
-#define MODEQ_VERBOSE 1
+/* one may want to define verbosity at compile time */
+#ifndef MODEQ_VERBOSE
+#define MODEQ_VERBOSE 0
+#endif
+
 #define MODEQ_RED_TOL_BITS 50
 #define MODEQ_MAX_PREC n_pow(10,6)
 
