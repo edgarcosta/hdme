@@ -30,11 +30,11 @@ void siegel_modeq_num(acb_poly_struct* num_vec_acb,
 
       acb_pow_ui(&zi3[k], &I_vec[4*k+1], 5, prec);
     }
-  flint_printf("(siegel_modeq_num) Building product trees...\n");
+  if (MODEQ_VERBOSE) flint_printf("(siegel_modeq_num) Building product trees...\n");
   product_tree_1(&num_vec_acb[0], xi, yi, d, prec);
   product_tree_2(&num_vec_acb[1], xi, yi, zi2, d, prec);
   product_tree_2(&num_vec_acb[2], xi, yi, zi3, d, prec);
-  flint_printf("(siegel_modeq_num) Done.\n");
+  if (MODEQ_VERBOSE) flint_printf("(siegel_modeq_num) Done.\n");
 
   for (k = 0; k < 3; k++)
     {
