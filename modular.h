@@ -28,7 +28,11 @@
 #include "siegel.h"
 #include "theta.h"
 
-#define MODEQ_VERBOSE 1
+/* one may want to define verbosity at compile time */
+#ifndef MODEQ_VERBOSE
+#define MODEQ_VERBOSE 0
+#endif
+
 #define MODEQ_RED_TOL_BITS 50
 #define MODEQ_MAX_PREC n_pow(10,6)
 
@@ -145,7 +149,7 @@ int siegel_modeq_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 			 const fmpz* j, slong ell, const fmpz_mod_ctx_t ctx);
 
 int siegel_modeq_eval_C(acb_poly_struct* num_vec, acb_t den, acb_srcptr j, slong ell,
-			slong prec);			
+			slong prec);
 
 int siegel_modeq_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j,
 				   fmpq* j, slong ell);

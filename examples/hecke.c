@@ -1,7 +1,7 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include "flint.h"
+#include <flint/flint.h>
 #include "arb.h"
 #include "modular.h"
 
