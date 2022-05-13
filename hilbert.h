@@ -85,6 +85,8 @@ void hilbert_R(acb_mat_t R, slong delta, slong prec);
 
 void hilbert_map(acb_mat_t tau, acb_srcptr t, slong delta, slong prec);
 
+void hilbert_mat_map(fmpz_mat_t eta, const fmpz_poly_mat_t m, slong delta);
+
 int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, slong prec);
 
 int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
