@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-int modeq_round_poly(fmpz_poly_t pol, arf_t max_radius,
-		     const acb_poly_t pol_acb, slong degree)
+int acb_poly_round(fmpz_poly_t pol, arf_t max_radius,
+		   const acb_poly_t pol_acb, slong degree)
 {
   
   acb_t coeff;
@@ -25,7 +25,7 @@ int modeq_round_poly(fmpz_poly_t pol, arf_t max_radius,
       if (res)
 	{
 	  acb_poly_get_coeff_acb(coeff, pol_acb, k);
-	  res = modeq_round_coeff(rd, coeff);
+	  res = acb_round(rd, coeff);
 	  acb_get_rad_ubound_arf(radius, coeff, radius_prec);
 	  arf_max(max_radius, max_radius, radius);
 	  fmpz_poly_set_coeff_fmpz(pol, k, rd);

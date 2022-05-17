@@ -1,7 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-void product_tree_1(acb_poly_t P, acb_srcptr xi, acb_srcptr yi, slong d, slong prec)
+void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
+			     acb_srcptr yi, slong d, slong prec)
 {
   acb_poly_struct* level;
   slong k, m, mmax;

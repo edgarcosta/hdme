@@ -17,23 +17,28 @@ int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
   /* Set Hecke context */
   hecke_ell(H) = ell;
   fmpz_poly_set(hecke_beta(H), beta);
-  _acb_vec_set(hecke_t1t2(H), t, 2);
-  hilbert_map(hecke_tau(H), hecke_t1t2(H), delta, prec);
   
   /* Sanity check: number of initialized elements */
-  if (nb != hilbert_nb_cosets(ell))
+  if (nb != hilbert_nb_cosets(ell, delta))
     {
-      flint_printf("(hecke_set_hilbert) Error: Hecke data structure initialized with %wd slots instead of the expected %wd\n", nb, hilbert_nb_cosets(ell));
+      flint_printf("(hecke_set_hilbert) Error: Hecke data structure initialized with %wd slots instead of the expected %wd\n", nb, hilbert_nb_cosets(ell, delta));
       fflush(stdout);
       flint_abort();
     }
+
+  res = hecke_set_t1t2(H, t, delta, prec);
   
   if (v) flint_printf("(hecke_set_hilbert) Computing theta constants (%wd)", nb);
   fflush(stdout);
 
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
-    {
+    {    
+      if (!res)
+	{
+	  flint_printf("(hecke_set_hilbert) Warning: computation aborted due to low precision\n");
+	  break;
+	}
       /* Print some status info? */
       if (v)
 	{
@@ -53,12 +58,7 @@ int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
 		    fmpz_poly_mat_entry(m, 1, 1), beta);
       hilbert_mat_map(gamma, m, delta);
 
-      res = hecke_set_entry(H, k, gamma, prec);      
-      if (!res)
-	{
-	  flint_printf("(hecke_set_hilbert) Warning: computation aborted due to low precision\n");
-	  break;
-	}
+      res = hecke_set_entry(H, k, gamma, prec);  
     }
   
   if (v) flint_printf("\n");

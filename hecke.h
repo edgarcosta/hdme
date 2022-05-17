@@ -16,10 +16,10 @@
 #include <flint/flint.h>
 #include <flint/fmpz_poly.h>
 
-#include "hilbert.h"
-#include "igusa.h"
 #include "siegel.h"
 #include "theta.h"
+#include "igusa.h"
+#include "hilbert.h"
 
 #define HECKE_RED_TOL_BITS 50
 
@@ -35,6 +35,8 @@ typedef struct
 {
   /* Context information */
   acb_mat_t tau; /* Original period matrix */
+  acb_ptr theta2_tau;
+  acb_ptr I_tau;
   slong ell; /* Type of isogenies */
   acb_ptr t1t2; /* Original periods (Hilbert case only) */
   fmpz_poly_t beta; /* Type of isogenies (Hilbert case only) */
@@ -51,7 +53,12 @@ typedef struct
 
 typedef hecke_struct hecke_t[1];
 
+
+/* Access macros */
+
 #define hecke_tau(H) ((H)->tau)
+#define hecke_theta2_tau(H) ((H)->theta2_tau)
+#define hecke_I_tau(H) ((H)->I_tau)
 #define hecke_ell(H) ((H)->ell)
 #define hecke_t1t2(H) ((H)->t1t2)
 #define hecke_beta(H) ((H)->beta)
@@ -64,9 +71,24 @@ typedef hecke_struct hecke_t[1];
 #define hecke_theta2(H, k) (&(H)->theta2[16*(k)])
 #define hecke_I(H, k) (&(H)->I[4*(k)])
 
+
+/* Memory management */
+
 void hecke_init(hecke_t H, slong nb);
 
 void hecke_clear(hecke_t H);
+
+
+/* Set t1t2, tau, I_tau, theta2_tau */
+
+int hecke_set_tau(hecke_t H, const acb_mat_t tau, slong prec);
+
+int hecke_set_I(hecke_t H, fmpz* I, slong prec);
+
+int hecke_set_t1t2(hecke_t H, acb_srcptr t, slong delta, slong prec);
+
+
+/* Set whole Hecke correspondence */
 
 int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec);
 
@@ -87,6 +109,32 @@ int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
 
 int hecke_set_hilbert_sym(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
 			  slong ell, slong delta, slong prec);
+
+
+/* Hecke correspondence of level p^2 */
+
+slong siegel_nb_T1_cosets(slong p);
+
+void siegel_T1_coset(fmpz_mat_t m, slong k, slong p);
+
+int hecke_set_T1(hecke_t H, const acb_mat_t tau, slong p, slong prec);
+
+
+/* Hecke operators */
+
+void hecke_slash(acb_ptr im, const acb_mat_t star, acb_srcptr val,
+		 slong k, slong j, slong prec);
+
+void hecke_slash_scalar(acb_t im, const acb_t stardet, const acb_t val,
+			slong k, slong prec);
+
+void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
+		   slong m, slong k, slong j, slong prec);
+
+void hecke_eigenvalue_eisenstein_p(fmpz_t eig, slong k, slong p);
+
+void hecke_eigenvalues_eisenstein_p2(fmpz* eig, slong k, slong p);
+
 
 #endif 
 

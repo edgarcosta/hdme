@@ -1,7 +1,7 @@
 
 #include "hilbert.h"
 
-void hilbert_conjugate(fmpz_poly_t xbar, fmpz_poly_t x, slong delta)
+void hilbert_conjugate(fmpz_poly_t xbar, const fmpz_poly_t x, slong delta)
 {
   fmpz_poly_t z;
   fmpz_t c, temp;

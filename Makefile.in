@@ -68,7 +68,7 @@ lLIBS = $(patsubst %, -l%, $(lDEPS))
 
 # Modules to be compiled
 
-MODULES = hdme_data siegel theta igusa hilbert modular
+MODULES = hdme_data polynomials siegel theta igusa hilbert hecke modular
 SOURCES = $(wildcard $(patsubst %, %/*.c, $(MODULES)))
 HEADERS = $(patsubst %, %.h, $(MODULES))
 OBJS = $(patsubst %.c, build/%.o, $(SOURCES))

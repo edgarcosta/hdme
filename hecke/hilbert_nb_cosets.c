@@ -1,5 +1,5 @@
 
-#include "modular.h"
+#include "hecke.h"
 
 slong hilbert_nb_cosets(slong ell, slong delta)
 {

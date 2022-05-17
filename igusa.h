@@ -76,6 +76,8 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S);
 
 void cov_from_igusa_fmpz(fmpz* I, fmpq* j);
 
+slong cov_height(const fmpz* I, slong len, slong* weights);
+
 
 /* Igusa covariants from curve coefficients */
 

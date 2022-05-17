@@ -1,5 +1,5 @@
 
-#include "modular.h"
+#include "hecke.h"
 
 void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta)
 {

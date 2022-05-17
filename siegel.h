@@ -26,6 +26,8 @@ void acb_mat_get_imag(arb_mat_t im, const acb_mat_t z);
 
 void acb_mat_set_arb_arb(acb_mat_t z, const arb_mat_t re, const arb_mat_t im);
 
+void acb_mat_set_window(acb_mat_t z, slong j, slong k, const acb_mat_t w);
+
 void arb_mat_randtest_precise(arb_mat_t r, flint_rand_t state, slong prec,
 			      slong mag_bits);
 
@@ -71,7 +73,11 @@ void fmpz_mat_J(fmpz_mat_t m);
 
 int fmpz_mat_is_J(const fmpz_mat_t m);
 
+int fmpz_mat_is_scalar(const fmpz_mat_t m);
+
 int fmpz_mat_is_symplectic(const fmpz_mat_t m);
+
+int fmpz_mat_is_general_symplectic(const fmpz_mat_t m);
 
 void fmpz_mat_diagonal_symplectic(fmpz_mat_t m, const fmpz_mat_t u);
 

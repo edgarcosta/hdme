@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-void modeq_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
-		    const fmpz_poly_t pol)
+void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
+		  const fmpz_poly_t pol)
 {
   fmpz_poly_factor_t fac;
   slong k;

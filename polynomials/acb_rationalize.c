@@ -1,5 +1,5 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
 static int
 cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec, slong tol_exp)
@@ -41,8 +41,8 @@ cont_frac_get_fmpq(fmpq_t c, fmpz* r_vec, slong nb_steps)
     }
 }
 
-int modeq_rational_coeff(fmpq_t c, fmpz_t den, const acb_t x,
-			 const fmpz_t probable_den, slong prec)
+int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
+		    const fmpz_t probable_den, slong prec)
 {
   acb_t z;
   arf_t current;

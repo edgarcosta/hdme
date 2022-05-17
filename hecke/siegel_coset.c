@@ -1,5 +1,5 @@
 
-#include "modular.h"
+#include "hecke.h"
 
 void siegel_coset(fmpz_mat_t m, slong k, slong ell)
 {

@@ -31,7 +31,7 @@ int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec)
     {
       /* Can fill hecke_coset, hecke_star */
       fmpz_mat_mul(hecke_coset(H, k), eta, gamma);	  
-      siegel_star(hecke_star(H, k), hecke_coset(H, k), tau, prec);
+      siegel_star(hecke_star(H, k), hecke_coset(H, k), hecke_tau(H), prec);
       acb_mat_det(hecke_stardet(H, k), hecke_star(H, k), prec);
       
       /* Compute projective vector of theta constants */

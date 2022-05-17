@@ -22,9 +22,10 @@
 #include <stdio.h>
 
 #include "hdme_data.h"
-#include "igusa.h"
+#include "polynomials.h"
 #include "siegel.h"
 #include "theta.h"
+#include "igusa.h"
 
 #define HILBERT_LLL_VERBOSE 0
 
@@ -37,7 +38,7 @@ int hilbert_is_totally_positive(const fmpz_poly_t x, slong delta);
 
 int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta);
 
-void hilbert_conjugate(fmpz_poly_t xbar, fmpz_poly_t x, slong delta);
+void hilbert_conjugate(fmpz_poly_t xbar, const fmpz_poly_t x, slong delta);
 
 
 /* Parametrizations */

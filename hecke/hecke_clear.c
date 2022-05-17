@@ -4,8 +4,11 @@
 void hecke_clear(hecke_t H)
 {
   slong k;
+  slong nb = hecke_nb(H);
   
   acb_mat_clear(hecke_tau(H));
+  _acb_vec_clear(hecke_theta2_tau(H), 16);
+  _acb_vec_clear(hecke_I_tau(H), 4);
   _acb_vec_clear(hecke_t1t2(H), 2);
   fmpz_poly_clear(hecke_beta(H));
   

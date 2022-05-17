@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-void modeq_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
-		    const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx)
+void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
+		  const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx)
 {
   fmpz_mod_poly_factor_t fac;
   fmpz_mod_poly_t lin;

@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-int modeq_rational_poly(fmpq_poly_t pol, const acb_poly_t pol_acb,
-			slong degree, slong prec)
+int acb_poly_rationalize(fmpq_poly_t pol, const acb_poly_t pol_acb,
+			 slong degree, slong prec)
 {  
   fmpq_t c;
   fmpz_t c_num;
@@ -22,7 +22,7 @@ int modeq_rational_poly(fmpq_poly_t pol, const acb_poly_t pol_acb,
   for (k = 0; (k <= degree) && success; k++)
     {      
       acb_poly_get_coeff_acb(x, pol_acb, k);
-      success = modeq_rational_coeff(c, current_den, x, current_den, prec);
+      success = acb_rationalize(c, current_den, x, current_den, prec);
       if (success)
 	{
 	  fmpq_poly_set_coeff_fmpq(pol, k, c);

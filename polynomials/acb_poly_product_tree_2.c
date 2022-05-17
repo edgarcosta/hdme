@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-void product_tree_2(acb_poly_t Q, acb_srcptr xi, acb_srcptr yi, acb_srcptr zi,
-		    slong d, slong prec)
+void acb_poly_product_tree_2(acb_poly_t Q, acb_srcptr xi, acb_srcptr yi,
+			     acb_srcptr zi, slong d, slong prec)
 {
   acb_poly_struct* levelP;
   acb_poly_struct* levelQ;

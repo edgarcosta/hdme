@@ -1,8 +1,8 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
-void modeq_roots_Q(slong* nb_roots, fmpq* roots, slong* mults,
-		   const fmpz_poly_t pol)
+void pol_roots_Q(slong* nb_roots, fmpq* roots, slong* mults,
+		 const fmpz_poly_t pol)
 {
   slong deg = fmpz_poly_degree(pol);
   slong nb_factors = 0;
@@ -18,7 +18,7 @@ void modeq_roots_Q(slong* nb_roots, fmpq* roots, slong* mults,
   fmpz_init(den);
   exps = flint_malloc(deg * sizeof(slong));
 
-  modeq_factor_Q(&nb_factors, factors, exps, pol);
+  pol_factor_Q(&nb_factors, factors, exps, pol);
   *nb_roots = 0;
   for (k = 0; k < nb_factors; k++)
     {

@@ -1,101 +1,100 @@
 
-#include "modular.h"
+#include "hecke.h"
 
 int main()
 {
-  slong iter;
-  flint_rand_t state;
+  slong ell;
   
   flint_printf("siegel_coset....");
   fflush(stdout);
 
-  flint_randinit(state);
 
-  for (iter = 0; iter < 3 * arb_test_multiplier(); iter++)
+  for (ell = 2; ell < 4; p++)
     {
-      slong bits = 4;
-      slong ell = n_randprime(state, bits, 1); /* Less than 2^bits */
-      slong n = siegel_nb_cosets(ell);
-      fmpz_mat_struct mats[4096]; /* Length is 2^(3*bits) */
-      fmpz_mat_t temp1, temp2;
+      slong nb = siegel_nb_cosets(ell);
+      fmpz_mat_t m1, m2;
+      fmpq_mat_t n, test;
+
+      
       fmpz_mat_t c;
       fmpz_t det;
       slong k, i;
 
-      fmpz_mat_init(temp1, 4, 4);
-      fmpz_mat_init(temp2, 4, 4);
+      fmpz_mat_init(m1, 4, 4);
+      fmpz_mat_init(m2, 4, 4);
+      fmpq_mat_init(n, 4, 4);
+      fmpq_mat_init(test, 4, 4);      
       fmpz_mat_init(c, 2, 2);
       fmpz_init(det);
-      for (k = 0; k < n; k++) fmpz_mat_init(&mats[k], 4, 4);
       
-      for (k = 0; k < n; k++) siegel_coset(&mats[k], k, ell);
       /* Check:
 	 - Determinant ell^2
+	 - General symplectic
 	 - Lower left is zero
-	 - All distinct */
-      /* The matrices we have are of the form:
-	 etaR * [1, 0; 0, l] * eta
-	 We want to know there is no symplectic matrix such that
-	 g * ... = ...
-	 i.e., etaR * [100l] * eta * eta'^{-1} * [l001] * etaR^{-1} is NOT divisible by l. */
+	 - All distinct cosets */
+      
       for (k = 0; k < n; k++)
 	{
-	  fmpz_mat_get_c(c, &mats[k]);
+	  siegel_coset(m1, k, ell);
+	  
+	  fmpz_mat_get_c(c, m1);
 	  if (!fmpz_mat_is_zero(c))
 	    {
 	      flint_printf("FAIL (nonzero c)\n");
 	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      fmpz_mat_print(&mats[k]);
+	      fmpz_mat_print(m1);
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	  fmpz_mat_set(temp1, &mats[k]);
-	  fmpz_mat_det(det, temp1);
+	  
+	  fmpz_mat_det(det, m1);
 	  if (!fmpz_equal_si(det, ell*ell))
 	    {
 	      flint_printf("FAIL (determinant)\n");
 	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      fmpz_mat_print(&mats[k]);
+	      fmpz_mat_print(m1);
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	}
-      for (k = 0; k < n; k++)
-	{
+
+	  if (!fmpz_mat_is_general_symplectic(m1))
+	    {
+	      flint_printf("FAIL (not symplectic)\n");
+	      flint_printf("ell = %wd, k = %wd\n", ell, k);
+	      fmpz_mat_print(m1);
+	      fflush(stdout);
+	      flint_abort();
+	    }
+	  
+	  fmpq_mat_set_fmpz_mat(n, m1);
+	  fmpq_mat_inv(n, n);
+	  
 	  for (i = k+1; i < n; i++)
 	    {
-	      fmpz_mat_set(temp1, &mats[i]);
-	      fmpz_mat_inv(temp1, det, temp1); /* det is the denominator */
-	      if (!fmpz_equal_si(det, ell)) /* Then it's l^2: divide by l */
+	      siegel_coset(m2, i, ell);
+	      fmpq_mat_mul_r_fmpz_mat(test, m2, n);
+	      	      
+	      if (fmpq_mat_is_integral(test))
 		{
-		  fmpz_mat_scalar_divexact_si(temp1, temp1, ell);
-		}
-	      fmpz_mat_set(temp2, &mats[k]);
-	      fmpz_mat_mul(temp2, temp2, temp1);
-	      fmpz_set_si(det, ell);
-	      fmpz_mat_scalar_smod(temp2, temp2, det);
-	      
-	      if (fmpz_mat_is_zero(temp2))
-		{
-		  flint_printf("FAIL (not distinct)\n");
+		  flint_printf("FAIL (same cosets)\n");
 		  flint_printf("ell = %wd, k = %wd, i = %wd\n", ell, k, i);
-		  fmpz_mat_print_pretty(temp1);
-		  fmpz_mat_print(&mats[k]);
-		  fmpz_mat_print(&mats[i]);
+		  fmpz_mat_print(m1);
+		  fmpz_mat_print(m2);
+		  fmpq_mat_print(test);
 		  fflush(stdout);
 		  flint_abort();
 		}
 	    }
 	}
 	 
-      fmpz_mat_clear(temp1);
-      fmpz_mat_clear(temp2);
+      fmpz_mat_clear(m1);
+      fmpz_mat_clear(m2);
+      fmpq_mat_clear(n);
+      fmpq_mat_clear(temp);
       fmpz_mat_clear(c);
       fmpz_clear(det);
-      for (k = 0; k < n; k++) fmpz_mat_clear(&mats[k]);
     }
-
-  flint_randclear(state);
+  
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
