@@ -1,12 +1,12 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
 int main()
 {
   slong iter;
   flint_rand_t state;
   
-  flint_printf("modeq_roots_Q....");
+  flint_printf("pol_roots_Q....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -53,7 +53,7 @@ int main()
 
       /* Modular equation of level 2 must have roots (Richelot!) */
       siegel_modeq_eval_Q(num_vec, den, j, ell);
-      modeq_roots_Q(&nb_roots, roots, mults, &num_vec[0]);
+      pol_roots_Q(&nb_roots, roots, mults, &num_vec[0]);
       if (nb_roots < 15)
 	{
 	  flint_printf("FAIL (not split)\n");

@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("hecke_operator....");
+  flint_printf("hecke_T1....");
   fflush(stdout);
   flint_randinit(state);
 

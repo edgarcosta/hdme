@@ -13,9 +13,9 @@ int hecke_set_T1(hecke_t H, const acb_mat_t tau, slong p, slong prec)
   hecke_ell(H) = p;
   
   /* Sanity check: number of initialized elements */
-  if (nb != siegel_nb_cosets(p))
+  if (nb != siegel_nb_T1_cosets(p))
     {
-      flint_printf("(hecke_set_siegel) Error: Hecke data structure initialized with %wd slots instead of the expected %wd\n", nb, siegel_nb_cosets(p));
+      flint_printf("(hecke_set_T1) Error: Hecke data structure initialized with %wd slots instead of the expected %wd\n", nb, siegel_nb_T1_cosets(p));
       fflush(stdout);
       flint_abort();
     }

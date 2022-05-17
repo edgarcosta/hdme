@@ -1,12 +1,12 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
 int main()
 {
   slong iter;
   flint_rand_t state;
   
-  flint_printf("modeq_rational_poly....");
+  flint_printf("acb_rationalize....");
   fflush(stdout);
   
   flint_randinit(state);
@@ -29,7 +29,7 @@ int main()
       fmpq_randtest(c, state, bits);
       fmpz_one(den);
       acb_set_fmpq(x, c, prec);
-      res = modeq_rational_coeff(r, den, x, den, prec);
+      res = acb_rationalize(r, den, x, den, prec);
       if (!res || !fmpq_equal(r, c))
 	{
 	  flint_printf("FAIL (prec = %wd)\n", prec);
@@ -42,7 +42,7 @@ int main()
 
       fmpq_randbits(c, state, 2 * prec/3);
       acb_set_fmpq(x, c, prec);
-      res = modeq_rational_coeff(r, den, x, den, prec);
+      res = acb_rationalize(r, den, x, den, prec);
       if (res && !fmpq_equal(r, c))
 	{
 	  flint_printf("FAIL (spurious coefficient recognized)\n", prec);

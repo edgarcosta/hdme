@@ -9,7 +9,7 @@ int main()
   fflush(stdout);
 
 
-  for (ell = 2; ell < 4; p++)
+  for (ell = 2; ell < 4; ell++)
     {
       slong nb = siegel_nb_cosets(ell);
       fmpz_mat_t m1, m2;
@@ -33,7 +33,7 @@ int main()
 	 - Lower left is zero
 	 - All distinct cosets */
       
-      for (k = 0; k < n; k++)
+      for (k = 0; k < nb; k++)
 	{
 	  siegel_coset(m1, k, ell);
 	  
@@ -69,7 +69,7 @@ int main()
 	  fmpq_mat_set_fmpz_mat(n, m1);
 	  fmpq_mat_inv(n, n);
 	  
-	  for (i = k+1; i < n; i++)
+	  for (i = k+1; i < nb; i++)
 	    {
 	      siegel_coset(m2, i, ell);
 	      fmpq_mat_mul_r_fmpz_mat(test, m2, n);
@@ -90,7 +90,7 @@ int main()
       fmpz_mat_clear(m1);
       fmpz_mat_clear(m2);
       fmpq_mat_clear(n);
-      fmpq_mat_clear(temp);
+      fmpq_mat_clear(test);
       fmpz_mat_clear(c);
       fmpz_clear(det);
     }

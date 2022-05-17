@@ -1,12 +1,12 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
 int main()
 {
   slong iter;
   flint_rand_t state;
   
-  flint_printf("product_tree_2....");
+  flint_printf("acb_poly_product_tree_2....");
   fflush(stdout);
 
   flint_randinit(state);
@@ -30,9 +30,9 @@ int main()
       for (k = 0; k < d; k++) acb_randtest_precise(&xi[k], state, prec, mag_bits);
       for (k = 0; k < d; k++) acb_set(&zi[k], &xi[k]);
 
-      product_tree_1(Q_test, xi, yi, d, prec);
+      acb_poly_product_tree_1(Q_test, xi, yi, d, prec);
       acb_poly_derivative(Q_test, Q_test, prec);
-      product_tree_2(Q, xi, yi, zi, d, prec);
+      acb_poly_product_tree_2(Q, xi, yi, zi, d, prec);
       
       if (!acb_poly_overlaps(Q, Q_test))
 	{

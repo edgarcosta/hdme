@@ -15,7 +15,6 @@ int main()
       fmpz_mat_t m1, m2;
       fmpq_mat_t n, test;
       fmpz_t det;
-      int res;
 
       fmpz_mat_init(m1, 4, 4);
       fmpz_mat_init(m2, 4, 4);
@@ -36,10 +35,10 @@ int main()
 	    }
 	  
 	  fmpz_mat_det(det, m1);
-	  if (!fmpz_equal_si(det, n_pow(ell, 4)))
+	  if (!fmpz_equal_si(det, n_pow(p, 4)))
 	    {
 	      flint_printf("FAIL (determinant)\n");
-	      flint_printf("ell = %wd, k = %wd\n", ell, k);
+	      flint_printf("p = %wd, i = %wd\n", p, i);
 	      fmpz_mat_print(m1);
 	      fflush(stdout);
 	      flint_abort();
@@ -60,7 +59,7 @@ int main()
 		  fmpz_mat_print(m2); flint_printf("\n");
 		  fmpq_mat_print(test); flint_printf("\n");
 		  fflush(stdout);
-		  flint_abort()
+		  flint_abort();
 		}
 	    }
 	}

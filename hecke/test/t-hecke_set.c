@@ -32,17 +32,18 @@ int main()
       /* Test setting context data */
       hecke_init(H, 1);
       
-      fmpz_set(&I[0], 1+n_randint(state, 100));
-      fmpz_set(&I[1], 1+n_randint(state, 100));
-      fmpz_set(&I[2], 1+n_randint(state, 100));
-      fmpz_set(&I[3], 1+n_randint(state, 100));
+      fmpz_set_si(&I[0], 1+n_randint(state, 100));
+      fmpz_set_si(&I[1], 1+n_randint(state, 100));
+      fmpz_set_si(&I[2], 1+n_randint(state, 100));
+      fmpz_set_si(&I[3], 1+n_randint(state, 100));
       hecke_set_I(H, I, prec);
 
       siegel_fundamental_domain_randtest(tau, state, prec);
       hecke_set_tau(H, tau, prec);
-
+      
+      delta = 5;      
       hilbert_halfspace_randtest(t, state, prec);
-      hecke_set_t1t2(H, t, prec);
+      hecke_set_t1t2(H, t, delta, prec);
       
       hecke_clear(H);
 
@@ -52,20 +53,19 @@ int main()
       hecke_set_siegel(H, tau, ell, prec);
       hecke_clear(H);
 
-      delta = 5;
       ell = 11;      
       hilbert_splits(beta, ell, delta);
-      hecke_init(H, hilbert_nb_cosets(ell));
+      hecke_init(H, hilbert_nb_cosets(ell, delta));
       hecke_set_hilbert(H, t, beta, ell, delta, prec);
       hecke_clear(H);
 
-      hecke_init(H, 2*hilbert_nb_cosets(ell));
+      hecke_init(H, 2*hilbert_nb_cosets(ell, delta));
       hecke_set_hilbert_sym(H, t, beta, ell, delta, prec);
       hecke_clear(H);
 
       ell = 2;
       hecke_init(H, siegel_nb_T1_cosets(ell));
-      hecke_set_t1(H, tau, ell, prec);
+      hecke_set_T1(H, tau, ell, prec);
       hecke_clear(H);
     }
 
