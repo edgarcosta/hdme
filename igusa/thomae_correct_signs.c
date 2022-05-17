@@ -13,7 +13,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   acb_ptr new_roots;
   acb_ptr ros;
   acb_ptr th4, th2;
-  acb_ptr j, j_test;
+  acb_ptr I_test;
   slong k;
   acb_mat_t tau;
   int res = 1;
@@ -27,8 +27,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   ros = _acb_vec_init(3);
   th4 = _acb_vec_init(16);
   th2 = _acb_vec_init(16);
-  j = _acb_vec_init(3);
-  j_test = _acb_vec_init(3);
+  I_test = _acb_vec_init(4);
   acb_mat_init(tau, 2, 2);
 
   for (p = 0; p < 720; p++)
@@ -94,7 +93,6 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
     {
       if(v) flint_printf("(thomae_correct_signs) Last run at precision %wd\n", prec);
       nb_candidates = 0;
-      igusa_from_cov(j_test, I, prec);
       for (p = 0; p < 720; p++)
 	{
 	  if (!removed_p[p])
@@ -112,14 +110,8 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 		      if (!thomae_discard(th2, current_prec))
 			{
 			  tau_success = theta2_inverse(tau, th2, current_prec);
-			  if (tau_success) tau_success = igusa_from_tau(j, tau, prec);
-			  if (tau_success)
-			    {
-			      for (k = 0; k < 3; k++)
-				{
-				  if (!acb_overlaps(&j[k], &j_test[k])) tau_success = 0;
-				}
-			    }
+			  if (tau_success) tau_success = cov_from_tau(I_test, tau, prec);
+			  if (tau_success) tau_success = !cov_distinct(I_test, I);
 			  if (tau_success)
 			    {
 			      correct_perm = p;
@@ -152,8 +144,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
     _acb_vec_clear(ros, 3);
     _acb_vec_clear(th4, 16);
     _acb_vec_clear(th2, 16);
-    _acb_vec_clear(j, 3);
-    _acb_vec_clear(j_test, 3);
+    _acb_vec_clear(I_test, 4);
     acb_mat_clear(tau);
     return res;
   }

@@ -13,7 +13,7 @@ void hecke_clear(hecke_t H)
   fmpz_poly_clear(hecke_beta(H));
   
   for (k = 0; k < nb; k++) fmpz_mat_clear(hecke_coset(H, k));
-  for (k = 0; k < nb; k++) acb_mat_clear(hecke_isog(H, k));
+  for (k = 0; k < nb; k++) acb_mat_clear(hecke_star(H, k));
   for (k = 0; k < nb; k++) acb_mat_clear(hecke_isog(H, k));  
 
   flint_free(H->cosets);

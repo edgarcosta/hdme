@@ -5,36 +5,64 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
 {
   slong p, v;
   fmpz_t g, f;
+  slong wt[4] = COV_WEIGHTS;
+  slong i0 = -1;
+  slong j;
+  slong max_p = 10000;
   
   fmpz_init(g);
   fmpz_init(f);
 
   _fmpz_vec_set(I, S, 4);
-  /* Rescale using valuations at small primes, then gcd */
-  for (p = 2; p < 10000; p++)
+  /* Compute i0 st index is nonzero */
+  for (j = 0; j < 4; j++)
     {
-      if (n_is_prime(p))
+      if (fmpz_is_nonzero(&I[j]))
 	{
-	  fmpz_set_si(f, p);
-	  v = fmpz_remove(g, &I[1], f)/2;
-	  if (!fmpz_is_zero(&I[0])) v = FLINT_MIN(v, fmpz_remove(g, &I[0], f));
-	  if (!fmpz_is_zero(&I[2])) v = FLINT_MIN(v, fmpz_remove(g, &I[2], f)/3);
-	  v = FLINT_MIN(v, fmpz_remove(g, &I[3], f)/5);
-	  /* if (v != 0) flint_printf("Valuation of %d: %d\n", p, v); */
-
-	  fmpz_pow_ui(g, f, v);
-	  cov_divexact_fmpz(I, I, g);
+	  i0 = j;
+	  break;
 	}
+    }
+  if (i0 == -1)
+    {
+      flint_printf("(cov_normalize_fmpz) Error: all entries are zero\n");
+      fflush(stdout);
+      flint_abort();
+    }
+  
+  /* Rescale using valuations at small primes */
+  p = 2;
+  while (p < max_p)
+    {
+      fmpz_set_si(f, p);
+      v = fmpz_remove(g, &I[i0], f) / (wt[i0]/2);
+      for (j = 0; j < 4; j++)
+	{
+	  if (j != i0 && !fmpz_is_zero(&I[j]))
+	    {
+	      v = FLINT_MIN(v, fmpz_remove(g, &I[j], f) / (wt[j]/2));
+	    }
+	}      
+      fmpz_pow_ui(g, f, v);
+      cov_divexact_fmpz(I, I, g);
+      p = n_nextprime(p);
     }
   
   fmpz_gcd(g, &I[0], &I[1]);
-  for (p = 2; p < 10000; p++)
+  fmpz_gcd(g, g, &I[2]);
+  fmpz_gcd(g, g, &I[3]);
+
+  /* Rescale using gcd if possible, ignoring small primes */
+  p = 2;
+  while (p < max_p)
     {
       fmpz_set_si(f, p);
       fmpz_remove(g, g, f);
+      p = n_nextprime(p);
     }
+  
   if (cov_divisible_fmpz(I, g)) cov_divexact_fmpz(I, I, g);
-  if (fmpz_cmp_si(&I[0], 0) < 0) cov_rescale_fmpz_si(I, I, -1);  
+  if (fmpz_cmp_si(cov_I6prime(I), 0) < 0) cov_rescale_fmpz_si(I, I, -1);  
 
   fmpz_clear(f);
   fmpz_clear(g);

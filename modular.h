@@ -54,11 +54,10 @@
 typedef struct
 {
   slong wt; /* Weight of Siegel modular forms used as projective coordinates */
-  fmpq_mpoly_ctx_t mpolyctx; /* Context for polynomials in Igusa-Clebsch covariants */
   slong nb_monomials;
-  fmpq_mpoly_struct* monomials; /* Sufficient number of monomials of weight wt */
-  fmpq_mpoly_t den; /* Denominator for the chosen absolute invariants */
-  fmpq_mpoly_t num; /* Write all monomials in terms of parameter num/den */
+  fmpz_mpoly_struct* monomials; /* Sufficient number of monomials of weight wt */
+  fmpz_mpoly_t den; /* Denominator for the chosen absolute invariants */
+  fmpz_mpoly_t num; /* Write all monomials in terms of parameter num/den */
 } modeq_ctx_struct;
 
 typedef modeq_ctx_struct modeq_ctx_t[1];
@@ -95,7 +94,6 @@ void modeq_ctx_init(modeq_ctx_t ctx);
 void modeq_ctx_clear(modeq_ctx_t ctx);
 
 #define modeq_ctx_weight(ctx) ((ctx)->wt)
-#define modeq_ctx_mpolyctx(ctx) ((ctx)->mpolyctx)
 #define modeq_ctx_nb_monomials(ctx) ((ctx)->nb_monomials)
 #define modeq_ctx_monomial(ctx, k) (&(ctx)->monomials[(k)])
 #define modeq_ctx_den(ctx) ((ctx)->den)

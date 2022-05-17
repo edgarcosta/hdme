@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 
-int mestre(acb_poly_t crv, acb_srcptr I, slong prec)
+int mestre(acb_poly_t crv, acb_srcptr IC, slong prec)
 {
   acb_ptr conic;
   acb_ptr cubic;
@@ -14,7 +14,7 @@ int mestre(acb_poly_t crv, acb_srcptr I, slong prec)
   int res = 1;
 
   
-  if (!igusa_has_generic_automorphisms(I, prec))
+  if (!igusa_has_generic_automorphisms(IC, prec))
     {
       flint_printf("(mestre) Warning: cannot guarantee that curve doesn't have extra automorphisms\n");
       return 0;
@@ -30,8 +30,8 @@ int mestre(acb_poly_t crv, acb_srcptr I, slong prec)
   acb_init(U);
   acb_init(I10);
 
-  igusa_clebsch(ABCD, I, prec);
-  acb_set(I10, &I[3]);
+  igusa_ABCD_from_IC(ABCD, IC, prec);
+  acb_set(I10, &IC[3]);
   if (!acb_contains_zero(&ABCD[0])) acb_pow_si(U, &ABCD[0], 6, prec);
   else if (!acb_contains_zero(&ABCD[1])) acb_pow_si(U, &ABCD[1], 3, prec);
   else if (!acb_contains_zero(&ABCD[2])) acb_pow_si(U, &ABCD[2], 2, prec);

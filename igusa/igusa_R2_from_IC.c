@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_R2(acb_t res, acb_srcptr I, slong prec)
+void igusa_R2_from_IC(acb_t res, acb_srcptr I, slong prec)
 {  
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
@@ -14,7 +14,6 @@ void igusa_R2(acb_t res, acb_srcptr I, slong prec)
   vals = _acb_vec_init(4);
 
   _acb_vec_set(vals, I, 4);
-  igusa_I6(&vals[2], I, prec);
 
   hdme_data_vars_set(vars, "a", 0);
   hdme_data_vars_set(vars, "b", 1);

@@ -78,6 +78,8 @@ void hecke_init(hecke_t H, slong nb);
 
 void hecke_clear(hecke_t H);
 
+void hecke_print(const hecke_t H, slong digits);
+
 
 /* Set t1t2, tau, I_tau, theta2_tau */
 

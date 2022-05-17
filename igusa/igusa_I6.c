@@ -3,18 +3,21 @@
 
 void igusa_I6(acb_t I6, acb_srcptr I, slong prec)
 {
-  acb_t res, temp;
+  acb_t I2, res, temp;
 
+  acb_init(I2);
   acb_init(res);
   acb_init(temp);
-  
-  /* Get I6 from I6prime */
-  acb_mul_si(res, &I[2], 2, prec);
-  acb_mul(temp, &I[0], &I[1], prec);
+
+  acb_div(I2, cov_I12(I), cov_I10(I), prec);
+  acb_mul_si(res, cov_I6prime(I), 2, prec);
+  acb_mul(temp, I2, cov_I4(I), prec);
   acb_sub(res, res, temp, prec);
   acb_div_si(res, res, -3, prec);
 
   acb_set(I6, res);
+
+  acb_clear(I2);
   acb_clear(res);
   acb_clear(temp);
 }

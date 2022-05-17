@@ -20,6 +20,6 @@ void hecke_init(hecke_t H, slong nb)
   H->I = _acb_vec_init(4*nb);
   
   for (k = 0; k < nb; k++) fmpz_mat_init(hecke_coset(H, k), 4, 4);
-  for (k = 0; k < nb; k++) acb_mat_init(hecke_isog(H, k), 2, 2);
+  for (k = 0; k < nb; k++) acb_mat_init(hecke_star(H, k), 2, 2);
   for (k = 0; k < nb; k++) acb_mat_init(hecke_isog(H, k), 2, 2);  
 }

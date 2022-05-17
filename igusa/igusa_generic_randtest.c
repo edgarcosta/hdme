@@ -17,7 +17,8 @@ void igusa_generic_randtest(acb_poly_t crv, acb_ptr I, flint_rand_t state, slong
       acb_randtest_precise(&roots[5], state, prec, 1);
       
       acb_poly_product_roots(crv, roots, 6, prec);
-      igusa_scalar_covariants(I, crv, prec);
+      cov_from_curve(I, crv, prec);
+      igusa_IC(I, I, prec);
       if (igusa_has_generic_automorphisms(I, prec)) stop = 1;
     }
 

@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec)
+void igusa_ABCD_from_IC(acb_ptr ABCD, acb_srcptr I, slong prec)
 {  
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
@@ -19,8 +19,7 @@ void igusa_clebsch(acb_ptr ABCD, acb_srcptr I, slong prec)
   hdme_data_vars_set(vars, "D", 3);
 
   _acb_vec_set(vals, I, 4);
-  igusa_I6(&vals[2], I, prec);
-  
+    
   hdme_data_read(pol, (const char**) vars, "igusa/A", ctx);
   hdme_data_evaluate_acb(&vals[0], pol, vals, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/B", ctx);

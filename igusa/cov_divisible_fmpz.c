@@ -4,17 +4,17 @@
 int cov_divisible_fmpz(fmpz* I, const fmpz_t scal)
 {
   fmpz_t f;
-  int r;
+  int r = 1;
+  slong wt[4] = COV_WEIGHTS;
+  slong j;
 
   fmpz_init(f);
 
-  r = fmpz_divisible(&I[0], scal);
-  fmpz_pow_ui(f, scal, 2);
-  r = r && fmpz_divisible(&I[1], f);
-  fmpz_pow_ui(f, scal, 3);
-  r = r && fmpz_divisible(&I[2], f);
-  fmpz_pow_ui(f, scal, 5);
-  r = r && fmpz_divisible(&I[3], f);
+  for (j = 0; j < 4; j++)
+    {
+      fmpz_pow_ui(f, scal, wt[j]/2);
+      r = r && fmpz_divisible(&I[j], f);
+    }
 
   fmpz_clear(f);
   return r;

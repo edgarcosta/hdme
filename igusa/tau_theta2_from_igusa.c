@@ -3,6 +3,7 @@
 
 int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr theta2, acb_srcptr I, slong prec)
 { 
+  acb_ptr IC;
   slong perm, signs;
   acb_poly_t crv;
   acb_ptr roots;
@@ -11,13 +12,15 @@ int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr theta2, acb_srcptr I, slong pre
   int res;
   int v = THOMAE_VERBOSE;
 
+  IC = _acb_vec_init(4);
   acb_poly_init(crv);
   roots = _acb_vec_init(6);
   ros = _acb_vec_init(3);
   th2 = _acb_vec_init(16);
   th4 = _acb_vec_init(16);
 
-  res = mestre(crv, I, prec);
+  igusa_IC(IC, I, prec);
+  res = mestre(crv, IC, prec);
   if (res) res = thomae_roots(roots, crv, prec);
   if (res) res = thomae_correct_signs(&perm, &signs, roots, I, prec);
   if (res)
@@ -33,6 +36,7 @@ int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr theta2, acb_srcptr I, slong pre
 
   theta2_renormalize(theta2, th2, prec);
 
+  _acb_vec_clear(IC, 4);
   acb_poly_clear(crv);
   _acb_vec_clear(roots, 6);
   _acb_vec_clear(ros, 3);

@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
+void cov_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
 {
   acb_ptr ai;
   fmpq_mpoly_t pol;
@@ -25,14 +25,15 @@ void igusa_scalar_covariants(acb_ptr I, const acb_poly_t crv, slong prec)
 
   curve_coeffs(ai, crv);
 
-  hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
-  hdme_data_evaluate_acb(&res[0], pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I4", ctx);
-  hdme_data_evaluate_acb(&res[1], pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(cov_I4(res), pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I6prime", ctx);
-  hdme_data_evaluate_acb(&res[2], pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(cov_I6prime(res), pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I10", ctx);
-  hdme_data_evaluate_acb(&res[3], pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(cov_I10(res), pol, ai, ctx, prec);
+  hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
+  hdme_data_evaluate_acb(cov_I12(res), pol, ai, ctx, prec);
+  acb_mul(cov_I12(res), cov_I12(res), cov_I10(res), prec);
 
   _acb_vec_set(I, res, 4);
 

@@ -3,13 +3,10 @@
 
 int thomae_keep_candidate(const acb_mat_t tau, acb_srcptr I, slong prec)
 {
-  acb_ptr j;
-  acb_ptr j_test;
+  acb_ptr test;
   int aux, res;
-  slong k;
 
-  j = _acb_vec_init(3);
-  j_test = _acb_vec_init(3);
+  test = _acb_vec_init(4);
 
   if (siegel_not_in_fundamental_domain(tau, prec))
     {
@@ -17,20 +14,12 @@ int thomae_keep_candidate(const acb_mat_t tau, acb_srcptr I, slong prec)
     }
   else
     {
-      aux = igusa_from_tau(j, tau, prec);
-      igusa_from_cov(j_test, I, prec);
-      
+      aux = cov_from_tau(test, tau, prec);      
       res = 1;
-      if (aux) /* We can say nothing if computing j fails */
-	{
-	  for (k = 0; k < 3; k++)
-	    {
-	      if (!acb_overlaps(&j[k], &j_test[k])) res = 0;
-	    }
-	}
+      if (aux && cov_distinct(test, I)) res = 0;
+      /* We can say nothing if computing test fails */
     }
   
-  _acb_vec_clear(j, 3);
-  _acb_vec_clear(j_test, 3);
+  _acb_vec_clear(test, 4);
   return res;
 }

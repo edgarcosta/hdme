@@ -22,6 +22,7 @@ int main()
       slong k;
       slong nb;
       slong prec = 500 + n_randint(state, 1000);
+      int res;
 
       acb_mat_init(tau, 2, 2);
       acb_init(r);
@@ -35,7 +36,14 @@ int main()
 	  hecke_init(H, nb);
 	  val = _acb_vec_init(nb);
 
-	  hecke_set_siegel(H, tau, ell, prec);
+	  res = hecke_set_siegel(H, tau, ell, prec);
+	  if (!res)
+	    {
+	      flint_printf("FAIL (Hecke)\n");
+	      hecke_print(H, 10);
+	      fflush(stdout);
+	      flint_abort();
+	    }
 
 	  /* Test expected eigenvalues for I4, I6' */
 	  for (k = 0; k < nb; k++) acb_set(&val[k], &hecke_I(H, k)[0]); /* I4 */
