@@ -17,7 +17,7 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
   /* Compute i0 st index is nonzero */
   for (j = 0; j < 4; j++)
     {
-      if (fmpz_is_nonzero(&I[j]))
+      if (!fmpz_is_zero(&I[j]))
 	{
 	  i0 = j;
 	  break;
@@ -45,7 +45,7 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
 	}      
       fmpz_pow_ui(g, f, v);
       cov_divexact_fmpz(I, I, g);
-      p = n_nextprime(p);
+      p = n_nextprime(p, 1);
     }
   
   fmpz_gcd(g, &I[0], &I[1]);
@@ -58,7 +58,7 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
     {
       fmpz_set_si(f, p);
       fmpz_remove(g, g, f);
-      p = n_nextprime(p);
+      p = n_nextprime(p, 1);
     }
   
   if (cov_divisible_fmpz(I, g)) cov_divexact_fmpz(I, I, g);

@@ -5,8 +5,8 @@ static void igusa_ec_period_0(acb_t tau, slong prec)
 {
   /* Return (1+isqrt(3))/2 */
   acb_one(tau);
-  arb_sqrt_ui(acb_imagreg(tau), 3, prec);
-  acb_div_si(tau, tau, 2);
+  arb_sqrt_ui(acb_imagref(tau), 3, prec);
+  acb_div_si(tau, tau, 2, prec);
 }
 
 static void igusa_ec_period_1728(acb_t tau, slong prec)
@@ -15,14 +15,16 @@ static void igusa_ec_period_1728(acb_t tau, slong prec)
   acb_onei(tau);
 }
 
-static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
+static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec)
 {
   acb_poly_t pol;
   acb_poly_t term;
+  acb_t c;
   slong nb, res;
 
   acb_poly_init(pol);
   acb_poly_init(term);
+  acb_init(c);
 
   /* Set term to x^2(1-x)^2 */
   acb_poly_zero(term);
@@ -31,7 +33,7 @@ static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
   acb_poly_mul(term, term, term, prec);
   acb_poly_shift_left(term, term, 2);
 
-  acb_poly_scalar_mul_acb(pol, term, j, prec);
+  acb_poly_scalar_mul(pol, term, j, prec);
 
   /* Set term to 256(1-x+x^2)^3 */
   acb_poly_zero(term);
@@ -39,7 +41,8 @@ static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
   acb_poly_set_coeff_si(term, 1, -1);
   acb_poly_set_coeff_si(term, 0, 1);
   acb_poly_pow_ui(term, term, 3, prec);
-  acb_poly_scalar_mul_si(term, term, 256, prec);
+  acb_set_si(c, 256);
+  acb_poly_scalar_mul(term, term, c, prec);
 
   acb_poly_sub(pol, pol, term, prec);
   
@@ -57,6 +60,7 @@ static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
 
   acb_poly_clear(pol);
   acb_poly_clear(term);
+  acb_clear(c);
   return res;
 }
 
@@ -68,7 +72,6 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
   acb_ptr k, kp;
   slong nb = 0;
   acb_mat_t m;
-  int stop = 0;
   int res = 1;
   slong i;
 
@@ -111,7 +114,7 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
 	  acb_arg(cmp, u, prec);
 	  arb_abs(cmp, cmp);
 	  arb_mul_si(cmp, cmp, 2, prec);
-	  acb_sub_si(cmp, cmp, 3, prec);
+	  arb_sub_si(cmp, cmp, 3, prec);
 	  if (!arb_is_positive(cmp) && arb_contains_zero(acb_realref(u)))
 	    {
 	      res = 0;
@@ -165,15 +168,15 @@ int igusa_ec_period(acb_t tau, const acb_t j, slong prec)
   int res = 1;
   
   acb_init(t);
-  acb_sub_si(t, j, 1728);
+  acb_sub_si(t, j, 1728, prec);
   
   if (acb_equal_si(j, 0))
     {
-      igusa_ec_period_0(tau, j, prec);
+      igusa_ec_period_0(tau, prec);
     }
   else if (acb_equal_si(j, 1728))
     {
-      igusa_ec_period_1728(tau, j, prec);
+      igusa_ec_period_1728(tau, prec);
     }
   else if (acb_contains_zero(j) || acb_contains_zero(t))
     {
@@ -185,6 +188,6 @@ int igusa_ec_period(acb_t tau, const acb_t j, slong prec)
       res = igusa_ec_period_gen(tau, j, prec);
     }
   
-  arb_clear(t);
+  acb_clear(t);
   return res;
 }

@@ -16,7 +16,7 @@ int thomae_keep_candidate(const acb_mat_t tau, acb_srcptr I, slong prec)
     {
       aux = cov_from_tau(test, tau, prec);      
       res = 1;
-      if (aux && cov_distinct(test, I)) res = 0;
+      if (aux && cov_distinct(test, I, prec)) res = 0;
       /* We can say nothing if computing test fails */
     }
   

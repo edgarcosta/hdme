@@ -33,7 +33,7 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
   for (j = 0; j < L; j++)
     {
       fmpz_mpoly_get_term_coeff_fmpz(coeff, pol, j, ctx);
-      acb_set_fmpz(temp, coeff, prec);
+      acb_set_fmpz(temp, coeff);
       for (k = 0; k < n; k++)
 	{
 	  exp = fmpz_mpoly_get_term_var_exp_si(pol, j, k, ctx);

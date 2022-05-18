@@ -4,7 +4,7 @@
 void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx)
 {
   slong k;
-  fmpz_mpoly_zero(mon);
+  fmpz_mpoly_zero(mon, ctx);
   
   for (k = 0; k < 4; k++)
     {

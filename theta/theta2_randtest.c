@@ -1,5 +1,5 @@
 
-#include "igusa.h"
+#include "theta.h"
 
 void theta2_randtest(acb_ptr theta2, flint_rand_t state, slong prec)
 {

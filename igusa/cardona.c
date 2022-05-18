@@ -77,41 +77,41 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_poly_pow_ui(term, P1, 3, prec);
   acb_mul(c, &Aij[3], &aijk[0], prec);
   acb_neg(c, c);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
 
   acb_poly_pow_ui(term, P1, 2, prec);
   acb_poly_mul(term, term, P2, prec);
   acb_mul(c, &Aij[3], &aijk[1], prec);
   acb_mul_si(c, c, -3, prec);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
 
   acb_poly_pow_ui(term, P2, 2, prec);
   acb_poly_mul(term, term, P1, prec);
   acb_mul(c, &Aij[3], &aijk[2], prec);
   acb_mul_si(c, c, -3, prec);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P1, prec);
   acb_mul(c, &Aij[2], &aijk[3], prec);
   acb_mul_si(c, c, 3, prec);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
   acb_poly_pow_ui(term, P3, 3, prec);
   acb_mul(c, &Aij[3], &aijk[4], prec);
   acb_neg(c, c);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P2, prec);
   acb_mul(c, &Aij[2], &aijk[5], prec);
   acb_mul_si(c, c, 3, prec);
-  acb_poly_scalar_mul_acb(term, term, c, prec);
+  acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
 
   

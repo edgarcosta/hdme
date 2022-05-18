@@ -85,8 +85,6 @@ typedef struct
 typedef modeq_struct modeq_t[1];
 
 
-void modeq_input_lift(fmpq* j, const fmpz* input, slong nb);
-
 /* Handle modeq_ctx_t structures */
 
 void modeq_ctx_init(modeq_ctx_t ctx);
@@ -258,6 +256,7 @@ int hilbert_modeq_nonsym_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
 
 /* Derivatives of Siegel modular equations */
 
+/*
 int siegel_modeq_dtheta(acb_ptr thvec, acb_ptr thder, const acb_mat_t tau,
 				   slong ell, slong prec);
 
@@ -278,8 +277,7 @@ int siegel_modeq_deval_zz(fmpz_poly_struct* nums, fmpz_t den, const fmpq* j,
 
 int siegel_modeq_deval_fp(fmpz_mod_poly_struct* pols, const fmpz* j, slong ell,
 			  const fmpz_mod_ctx_t ctx);
-
-/* Todo: also return evaluated modular equations? Do both versions? */
+*/
 
 
 
@@ -287,6 +285,10 @@ int siegel_modeq_deval_fp(fmpz_mod_poly_struct* pols, const fmpz* j, slong ell,
 
 /* OLD */
 
+/* 
+
+void modeq_input_lift(fmpq* j, const fmpz* input, slong nb);
+*/
 /* int modeq_round(fmpz_poly_struct* num_vec, fmpz_t den, const acb_poly_struct* num_vec_acb, */
 /* 		const acb_t den_acb, slong degree, slong nb); */
 

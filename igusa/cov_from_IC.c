@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void cov_from_IC(acbptr I, acb_srcptr IC, slong prec)
+void cov_from_IC(acb_ptr I, acb_srcptr IC, slong prec)
 {
   acb_t I12, I6prime;
 

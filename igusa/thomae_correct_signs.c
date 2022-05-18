@@ -14,7 +14,6 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   acb_ptr ros;
   acb_ptr th4, th2;
   acb_ptr I_test;
-  slong k;
   acb_mat_t tau;
   int res = 1;
   int tau_success;
@@ -111,7 +110,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 			{
 			  tau_success = theta2_inverse(tau, th2, current_prec);
 			  if (tau_success) tau_success = cov_from_tau(I_test, tau, prec);
-			  if (tau_success) tau_success = !cov_distinct(I_test, I);
+			  if (tau_success) tau_success = !cov_distinct(I_test, I, prec);
 			  if (tau_success)
 			    {
 			      correct_perm = p;

@@ -124,7 +124,7 @@ void igusa_I6prime(acb_t I6prime, acb_srcptr IC, slong prec);
 
 int igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* IC);
 
-void cov_from_IC(acbptr I, acb_srcptr IC, slong prec);
+void cov_from_IC(acb_ptr I, acb_srcptr IC, slong prec);
 
 void cov_from_IC_fmpz(fmpz* I, fmpz* IC);
 
@@ -217,8 +217,6 @@ int cov_is_g2_curve(acb_srcptr I);
 int cov_is_g2_curve_fmpz(fmpz* I);
 
 void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec);
-
-int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
 
 int igusa_ec_period(acb_t tau, const acb_t j, slong prec);
 
