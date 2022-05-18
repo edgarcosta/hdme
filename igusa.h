@@ -132,6 +132,10 @@ void igusa_ABCD_from_IC(acb_ptr ABCD, acb_srcptr IC, slong prec);
 
 void igusa_R2_from_IC(acb_t res, acb_srcptr IC, slong prec);
 
+void igusa_ABCD_from_IC_fmpz(fmpq* ABCD, fmpz* IC);
+
+void igusa_R2_from_IC_fmpz(fmpq_t R2, fmpz* IC);
+
 
 /* Covariants from curve coefficients */
 
@@ -173,6 +177,8 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
 
 int mestre(acb_poly_t crv, acb_srcptr IC, slong prec);
 
+void cardona(acb_poly_t crv, acb_srcptr IC, slong prec);
+
 
 /* Thomae's formulae: back to I4, I6prime, I10, I12 */
 
@@ -195,22 +201,30 @@ slong thomae_startprec(slong prec);
 int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 			 acb_srcptr I, slong prec);
 
+int tau_theta2_from_curve(acb_mat_t tau, acb_ptr th2, const acb_poly_t crv,
+			  slong prec);
+
 int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec);
 
 int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec);
 
 
-/* Period computations for products of elliptic curves */
+/* Period computations for products of elliptic curves, and more
+   generally abelian surfaces with extra automorphisms */
 
 int cov_is_g2_curve(acb_srcptr I);
 
 int cov_is_g2_curve_fmpz(fmpz* I);
 
-void igusa_ec_j1j2(acb_ptr j, acb_srcptr I, slong prec);
+void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec);
+
+int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
 
 int igusa_ec_period(acb_t tau, const acb_t j, slong prec);
 
-int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec);
+int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
+
+int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec);
 
 int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
 

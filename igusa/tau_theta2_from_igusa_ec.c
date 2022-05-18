@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec)
+int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec)
 {
   acb_ptr j;
   slong k;

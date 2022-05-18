@@ -3,20 +3,23 @@
 
 int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec)
 {
-  acb_ptr I_acb;
+  acb_poly_t crv;
+  fmpz* IC;
   slong k;
   int res;
 
-  I_acb = _acb_vec_init(4);
-  for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
+  IC = _fmpz_vec_init(4);
+  acb_poly_init(crv);
+  igusa_IC_fmpz(IC, I);
 
   if (cov_is_g2_curve_fmpz(I))
     {
-      res = tau_theta2_from_igusa(tau, th2, I_acb, prec);
+      res = mestre_fmpz(crv, IC, prec);
+      if (res) res = tau_theta2_from_curve(tau, th2, crv, prec);
     }
   else
     {
-      res = tau_theta2_from_igusa_ec(tau, th2, I_acb, prec);
+      res = tau_theta2_from_igusa_ec(tau, th2, I, prec);
     }
   
   _acb_vec_clear(I, 4);  
