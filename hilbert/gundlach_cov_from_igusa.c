@@ -25,7 +25,7 @@ static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
   acb_clear(temp);
 }
 
-void gundlach_cov_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
+void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
 {
   acb_t G2, F6, F10;
   acb_t x, y;
