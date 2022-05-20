@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_scalar_covariants_fmpz(fmpz* I, const fmpz_poly_t crv)
+void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
 {  
   fmpz* ai;
   fmpq** ai_fmpq;

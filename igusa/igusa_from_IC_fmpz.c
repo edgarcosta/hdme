@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void cov_from_IC_fmpz(fmpz* I, fmpz* IC)
+void igusa_from_IC_fmpz(fmpz* I, fmpz* IC)
 {
   fmpz_t I6prime, I12;
   fmpz* resc;

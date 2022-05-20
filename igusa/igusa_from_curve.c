@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void cov_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
+void igusa_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
 {
   acb_ptr ai;
   fmpq_mpoly_t pol;

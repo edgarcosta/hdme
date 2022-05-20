@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-slong cov_nb_base_monomials(slong w)
+slong igusa_nb_base_monomials(slong w)
 {
   if (w == 20) return 5;
   else if (w == 30) return 7;

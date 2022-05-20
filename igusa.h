@@ -22,11 +22,13 @@
 #include "siegel.h"
 #include "theta.h"
 
-#define COV_WEIGHTS {4,6,10,12}
+#define IGUSA_WEIGHTS {4,6,10,12}
+#define IGUSA_HALFWEIGHTS {1,3,5,6}
+
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
 #define THOMAE_VERBOSE 0
-/* #define COV_NB 4 would clutter the code. */
+/* #define IGUSA_NB 4 would clutter the code. */
 
 
 /* Igusa covariants from theta constants */
@@ -41,68 +43,69 @@ void igusa_h12(acb_t h12, acb_srcptr theta2, slong prec);
 
 void igusa_h16(acb_t h16, acb_srcptr theta2, slong prec);
 
-#define cov_I4(I) &(I)[0]
-#define cov_I6prime(I) &(I)[1]
-#define cov_I10(I) &(I)[2]
-#define cov_I12(I) &(I)[3]
+#define igusa_I4(I) &(I)[0]
+#define igusa_I6prime(I) &(I)[1]
+#define igusa_I10(I) &(I)[2]
+#define igusa_I12(I) &(I)[3]
 
-void cov_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec);
+void igusa_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec);
 
-int cov_from_tau(acb_ptr I, const acb_mat_t tau, slong prec);
+int igusa_from_tau(acb_ptr I, const acb_mat_t tau, slong prec);
 
 
-/* Weighted polynomials */
+/* Handle general projective coordinates */
 
-void cov_mpoly_ctx_init(fmpz_mpoly_ctx_t ctx);
+void cov_rescale(acb_ptr I, acb_srcptr S, const acb_t scal,
+		 slong nb, slong* weights, slong prec);
 
-void cov_mpoly_ctx_clear(fmpz_mpoly_ctx_t ctx);
+void cov_rescale_fmpz(fmpz* I, fmpz* S, const fmpz_t scal,
+		      slong nb, slong* weights);
 
-void cov_mpoly_print(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
+int cov_divisible_fmpz(fmpz* I, const fmpz_t scal, slong nb, slong* weights);
 
-void cov_monomial_exps(slong* exps, const fmpz_mpoly_t mon,
-		       const fmpz_mpoly_ctx_t ctx);
+void cov_divexact_fmpz(fmpz* I, fmpz* S, const fmpz_t scal,
+		       slong nb, slong* weights);
 
-void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
+void cov_rescale_fmpz_si(fmpz* I, fmpz* S, slong scal, slong nb, slong* weights);
 
-slong cov_nb_base_monomials(slong wt);
+void cov_divexact_fmpz_si(fmpz* I, fmpz* S, slong scal, slong nb, slong* weights);
 
-void cov_base_exps(slong* exps, slong wt, slong k);
+void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong weights);
 
-void cov_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
-		       const fmpz_mpoly_ctx_t ctx);
+slong cov_height(fmpz* I, slong nb, slong* weights);
+
+void cov_min_weight_combination(slong* wt, slong* i1, slong* i2,
+				slong* e1, slong* e2, fmpz* I,
+				slong nb, slong* weights);
+
+int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
+		       slong nb, slong weights, slong prec);
+
+int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights,
+			  slong prec);
+
+int cov_distinct(acb_srcptr I1, acb_srcptr I2,
+		 slong nb, slong weights, slong prec);
+
+
+/* Weighted polynomials in general covariants */
 
 void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
 		    const fmpz_mpoly_ctx_t ctx, slong prec);
 
-void cov_eval_base_monomials(acb_ptr ev, acb_srcptr I, slong wt, slong prec);
+void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
 
 
-/* Rescaling */
+/* Weighted polynomials in Igusa covariants */
 
-void cov_rescale(acb_ptr I, acb_srcptr S, const acb_t scal, slong prec);
+slong igusa_nb_base_monomials(slong wt);
 
-void cov_rescale_fmpz(fmpz* I, fmpz* S, const fmpz_t scal);
+void igusa_base_exps(slong* exps, slong wt, slong k);
 
-int cov_divisible_fmpz(fmpz* I, const fmpz_t scal);
+void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
+			 const fmpz_mpoly_ctx_t ctx);
 
-void cov_divexact_fmpz(fmpz* I, fmpz* S, const fmpz_t scal);
-
-void cov_rescale_fmpz_si(fmpz* I, fmpz* S, slong scal);
-
-void cov_divexact_fmpz_si(fmpz* I, fmpz* S, slong scal);
-
-void cov_normalize_fmpz(fmpz* I, fmpz* S);
-
-slong cov_height(const fmpz* I, slong len, slong* weights);
-
-void cov_min_weight_combination(slong* wt, slong* i1, slong* i2,
-				slong* e1, slong* e2, fmpz* I);
-
-int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S, slong prec);
-
-int cov_no_rescale_to_one(acb_srcptr I, slong prec);
-
-int cov_distinct(acb_srcptr I1, acb_srcptr I2, slong prec);
+void igusa_eval_base_monomials(acb_ptr ev, acb_srcptr I, slong wt, slong prec);
 
 
 /* Different covariants: classical Igusa--Clebsch I2, I4, I6, I10
@@ -124,9 +127,9 @@ void igusa_I6prime(acb_t I6prime, acb_srcptr IC, slong prec);
 
 int igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* IC);
 
-void cov_from_IC(acb_ptr I, acb_srcptr IC, slong prec);
+void igusa_from_IC(acb_ptr I, acb_srcptr IC, slong prec);
 
-void cov_from_IC_fmpz(fmpz* I, fmpz* IC);
+void igusa_from_IC_fmpz(fmpz* I, fmpz* IC);
 
 void igusa_ABCD_from_IC(acb_ptr ABCD, acb_srcptr IC, slong prec);
 
@@ -137,20 +140,24 @@ void igusa_ABCD_from_IC_fmpz(fmpq* ABCD, fmpz* IC);
 void igusa_R2_from_IC_fmpz(fmpq_t R2, fmpz* IC);
 
 
-/* Covariants from curve coefficients */
+/* Links with genus 2 curves */
 
 void curve_coeffs(acb_ptr ai, const acb_poly_t crv);
 
 void curve_coeffs_fmpz(fmpz* ai, const fmpz_poly_t crv);
 
-void cov_from_curve(acb_ptr I, const acb_poly_t crv, slong prec);
+void igusa_from_curve(acb_ptr I, const acb_poly_t crv, slong prec);
 
-void cov_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv);
+void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv);
+
+int igusa_has_generic_automorphisms(acb_srcptr IC, slong prec);
+
+int igusa_is_g2_curve(acb_srcptr I);
+
+int igusa_is_g2_curve_fmpz(fmpz* I);
 
 
 /* Mestre's algorithm: use I2, I4, I6, I10 */
-
-int igusa_has_generic_automorphisms(acb_srcptr IC, slong prec);
 
 void igusa_generic_randtest(acb_poly_t crv, acb_ptr IC, flint_rand_t state, slong prec);
 
@@ -177,7 +184,12 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
 
 int mestre(acb_poly_t crv, acb_srcptr IC, slong prec);
 
+
+/* Cardona's algorithm for curves with extra involution, Bolza classification */
+
 void cardona(acb_poly_t crv, acb_srcptr IC, slong prec);
+
+int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec);
 
 
 /* Thomae's formulae: back to I4, I6prime, I10, I12 */
@@ -204,25 +216,18 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 int tau_theta2_from_curve(acb_mat_t tau, acb_ptr th2, const acb_poly_t crv,
 			  slong prec);
 
+
+/* Period computations from Igusa covariants */
+
 int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec);
 
 int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec);
-
-
-/* Period computations for products of elliptic curves, and more
-   generally abelian surfaces with extra automorphisms */
-
-int cov_is_g2_curve(acb_srcptr I);
-
-int cov_is_g2_curve_fmpz(fmpz* I);
 
 void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec);
 
 int igusa_ec_period(acb_t tau, const acb_t j, slong prec);
 
 int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
-
-int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec);
 
 int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
 

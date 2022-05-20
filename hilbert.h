@@ -63,6 +63,7 @@ void humbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
 void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
+
 /* Gundlach invariants */
 
 void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);

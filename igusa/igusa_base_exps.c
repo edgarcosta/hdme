@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void cov_base_exps(slong* exps, slong wt, slong k)
+void igusa_base_exps(slong* exps, slong wt, slong k)
 {
   slong j;
   slong* ptr;
