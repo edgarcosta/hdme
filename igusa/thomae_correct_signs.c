@@ -6,6 +6,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 {
   slong current_prec = thomae_startprec(prec);
   slong nb_candidates = 720 * 16;
+  slong weights[4] = IGUSA_HALFWEIGHTS;
   slong p; /* 0 to 719 */
   slong s; /* 0 to 15 */
   slong correct_perm = -1;
@@ -109,8 +110,10 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 		      if (!thomae_discard(th2, current_prec))
 			{
 			  tau_success = theta2_inverse(tau, th2, current_prec);
-			  if (tau_success) tau_success = cov_from_tau(I_test, tau, prec);
-			  if (tau_success) tau_success = !cov_distinct(I_test, I, prec);
+			  if (tau_success)
+			    tau_success = igusa_from_tau(I_test, tau, prec);
+			  if (tau_success)
+			    tau_success = !cov_distinct(I_test, I, 4, weights, prec);
 			  if (tau_success)
 			    {
 			      correct_perm = p;

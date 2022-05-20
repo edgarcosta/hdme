@@ -18,7 +18,7 @@ int tau_theta2_from_curve(acb_mat_t tau, acb_ptr theta2, const acb_poly_t crv,
   th2 = _acb_vec_init(16);
   th4 = _acb_vec_init(16);
 
-  cov_from_curve(I, crv, prec);
+  igusa_from_curve(I, crv, prec);
   res = thomae_roots(roots, crv, prec);
   if (res) res = thomae_correct_signs(&perm, &signs, roots, I, prec);
   if (res)

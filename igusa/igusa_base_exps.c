@@ -37,9 +37,9 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
       3, 2, 0, 3
     };
 
-  if (k < 0 || k >= cov_nb_base_monomials(wt))
+  if (k < 0 || k >= igusa_nb_base_monomials(wt))
     {
-      flint_printf("(cov_base_exps) Invalid index %wd\n", k);
+      flint_printf("(igusa_base_exps) Invalid index %wd\n", k);
       fflush(stdout);
       flint_abort();
     }
@@ -48,7 +48,7 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
   else if (wt == 60) ptr = &wt60[4*k];
   else
     {
-      flint_printf("(cov_base_exps) Invalid weight %wd\n", wt);
+      flint_printf("(igusa_base_exps) Invalid weight %wd\n", wt);
       fflush(stdout);
       flint_abort();
     }

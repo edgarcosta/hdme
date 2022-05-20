@@ -23,7 +23,6 @@
 #define HDME_DATA_VAR_LEN 10
 #define HDME_DATA_PATH HDME_PATH"/hdme_data"
 
-
 char** hdme_data_vars_init(slong nb);
 
 void hdme_data_vars_clear(char** vars, slong nb);

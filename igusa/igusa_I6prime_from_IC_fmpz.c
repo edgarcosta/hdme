@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-int igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* I)
+int igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* I)
 {
   fmpz_t res, temp;
   int r;

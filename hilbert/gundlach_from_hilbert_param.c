@@ -48,16 +48,16 @@ void gundlach_from_hilbert_param(fmpz* G, const fmpq* mn, slong delta)
   /* Lift to Gundlach covariants */
   /* See Milio--Robert, "Modular polynomials on Hilbert surfaces" §A.2 and §A.4 */
   /* Can take G2 = -6g, F6 = h, F10 = h^2; rescale to ensure they are integers */
-  fmpz_mul_si(&G[0], fmpq_numerator(g), -6);
-  fmpz_set(&G[1], fmpq_numerator(h));
+  fmpz_mul_si(&G[0], fmpq_numref(g), -6);
+  fmpz_set(&G[1], fmpq_numref(h));
   fmpz_pow_ui(&G[2], &G[1], 2);
 
-  cov_rescale_fmpz(G, G, fmpq_denominator(g), 3, weights);
-  fmpz_divexact(&G[0], &G[0], fmpq_denominator(g));
-  cov_rescale_fmpz(G, G, fmpq_denominator(h), 3, weights);
-  fmpz_divexact(&G[1], &G[1], fmpq_denominator(h));
-  fmpz_divexact(&G[2], &G[2], fmpq_denominator(h));
-  fmpz_divexact(&G[2], &G[2], fmpq_denominator(h));
+  cov_rescale_fmpz(G, G, fmpq_denref(g), 3, weights);
+  fmpz_divexact(&G[0], &G[0], fmpq_denref(g));
+  cov_rescale_fmpz(G, G, fmpq_denref(h), 3, weights);
+  fmpz_divexact(&G[1], &G[1], fmpq_denref(h));
+  fmpz_divexact(&G[2], &G[2], fmpq_denref(h));
+  fmpz_divexact(&G[2], &G[2], fmpq_denref(h));
   cov_normalize_fmpz(G, G, 3, weights);
 
   fmpq_clear(g);

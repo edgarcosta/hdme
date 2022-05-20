@@ -38,7 +38,7 @@ int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec)
       res = theta2_unif(hecke_theta2(H, k), hecke_isog(H, k), prec);
     }     
   if (res) res = theta2_renormalize(hecke_theta2(H, k), hecke_theta2(H, k), prec);
-  if (res) cov_from_theta2(hecke_I(H, k), hecke_theta2(H, k), prec);
+  if (res) igusa_from_theta2(hecke_I(H, k), hecke_theta2(H, k), prec);
 
   acb_mat_clear(im);
   fmpz_mat_clear(eta);

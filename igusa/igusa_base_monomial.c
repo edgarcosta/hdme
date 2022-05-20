@@ -6,5 +6,5 @@ void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 {
   slong exps[4];
   igusa_base_exps(exps, wt, 4);
-  igusa_monomial(mon, exps, ctx);
+  cov_monomial(mon, exps, ctx);
 }

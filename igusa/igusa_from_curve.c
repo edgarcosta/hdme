@@ -26,14 +26,14 @@ void igusa_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
   curve_coeffs(ai, crv);
 
   hdme_data_read(pol, (const char**) vars, "igusa/I4", ctx);
-  hdme_data_evaluate_acb(cov_I4(res), pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(igusa_I4(res), pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I6prime", ctx);
-  hdme_data_evaluate_acb(cov_I6prime(res), pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(igusa_I6prime(res), pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I10", ctx);
-  hdme_data_evaluate_acb(cov_I10(res), pol, ai, ctx, prec);
+  hdme_data_evaluate_acb(igusa_I10(res), pol, ai, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
-  hdme_data_evaluate_acb(cov_I12(res), pol, ai, ctx, prec);
-  acb_mul(cov_I12(res), cov_I12(res), cov_I10(res), prec);
+  hdme_data_evaluate_acb(igusa_I12(res), pol, ai, ctx, prec);
+  acb_mul(igusa_I12(res), igusa_I12(res), igusa_I10(res), prec);
 
   _acb_vec_set(I, res, 4);
 

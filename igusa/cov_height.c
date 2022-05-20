@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-slong cov_height(const fmpz* I, slong len, slong* weights)
+slong cov_height(fmpz* I, slong len, slong* weights)
 {
   slong k;
   slong h = 1;

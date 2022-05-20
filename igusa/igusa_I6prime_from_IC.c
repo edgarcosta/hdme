@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_I6prime(acb_t I6prime, acb_srcptr I, slong prec)
+void igusa_I6prime_from_IC(acb_t I6prime, acb_srcptr I, slong prec)
 {
   acb_t res, temp;
 

@@ -1,21 +1,20 @@
 
 #include "igusa.h"
 
-void cov_normalize_fmpz(fmpz* I, fmpz* S)
+void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights)
 {
   slong p, v;
   fmpz_t g, f;
-  slong wt[4] = COV_WEIGHTS;
   slong i0 = -1;
   slong j;
-  slong max_p = 10000;
+  slong max_p = COV_MAXP;
   
   fmpz_init(g);
   fmpz_init(f);
-
-  _fmpz_vec_set(I, S, 4);
+  _fmpz_vec_set(I, S, nb);
+  
   /* Compute i0 st index is nonzero */
-  for (j = 0; j < 4; j++)
+  for (j = 0; j < nb; j++)
     {
       if (!fmpz_is_zero(&I[j]))
 	{
@@ -35,16 +34,16 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
   while (p < max_p)
     {
       fmpz_set_si(f, p);
-      v = fmpz_remove(g, &I[i0], f) / (wt[i0]/2);
-      for (j = 0; j < 4; j++)
+      v = fmpz_remove(g, &I[i0], f) / (weights[i0]);
+      for (j = 0; j < nb; j++)
 	{
 	  if (j != i0 && !fmpz_is_zero(&I[j]))
 	    {
-	      v = FLINT_MIN(v, fmpz_remove(g, &I[j], f) / (wt[j]/2));
+	      v = FLINT_MIN(v, fmpz_remove(g, &I[j], f) / (weights[j]));
 	    }
 	}      
       fmpz_pow_ui(g, f, v);
-      cov_divexact_fmpz(I, I, g);
+      cov_divexact_fmpz(I, I, g, nb, weights);
       p = n_nextprime(p, 1);
     }
   
@@ -61,8 +60,20 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S)
       p = n_nextprime(p, 1);
     }
   
-  if (cov_divisible_fmpz(I, g)) cov_divexact_fmpz(I, I, g);
-  if (fmpz_cmp_si(cov_I6prime(I), 0) < 0) cov_rescale_fmpz_si(I, I, -1);  
+  if (cov_divisible_fmpz(I, g, nb, weights))
+    {
+      cov_divexact_fmpz(I, I, g, nb, weights);
+    }
+  
+  /* Update a sign in case of odd weight */
+  for (j = 0; j < nb; j++)
+    {
+      if (!fmpz_is_zero(&I[j]) && (weights[j] %2) == 1)
+	{
+	  if (fmpz_cmp_si(&I[j], 0) < 0) cov_rescale_fmpz_si(I, I, -1, nb, weights); 
+	  break;
+	}
+    }
 
   fmpz_clear(f);
   fmpz_clear(g);

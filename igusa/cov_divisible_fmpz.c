@@ -1,18 +1,17 @@
 
 #include "igusa.h"
 
-int cov_divisible_fmpz(fmpz* I, const fmpz_t scal)
+int cov_divisible_fmpz(fmpz* I, const fmpz_t scal, slong nb, slong* weights)
 {
   fmpz_t f;
   int r = 1;
-  slong wt[4] = COV_WEIGHTS;
   slong j;
 
   fmpz_init(f);
 
-  for (j = 0; j < 4; j++)
+  for (j = 0; j < nb; j++)
     {
-      fmpz_pow_ui(f, scal, wt[j]/2);
+      fmpz_pow_ui(f, scal, weights[j]);
       r = r && fmpz_divisible(&I[j], f);
     }
 

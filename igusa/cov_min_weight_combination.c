@@ -1,78 +1,82 @@
 
 #include "igusa.h"
 
-void cov_min_weight_combination(slong* wt, slong* i1, slong* i2,
-				slong* e1, slong* e2, fmpz* I)
+static void nonzero_indices(slong* inds, slong* k, fmpz* I, slong nb)
 {
-  *wt = 2; /* Default */
-  if (!fmpz_is_zero(cov_I4(I)))
-    {      
-      *i1 = 0;
-      if (!fmpz_is_zero(cov_I6prime(I)))
-	{
-	  *i2 = 1;
-	  *e1 = -1;
-	  *e2 = 1;
-	}
-      else if (!fmpz_is_zero(cov_I10(I)))
-	{
-	  *i2 = 2;
-	  *e1 = -2;
-	  *e2 = 1;
-	}
-      else
-	{
-	  *wt = 4;
-	  *i2 = *i1;
-	  *e2 = 0;
-	}
-    }
-  else if (!fmpz_is_zero(cov_I6prime(I)))
+  slong j;
+  *k = 0;
+  for (j = 0; j < nb; j++)
     {
-      *i1 = 1;
-      if (!fmpz_is_zero(cov_I10(I)))
+      if (!fmpz_is_zero(&I[j]))
 	{
-	  *i2 = 2;
-	  *e1 = 2;
-	  *e2 = -1;
-	}
-      else
-	{
-	  *wt = 6;
-	  *i2 = *i1;
-	  *e1 = 1;
-	  *e2 = 0;
+	  inds[*k] = j;
+	  (*k)++;
 	}
     }
-  else if (!fmpz_is_zero(cov_I10(I)))
+}
+
+static void extract_inds(slong* extr, slong* inds, slong k, slong* vec)
+{
+  slong j;
+  for (j = 0; j < k; j++)
     {
-      *i1 = 2;
-      if (!fmpz_is_zero(cov_I12(I)))
-	{
-	  *i2 = 3;
-	  *e1 = -1;
-	  *e2 = 1;
-	}
-      else
-	{
-	  *wt = 10;
-	  *i2 = *i1;
-	  *e1 = 1;
-	  *e2 = 0;
-	}
+      extr[j] = vec[inds[j]];
     }
-  else if (!fmpz_is_zero(cov_I12(I)))
+}
+
+static void xgcd_vec_si(slong* gcd, slong* coefs, slong* a, slong nb)
+{
+  slong j;
+  slong u, v;
+  slong i;
+  
+  if (nb == 0)
     {
-      *wt = 12;
-      *i1 = 3;
-      *i2 = *i1;
-      *e1 = 1;
-      *e2 = 0;
+      flint_printf("(cov_min_weight_combination: xgcd_vec_si) nb = 0\n");
+      fflush(stdout);
+      flint_abort();
     }
-  else
+
+  *gcd = a[0];
+  coefs[0] = 1;
+  j = 1; /* gcd contains result for indices 0,...,j-1 */
+  while (j < nb)
+    {
+      *gcd = n_xgcd((ulong*) &u, (ulong*) &v, *gcd, a[j]);
+      coefs[j] = v;
+      for (i = 0; i < j; i++) coefs[i] *= u;
+    }
+}
+
+void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
+				slong nb, slong* weights)
+{
+  slong* inds;
+  slong* extr;
+  slong* coefs;
+  slong g;
+  slong k;
+  slong i;
+
+  inds = flint_malloc(nb * sizeof(slong));
+  extr = flint_malloc(nb * sizeof(slong));
+  coefs = flint_malloc(nb * sizeof(slong));
+
+  nonzero_indices(inds, &k, I, nb);
+  if (k == 0)
     {
       flint_printf("(cov_min_weight_combination) Error: all entries are zero\n");
       fflush(stdout);
       flint_abort();
     }
+  extract_inds(extr, inds, k, weights);
+  xgcd_vec_si(&g, coefs, extr, k);
+  
+  *wt = g;
+  for (i = 0; i < nb; i++) exponents[i] = 0;
+  for (i = 0; i < k; i++) exponents[inds[i]] = coefs[i];
+
+  flint_free(inds);
+  flint_free(extr);
+  flint_free(coefs);  
 }

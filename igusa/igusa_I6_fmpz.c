@@ -14,8 +14,8 @@ int igusa_I6_fmpz(fmpz_t I6, fmpz* I)
   if (!r) return 0;
   
   /* Get I6 from I6prime */
-  fmpz_mul_si(res, cov_I6prime(I), 2);
-  fmpz_mul(temp, I2, cov_I4(I));
+  fmpz_mul_si(res, igusa_I6prime(I), 2);
+  fmpz_mul(temp, I2, igusa_I4(I));
   fmpz_sub(res, res, temp);
   r = fmpz_divisible_si(res, 3);
   if (r)

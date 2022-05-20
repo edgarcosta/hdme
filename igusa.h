@@ -23,7 +23,9 @@
 #include "theta.h"
 
 #define IGUSA_WEIGHTS {4,6,10,12}
-#define IGUSA_HALFWEIGHTS {1,3,5,6}
+#define IGUSA_HALFWEIGHTS {2,3,5,6}
+
+#define COV_MAXP 10000
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
@@ -70,22 +72,23 @@ void cov_rescale_fmpz_si(fmpz* I, fmpz* S, slong scal, slong nb, slong* weights)
 
 void cov_divexact_fmpz_si(fmpz* I, fmpz* S, slong scal, slong nb, slong* weights);
 
-void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong weights);
+void cov_normalize(acb_ptr I, acb_srcptr S, slong nb, slong* weights, slong prec);
+
+void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights);
 
 slong cov_height(fmpz* I, slong nb, slong* weights);
 
-void cov_min_weight_combination(slong* wt, slong* i1, slong* i2,
-				slong* e1, slong* e2, fmpz* I,
+void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
 				slong nb, slong* weights);
 
 int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
-		       slong nb, slong weights, slong prec);
+		       slong nb, slong* weights, slong prec);
 
 int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights,
 			  slong prec);
 
 int cov_distinct(acb_srcptr I1, acb_srcptr I2,
-		 slong nb, slong weights, slong prec);
+		 slong nb, slong* weights, slong prec);
 
 
 /* Weighted polynomials in general covariants */
@@ -105,8 +108,6 @@ void igusa_base_exps(slong* exps, slong wt, slong k);
 void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
-void igusa_eval_base_monomials(acb_ptr ev, acb_srcptr I, slong wt, slong prec);
-
 
 /* Different covariants: classical Igusa--Clebsch I2, I4, I6, I10
    and Clebsch A, B, C, D */
@@ -123,9 +124,9 @@ void igusa_IC(acb_ptr IC, acb_srcptr I, slong prec);
 
 void igusa_IC_fmpz(fmpz* IC, fmpz* I);
 
-void igusa_I6prime(acb_t I6prime, acb_srcptr IC, slong prec);
+void igusa_I6prime_from_IC(acb_t I6prime, acb_srcptr IC, slong prec);
 
-int igusa_I6prime_fmpz(fmpz_t I6prime, fmpz* IC);
+int igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* IC);
 
 void igusa_from_IC(acb_ptr I, acb_srcptr IC, slong prec);
 

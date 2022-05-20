@@ -1,46 +1,50 @@
 
 #include "igusa.h"
 
-int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S, slong prec)
+int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
+		       slong nb, slong* weights, slong prec)
 {
-  slong wt, i1, i2, e1, e2;
-  acb_t r1, r2;
-  acb_t ci, cs;
+  slong wt;
+  slong* exponents;  
+  acb_t r, c;
   acb_ptr rescale;
   slong j;
   int res = 1;
 
-  acb_init(r1);
-  acb_init(r2);
-  acb_init(ci);
-  acb_init(cs);
-  rescale = _acb_vec_init(4);
+  exponents = flint_malloc(nb * sizeof(slong));
+  acb_init(r);
+  acb_init(c);
+  rescale = _acb_vec_init(nb);
 
-  /* Compute combination of S with minimum weight */
-  cov_min_weight_combination(&wt, &i1, &i2, &e1, &e2, S);
-  acb_set_fmpz(r1, &S[i1]);
-  acb_pow_si(r1, r1, e1, prec);
-  acb_set_fmpz(r2, &S[i2]);
-  acb_pow_si(r2, r2, e2, prec);
-  acb_mul(cs, r1, r2, prec);
-
-  /* Repeat same combination for I, quotient and root */
-  acb_pow_si(r1, &I[i1], e1, prec);
-  acb_pow_si(r2, &I[i2], e2, prec);
-  acb_mul(ci, r1, r2, prec);
-  acb_div(cs, cs, ci, prec);
-  borchardt_root_ui(cs, cs, wt, prec);
+  /* Compute combination of I/S with minimum weight */
+  cov_min_weight_combination(&wt, exponents, S, nb, weights);
+  acb_one(c);
+  for (j = 0; j < nb; j++)
+    {
+      acb_pow_si(r, &I[j], exponents[j], prec);
+      acb_mul(c, c, r, prec);
+      acb_set_fmpz(r, &S[j]);
+      acb_pow_si(r, r, exponents[j], prec);
+      acb_div(c, c, r, prec);
+    }
+  borchardt_root_ui(c, c, wt, prec);
 
   /* Check that rescaling works */
-  cov_rescale(rescale, I, cs, prec);
+  for (j = 0; j < nb; j++) acb_set_fmpz(&rescale[j], &S[j]);
+  cov_rescale(rescale, rescale, c, nb, weights, prec);
+  
   for (j = 0; j < 4; j++)
     {
-      if (!acb_contains_fmpz(&rescale[j], &S[j]))
+      if (!acb_overlaps(&rescale[j], &I[j]))
 	{
 	  res = 0;
 	  break;
 	}
     }
-  
+
+  flint_free(exponents);
+  acb_clear(r);
+  acb_clear(c);
+  _acb_vec_clear(rescale, nb);
   return res;
 }

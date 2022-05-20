@@ -5,12 +5,12 @@
 
 static void igusa_y(acb_t y1, acb_t y2, acb_srcptr I, slong prec)
 {
-  acb_pow_si(y1, cov_I4(I), 3, prec);
-  acb_div(y1, y1, cov_I12(I), prec);
+  acb_pow_si(y1, igusa_I4(I), 3, prec);
+  acb_div(y1, y1, igusa_I12(I), prec);
   acb_mul_si(y1, y1, n_pow(2,11) * 3, prec);
 
-  acb_pow_si(y2, cov_I6prime(I), 2, prec);
-  acb_div(y2, y2, cov_I12(I), prec);
+  acb_pow_si(y2, igusa_I6prime(I), 2, prec);
+  acb_div(y2, y2, igusa_I12(I), prec);
   acb_mul_si(y2, y2, n_pow(2,14), prec);
 }
 
@@ -70,15 +70,15 @@ void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec)
   for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
   igusa_y(y1, y2, I_acb, prec);
 
-  if (fmpz_is_zero(cov_I4(I)) && fmpz_is_zero(cov_I6prime(I)))
+  if (fmpz_is_zero(igusa_I4(I)) && fmpz_is_zero(igusa_I6prime(I)))
     {
       igusa_ec_j1j2_zeroI4I6prime(j);
     }
-  else if (fmpz_is_zero(cov_I4(I)))
+  else if (fmpz_is_zero(igusa_I4(I)))
     {
       igusa_ec_j1j2_zeroI4(j, y2, prec);
     }
-  else if (fmpz_is_zero(cov_I6prime(I)))
+  else if (fmpz_is_zero(igusa_I6prime(I)))
     {
       igusa_ec_j1j2_zeroI6prime(j, y1, prec);
     }
