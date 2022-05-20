@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-static int set_pol(fmpz_mpoly_t pol, const modeq_ctx_t ctx, slong j)
+static void set_pol(fmpz_mpoly_t pol, const modeq_ctx_t ctx, slong j)
 {
   slong k = 0;
   fmpz_mpoly_t term;
@@ -23,8 +23,9 @@ static int set_pol(fmpz_mpoly_t pol, const modeq_ctx_t ctx, slong j)
 int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 {
   slong j, k, l, e;
-  acb_ptr ptr; /* Do not initialize */
+  acb_srcptr ptr; /* Do not initialize */
   slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong exps[4];
   fmpz_mpoly_t num, den;
   acb_ptr evden;
   acb_ptr evnum;
@@ -72,7 +73,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   /* Set monomials in ctx */
   modeq_ctx_weight(ctx) = wt;
   modeq_ctx_nb(ctx) = igusa_nb_base_monomials(wt);
-  for (j = 0; j < modeq_ctx_nb(ctx); j++)
+  for (k = 0; k < modeq_ctx_nb(ctx); k++)
     {
       igusa_base_exps(exps, wt, k);
       igusa_base_monomial(modeq_ctx_monomial(ctx, k), wt, k,
@@ -102,7 +103,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   e = 3;
   for (j = 0; j < n_pow(2,e); j++)
     {
-      set_pol(den, modeq_ctx, j);
+      set_pol(den, ctx, j);
       res = 1;
       for (k = 0; k < nb; k++)
 	{
@@ -130,7 +131,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
     {
       for (j = 0; j < n_pow(2, e); j++)
 	{
-	  set_pol(num, modeq_ctx, j);
+	  set_pol(num, ctx, j);
 	  for (k = 0; k < nb; k++)
 	    {
 	      cov_mpoly_eval(&evnum[k], num, &I[4*k], modeq_ctx_ctx(ctx), prec);

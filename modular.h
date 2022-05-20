@@ -202,7 +202,7 @@ int hilbert_modeq_eval_nonsym(modeq_t E1, modeq_t E2, modeq_ctx_t ctx,
 
 int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
 			      slong* exp_array, fmpz* I, slong ell,
-			      const fmpz_mod_ctx_t ctx)
+			      const fmpz_mod_ctx_t ctx);
 
 
 /*
