@@ -1,8 +1,8 @@
 
 #include "igusa.h"
 
-int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
-		       slong nb, slong* weights, slong prec)
+void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
+			slong nb, slong* weights, slong prec)
 {
   slong wt;
   slong* exponents;  
@@ -40,6 +40,12 @@ int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
 	  res = 0;
 	  break;
 	}
+    }
+  if (!res)
+    {
+      flint_printf("(cov_find_rescaling) Error: no rescaling factor found\n");
+      fflush(stdout);
+      flint_abort();
     }
 
   flint_free(exponents);

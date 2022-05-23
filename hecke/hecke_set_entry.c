@@ -21,7 +21,8 @@ int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec)
     {
       flint_printf("(hecke_set_entry) Error: illegal index %wd, expected between 0 and %wd\n",
 		   k, nb-1);
-      return 0;
+      fflush(stdout);
+      flint_abort();
     }
   
   res = siegel_transform(im, gamma, hecke_tau(H), prec);  

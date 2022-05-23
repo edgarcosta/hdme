@@ -1,7 +1,7 @@
 
 #include "hilbert.h"
 
-void gundlach_from_hilbert_param(fmpz* G, const fmpq* mn, slong delta)
+void gundlach_from_hilbert_param(fmpz* G, fmpq* mn, slong delta)
 {
   fmpq_t g;
   fmpq_t h;

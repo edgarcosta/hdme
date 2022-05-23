@@ -17,6 +17,7 @@
 #include <flint/fmpz_poly.h>
 #include <flint/fmpz_mod_poly.h>
 
+#define HDME_RD_RADIUS_PREC 100
 
 void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
 			     acb_srcptr yi, slong d, slong prec);
@@ -24,7 +25,7 @@ void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
 void acb_poly_product_tree_2(acb_poly_t Q, acb_srcptr xi, acb_srcptr yi,
 			     acb_srcptr zi, slong d, slong prec);
 
-int acb_round(fmpz_t c, const acb_t x);
+int acb_round(fmpz_t c, arf_t radius, const acb_t x);
 
 int acb_poly_round(fmpz_poly_t pol, arf_t max_radius,
 		   const acb_poly_t pol_acb, slong degree);
@@ -43,6 +44,11 @@ void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
 void pol_roots_Q(slong* nb_roots, fmpq* roots, slong* mults,
 		 const fmpz_poly_t pol);
 
+void pol_remove_factor_Q(fmpz_poly_t r, const fmpz_poly_t pol,
+			 const fmpz_poly_t fac, slong mult);
+
+void pol_remove_root_Q(fmpz_poly_t r, const fmpz_poly_t pol,
+		       const fmpq_t root, slong mult);
 
 int pol_reduce_Fp(fmpz_mod_poly_t red, const fmpz_poly_t num,
 		  const fmpz_t den, const fmpz_mod_ctx_t ctx);
@@ -53,5 +59,7 @@ void pol_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* exps
 void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
 		  const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx);
 
+void pol_remove_root_Fq(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
+			const fmpz_t root, slong mult, const fmpz_mod_ctx_t ctx);
 
 #endif

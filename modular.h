@@ -42,6 +42,9 @@
 #define SIEGEL_START_PREC_ADD 0
 #define SIEGEL_MUL_PREC 1.5
 
+#define SIEGEL_2STEP_START_PREC_MUL 30
+#define SIEGEL_2STEP_START_PREC_ADD 0
+
 #define HILBERT_START_PREC_MUL 10
 #define HILBERT_START_PREC_ADD 200
 #define HILBERT_MUL_PREC 1.8
@@ -68,9 +71,9 @@ typedef modeq_ctx_struct modeq_ctx_t[1];
 typedef struct
 {
   slong d; /* Degree of Hecke correspondence */
-  slong nb; /* Number of equations */
-  acb_poly_t eq; /* Equation satisfied by parameter */
-  acb_poly_struct* interp; /* Numerators of F where monomials = F(parameter) */
+  slong nb; /* Number of monomials */
+  acb_poly_struct* all_nums; /* Equation satisfied by parameter,
+			       and numerators of F where monomials = F(parameter) */
   acb_t den; /* Common denominator for all of these polynomials */
 } modeq_acb_struct;
 
@@ -80,8 +83,7 @@ typedef struct
 {
   slong d;
   slong nb;
-  fmpz_poly_t eq;
-  fmpz_poly_struct* interp;
+  fmpz_poly_struct* all_nums;
   fmpz_t den;
 } modeq_struct;
 
@@ -112,18 +114,21 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec);
 
 /* Handle modeq_t structures */
 
-void modeq_init(modeq_t E, slong nb);
+void modeq_init(modeq_t E);
 
 void modeq_clear(modeq_t E);
 
-void modeq_acb_init(modeq_acb_t E, slong nb);
+void modeq_acb_init(modeq_acb_t E);
 
 void modeq_acb_clear(modeq_acb_t E);
 
+void modeq_acb_set(modeq_acb_t R, const modeq_acb_t E);
+
 #define modeq_degree(E) ((E)->d)
 #define modeq_nb(E) ((E)->nb)
-#define modeq_equation(E) ((E)->eq)
-#define modeq_interpolate(E, j) (&(E)->interp[(j)])
+#define modeq_all_nums(E) (E->all_nums)
+#define modeq_equation(E) (&(E)->all_nums[0])
+#define modeq_interpolate(E, j) (&(E)->all_nums[(j+1)])
 #define modeq_den(E) ((E)->den)
 
 
@@ -135,257 +140,91 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
 void modeq_rescale(modeq_acb_t R, const modeq_acb_t E,
 		   const acb_t c, slong prec);
 
+void modeq_verbose_start(slong prec);
+
+int modeq_stop(int res, slong prec);
+
 int modeq_round(modeq_t R, const modeq_acb_t E);
 
 int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec);
 
 
-int modeq_isog_monomials_Q(fmpz* M, const modeq_t E, const fmpq_t root);
+void modeq_isog_monomials_Q(fmpz* M, const modeq_t E, const fmpq_t root,
+			    slong mult);
 
-int modeq_isog_monomials_Fp(fmpz* M, const modeq_t E,
-			    const fmpz_t root, const fmpz_mod_ctx_t ctx);
+void modeq_isog_monomials_Fp(fmpz* M, const modeq_t E, const fmpz_t root,
+			     slong mult, const fmpz_mod_ctx_t ctx);
 
-int modeq_isog_monomials_C(acb_ptr M, const modeq_acb_t E,
-			   const acb_t root, slong prec);
+void modeq_isog_monomials_nf(fmpz_poly_struct* M, const modeq_t E,
+			     const fmpz_poly_t factor, slong mult);
 
-int modeq_isog_monomials_nf(fmpz_poly_struct* M, const modeq_t E,
-			    const fmpz_poly_t factor);
+void modeq_all_isog_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
+		      slong* exp_array, const modeq_t E, const modeq_ctx_t ctx);
+
+int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
+		      slong* exp_array, const modeq_t E, const modeq_ctx_t ctx,
+		      const fmpz_mod_ctx_t fpctx);
 
 
-/* Siegel modular equations specifics */
+/* Siegel modular equations */
 
-slong siegel_modeq_startprec(const fmpz* I, slong ell);
+slong siegel_modeq_startprec(fmpz* I, slong ell);
 
 slong siegel_modeq_nextprec(slong current_prec);
 
-void siegel_modeq_rescale(acb_t c, const hecke_t H, fmpz* I,
-			  const modeq_ctx_t ctx, slong prec);
+void siegel_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
+			 const modeq_ctx_t ctx, slong prec);
 
-int siegel_modeq_eval(modeq_t E, modeq_ctx_t ctx, fmpz* I, slong ell);
+int siegel_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
 
-int siegel_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong nb_M,
+int siegel_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			    slong* exp_array, fmpz* I, slong ell);
 
-int siegel_2step_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong nb_M,
-				  slong* exp_array, fmpz* I, slong ell);
-
-/* TODO later: over Fp */
-int siegel_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
+int siegel_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			     slong* exp_array, fmpz* I, slong ell,
 			     const fmpz_mod_ctx_t ctx);
 
-int siegel_2step_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
+
+/* 2-step Siegel modular equations */
+
+slong siegel_modeq_2step_startprec(fmpz* I, slong ell);
+
+void siegel_modeq_2step_scalar(acb_t c, const hecke_t H, fmpz* I,
+			       const modeq_ctx_t ctx, slong prec);
+
+int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
+
+int siegel_2step_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
+				  slong* exp_array, fmpz* I, slong ell);
+
+int siegel_2step_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
                                    slong* exp_array, fmpz* I, slong ell,
 				   const fmpz_mod_ctx_t ctx);
 
 
-/* Hilbert modular equations specifics */
+/* Hilbert modular equations */
 
-slong hilbert_modeq_startprec(fmpq* params, slong ell, slong len);
+slong hilbert_modeq_startprec(fmpz* I, slong ell, slong delta);
 
 slong hilbert_modeq_nextprec(slong current_prec);
 
-void hilbert_modeq_rescale_gundlach(acb_t c, const hecke_t H, fmpz* G,
-				    const modeq_ctx_t ctx, slong prec);
+void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
+			  const modeq_ctx_t ctx, slong delta, slong prec);
 
-int hilbert_modeq_eval(modeq_t E, modeq_ctx_t ctx, fmpq* params, slong ell);
+int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
+		       slong ell, slong delta);
 
 int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong nb_M,
-			     slong* exp_array, fmpz* I, slong ell);
-
-/* TODO later: nonsymmetric case, over Fp */
-void hilbert_modeq_rescale_gundlach_nonsym(acb_t c, const hecke_t H, fmpz* G,
-					   const modeq_ctx_t ctx, slong prec);
-
-int hilbert_modeq_eval_nonsym(modeq_t E1, modeq_t E2, modeq_ctx_t ctx,
-			      fmpq* params, slong ell);
+			     slong* exp_array, fmpz* I, slong ell,
+			     slong delta);
 
 int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
 			      slong* exp_array, fmpz* I, slong ell,
-			      const fmpz_mod_ctx_t ctx);
+			      slong delta, const fmpz_mod_ctx_t ctx);
 
 
-/*
-int hilbert_modeq_theta2(acb_ptr th2_vec, acb_srcptr t,
-			 const fmpz_poly_t beta, slong ell, slong delta, slong prec);
-
-int hilbert_modeq_theta2_star(acb_ptr th2_vec, acb_ptr stardets,
-			      acb_srcptr t,
-			      const fmpz_poly_t beta, slong ell, slong delta, slong prec);
-
-void hilbert_modeq_igusa_C(acb_poly_struct* pol_vec,
-			   acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
-			   slong ell, slong delta, slong prec);
-
-void hilbert_modeq_nonsym_igusa_C(acb_poly_struct* pol_vec, acb_srcptr I_vec, slong ell,
-				  slong delta, slong prec);
-
-void hilbert_modeq_gundlach_exps(slong* e, slong* a, slong* b, slong ell, slong delta);
-
-void hilbert_modeq_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr stardets,
-				   slong ell, slong delta, slong prec);
-
-void hilbert_modeq_gundlach_num(acb_poly_struct* num_vec_acb,
-				acb_srcptr I_vec_beta, acb_srcptr I_vec_betabar,
-				const acb_t scal,
-				slong ell, slong delta, slong prec);
-
-void hilbert_modeq_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
-				acb_srcptr I_vec_betabar, const acb_t scal,
-				slong ell, slong delta, slong prec);
-
-void hilbert_modeq_nonsym_gundlach_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr stardets,
-					  slong ell, slong delta, slong prec);
-
-void hilbert_modeq_nonsym_gundlach_num(acb_poly_struct* num_vec_acb,
-				       acb_srcptr I_vec_beta,
-				       const acb_t scal,
-				       slong ell, slong delta, slong prec);
-
-void hilbert_modeq_nonsym_gundlach_den(acb_t den, acb_srcptr I_vec_beta,
-				       const acb_t scal,
-				       slong ell, slong delta, slong prec);
-
-slong hilbert_modeq_startprec(fmpq* params, slong ell, slong len);
-
-slong hilbert_modeq_nextprec(slong current_prec);
-
-void hilbert_modeq_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
-
-void hilbert_modeq_nonsym_gundlach_rescale(fmpz_t scal, fmpq* g, slong ell, slong delta);
-
-int hilbert_modeq_igusa_eval_Q(fmpz_poly_struct* num_vec,
-			       fmpz_t den, fmpq* rs, slong ell, slong delta);
-
-int hilbert_modeq_nonsym_igusa_eval_Q(fmpz_poly_struct* num_vec,
-				      fmpz_t den, fmpq* rs, slong ell, const fmpz_poly_t beta,
-				      slong delta);
-
-int hilbert_modeq_gundlach_eval_Q(fmpz_poly_struct* num_vec,
-				  fmpz_t den, fmpq* g, slong ell, slong delta);
-
-int hilbert_modeq_nonsym_gundlach_eval_Q(fmpz_poly_struct* num_vec,
-					 fmpz_t den, fmpq* mn, slong ell,
-					 const fmpz_poly_t beta, slong delta);
-
-int hilbert_modeq_igusa_eval_Fp(fmpz_mod_poly_struct* pol_vec,
-				const fmpz* rs, slong ell, slong delta,
-				const fmpz_mod_ctx_t ctx);
-
-int hilbert_modeq_nonsym_igusa_eval_Fp(fmpz_mod_poly_struct* pol_vec,
-				       const fmpz* rs, slong ell, const fmpz_poly_t beta,
-				       slong delta, const fmpz_mod_ctx_t ctx);
-
-int hilbert_modeq_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
-				   const fmpz* g, slong ell,
-				   slong delta, const fmpz_mod_ctx_t ctx);
-
-int hilbert_modeq_nonsym_gundlach_eval_Fp(fmpz_mod_poly_struct* pol_vec,
-					  fmpq* mn, slong ell,
-					  const fmpz_poly_t beta, slong delta,
-					  const fmpz_mod_ctx_t ctx);
-*/
-
-/* Derivatives of Siegel modular equations */
-
-/*
-int siegel_modeq_dtheta(acb_ptr thvec, acb_ptr thder, const acb_mat_t tau,
-				   slong ell, slong prec);
-
-int siegel_modeq_dcov(acb_ptr Ider, acb_srcptr thvec, acb_srcptr thder,
-			 slong k, slong prec);
-
-int siegel_modeq_dnum(acb_poly_struct* nums, const acb_t scal, acb_srcptr thvec,
-		      acb_srcptr thder, slong ell, slong prec);
-
-int siegel_modeq_dden(acb_t den, const acb_t scal, acb_srcptr thvec,
-		      acb_srcptr thder, slong ell, slong prec);
-
-int siegel_modeq_dround(fmpz_poly_struct* nums, fmpz_t den, const acb_poly_struct nums_acb,
-			const acb_t den_acb, slong prec);
-
-int siegel_modeq_deval_zz(fmpz_poly_struct* nums, fmpz_t den, const fmpq* j,
-			   slong ell);
-
-int siegel_modeq_deval_fp(fmpz_mod_poly_struct* pols, const fmpz* j, slong ell,
-			  const fmpz_mod_ctx_t ctx);
-*/
-
-
-
-/* Derivatives of Hilbert modular equations */
-
-/* OLD */
-
-/* 
-
-void modeq_input_lift(fmpq* j, const fmpz* input, slong nb);
-*/
-/* int modeq_round(fmpz_poly_struct* num_vec, fmpz_t den, const acb_poly_struct* num_vec_acb, */
-/* 		const acb_t den_acb, slong degree, slong nb); */
-
-
-/* void modeq_cov(acb_ptr I_vec, acb_srcptr th2_vec, slong nb, slong prec); */
-
-/* int modeq_rational(fmpz_poly_struct* num_vec, fmpz_t den, const acb_poly_struct* pol_vec_acb, */
-/* 		   slong degree, slong nb, slong prec); */
-
-
-/* void modeq_input_get_fmpz(fmpz_t den, fmpz* num, fmpq* j, slong len); */
-
-/* slong modeq_height_fmpq(fmpq* j, slong len); */
-
-
-
-
-/* void modeq_input_lift(fmpq* j, const fmpz* input, slong nb); */
-
-/* slong siegel_modeq_height_fmpz(const fmpz* j); */
-
-/* slong siegel_modeq_height_fmpq(fmpq* j); */
-
-/* int siegel_modeq_theta2(acb_ptr th2_vec, acb_ptr stardets, */
-/* 			const acb_mat_t tau, slong ell, slong prec); */
-
-/* void siegel_modeq_num(acb_poly_struct* num_vec_acb, */
-/* 		      acb_srcptr I_vec, const acb_t scal, */
-/* 		      slong ell, slong prec); */
-
-/* void siegel_modeq_den(acb_t den, acb_srcptr I_vec, const acb_t scal, */
-/* 		      slong ell, slong prec); */
-
-/* slong siegel_modeq_startprec_fmpz(const fmpz* j, slong ell); */
-
-/* slong siegel_modeq_startprec_fmpq(fmpq* j, slong ell); */
-
-/* int siegel_modeq_eval_Q(fmpz_poly_struct* num_vec, */
-/* 			fmpz_t den, fmpq* j, slong ell); */
-
-/* int siegel_modeq_eval_Fp(fmpz_mod_poly_struct* pol_vec, */
-/* 			 const fmpz* j, slong ell, const fmpz_mod_ctx_t ctx); */
-
-/* int siegel_modeq_eval_C(acb_poly_struct* num_vec, acb_t den, acb_srcptr j, slong ell, */
-/* 			slong prec); */
-
-/* int siegel_modeq_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j, */
-/* 				   fmpq* j, slong ell); */
-
-/* int siegel_modeq_2step_isog_invariants_Q(slong* nb_roots, fmpq* all_isog_j, */
-/* 					 fmpq* j, slong ell); */
-
-
-/* void siegel_modeq_exps(slong* e, slong* a, slong* b, slong ell);
-
-void siegel_modeq_scalar(acb_t scal, acb_srcptr I_tau, acb_srcptr stardets,
-			 slong ell, slong prec);
-
-
-void siegel_modeq_rescale(fmpz_t scal, fmpq* j, slong ell);
-
-
-int siegel_modeq_eval_Q(modeq_t E, fmpz* I, slong ell);
-
-int siegel_modeq_eval_C(modeq_t E, acb_srcptr j, slong ell, slong prec); */
+int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
+			     modeq_ctx_t ctx2, fmpz* I, slong ell, slong delta);
 
 
 #endif 

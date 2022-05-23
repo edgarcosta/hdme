@@ -69,6 +69,7 @@ typedef hecke_struct hecke_t[1];
 #define hecke_star(H, k) (&(H)->stars[(k)])
 #define hecke_stardet(H, k) (&(H)->stardets[(k)])
 #define hecke_theta2(H, k) (&(H)->theta2[16*(k)])
+#define hecke_all_I(H) ((H)->I)
 #define hecke_I(H, k) (&(H)->I[4*(k)])
 
 
@@ -80,37 +81,42 @@ void hecke_clear(hecke_t H);
 
 void hecke_print(const hecke_t H, slong digits);
 
+void hecke_check_nb(const hecke_t H, slong nb);
+
 
 /* Set t1t2, tau, I_tau, theta2_tau */
 
 int hecke_set_tau(hecke_t H, const acb_mat_t tau, slong prec);
 
-int hecke_set_I(hecke_t H, fmpz* I, slong prec);
+int hecke_set_I_fmpz(hecke_t H, fmpz* I, slong prec);
 
 int hecke_set_t1t2(hecke_t H, acb_srcptr t, slong delta, slong prec);
+
+int hecke_set_I_fmpz_hilbert(hecke_t H, fmpz* I, slong delta, slong prec);
 
 
 /* Set whole Hecke correspondence */
 
 int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec);
 
+void hecke_collect_print_status(int res, slong k);
+
 
 slong siegel_nb_cosets(slong ell);
 
 void siegel_coset(fmpz_mat_t m, slong k, slong ell);
 
-int hecke_set_siegel(hecke_t H, const acb_mat_t tau, slong ell, slong prec);
+int hecke_collect_siegel(hecke_t H, slong ell, slong prec);
 
 
 slong hilbert_nb_cosets(slong ell, slong delta);
 
 void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta);
 
-int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
-		      slong ell, slong delta, slong prec);
-
-int hecke_set_hilbert_sym(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
+int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
 			  slong ell, slong delta, slong prec);
+
+int hecke_collect_hilbert_sym(hecke_t H, slong ell, slong delta, slong prec);
 
 
 /* Hecke correspondence of level p^2 */
@@ -119,7 +125,7 @@ slong siegel_nb_T1_cosets(slong p);
 
 void siegel_T1_coset(fmpz_mat_t m, slong k, slong p);
 
-int hecke_set_T1(hecke_t H, const acb_mat_t tau, slong p, slong prec);
+int hecke_collect_T1(hecke_t H, slong p, slong prec);
 
 
 /* Hecke operators */
@@ -131,7 +137,7 @@ void hecke_slash_scalar(acb_t im, const acb_t stardet, const acb_t val,
 			slong k, slong prec);
 
 void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
-		   slong m, slong k, slong j, slong prec);
+		    slong m, slong k, slong j, slong prec);
 
 void hecke_eigenvalue_eisenstein_p(fmpz_t eig, slong k, slong p);
 

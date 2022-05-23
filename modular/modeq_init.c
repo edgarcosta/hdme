@@ -4,9 +4,10 @@
 void modeq_init(modeq_t E, slong nb)
 {
   slong k;
-  modeq_nb(E) = nb;
+  slong nb = MODEQ_MAX_NB_MONOMIALS;
+  
+  fmpz_init(modeq_den(E));  
+  modeq_all_nums(E) = flint_malloc((nb+1) * sizeof(fmpz_poly_struct));
   fmpz_poly_init(modeq_equation(E));
-  fmpz_init(modeq_den(E));
-  E->interp = flint_malloc(nb * sizeof(fmpz_poly_struct));
   for (k = 0; k < nb; k++) fmpz_poly_init(modeq_interpolate(E, k));
 }

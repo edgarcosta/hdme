@@ -29,7 +29,7 @@ void pol_simplify(fmpz_poly_struct* num_vec, fmpz_t den, slong degree, slong nb)
     }
   
   gcd_bits = fmpz_bits(gcd);
-  if (v) flint_printf("(modeq_simplify) Simplify result by %wd-bit integer\n", gcd_bits);
+  if (v) flint_printf("(pol_simplify) Simplify result by %wd-bit integer\n", gcd_bits);
   
   fmpz_clear(gcd);
   fmpz_clear(coeff);

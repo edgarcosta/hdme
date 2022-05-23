@@ -76,12 +76,16 @@ void cov_normalize(acb_ptr I, acb_srcptr S, slong nb, slong* weights, slong prec
 
 void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights);
 
+void cov_normalize_fmpz_wt1(fmpz* I, fmpz* S, slong nb);
+
+void cov_normalize_fmpq_wt1(fmpz* I, fmpq* S, slong nb);
+
 slong cov_height(fmpz* I, slong nb, slong* weights);
 
 void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
 				slong nb, slong* weights);
 
-int cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
+void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
 		       slong nb, slong* weights, slong prec);
 
 int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights,
@@ -97,6 +101,9 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
 		    const fmpz_mpoly_ctx_t ctx, slong prec);
 
 void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
+
+void cov_monomial_degrees(slong* exps, const fmpz_mpoly_t mon,
+			  const fmpz_mpoly_ctx_t ctx);
 
 
 /* Weighted polynomials in Igusa covariants */

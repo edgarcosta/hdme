@@ -1,14 +1,14 @@
 
 #include "hecke.h"
 
-int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
-		      slong ell, slong delta, slong prec)
+int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
+			  slong ell, slong delta, slong prec)
 {  
   slong k;
   fmpz_poly_mat_t m;
   fmpz_mat_t gamma;
   slong nb = hecke_nb(H);
-  int res;
+  int res = 1;
   int v = HECKE_VERBOSE;
 
   fmpz_poly_mat_init(m, 2, 2);
@@ -17,37 +17,16 @@ int hecke_set_hilbert(hecke_t H, acb_srcptr t, const fmpz_poly_t beta,
   /* Set Hecke context */
   hecke_ell(H) = ell;
   fmpz_poly_set(hecke_beta(H), beta);
+  hecke_check_nb(H, hilbert_nb_cosets(ell, delta));
   
-  /* Sanity check: number of initialized elements */
-  if (nb != hilbert_nb_cosets(ell, delta))
-    {
-      flint_printf("(hecke_set_hilbert) Error: Hecke data structure initialized with %wd slots instead of the expected %wd\n", nb, hilbert_nb_cosets(ell, delta));
-      fflush(stdout);
-      flint_abort();
-    }
-
-  res = hecke_set_t1t2(H, t, delta, prec);
-  
-  if (v) flint_printf("(hecke_set_hilbert) Computing theta constants (%wd)", nb);
+  if (v) flint_printf("(hecke_collect_hilbert) Computing theta constants (%wd)", nb);
   fflush(stdout);
 
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
-    {    
-      if (!res)
-	{
-	  flint_printf("(hecke_set_hilbert) Warning: computation aborted due to low precision\n");
-	  break;
-	}
-      /* Print some status info? */
-      if (v)
-	{
-	  if ((k+1) % 100 == 0)
-	    {
-	      flint_printf("\n(hecke_set_hilbert) (%wd/%wd)", k+1, nb);
-	    }
-	  flint_printf("."); fflush(stdout);
-	}
+    {
+      if (v) hecke_collect_print_status(res, k);
+      if (!res) break;
       
       hilbert_coset(m, k, ell, delta);
       /* We know hilbert_coset consists only of scalars; in a next version,

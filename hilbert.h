@@ -27,8 +27,8 @@
 #include "theta.h"
 #include "igusa.h"
 
+#define GUNDLACH_WEIGHTS_5 {2,6,10}
 #define HILBERT_LLL_VERBOSE 0
-
 
 /* Basic functionality for real quadratic fields */
 
@@ -68,7 +68,9 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
 void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);
 
-void gundlach_from_hilbert_param(fmpz* G, const fmpq* mn, slong delta);
+void gundlach_from_hilbert_param(fmpz* G, fmpq* mn, slong delta);
+
+void gundlach_from_igusa_fmpz(fmpz* G, fmpz* I, slong delta);
 
 
 /* The Hilbert half space */
