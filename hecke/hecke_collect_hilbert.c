@@ -28,14 +28,9 @@ int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
       if (v) hecke_collect_print_status(res, k);
       if (!res) break;
       
-      hilbert_coset(m, k, ell, delta);
-      /* We know hilbert_coset consists only of scalars; in a next version,
-	 change semantics of hilbert_cosets */
-      fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 0),
-		    fmpz_poly_mat_entry(m, 1, 0), beta);
-      fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 1),
-		    fmpz_poly_mat_entry(m, 1, 1), beta);
+      hilbert_coset(m, k, beta, ell, delta);
       hilbert_mat_map(gamma, m, delta);
+      fmpz_mat_mul(gamma, gamma, hecke_eta(H));
 
       res = hecke_set_entry(H, k, gamma, prec);  
     }

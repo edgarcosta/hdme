@@ -32,6 +32,21 @@
 #define THOMAE_VERBOSE 0
 /* #define IGUSA_NB 4 would clutter the code. */
 
+/* We use the following projective covariants throughout:
+   psi4 = I4/4
+   psi6 = I6prime/4 (Streng's notation)
+   chi10 = -I10/2^12
+   chi12 = I12/2^15
+
+   They correspond to the Siegel modular forms with the following
+   normalized q-expansions:
+   psi4 = 1 + 240(q1+q2) + ...
+   psi6 = 1 - 504(q1+q1) + ...
+   chi10 = (q3 - 2 + q3^-1) + ...
+   chi12 = (q3 + 10 + q3^-1) + ...
+
+   This normalization differs slightly from Igusa's, who divides
+   further chi10 and chi12 by 4 and 12, respectively. */
 
 /* Igusa covariants from theta constants */
 
@@ -45,10 +60,10 @@ void igusa_h12(acb_t h12, acb_srcptr theta2, slong prec);
 
 void igusa_h16(acb_t h16, acb_srcptr theta2, slong prec);
 
-#define igusa_I4(I) &(I)[0]
-#define igusa_I6prime(I) &(I)[1]
-#define igusa_I10(I) &(I)[2]
-#define igusa_I12(I) &(I)[3]
+#define igusa_psi4(I) &(I)[0]
+#define igusa_psi6(I) &(I)[1]
+#define igusa_chi10(I) &(I)[2]
+#define igusa_chi12(I) &(I)[3]
 
 void igusa_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec);
 
@@ -98,7 +113,7 @@ int cov_distinct(acb_srcptr I1, acb_srcptr I2,
 /* Weighted polynomials in general covariants */
 
 void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
-		    const fmpz_mpoly_ctx_t ctx, slong prec);
+		    const fmpz_mpoly_ctx_t ctx, slong prec)
 
 void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
 
@@ -116,24 +131,22 @@ void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
 
-/* Different covariants: classical Igusa--Clebsch I2, I4, I6, I10
-   and Clebsch A, B, C, D */
+/* Different covariants:
+   - Streng I4, I6prime, I10, I12,
+   - classical Igusa--Clebsch I2, I4, I6, I10,
+   - Clebsch A, B, C, D */
 
-void igusa_I2(acb_t I2, acb_srcptr I, slong prec);
+void igusa_streng(acb_ptr S, acb_srcptr I, slong prec);
 
-int igusa_I2_fmpz(fmpz_t I2, fmpz* I);
+void igusa_streng_fmpz(fmpz* S, fmpz* I);
 
-void igusa_I6(acb_t I6, acb_srcptr I, slong prec);
+void igusa_from_streng(acb_ptr I, acb_srcptr S, slong prec);
 
-int igusa_I6_fmpz(fmpz_t I6, fmpz* I);
+void igusa_from_streng_fmpz(fmpz* I, fmpz* S, slong prec);
 
 void igusa_IC(acb_ptr IC, acb_srcptr I, slong prec);
 
 void igusa_IC_fmpz(fmpz* IC, fmpz* I);
-
-void igusa_I6prime_from_IC(acb_t I6prime, acb_srcptr IC, slong prec);
-
-int igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* IC);
 
 void igusa_from_IC(acb_ptr I, acb_srcptr IC, slong prec);
 

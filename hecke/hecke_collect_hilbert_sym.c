@@ -33,25 +33,16 @@ int hecke_set_hilbert_sym(hecke_t H, const fmpz_poly_t beta,
 
       if (k < hilbert_nb_cosets(ell, delta))
 	{
-	  hilbert_coset(m, k, ell, delta);
-	  /* We know hilbert_coset consists only of scalars; in a next version,
-	     change semantics of hilbert_cosets */
-	  fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 0),
-			fmpz_poly_mat_entry(m, 1, 0), beta);
-	  fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 1),
-			fmpz_poly_mat_entry(m, 1, 1), beta);
-	  hilbert_mat_map(gamma, m, delta);
+	  hilbert_coset(m, k, beta, ell, delta);
 	}
       else
 	{
-	  hilbert_coset(m, k - hilbert_nb_cosets(ell, delta), ell, delta);
-	  fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 0),
-			fmpz_poly_mat_entry(m, 1, 0), betabar);
-	  fmpz_poly_mul(fmpz_poly_mat_entry(m, 1, 1),
-			fmpz_poly_mat_entry(m, 1, 1), betabar);
-	  hilbert_mat_map(gamma, m, delta);	  
+	  hilbert_coset(m, k - hilbert_nb_cosets(ell, delta),
+			betabar, ell, delta);
 	}
-
+      
+      hilbert_mat_map(gamma, m, delta);
+      fmpz_mat_mul(gamma, gamma, hecke_eta(H));
       res = hecke_set_entry(H, k, gamma, prec);    
     }
   

@@ -38,8 +38,11 @@ typedef struct
   acb_ptr theta2_tau;
   acb_ptr I_tau;
   slong ell; /* Type of isogenies */
-  acb_ptr t1t2; /* Original periods (Hilbert case only) */
-  fmpz_poly_t beta; /* Type of isogenies (Hilbert case only) */
+
+  /* Hilbert case */
+  acb_ptr t1t2; /* Periods */
+  fmpz_mat_t eta; /* Phi_R(t1, t2) is eta*tau */
+  fmpz_poly_t beta; /* Type of isogenies */
 
   /* Data to be computed */
   slong nb; /* Number of isogenous matrices */
@@ -61,6 +64,7 @@ typedef hecke_struct hecke_t[1];
 #define hecke_I_tau(H) ((H)->I_tau)
 #define hecke_ell(H) ((H)->ell)
 #define hecke_t1t2(H) ((H)->t1t2)
+#define hecke_eta(H) ((H)->eta)
 #define hecke_beta(H) ((H)->beta)
 #define hecke_nb(H) ((H)->nb)
 
@@ -111,7 +115,8 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec);
 
 slong hilbert_nb_cosets(slong ell, slong delta);
 
-void hilbert_coset(fmpz_poly_mat_t m, slong k, slong ell, slong delta);
+void hilbert_coset(fmpz_poly_mat_t m, slong k, const fmpz_poly_t beta,
+		   slong ell, slong delta);
 
 int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
 			  slong ell, slong delta, slong prec);

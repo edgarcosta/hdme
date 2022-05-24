@@ -20,7 +20,8 @@ void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec)
   acb_mul_si(temp, &AA1BB1B2[1], -4, prec);
   acb_mul(&res[3], temp, &AA1BB1B2[4], prec);
 
-  _acb_vec_set(I, res, 4);
+  igusa_from_IC(I, res, prec);
+
   acb_clear(temp);
   _acb_vec_clear(res, 4);
 }

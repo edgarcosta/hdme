@@ -1,7 +1,8 @@
 
 #include "igusa.h"
 
-/* Cf. Igusa, "On Siegel modular forms of genus two", p. 181 */
+/* Cf. Igusa, "On Siegel modular forms of genus two", p. 181 
+   In the static functions, I is the Streng invariants. */
 
 static void igusa_y(acb_t y1, acb_t y2, acb_srcptr I, slong prec)
 {
@@ -59,26 +60,30 @@ static void igusa_ec_j1j2_zeroI4I6prime(acb_ptr j)
 
 void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec)
 {
-  acb_ptr I_acb;
+  acb_ptr S_acb;
   slong k;
   acb_t y1, y2;
+  fmpz* S;
 
-  I_acb = _acb_vec_init(4);
+  S_acb = _acb_vec_init(4);
   acb_init(y1);
   acb_init(y2);
-  
-  for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
-  igusa_y(y1, y2, I_acb, prec);
+  S = _fmpz_vec_init(4);
 
-  if (fmpz_is_zero(igusa_I4(I)) && fmpz_is_zero(igusa_I6prime(I)))
+  igusa_streng_fmpz(S, I);
+  
+  for (k = 0; k < 4; k++) acb_set_fmpz(&S_acb[k], &S[k]);
+  igusa_y(y1, y2, S_acb, prec);
+
+  if (fmpz_is_zero(&S[0]) && fmpz_is_zero(&S[1]))
     {
       igusa_ec_j1j2_zeroI4I6prime(j);
     }
-  else if (fmpz_is_zero(igusa_I4(I)))
+  else if (fmpz_is_zero(&S[0]))
     {
       igusa_ec_j1j2_zeroI4(j, y2, prec);
     }
-  else if (fmpz_is_zero(igusa_I6prime(I)))
+  else if (fmpz_is_zero(&S[1]))
     {
       igusa_ec_j1j2_zeroI6prime(j, y1, prec);
     }
@@ -87,8 +92,9 @@ void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec)
       igusa_ec_j1j2_gen(j, y1, y2, prec);
     }
 
-  _acb_vec_clear(I_acb, 4);
+  _acb_vec_clear(S_acb, 4);
   acb_clear(y1);
   acb_clear(y2);
+  _fmpz_vec_clear(S, 4);
 }
 

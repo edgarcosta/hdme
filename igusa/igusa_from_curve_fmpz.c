@@ -12,7 +12,7 @@ void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
   char** vars;
-  fmpz* res;
+  fmpz* S;
   
   ai = _fmpz_vec_init(7);
   for (k = 0; k < 7; k++)
@@ -25,7 +25,7 @@ void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
   fmpq_mpoly_ctx_init(ctx, 7, ORD_LEX);
   fmpq_mpoly_init(pol, ctx);
   vars = hdme_data_vars_init(7);
-  res = _fmpz_vec_init(4);
+  S = _fmpz_vec_init(4);
 
   hdme_data_vars_set(vars, "a", 0);
   hdme_data_vars_set(vars, "b", 1);
@@ -44,19 +44,19 @@ void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
 
   hdme_data_read(pol, (const char**) vars, "igusa/I4", ctx);
   fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
-  fmpq_numerator(igusa_I4(res), ev);
+  fmpq_numerator(&S[0], ev);
   hdme_data_read(pol, (const char**) vars, "igusa/I6prime", ctx);
   fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
-  fmpq_numerator(igusa_I6prime(res), ev);
+  fmpq_numerator(&S[1], ev);
   hdme_data_read(pol, (const char**) vars, "igusa/I10", ctx);
   fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
-  fmpq_numerator(igusa_I10(res), ev);
+  fmpq_numerator(&S[2], ev);
   hdme_data_read(pol, (const char**) vars, "igusa/I2", ctx);
   fmpq_mpoly_evaluate_all_fmpq(ev, pol, (fmpq* const*) ai_fmpq, ctx);
-  fmpq_numerator(igusa_I12(res), ev);
-  fmpz_mul(igusa_I12(res), igusa_I12(res), igusa_I10(res));
+  fmpq_numerator(&S[3], ev);
+  fmpz_mul(&S[3], &S[3], &S[2]);
 
-  _fmpz_vec_set(I, res, 4);
+  igusa_from_streng_fmpz(I, S);
 
   _fmpz_vec_clear(ai, 7);
   for (k = 0; k < 7; k++)
@@ -69,5 +69,5 @@ void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
   hdme_data_vars_clear(vars, 7);
-  _fmpz_vec_clear(res, 4);  
+  _fmpz_vec_clear(S, 4);  
 }

@@ -1,6 +1,8 @@
 
 #include "hilbert.h"
 
+/* Here I is the Streng covariants */
+
 static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
 			     const acb_t G2, acb_srcptr I, slong prec)
 {
@@ -27,6 +29,7 @@ static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
 
 void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
 {
+  acb_ptr S;
   acb_t G2, F6, F10;
   acb_t x, y;
   
@@ -42,16 +45,19 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_init(F10);
   acb_init(x);
   acb_init(y);
+  S = _acb_vec_init(4);
 
-  acb_div_si(G2, &I[1], 4, prec);
+  igusa_streng(S, I, prec);
+
+  acb_div_si(G2, &S[1], 4, prec);
   borchardt_sqrt(G2, G2, prec); /* Possible sign error */
   
   /* Check sign by computing chi12 in two ways */
-  complete_from_G2(F6, F10, x, y, G2, I, prec);
+  complete_from_G2(F6, F10, x, y, G2, S, prec);
   if (!acb_overlaps(x, y))
     {
       acb_neg(G2, G2);
-      complete_from_G2(F6, F10, x, y, G2, I, prec);
+      complete_from_G2(F6, F10, x, y, G2, S, prec);
       if (!acb_overlaps(x, y))
 	{
 	  flint_printf("(gundlach_cov_from_igusa) Could not compute corresponding Gundlach covariants\n");
@@ -68,5 +74,6 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_clear(F6);
   acb_clear(F10);
   acb_clear(x);
-  acb_clear(y);  
+  acb_clear(y);
+  _acb_vec_clear(S, 4);
 }

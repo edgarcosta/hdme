@@ -9,6 +9,7 @@ void hecke_init(hecke_t H, slong nb)
   hecke_theta2_tau(H) = _acb_vec_init(16);
   hecke_I_tau(H) = _acb_vec_init(4);
   hecke_t1t2(H) = _acb_vec_init(2);
+  fmpz_mat_init(hecke_eta(H), 4, 4);
   fmpz_poly_init(hecke_beta(H));
 
   hecke_nb(H) = nb;

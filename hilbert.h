@@ -57,7 +57,7 @@ void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 void humbert_AA1BB1B2(acb_ptr AA1BB1B2, acb_srcptr rs, slong delta,
 		      slong prec);
 
-void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
+void humbert_igusa_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec);
 
 void humbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 
@@ -69,8 +69,6 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec);
 void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);
 
 void gundlach_from_hilbert_param(fmpz* G, fmpq* mn, slong delta);
-
-void gundlach_from_igusa_fmpz(fmpz* G, fmpz* I, slong delta);
 
 
 /* The Hilbert half space */

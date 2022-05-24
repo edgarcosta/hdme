@@ -10,6 +10,7 @@ void hecke_clear(hecke_t H)
   _acb_vec_clear(hecke_theta2_tau(H), 16);
   _acb_vec_clear(hecke_I_tau(H), 4);
   _acb_vec_clear(hecke_t1t2(H), 2);
+  fmpz_mat_clear(hecke_eta(H));
   fmpz_poly_clear(hecke_beta(H));
   
   for (k = 0; k < nb; k++) fmpz_mat_clear(hecke_coset(H, k));

@@ -31,8 +31,11 @@ void siegel_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
   /* Step 3: multiply by scaling factor between hecke_I_tau and I */
   cov_find_rescaling(s, hecke_I_tau(H), I, 4, weights, prec);  
   acb_mul(c, c, s, prec);
-  
+
+  /* Step 4: compute power according to weight */
   acb_pow_si(c, c, wt, prec);
+
+  /* Step 5: additional factor according to additional MF generators? */
 
   acb_clear(s);
 }
