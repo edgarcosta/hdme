@@ -41,7 +41,7 @@ int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec)
       for (k = 0; k < nb; k++)
 	{
 	  fmpq_poly_scalar_mul_fmpz(&pol_vec[k], &pol_vec[k], modeq_den(R));
-	  fmpq_poly_get_numerator(&modeq_all_nums(R, k), &pol_vec[k]);
+	  fmpq_poly_get_numerator(&modeq_all_nums(R)[k], &pol_vec[k]);
 	}
     }
   if (res) pol_simplify(modeq_all_nums(R), modeq_den(R), modeq_degree(R),

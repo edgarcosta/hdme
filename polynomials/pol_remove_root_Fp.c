@@ -3,7 +3,7 @@
 
 /* See also pol_remove_root_Q */
 
-void pol_remove_root_Fq(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
+void pol_remove_root_Fp(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
 			const fmpz_t root, slong mult, const fmpz_mod_ctx_t ctx)
 {  
   fmpz_mod_poly_t fac;
@@ -25,7 +25,7 @@ void pol_remove_root_Fq(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
   fmpz_mod_poly_set(r, pol, ctx);
   for (k = 0; k < mult; k++)
     {
-      fmpz_poly_divrem(r, rem, r, fac, ctx);
+      fmpz_mod_poly_divrem(r, rem, r, fac, ctx);
       if (!fmpz_poly_is_zero(rem))
 	{
 	  flint_printf("(pol_remove_root_Fp) Not divisible\n");

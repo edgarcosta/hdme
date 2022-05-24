@@ -25,7 +25,7 @@ int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
     {
-      if (v) hecke_collect_print_status(res, k);
+      if (v) hecke_collect_print_status(res, k, nb);
       if (!res) break;
       
       hilbert_coset(m, k, beta, ell, delta);

@@ -1,7 +1,7 @@
 
 #include "hecke.h"
 
-void hecke_collect_print_status(int res, slong k)
+void hecke_collect_print_status(int res, slong k, slong nb)
 {
   if (!res)
     {

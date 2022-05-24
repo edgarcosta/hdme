@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void igusa_from_streng_fmpz(fmpz* I, fmpz* S, slong prec)
+void igusa_from_streng_fmpz(fmpz* I, fmpz* S)
 {
   slong weights[4] = IGUSA_HALFWEIGHTS;
   

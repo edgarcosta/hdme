@@ -19,3 +19,4 @@ int siegel_isog_2step_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
   modeq_clear(E);
   modeq_ctx_clear(ctx);
   return res;
+}

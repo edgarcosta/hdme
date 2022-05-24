@@ -11,7 +11,6 @@ void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
   slong weights[4] = IGUSA_WEIGHTS;
   acb_t s;
   slong k;
-  int res;
 
   acb_init(s);
 
@@ -34,7 +33,7 @@ void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
   
   /* Step 2: adjust power of ell that keeps integer coefficients */
   acb_set_si(s, ell);
-  acb_pow_si(s, s, -2);
+  acb_pow_si(s, s, -2, prec);
   acb_mul(c, c, s, prec);
 
   
@@ -44,12 +43,11 @@ void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
 
   /* Step 4: multiply by 2*sqrt(3) to account for division in F6 */
   acb_mul_si(c, c, 2, prec);
-  acb_sqrt_ui(s, s, 3, prec);
+  acb_zero(s);
+  arb_sqrt_ui(acb_realref(s), 3, prec);
   acb_mul(c, c, s, prec);
   
   acb_pow_si(c, c, wt, prec);
 
-  _fmpz_vec_clear(G, 3);
-  _acb_vec_clear(G_tau, 3);
   acb_clear(s);
 }

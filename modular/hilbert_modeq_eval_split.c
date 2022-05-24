@@ -9,7 +9,7 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
   acb_t c;
   fmpz_poly_t beta;
   slong nb = 2*hilbert_nb_cosets(ell, delta);
-  slong prec = hilbert_modeq_startprec(I, ell);
+  slong prec = hilbert_modeq_startprec(I, ell, delta);
   int res;
   int v = MODEQ_VERBOSE;
   int stop = 0;

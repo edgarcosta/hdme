@@ -4,7 +4,6 @@
 int modeq_round(modeq_t R, const modeq_acb_t E)
 {  
   arf_t radius, max_radius;
-  slong radius_prec = MODEQ_RADIUS_PREC;
   slong radius_bits;  
   int res = 1;
   slong k;

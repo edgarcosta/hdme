@@ -28,7 +28,7 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 	}
       for (k = 0; k < *nb_roots; k++)
 	{
-	  modeq_isog_monomials_Fp(&all_M[(*nb_M) * k], E, &roots[k], mults[k]);
+	  modeq_isog_monomials_Fp(&all_M[(*nb_M) * k], E, &roots[k], mults[k], fpctx);
 	}
     }
   

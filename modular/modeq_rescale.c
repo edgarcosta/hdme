@@ -8,7 +8,7 @@ void modeq_rescale(modeq_acb_t R, const modeq_acb_t E,
   
   modeq_acb_set(R, E);
 
-  acb_poly_scalar_mul(modeq_eq(R), modeq_eq(R), c, prec);
+  acb_poly_scalar_mul(modeq_equation(R), modeq_equation(R), c, prec);
   for (j = 0; j < modeq_nb(R); j++)
     {
       acb_poly_scalar_mul(modeq_interpolate(R, j), modeq_interpolate(R, j),

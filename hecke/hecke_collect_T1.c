@@ -21,7 +21,7 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
     {
-      if (v) hecke_collect_print_status(res, k);
+      if (v) hecke_collect_print_status(res, k, nb);
       if (!res) break;
       
       siegel_T1_coset(gamma, k, p);

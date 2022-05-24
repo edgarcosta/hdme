@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong nb_M,
+int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			     slong* exp_array, fmpz* I, slong ell,
 			     slong delta)
 {

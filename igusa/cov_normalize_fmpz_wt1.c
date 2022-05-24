@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-void cov_normalize_fmpq_wt1(fmpz* I, fmpz* S, slong nb)
+void cov_normalize_fmpz_wt1(fmpz* I, fmpz* S, slong nb)
 {
   fmpz_t g;
 

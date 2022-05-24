@@ -113,7 +113,7 @@ int cov_distinct(acb_srcptr I1, acb_srcptr I2,
 /* Weighted polynomials in general covariants */
 
 void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
-		    const fmpz_mpoly_ctx_t ctx, slong prec)
+		    const fmpz_mpoly_ctx_t ctx, slong prec);
 
 void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
 
@@ -142,7 +142,7 @@ void igusa_streng_fmpz(fmpz* S, fmpz* I);
 
 void igusa_from_streng(acb_ptr I, acb_srcptr S, slong prec);
 
-void igusa_from_streng_fmpz(fmpz* I, fmpz* S, slong prec);
+void igusa_from_streng_fmpz(fmpz* I, fmpz* S);
 
 void igusa_IC(acb_ptr IC, acb_srcptr I, slong prec);
 

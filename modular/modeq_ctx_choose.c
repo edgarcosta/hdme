@@ -38,11 +38,11 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   evden = _acb_vec_init(nb);
   evnum = _acb_vec_init(nb);
 
-  /* Do we have: I4 is never zero? */
+  /* Do we have: psi4 is never zero? */
   res = 1;
   for (j = 0; j < nb; j++)
     {
-      if (acb_contains_zero(igusa_I4(&I[4*j])))
+      if (acb_contains_zero(igusa_psi4(&I[4*j])))
 	{
 	  res = 0;
 	  break;
@@ -50,19 +50,19 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
     }
   if (res) wt = 20;
 
-  /* Do we have: I4=I6=0 and I6prime=I10=0 never happen? */
+  /* Do we have: psi4=I6=0 and psi6=chi10=0 never happen? */
   res = 1;
   for (j = 0; j < nb; j++)
     {
       ptr = &I[4*j];
-      if (acb_contains_zero(igusa_I4(ptr))
-	  && acb_contains_zero(igusa_I6prime(ptr)))
+      if (acb_contains_zero(igusa_psi4(ptr))
+	  && acb_contains_zero(igusa_psi6(ptr)))
 	{
 	  res = 0;
 	  break;
 	}
-      if (acb_contains_zero(igusa_I6prime(ptr))
-	  && acb_contains_zero(igusa_I10(ptr)))
+      if (acb_contains_zero(igusa_psi6(ptr))
+	  && acb_contains_zero(igusa_chi10(ptr)))
 	{
 	  res = 0;
 	  break;

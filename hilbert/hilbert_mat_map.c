@@ -5,11 +5,13 @@ void hilbert_mat_map(fmpz_mat_t eta, const fmpz_poly_mat_t m, slong delta)
 {
   slong prec = 100;
   int success = 0;
+  arf_t radius;
 
   acb_mat_t Ri, Rt;
   acb_mat_t M, N, P;
   slong j, k;
 
+  arf_init(radius);
   acb_mat_init(Ri, 2, 2);
   acb_mat_init(Rt, 2, 2);
   acb_mat_init(M, 4, 4);
@@ -55,7 +57,7 @@ void hilbert_mat_map(fmpz_mat_t eta, const fmpz_poly_mat_t m, slong delta)
 	  for (k = 0; k < 4; k++)
 	    {
 	      success =
-		success && acb_round(fmpz_mat_entry(eta, j, k),
+		success && acb_round(fmpz_mat_entry(eta, j, k), radius,
 				     acb_mat_entry(M, j, k));
 	    }
 	}
@@ -66,7 +68,8 @@ void hilbert_mat_map(fmpz_mat_t eta, const fmpz_poly_mat_t m, slong delta)
 	  acb_mat_printd(M, 10); flint_printf("\n");
 	}
     }
-    
+
+  arf_clear(radius);
   acb_mat_clear(Ri);
   acb_mat_clear(Rt);
   acb_mat_clear(M);

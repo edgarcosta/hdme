@@ -20,7 +20,7 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
     {
-      if (v) hecke_collect_print_status(res, k);
+      if (v) hecke_collect_print_status(res, k, nb);
       if (!res) break;
       
       siegel_coset(gamma, k, ell);

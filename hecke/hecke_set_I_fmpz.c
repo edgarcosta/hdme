@@ -4,6 +4,7 @@
 int hecke_set_I_fmpz(hecke_t H, fmpz* I, slong prec)
 {
   int res;
+  int v = MODEQ_VERBOSE;
   
   res = tau_theta2_from_igusa_fmpz(hecke_tau(H), hecke_theta2_tau(H),
 				   I, prec);

@@ -1,7 +1,7 @@
 
 #include "modular.h"
 
-void modeq_init(modeq_t E, slong nb)
+void modeq_init(modeq_t E)
 {
   slong k;
   slong nb = MODEQ_MAX_NB_MONOMIALS;

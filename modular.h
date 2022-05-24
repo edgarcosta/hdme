@@ -214,13 +214,13 @@ void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
 int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 		       slong ell, slong delta);
 
-int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong nb_M,
+int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			     slong* exp_array, fmpz* I, slong ell,
 			     slong delta);
 
-int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
+int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			      slong* exp_array, fmpz* I, slong ell,
-			      slong delta, const fmpz_mod_ctx_t ctx);
+			      slong delta, const fmpz_mod_ctx_t fpctx);
 
 
 int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,

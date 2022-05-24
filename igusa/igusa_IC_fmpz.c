@@ -10,7 +10,7 @@ igusa_I2_from_streng_fmpz(fmpz_t I2, fmpz* S)
     }
   else
     {
-      fmpz_divexact(I2, &S[3], &S[2]));
+      fmpz_divexact(I2, &S[3], &S[2]);
       return 1;
     }      
 }
@@ -57,7 +57,7 @@ void igusa_IC_fmpz(fmpz* IC, fmpz* I)
   fmpz_init(I2);
   fmpz_init(I6);
   resc = _fmpz_vec_init(4);
-  S = _fmpz_init(4);
+  S = _fmpz_vec_init(4);
 
   igusa_streng_fmpz(S, I);  
   cov_rescale_fmpz(resc, S, &S[2], 4, weights); /* Ensure I2 is an integer */

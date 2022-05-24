@@ -23,7 +23,7 @@ void humbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta,
     }
   else
     {
-      humbert_cov_from_AA1BB1B2(I, AA1BB1B2, prec);
+      humbert_igusa_from_AA1BB1B2(I, AA1BB1B2, prec);
     }
 
   _acb_vec_clear(AA1BB1B2, 5);

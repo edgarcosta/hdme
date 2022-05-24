@@ -52,5 +52,4 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
   acb_clear(r);
   acb_clear(c);
   _acb_vec_clear(rescale, nb);
-  return res;
 }

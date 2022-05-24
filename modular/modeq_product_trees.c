@@ -21,14 +21,14 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
   for (k = 0; k < d; k++)
     {
       cov_mpoly_eval(&dens[k], modeq_ctx_den(ctx), hecke_I(H, k), modeq_ctx_ctx(ctx), prec);
-      cov_mpoly_eval(&nums[k], modeq_ctx_num(ctx), hecke_I(H, k), modeq_ctx_num(ctx), prec);
+      cov_mpoly_eval(&nums[k], modeq_ctx_num(ctx), hecke_I(H, k), modeq_ctx_ctx(ctx), prec);
       acb_neg(&nums[k], &nums[k]);
     }
 
   /* Compute denominator and equation */
   acb_one(modeq_den(E));
   for (k = 0; k < d; k++) acb_mul(modeq_den(E), modeq_den(E), &dens[k], prec);
-  acb_poly_product_tree_1(modeq_eq(E), dens, nums, d, prec);
+  acb_poly_product_tree_1(modeq_equation(E), dens, nums, d, prec);
 
   /* Construct equations for other monomials */
   for (j = 0; j < modeq_ctx_nb(ctx); j++)

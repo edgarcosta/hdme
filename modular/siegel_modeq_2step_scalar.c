@@ -11,7 +11,6 @@ void siegel_modeq_2step_scalar(acb_t c, const hecke_t H, fmpz* I,
   slong weights[4] = IGUSA_WEIGHTS;
   acb_t s;
   slong k;
-  int res;
 
   acb_init(s);
   
@@ -27,7 +26,7 @@ void siegel_modeq_2step_scalar(acb_t c, const hecke_t H, fmpz* I,
   
   /* Step 2: adjust power of ell that keeps integer coefficients */
   acb_set_si(s, ell);
-  acb_pow_si(s, s, - (ell*ell + 2*ell + 1));
+  acb_pow_si(s, s, - (ell*ell + 2*ell + 1), prec);
   acb_mul(c, c, s, prec);
   
   /* Step 3: multiply by scaling factor between hecke_I_tau and I */

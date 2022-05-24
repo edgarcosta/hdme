@@ -103,7 +103,7 @@ int hecke_set_I_fmpz_hilbert(hecke_t H, fmpz* I, slong delta, slong prec);
 
 int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec);
 
-void hecke_collect_print_status(int res, slong k);
+void hecke_collect_print_status(int res, slong k, slong nb);
 
 
 slong siegel_nb_cosets(slong ell);

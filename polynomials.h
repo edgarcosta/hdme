@@ -59,7 +59,7 @@ void pol_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* exps
 void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
 		  const fmpz_mod_poly_t pol, const fmpz_mod_ctx_t ctx);
 
-void pol_remove_root_Fq(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
+void pol_remove_root_Fp(fmpz_mod_poly_t r, const fmpz_mod_poly_t pol,
 			const fmpz_t root, slong mult, const fmpz_mod_ctx_t ctx);
 
 #endif

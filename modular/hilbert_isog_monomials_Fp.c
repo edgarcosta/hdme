@@ -1,9 +1,9 @@
 
 #include "modular.h"
 
-int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong nb_M,
+int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 			      slong* exp_array, fmpz* I, slong ell,
-			      slong delta, const fmpz_mod_ctx_t ctx)
+			      slong delta, const fmpz_mod_ctx_t fpctx)
 {
   modeq_t E;
   modeq_ctx_t ctx;

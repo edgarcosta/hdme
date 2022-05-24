@@ -12,7 +12,7 @@ void modeq_isog_monomials_Q(fmpz* M, const modeq_t E, const fmpq_t root, slong m
   aux = _fmpq_vec_init(nb);
 
   /* Evaluate as rational numbers */
-  for (j = 0; k < modeq_nb(E); k++)
+  for (j = 0; j < modeq_nb(E); j++)
     {
       fmpz_poly_set(num, modeq_interpolate(E, j));
       pol_remove_root_Q(num, num, root, mult-1);

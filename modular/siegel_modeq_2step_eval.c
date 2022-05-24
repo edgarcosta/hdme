@@ -25,12 +25,12 @@ int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
       res = hecke_set_I_fmpz(H, I, prec);
       if (res) res = hecke_collect_T1(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
-      if (res) res = siegel_modeq_2step_scalar(c, H, I, ctx, prec);
       if (res)
 	{
+	  siegel_modeq_2step_scalar(c, H, I, ctx, prec);
 	  modeq_product_trees(E, H, ctx, prec);
 	  modeq_rescale(E, E, c, prec);
-	  if (res) res = modeq_round(R, E);
+	  res = modeq_round(R, E);
 	}
       
       prec = siegel_modeq_nextprec(prec);

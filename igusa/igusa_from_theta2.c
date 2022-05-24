@@ -18,5 +18,5 @@ void igusa_from_theta2(acb_ptr I, acb_srcptr theta2, slong prec)
   acb_div_si(igusa_chi10(I), &h[2], -n_pow(2,12), prec);
   acb_div_si(igusa_chi12(I), &h[3], n_pow(2,15), prec);
   
-  _acb_vec_clear(res, 4);
+  _acb_vec_clear(h, 4);
 }

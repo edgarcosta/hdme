@@ -1,5 +1,5 @@
 
-#include "modular.h"
+#include "polynomials.h"
 
 void pol_remove_factor_Q(fmpz_poly_t r, const fmpz_poly_t pol,
 			 const fmpz_poly_t fac, slong mult)

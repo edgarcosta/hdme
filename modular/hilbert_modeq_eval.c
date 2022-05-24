@@ -8,7 +8,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
   modeq_acb_t E;
   acb_t c;
   slong nb = 2*hilbert_nb_cosets(ell, delta);
-  slong prec = hilbert_modeq_startprec(I, ell);
+  slong prec = hilbert_modeq_startprec(I, ell, delta);
   int res;
   int v = MODEQ_VERBOSE;
   int stop = 0;
@@ -27,9 +27,9 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
       if (res) modeq_product_trees(E, H, ctx, prec);
       if (res && (delta == 5))
 	{
-	  res = hilbert_modeq_scalar(c, H, I, ctx, delta, prec);
+	  hilbert_modeq_scalar(c, H, I, ctx, delta, prec);
 	  modeq_rescale(E, E, c, prec);
-	  if (res) res = modeq_round(R, E);
+	  modeq_round(R, E);
 	}
       else if (res) /* Delta is not 5 */
 	{

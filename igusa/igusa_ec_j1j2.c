@@ -6,12 +6,12 @@
 
 static void igusa_y(acb_t y1, acb_t y2, acb_srcptr I, slong prec)
 {
-  acb_pow_si(y1, igusa_I4(I), 3, prec);
-  acb_div(y1, y1, igusa_I12(I), prec);
+  acb_pow_si(y1, &I[0], 3, prec);
+  acb_div(y1, y1, &I[3], prec);
   acb_mul_si(y1, y1, n_pow(2,11) * 3, prec);
 
-  acb_pow_si(y2, igusa_I6prime(I), 2, prec);
-  acb_div(y2, y2, igusa_I12(I), prec);
+  acb_pow_si(y2, &I[1], 2, prec);
+  acb_div(y2, y2, &I[3], prec);
   acb_mul_si(y2, y2, n_pow(2,14), prec);
 }
 
