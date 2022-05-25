@@ -24,6 +24,8 @@
 
 #define IGUSA_WEIGHTS {4,6,10,12}
 #define IGUSA_HALFWEIGHTS {2,3,5,6}
+#define IC_WEIGHTS {2,4,6,10}
+#define IC_HALFWEIGHTS {1,2,3,5}
 
 #define COV_MAXP 10000
 

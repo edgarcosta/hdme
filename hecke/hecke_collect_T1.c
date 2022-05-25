@@ -15,8 +15,7 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
   hecke_ell(H) = p;
   hecke_check_nb(H, siegel_nb_T1_cosets(p));
     
-  if (v) flint_printf("(hecke_collect_T1) Computing theta constants (%wd)", nb);
-  fflush(stdout);
+  if (v) hecke_collect_verbose_start(nb);
 
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)

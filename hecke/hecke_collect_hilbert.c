@@ -19,8 +19,7 @@ int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
   fmpz_poly_set(hecke_beta(H), beta);
   hecke_check_nb(H, hilbert_nb_cosets(ell, delta));
   
-  if (v) flint_printf("(hecke_collect_hilbert) Computing theta constants (%wd)", nb);
-  fflush(stdout);
+  if (v) hecke_collect_verbose_start(nb);
 
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)

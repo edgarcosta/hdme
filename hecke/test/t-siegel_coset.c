@@ -14,7 +14,6 @@ int main()
       slong nb = siegel_nb_cosets(ell);
       fmpz_mat_t m1, m2;
       fmpq_mat_t n, test;
-
       
       fmpz_mat_t c;
       fmpz_t det;

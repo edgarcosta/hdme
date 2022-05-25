@@ -17,7 +17,7 @@ int main()
       acb_mat_t tau;
       arb_t abs;
       acb_ptr th2;
-      acb_ptr I;
+      acb_ptr I, IC;
       acb_poly_t crv;
       acb_ptr roots;
       slong perm[1];
@@ -28,7 +28,8 @@ int main()
       acb_mat_init(tau, 2, 2);
       arb_init(abs);
       th2 = _acb_vec_init(16);
-      I = _acb_vec_init(5);
+      I = _acb_vec_init(4);
+      IC = _acb_vec_init(4);
       acb_poly_init(crv);
       roots = _acb_vec_init(6);
 
@@ -49,9 +50,9 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      igusa_h(&I[1], th2, prec);
-      acb_div(&I[0], &I[4], &I[3], prec);
-      res = mestre(crv, I, prec);
+      igusa_from_theta2(I, th2, prec);
+      igusa_IC(IC, I, prec);
+      res = mestre(crv, IC, prec);
       if (!res)
 	{
 	  flint_printf("FAIL (mestre)\n");
@@ -102,7 +103,8 @@ int main()
       acb_mat_clear(tau);
       arb_clear(abs);
       _acb_vec_clear(th2, 16);
-      _acb_vec_clear(I, 5);
+      _acb_vec_clear(I, 4);
+      _acb_vec_clear(IC, 4);
       acb_poly_clear(crv);
       _acb_vec_clear(roots, 6);
     }

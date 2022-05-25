@@ -51,7 +51,8 @@ void igusa_IC_fmpz(fmpz* IC, fmpz* I)
   fmpz_t I2, I6;
   fmpz* S;
   fmpz* resc;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights[4] = IGUSA_WEIGHTS;
+  slong weights2[4] = IC_HALFWEIGHTS;
   int r;
 
   fmpz_init(I2);
@@ -73,10 +74,10 @@ void igusa_IC_fmpz(fmpz* IC, fmpz* I)
     }
 
   fmpz_set(&IC[0], I2);
-  fmpz_set(&IC[1], &resc[1]);
+  fmpz_set(&IC[1], &resc[0]);
   fmpz_set(&IC[2], I6);
-  fmpz_set(&IC[3], &resc[3]);
-  cov_normalize_fmpz(IC, IC, 4, weights);
+  fmpz_set(&IC[3], &resc[2]);
+  cov_normalize_fmpz(IC, IC, 4, weights2);
 
   fmpz_clear(I2);
   fmpz_clear(I6);

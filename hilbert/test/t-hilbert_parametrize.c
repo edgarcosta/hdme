@@ -24,9 +24,17 @@ int main()
       slong delta_max = 18;
       slong k;
 
+      acb_mat_t tau;
+      acb_ptr t;
+      fmpz_mat_t m;
+      int res;
+
       rs = _fmpq_vec_init(2);
       rs_acb = _acb_vec_init(2);
       I = _acb_vec_init(4);
+      acb_mat_init(tau, 2, 2);
+      fmpz_mat_init(m, 4, 4);
+      t = _acb_vec_init(3);
 	
       for (delta = 5; delta < delta_max; delta++)
 	{
@@ -39,12 +47,30 @@ int main()
 	      acb_set_fmpq(&rs_acb[0], &rs[0], prec);
 	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
 	      hilbert_parametrize(I, rs_acb, delta, prec);
+
+	      res = tau_from_igusa(tau, I, prec);
+	      if (!res)
+		{
+		  flint_printf("FAIL (tau)\n");
+		  fflush(stdout);
+		  flint_abort();
+		}
+	      res = hilbert_inverse(t, m, tau, delta, prec);
+	      if (!res)
+		{
+		  flint_printf("FAIL (inverse)\n");
+		  fflush(stdout);
+		  flint_abort();
+		}
 	    }
 	}
 
       _fmpq_vec_clear(rs, 2);
       _acb_vec_clear(rs_acb, 2);
-      _acb_vec_clear(I, 4);      
+      _acb_vec_clear(I, 4);
+      acb_mat_clear(tau);
+      fmpz_mat_clear(m);
+      _acb_vec_clear(t, 2);
     }
 
   flint_randclear(state);

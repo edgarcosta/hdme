@@ -29,7 +29,7 @@ igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* I)
 void igusa_from_IC_fmpz(fmpz* I, fmpz* IC)
 {
   fmpz_t I6prime, I12;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights2[4] = IC_HALFWEIGHTS;
   fmpz* resc;
   fmpz* S;
 
@@ -40,7 +40,7 @@ void igusa_from_IC_fmpz(fmpz* I, fmpz* IC)
   
   _fmpz_vec_set(resc, IC, 4);
 
-  cov_rescale_fmpz_si(resc, IC, 2, 4, weights);
+  cov_rescale_fmpz_si(resc, IC, 2, 4, weights2);
   igusa_I6prime_from_IC_fmpz(I6prime, resc);
   fmpz_mul(I12, &resc[0], &resc[3]);
 

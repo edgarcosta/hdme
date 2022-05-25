@@ -36,7 +36,8 @@ int main()
 	  hecke_init(H, nb);
 	  val = _acb_vec_init(nb);
 
-	  res = hecke_set_siegel(H, tau, ell, prec);
+	  res = hecke_set_tau(H, tau, prec);
+	  if (res) res = hecke_collect_siegel(H, ell, prec);
 	  if (!res)
 	    {
 	      flint_printf("FAIL (Hecke)\n");
@@ -46,7 +47,7 @@ int main()
 	    }
 
 	  /* Test expected eigenvalues for I4, I6' */
-	  for (k = 0; k < nb; k++) acb_set(&val[k], &hecke_I(H, k)[0]); /* I4 */
+	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
 	  hecke_operator(r, H, val, ell, 4, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
 	  
@@ -61,7 +62,7 @@ int main()
 	      flint_abort();
 	    }
 	  
-	  for (k = 0; k < nb; k++) acb_set(&val[k], &hecke_I(H, k)[1]); /* I6' */
+	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k))); /* I6' */
 	  hecke_operator(r, H, val, ell, 6, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
 	  

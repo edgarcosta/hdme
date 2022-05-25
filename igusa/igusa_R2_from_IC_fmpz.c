@@ -25,7 +25,7 @@ void igusa_R2_from_IC_fmpz(fmpq_t res, fmpz* IC)
   hdme_data_vars_set(vars, "d", 3);
   
   hdme_data_read(pol, (const char**) vars, "igusa/R2", ctx);
-  fmpq_mpoly_evaluate_all_fmpq(res, pol, (fmpq* const*) vals, ctx);
+  hdme_data_evaluate_fmpq(res, pol, vals, ctx);
 
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);

@@ -35,4 +35,7 @@ void hdme_data_read(fmpq_mpoly_t pol, const char** vars, const char* name,
 void hdme_data_evaluate_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr vals,
 			    const fmpq_mpoly_ctx_t ctx, slong prec);
 
+void hdme_data_evaluate_fmpq(fmpq_t ev, const fmpq_mpoly_t pol,
+			     fmpq* vals, const fmpq_mpoly_ctx_t ctx);
+
 #endif

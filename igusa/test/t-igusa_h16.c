@@ -15,32 +15,27 @@ int main()
   for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
     {
       acb_ptr theta2;
-      acb_ptr h, I;
-      acb_t h16;
-      acb_t I6;
+      acb_ptr I, IC;
+      acb_t h10, h16;
       slong k;
 
       slong prec = 50 + n_randint(state, 2000);
 
       theta2 = _acb_vec_init(16);
-      h = _acb_vec_init(4);
       I = _acb_vec_init(4);
+      IC = _acb_vec_init(4);
+      acb_init(h10);
       acb_init(h16);
-      acb_init(I6);
 
       theta2_randtest(theta2, state, prec);
-      igusa_h(h, theta2, prec);
-      
-      acb_div(&I[0], &h[3], &h[2], prec);
-      acb_set(&I[1], &h[0]);
-      acb_set(&I[2], &h[1]);
-      acb_set(&I[3], &h[2]);
+      igusa_from_theta2(I, theta2, prec);
+      igusa_IC(IC, I, prec);
 
-      igusa_I6(I6, I, prec);
+      igusa_h10(h10, theta2, prec);
       igusa_h16(h16, theta2, prec);
-      acb_div(h16, h16, &h[2], prec);
+      acb_div(h16, h16, h10, prec);
 
-      if (!acb_overlaps(h16, I6))
+      if (!acb_overlaps(h16, &IC[1]))
 	{
 	  flint_printf("FAIL (h16)");
 	  flint_printf("Theta constants:\n");
@@ -48,21 +43,17 @@ int main()
 	    {
 	      acb_printd(&theta2[k], 30); flint_printf("\n");
 	    }
-	  flint_printf("\nh4: "); acb_printd(&h[0], 30);
-	  flint_printf("\nh6: "); acb_printd(&h[1], 30);
-	  flint_printf("\nh10: "); acb_printd(&h[2], 30);
-	  flint_printf("\nh12: "); acb_printd(&h[3], 30);
 	  flint_printf("\nh16/h10: "); acb_printd(h16, 30);
-	  flint_printf("\nI6: "); acb_printd(I6, 30);
+	  flint_printf("\nI6: "); acb_printd(&IC[1], 30);
 	  fflush(stdout);
 	  flint_abort();
 	}
 
       _acb_vec_clear(theta2, 16);
-      _acb_vec_clear(h, 4);
+      _acb_vec_clear(IC, 4);
       _acb_vec_clear(I, 4);
       acb_clear(h16);
-      acb_clear(I6);
+      acb_clear(h10);
     }
  
   flint_randclear(state);

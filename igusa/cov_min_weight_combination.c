@@ -21,13 +21,19 @@ static void extract_inds(slong* extr, slong* inds, slong k, slong* vec)
   for (j = 0; j < k; j++)
     {
       extr[j] = vec[inds[j]];
+      if (vec[inds[j]] < 0)
+	{
+	  flint_printf("(cov_min_weight_combination) Error: negative weight\n");
+	  fflush(stdout);
+	  flint_abort();
+	}
     }
 }
 
 static void xgcd_vec_si(slong* gcd, slong* coefs, slong* a, slong nb)
 {
   slong j;
-  slong u, v;
+  ulong u, v;
   slong i;
   
   if (nb == 0)
@@ -39,12 +45,25 @@ static void xgcd_vec_si(slong* gcd, slong* coefs, slong* a, slong nb)
 
   *gcd = a[0];
   coefs[0] = 1;
-  j = 1; /* gcd contains result for indices 0,...,j-1 */
-  while (j < nb)
+  /* gcd contains result for indices 0,...,j-1 */
+  for (j = 1; j < nb; j++)
     {
-      *gcd = n_xgcd((ulong*) &u, (ulong*) &v, *gcd, a[j]);
-      coefs[j] = v;
-      for (i = 0; i < j; i++) coefs[i] *= u;
+      if (a[j] % (*gcd) == 0)
+	{
+	  coefs[j] = 0;
+	}
+      else if (*gcd >= a[j])
+	{
+	  *gcd = n_xgcd(&u, &v, *gcd, a[j]);
+	  coefs[j] = -v;
+	  for (i = 0; i < j; i++) coefs[i] *= u;
+	}
+      else
+	{
+	  *gcd = n_xgcd(&u, &v, a[j], *gcd);
+	  coefs[j] = u;
+	  for (i = 0; i < j; i++) coefs[i] *= (-v);
+	}
     }
 }
 

@@ -17,7 +17,7 @@ int main()
 
       acb_ptr th2;
       acb_ptr th4_test;
-      acb_ptr I;
+      acb_ptr I, IC;
       acb_poly_t crv;
       acb_ptr roots;
       acb_ptr new_roots;
@@ -29,7 +29,8 @@ int main()
 
       th2 = _acb_vec_init(16);
       th4_test = _acb_vec_init(16);
-      I = _acb_vec_init(5); /* Use [4] as h12 */
+      I = _acb_vec_init(4);
+      IC = _acb_vec_init(4);
       acb_poly_init(crv);
       roots = _acb_vec_init(6);
       new_roots = _acb_vec_init(6);
@@ -41,11 +42,11 @@ int main()
       for (k = 0; k < 16; k++) acb_sqr(&th4_test[k], &th2[k], prec);
       for (k = 1; k < 16; k++) acb_div(&th4_test[k], &th4_test[k], &th4_test[0], prec);
       acb_one(&th4_test[0]);
-      igusa_h(&I[1], th2, prec);
-      acb_div(&I[0], &I[4], &I[3], prec);
+      igusa_from_theta2(I, th2, prec);
+      igusa_IC(IC, I, prec);
 
       /* Mestre */
-      res = mestre(crv, I, prec);
+      res = mestre(crv, IC, prec);
       if (!res)
 	{
 	  flint_printf("FAIL (mestre)\n");
@@ -123,7 +124,8 @@ int main()
 
       _acb_vec_clear(th2, 16);
       _acb_vec_clear(th4_test, 16);
-      _acb_vec_clear(I, 5);
+      _acb_vec_clear(I, 4);
+      _acb_vec_clear(IC, 4);
       acb_poly_clear(crv);
       _acb_vec_clear(roots, 6);
       _acb_vec_clear(new_roots, 6);

@@ -6,7 +6,7 @@ int main()
   slong iter;
   flint_rand_t state;
   
-  flint_printf("hecke_T1....");
+  flint_printf("hecke_collect_T1....");
   fflush(stdout);
   flint_randinit(state);
 
@@ -35,10 +35,11 @@ int main()
 	  hecke_init(H, nb);
 	  val = _acb_vec_init(nb);
 
-	  hecke_set_T1(H, tau, ell, prec);
+	  hecke_set_tau(H, tau, prec);
+	  hecke_collect_T1(H, ell, prec);
 	  
 	  /* Test expected eigenvalues for I4, I6' */
-	  for (k = 0; k < nb; k++) acb_set(&val[k], &hecke_I(H, k)[0]); /* I4 */
+	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
 	  hecke_operator(r, H, val, ell, 4, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
 	  
@@ -53,7 +54,7 @@ int main()
 	      flint_abort();
 	    }
 	  
-	  for (k = 0; k < nb; k++) acb_set(&val[k], &hecke_I(H, k)[1]); /* I6' */
+	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k)));
 	  hecke_operator(r, H, val, ell, 6, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
 	  

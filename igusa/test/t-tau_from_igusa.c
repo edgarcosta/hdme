@@ -14,60 +14,53 @@ int main()
   for (iter = 0; iter < 5 * arb_test_multiplier(); iter++)
     {
       slong prec = 2000 + n_randint(state, 4000);
+      slong weights[4] = IGUSA_WEIGHTS;
       acb_mat_t tau;
-      acb_ptr j_test;
-      acb_ptr j;
-      acb_ptr I;
+      acb_ptr I, I_test;
       slong mag_bits = 1 + n_randint(state, 10);
       slong k;
       int res;
       
       acb_mat_init(tau, 2, 2);
-      j_test = _acb_vec_init(3);
-      j = _acb_vec_init(3);
       I = _acb_vec_init(4);
+      I_test = _acb_vec_init(4);
 
       /* Generate Igusa invariants */
-      for (k = 0; k < 3; k++) acb_randtest_precise(&j_test[k], state, prec, mag_bits);
-      cov_from_igusa(I, j_test, prec);
-      res = tau_from_igusa(tau, I, prec);
+      for (k = 0; k < 4; k++) acb_randtest_precise(&I_test[k], state, prec, mag_bits);
+      res = tau_from_igusa(tau, I_test, prec);
 
       if (!res)
 	{ 
 	  flint_printf("FAIL (tau)\n");
-	  for (k = 0; k < 3; k++)
+	  for (k = 0; k < 4; k++)
 	    {
-	      acb_printd(&j_test[k], 30); flint_printf("\n");
+	      acb_printd(&I_test[k], 30); flint_printf("\n");
 	    }
 	  fflush(stdout);
 	  flint_abort();
 	}
 
       /* Compute Igusa invariants and check */
-      res = igusa_from_tau(j, tau, prec);
+      res = igusa_from_tau(I, tau, prec);
       if (!res)
 	{ 
-	  flint_printf("FAIL (j)\n");
-	  for (k = 0; k < 3; k++)
+	  flint_printf("FAIL (I)\n");
+	  for (k = 0; k < 4; k++)
 	    {
-	      acb_printd(&j_test[k], 30); flint_printf("\n");
+	      acb_printd(&I_test[k], 30); flint_printf("\n");
 	    }
 	  acb_mat_printd(tau, 10);
 	  fflush(stdout);
 	  flint_abort();
 	}
 
-      for (k = 0; k < 3; k++)
-	{
-	  if (!acb_overlaps(&j[k], &j_test[k])) res = 0;
-	}
-      if (!res)
+      if (cov_distinct(I, I_test, 4, weights, prec))
 	{
 	  flint_printf("FAIL (overlap)\n");
-	  for (k = 0; k < 3; k++)
+	  for (k = 0; k < 4; k++)
 	    {
-	      acb_printd(&j_test[k], 30); flint_printf("\n");
-	      acb_printd(&j[k], 30); flint_printf("\n");
+	      acb_printd(&I_test[k], 30); flint_printf("\n");
+	      acb_printd(&I[k], 30); flint_printf("\n");
 	    }
 	  acb_mat_printd(tau, 10);
 	  fflush(stdout);
@@ -75,8 +68,7 @@ int main()
 	}
 
       acb_mat_clear(tau);
-      _acb_vec_clear(j_test, 3);
-      _acb_vec_clear(j, 3);
+      _acb_vec_clear(I_test, 4);
       _acb_vec_clear(I, 4);
     }
   

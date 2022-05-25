@@ -16,12 +16,13 @@ int main()
       slong delta;
       fmpq* rs;
       acb_ptr rs_acb;
-      acb_ptr I, j, j_test;
+      acb_ptr I, I_test;
       acb_ptr t;
       acb_mat_t tau;
       fmpz_mat_t eta;
       slong rs_bits = 5 + n_randint(state, 10);
       slong prec = 1000;
+      slong weights[4] = IGUSA_WEIGHTS;
       slong k;
       int res;
       slong delta_max = 100;
@@ -30,8 +31,7 @@ int main()
       rs = _fmpq_vec_init(2);
       rs_acb = _acb_vec_init(2);
       I = _acb_vec_init(4);
-      j = _acb_vec_init(3);
-      j_test = _acb_vec_init(3);
+      I_test = _acb_vec_init(4);
       t = _acb_vec_init(2);
       acb_mat_init(tau, 2, 2);
       fmpz_mat_init(eta, 4, 4);
@@ -54,7 +54,6 @@ int main()
 	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
 	      humbert_parametrize(I, rs_acb, delta, prec);
 	      res = tau_from_igusa(tau, I, prec);
-	      igusa_from_cov(j, I, prec);
 
 	      if (!res)
 		{
@@ -85,14 +84,9 @@ int main()
 		}
 
 	      hilbert_map(tau, t, delta, prec);
-	      igusa_from_tau(j_test, tau, prec);
-
-	      for (k = 0; k < 2; k++)
-		{
-		  if (!acb_overlaps(&j_test[k], &j[k])) res = 0;
-		}
+	      igusa_from_tau(I_test, tau, prec);
 	      
-	      if (!res)
+	      if (cov_distinct(I, I_test, 4, weights, prec))
 		{
 		  flint_printf("FAIL (overlap)\n");
 		  for (k = 0; k < 2; k++)
@@ -108,8 +102,7 @@ int main()
       _fmpq_vec_clear(rs, 2);
       _acb_vec_clear(rs_acb, 2);
       _acb_vec_clear(I, 4);
-      _acb_vec_clear(j, 3);
-      _acb_vec_clear(j_test, 3);
+      _acb_vec_clear(I_test, 4);
       _acb_vec_clear(t, 2);
       fmpz_mat_clear(eta);
     }

@@ -4,14 +4,14 @@
 static int cov_not_one(acb_srcptr I, slong nb)
 {
   slong j;
-  int res = 1;
+  int res = 0;
   
   for (j = 0; j < nb; j++)
     {
       if (!arb_contains_si(acb_imagref(&I[j]), 0)
 	  || !arb_contains_si(acb_realref(&I[j]), 1))
 	{
-	  res = 0;
+	  res = 1;
 	  break;
 	}
     }
@@ -40,11 +40,11 @@ int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights, slong prec)
 	  break;
 	}
     }
-  if (i0 == -1) res = 0;
+  if (i0 == -1) res = 0; /* Don't know. */
 
   if (res)
     {
-      res = 0;      
+      res = 1;
       /* Compute possible rescalings */
       borchardt_root_ui(rt, &I[i0], weights[i0], prec);
       acb_inv(rt, rt, prec);
@@ -52,9 +52,9 @@ int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights, slong prec)
       for (k = 0; k < weights[i0]; k++)
 	{
 	  cov_rescale(test, I, rt, nb, weights, prec);
-	  if (!cov_not_one(test, nb)) /* Found a correct rescaling factor */
+	  if (!cov_not_one(test, nb)) /* Found a potentially correct rescaling factor */
 	    {
-	      res = 1;
+	      res = 0;
 	      break;
 	    }
 	  acb_mul(rt, rt, zeta, prec);

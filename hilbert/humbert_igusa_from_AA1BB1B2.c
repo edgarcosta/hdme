@@ -1,7 +1,7 @@
 
 #include "hilbert.h"
 
-void humbert_cov_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec)
+void humbert_igusa_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec)
 {
   acb_t temp;
   acb_ptr res;

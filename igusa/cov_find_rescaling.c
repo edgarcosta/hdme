@@ -33,7 +33,7 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
   for (j = 0; j < nb; j++) acb_set_fmpz(&rescale[j], &S[j]);
   cov_rescale(rescale, rescale, c, nb, weights, prec);
   
-  for (j = 0; j < 4; j++)
+  for (j = 0; j < nb; j++)
     {
       if (!acb_overlaps(&rescale[j], &I[j]))
 	{
@@ -44,9 +44,16 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
   if (!res)
     {
       flint_printf("(cov_find_rescaling) Error: no rescaling factor found\n");
+      flint_printf("Minimum weight %wd, attempted rescale factor ", wt);
+      acb_printd(c, 10); flint_printf("\n");
+      flint_printf("Weights, exponents, is zero:\n");
+      for (j = 0; j < nb; j++) flint_printf("%wd, %wd, %wd\n", weights[j],
+					    exponents[j], fmpz_is_zero(&S[j]));
       fflush(stdout);
       flint_abort();
     }
+  
+  acb_set(scal, c);
 
   flint_free(exponents);
   acb_clear(r);

@@ -19,11 +19,11 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
       3, 3, 0, 0,
       0, 0, 3, 0,
       5, 0, 1, 0,
-      0, 4, 0, 1,
+      0, 3, 0, 1,
       1, 1, 2, 0,
       2, 0, 1, 1
     };
-  slong wt60[4*11] =
+  slong wt60[4*10] =
     {
       0, 0, 6, 0,
       0, 0, 0, 5,

@@ -25,13 +25,13 @@ void igusa_ABCD_from_IC_fmpz(fmpq* ABCD, fmpz* IC)
   for (j = 0; j < 4; j++) fmpq_set_fmpz_frac(&vals[j], &IC[j], one);
     
   hdme_data_read(pol, (const char**) vars, "igusa/A", ctx);
-  fmpq_mpoly_evaluate_all_fmpq(&vals[0], pol, (fmpq* const*) vals, ctx);
+  hdme_data_evaluate_fmpq(&vals[0], pol, vals, ctx);
   hdme_data_read(pol, (const char**) vars, "igusa/B", ctx);
-  fmpq_mpoly_evaluate_all_fmpq(&vals[1], pol, (fmpq* const*) vals, ctx);
+  hdme_data_evaluate_fmpq(&vals[1], pol, vals, ctx);
   hdme_data_read(pol, (const char**) vars, "igusa/C", ctx);
-  fmpq_mpoly_evaluate_all_fmpq(&vals[2], pol, (fmpq* const*) vals, ctx);
+  hdme_data_evaluate_fmpq(&vals[2], pol, vals, ctx);
   hdme_data_read(pol, (const char**) vars, "igusa/D", ctx);
-  fmpq_mpoly_evaluate_all_fmpq(&vals[3], pol, (fmpq* const*) vals, ctx);
+  hdme_data_evaluate_fmpq(&vals[3], pol, vals, ctx);
   
   for (j = 0; j < 4; j++) fmpq_set(&ABCD[j], &vals[j]);
 
