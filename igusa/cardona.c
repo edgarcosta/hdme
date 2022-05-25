@@ -1,6 +1,18 @@
 
 #include "igusa.h"
 
+static acb_struct* A11(acb_ptr A) {return &A[0];}
+static acb_struct* A12(acb_ptr A) {return &A[1];}
+static acb_struct* A22(acb_ptr A) {return &A[2];}
+static acb_struct* A33(acb_ptr A) {return &A[3];}
+
+static acb_struct* a111(acb_ptr a) {return &a[0];}
+static acb_struct* a112(acb_ptr a) {return &a[1];}
+static acb_struct* a122(acb_ptr a) {return &a[2];}
+static acb_struct* a133(acb_ptr a) {return &a[3];}
+static acb_struct* a222(acb_ptr a) {return &a[4];}
+static acb_struct* a233(acb_ptr a) {return &a[5];}
+
 void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
 {
   acb_ptr ABCD;
@@ -9,11 +21,8 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_poly_t P1, P2, P3;
   acb_t c;
   acb_poly_t term;
+  slong k;
   
-  fmpq_mpoly_t pol;
-  fmpq_mpoly_ctx_t ctx;
-  char** vars;
-
   ABCD = _acb_vec_init(4);
   Aij = _acb_vec_init(4);
   aijk = _acb_vec_init(6);
@@ -22,103 +31,81 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_poly_init(P3);
   acb_init(c);
   acb_poly_init(term);
-  
-  fmpq_mpoly_ctx_init(ctx, 4, ORD_LEX);
-  fmpq_mpoly_init(pol, ctx);
-  vars = hdme_data_vars_init(4);
-  hdme_data_vars_set(vars, "A", 0);
-  hdme_data_vars_set(vars, "B", 1);
-  hdme_data_vars_set(vars, "C", 2);
-  hdme_data_vars_set(vars, "D", 3);
 
   /* Set coefficients */
   igusa_ABCD_from_IC(ABCD, IC, prec);
+  cardona_conic(Aij, ABCD, prec);
+  cardona_cubic(aijk, ABCD, prec);
+
+  flint_printf("Aij:\n");
+  for (k = 0; k < 4; k++)
+    {
+      acb_printd(&Aij[k], 10); flint_printf("\n");
+    }
+  flint_printf("aijk:\n");
+  for (k = 0; k < 6; k++)
+    {
+      acb_printd(&aijk[k], 10); flint_printf("\n");
+    }
   
-  hdme_data_read(pol, (const char**) vars, "cardona/A11", ctx);
-  hdme_data_evaluate_acb(&Aij[0], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/A12", ctx);
-  hdme_data_evaluate_acb(&Aij[1], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/A22", ctx);
-  hdme_data_evaluate_acb(&Aij[2], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/A33", ctx);
-  hdme_data_evaluate_acb(&Aij[3], pol, ABCD, ctx, prec);
-
-  hdme_data_read(pol, (const char**) vars, "cardona/a111", ctx);
-  hdme_data_evaluate_acb(&aijk[0], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/a112", ctx);
-  hdme_data_evaluate_acb(&aijk[1], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/a122", ctx);
-  hdme_data_evaluate_acb(&aijk[2], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/a133", ctx);
-  hdme_data_evaluate_acb(&aijk[3], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/a222", ctx);
-  hdme_data_evaluate_acb(&aijk[4], pol, ABCD, ctx, prec);
-  hdme_data_read(pol, (const char**) vars, "cardona/a233", ctx);
-  hdme_data_evaluate_acb(&aijk[5], pol, ABCD, ctx, prec);
-
   /* Set P1, P2, P3 */
-  acb_mul_si(c, &Aij[1], -2, prec);
+  acb_mul_si(c, A12(Aij), -2, prec);
   acb_poly_set_coeff_acb(P1, 0, c);
-  acb_mul_si(c, &Aij[2], -2, prec);
-  acb_poly_set_coeff_acb(P2, 1, c);
+  acb_mul_si(c, A22(Aij), -2, prec);
+  acb_poly_set_coeff_acb(P1, 1, c);  
 
-  acb_poly_set_coeff_acb(P2, 0, &Aij[0]);
-  acb_neg(c, &Aij[2]);
+  acb_poly_set_coeff_acb(P2, 0, A11(Aij));
+  acb_neg(c, A22(Aij));
   acb_poly_set_coeff_acb(P2, 2, c);
 
-  acb_poly_set_coeff_acb(P3, 0, &Aij[0]);
-  acb_mul_si(c, &Aij[1], 2, prec);
+  acb_poly_set_coeff_acb(P3, 0, A11(Aij));
+  acb_mul_si(c, A12(Aij), 2, prec);
   acb_poly_set_coeff_acb(P3, 1, c);
-  acb_poly_set_coeff_acb(P3, 2, &Aij[2]);
+  acb_poly_set_coeff_acb(P3, 2, A22(Aij));
 
   /* Set crv */
   acb_poly_zero(crv);
   
   acb_poly_pow_ui(term, P1, 3, prec);
-  acb_mul(c, &Aij[3], &aijk[0], prec);
+  acb_mul(c, A33(Aij), a111(aijk), prec);
   acb_neg(c, c);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
 
   acb_poly_pow_ui(term, P1, 2, prec);
   acb_poly_mul(term, term, P2, prec);
-  acb_mul(c, &Aij[3], &aijk[1], prec);
+  acb_mul(c, A33(Aij), a112(aijk), prec);
   acb_mul_si(c, c, -3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
 
   acb_poly_pow_ui(term, P2, 2, prec);
   acb_poly_mul(term, term, P1, prec);
-  acb_mul(c, &Aij[3], &aijk[2], prec);
+  acb_mul(c, A33(Aij), a122(aijk), prec);
   acb_mul_si(c, c, -3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P1, prec);
-  acb_mul(c, &Aij[2], &aijk[3], prec);
+  acb_mul(c, A22(Aij), a133(aijk), prec);
   acb_mul_si(c, c, 3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
-  acb_poly_pow_ui(term, P3, 3, prec);
-  acb_mul(c, &Aij[3], &aijk[4], prec);
+  acb_poly_pow_ui(term, P2, 3, prec);
+  acb_mul(c, A33(Aij), a222(aijk), prec);
   acb_neg(c, c);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
   
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P2, prec);
-  acb_mul(c, &Aij[2], &aijk[5], prec);
+  acb_mul(c, A22(Aij), a233(aijk), prec);
   acb_mul_si(c, c, 3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
-
-  
-  fmpq_mpoly_clear(pol, ctx);
-  fmpq_mpoly_ctx_clear(ctx);
-  hdme_data_vars_clear(vars, 4);
-  
+    
   _acb_vec_clear(ABCD, 4);
   _acb_vec_clear(Aij, 4);
   _acb_vec_clear(aijk, 6);

@@ -210,6 +210,10 @@ int mestre(acb_poly_t crv, acb_srcptr IC, slong prec);
 
 /* Cardona's algorithm for curves with extra involution, Bolza classification */
 
+void cardona_conic(acb_ptr Aij, acb_srcptr ABCD, slong prec);
+
+void cardona_cubic(acb_ptr aijk, acb_srcptr ABCD, slong prec);
+
 void cardona(acb_poly_t crv, acb_srcptr IC, slong prec);
 
 int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec);
