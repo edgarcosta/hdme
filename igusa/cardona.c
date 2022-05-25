@@ -21,7 +21,6 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_poly_t P1, P2, P3;
   acb_t c;
   acb_poly_t term;
-  slong k;
   
   ABCD = _acb_vec_init(4);
   Aij = _acb_vec_init(4);
@@ -36,17 +35,6 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   igusa_ABCD_from_IC(ABCD, IC, prec);
   cardona_conic(Aij, ABCD, prec);
   cardona_cubic(aijk, ABCD, prec);
-
-  flint_printf("Aij:\n");
-  for (k = 0; k < 4; k++)
-    {
-      acb_printd(&Aij[k], 10); flint_printf("\n");
-    }
-  flint_printf("aijk:\n");
-  for (k = 0; k < 6; k++)
-    {
-      acb_printd(&aijk[k], 10); flint_printf("\n");
-    }
   
   /* Set P1, P2, P3 */
   acb_mul_si(c, A12(Aij), -2, prec);
