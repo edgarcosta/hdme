@@ -10,7 +10,7 @@ int main()
   fflush(stdout);
   flint_randinit(state);
 
-  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {
       slong ell = 2;
       slong ellmax = 10;

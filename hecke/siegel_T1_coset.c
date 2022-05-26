@@ -65,8 +65,8 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
     {
       /* Case 4 */
       k = k - n_pow(p, 2) - p;      
-      a = k % p;
-      b = k / p;
+      b = k % p;
+      a = k / p;
       fmpz_set_si(fmpz_mat_entry(m, 0, 0), 1);
       fmpz_set_si(fmpz_mat_entry(m, 0, 2), a);
       fmpz_set_si(fmpz_mat_entry(m, 0, 3), -b);

@@ -8,7 +8,7 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
   slong k;
   fmpz_mat_t gamma;
   slong nb = hecke_nb(H);
-  int res;
+  int res = 1;
   int v = HECKE_VERBOSE;
   
   fmpz_mat_init(gamma, 4, 4);  

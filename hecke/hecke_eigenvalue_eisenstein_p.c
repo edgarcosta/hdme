@@ -21,7 +21,7 @@ void hecke_eigenvalue_eisenstein_p(fmpz_t eig, slong k, slong p)
   
   fmpz_pow_ui(temp, pp, k-2);
   fmpz_add(eig, eig, temp);
-  fmpz_pow_ui(temp, pp, k-2);
+  fmpz_pow_ui(temp, pp, k-1);
   fmpz_add(eig, eig, temp);
   fmpz_pow_ui(temp, pp, 2*k-3);
   fmpz_add(eig, eig, temp);

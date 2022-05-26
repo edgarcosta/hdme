@@ -8,13 +8,15 @@ int main()
   flint_printf("siegel_T1_coset....");
   fflush(stdout);
 
-  for (p = 2; p < 4; p++)
+  for (p = 2; p < 6; p++)
     {
       slong nb = siegel_nb_T1_cosets(p);
       slong i, j;
       fmpz_mat_t m1, m2;
       fmpq_mat_t n, test;
       fmpz_t det;
+
+      if (!n_is_prime(p)) continue;
 
       fmpz_mat_init(m1, 4, 4);
       fmpz_mat_init(m2, 4, 4);
@@ -55,8 +57,8 @@ int main()
 		{
 		  flint_printf("FAIL (same cosets)\n");
 		  flint_printf("i = %wd, j = %wd, p = %wd\n", i, j, p);
-		  fmpz_mat_print(m1); flint_printf("\n");
-		  fmpz_mat_print(m2); flint_printf("\n");
+		  fmpz_mat_print_pretty(m1); flint_printf("\n");
+		  fmpz_mat_print_pretty(m2); flint_printf("\n");
 		  fmpq_mat_print(test); flint_printf("\n");
 		  fflush(stdout);
 		  flint_abort();

@@ -10,10 +10,10 @@ int main()
   fflush(stdout);
   flint_randinit(state);
 
-  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
     {      
       slong ell = 2;
-      slong ellmax = 4;
+      slong ellmax = 7;
       acb_mat_t tau;
       hecke_t H;
       acb_ptr val;
@@ -40,7 +40,7 @@ int main()
 	  
 	  /* Test expected eigenvalues for I4, I6' */
 	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
-	  hecke_operator(r, H, val, ell, 4, 0, prec);
+	  hecke_operator(r, H, val, n_pow(ell, 2), 4, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
 	  
 	  hecke_eigenvalues_eisenstein_p2(eig, 4, ell);
@@ -55,7 +55,7 @@ int main()
 	    }
 	  
 	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k)));
-	  hecke_operator(r, H, val, ell, 6, 0, prec);
+	  hecke_operator(r, H, val, n_pow(ell, 2), 6, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
 	  
 	  hecke_eigenvalues_eisenstein_p2(eig, 6, ell);

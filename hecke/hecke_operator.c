@@ -29,6 +29,7 @@ void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
     }
   acb_set_si(scal, m);
   acb_pow_si(scal, scal, 2*k + j - 3, prec);
+  _acb_vec_scalar_mul(res, res, len, scal, prec);
 
   _acb_vec_set(im, res, len);
 

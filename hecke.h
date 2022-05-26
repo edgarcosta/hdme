@@ -24,7 +24,7 @@
 #define HECKE_RED_TOL_BITS 50
 
 #ifndef HECKE_VERBOSE
-#define HECKE_VERBOSE 0
+#define HECKE_VERBOSE 1
 #endif
 
 /* Define a data structure hecke_t that contains all the necessary

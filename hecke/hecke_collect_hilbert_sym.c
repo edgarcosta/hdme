@@ -9,7 +9,7 @@ int hecke_collect_hilbert_sym(hecke_t H,
   fmpz_mat_t gamma;
   fmpz_poly_t beta, betabar;
   slong nb = hecke_nb(H);
-  int res;
+  int res = 1;
   int v = HECKE_VERBOSE;
 
   fmpz_poly_mat_init(m, 2, 2);
