@@ -15,55 +15,6 @@ static void igusa_ec_period_1728(acb_t tau, slong prec)
   acb_onei(tau);
 }
 
-static int igusa_possible_kp2(acb_ptr kp2, const acb_t j, slong prec)
-{
-  acb_poly_t pol;
-  acb_poly_t term;
-  acb_t c;
-  slong nb, res;
-
-  acb_poly_init(pol);
-  acb_poly_init(term);
-  acb_init(c);
-
-  /* Set term to x^2(1-x)^2 */
-  acb_poly_zero(term);
-  acb_poly_set_coeff_si(term, 1, 1);
-  acb_poly_set_coeff_si(term, 0, 1);
-  acb_poly_mul(term, term, term, prec);
-  acb_poly_shift_left(term, term, 2);
-
-  acb_poly_scalar_mul(pol, term, j, prec);
-
-  /* Set term to 256(1-x+x^2)^3 */
-  acb_poly_zero(term);
-  acb_poly_set_coeff_si(term, 2, 1);
-  acb_poly_set_coeff_si(term, 1, -1);
-  acb_poly_set_coeff_si(term, 0, 1);
-  acb_poly_pow_ui(term, term, 3, prec);
-  acb_set_si(c, 256);
-  acb_poly_scalar_mul(term, term, c, prec);
-
-  acb_poly_sub(pol, pol, term, prec);
-  
-  /* Has simple roots if j!=0, 1728 */
-  /* See also thomae_roots */
-  nb = acb_poly_find_roots(kp2, pol, NULL, prec, prec);
-  res = (nb == 3);
-  
-  if (!res)
-    {
-      flint_printf("(igusa_possible_kp2) Warning: unable to isolate roots\n");
-      acb_poly_printd(pol, 10); flint_printf("\n");
-      acb_printd(j, 10); flint_printf("\n");
-    }
-
-  acb_poly_clear(pol);
-  acb_poly_clear(term);
-  acb_clear(c);
-  return res;
-}
-
 static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
 {
   acb_t t, u;
@@ -78,16 +29,16 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
   acb_init(t);
   acb_init(u);
   arb_init(cmp);
-  kp2 = _acb_vec_init(3);
-  k = _acb_vec_init(3);
-  kp = _acb_vec_init(3);
+  kp2 = _acb_vec_init(6);
+  k = _acb_vec_init(6);
+  kp = _acb_vec_init(6);
   acb_mat_init(m, 1, 1);
 
-  res = igusa_possible_kp2(kp2, j, prec);
+  res = igusa_ec_possible_kp2(kp2, j, prec);
 
   if (res)
     {
-      for (i = 0; i < 3; i++)
+      for (i = 0; i < 6; i++)
 	{
 	  borchardt_sqrt(t, &kp2[i], prec);
 	  acb_sub_si(&kp2[i], &kp2[i], 1, prec);
@@ -155,9 +106,9 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
   acb_clear(t);
   acb_clear(u);
   arb_clear(cmp);
-  _acb_vec_clear(kp2, 3);
-  _acb_vec_clear(k, 3);
-  _acb_vec_clear(kp, 3);
+  _acb_vec_clear(kp2, 6);
+  _acb_vec_clear(k, 6);
+  _acb_vec_clear(kp, 6);
   acb_mat_clear(m); 
   return res;
 }

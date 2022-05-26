@@ -15,6 +15,7 @@
 #include <acb_mat.h>
 #include <acb_poly.h>
 #include <arb.h>
+#include <acb_modular.h>
 #include <flint/fmpq_mpoly.h>
 #include <flint/ulong_extras.h>
 
@@ -251,6 +252,8 @@ int tau_from_igusa(acb_mat_t tau, acb_srcptr I, slong prec);
 int tau_theta2_from_igusa(acb_mat_t tau, acb_ptr th2, acb_srcptr I, slong prec);
 
 void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec);
+
+int igusa_ec_possible_kp2(acb_ptr kp2, const acb_t j, slong prec);
 
 int igusa_ec_period(acb_t tau, const acb_t j, slong prec);
 

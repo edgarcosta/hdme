@@ -18,7 +18,7 @@ int igusa_has_generic_automorphisms(acb_srcptr IC, slong prec)
     && (!acb_contains_zero(&ABCD[0])
 	|| !acb_contains_zero(&ABCD[1])
 	|| !acb_contains_zero(&ABCD[2]));
-
+  /*
   if (!res)
     {
       flint_printf("(igusa_has_generic_automorphisms) Warning: cannot exclude extra automorphisms\n");
@@ -27,7 +27,7 @@ int igusa_has_generic_automorphisms(acb_srcptr IC, slong prec)
       acb_printd(&ABCD[0], 10); flint_printf("\n");
       acb_printd(&ABCD[1], 10); flint_printf("\n");
       acb_printd(&ABCD[2], 10); flint_printf("\n");
-    }
+      } */
 
   _acb_vec_clear(ABCD, 4);
   acb_clear(R2);
