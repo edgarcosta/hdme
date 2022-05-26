@@ -191,7 +191,7 @@ int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec)
   acb_ptr IC_acb;
   acb_t a;
   slong j;
-  int res;
+  int res = 1;
 
   ABCD = _fmpq_vec_init(4);
   fmpq_init(R2);

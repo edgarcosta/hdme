@@ -9,10 +9,10 @@ int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec)
 
   IC = _fmpz_vec_init(4);
   acb_poly_init(crv);
-  igusa_IC_fmpz(IC, I);
 
   if (igusa_is_g2_curve_fmpz(I))
     {
+      igusa_IC_fmpz(IC, I);
       res = mestre_fmpz(crv, IC, prec);
       if (res) res = tau_theta2_from_curve(tau, th2, crv, prec);
     }

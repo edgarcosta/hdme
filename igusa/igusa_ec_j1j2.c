@@ -12,7 +12,7 @@ static void igusa_y(acb_t y1, acb_t y2, acb_srcptr I, slong prec)
 
   acb_pow_si(y2, &I[1], 2, prec);
   acb_div(y2, y2, &I[3], prec);
-  acb_mul_si(y2, y2, n_pow(2,14), prec);
+  acb_mul_si(y2, y2, n_pow(2,13) * 3, prec);
 }
 
 static void igusa_ec_j1j2_gen(acb_ptr j, const acb_t y1, const acb_t y2, slong prec)
