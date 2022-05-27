@@ -29,7 +29,18 @@ void pol_simplify(fmpz_poly_struct* num_vec, fmpz_t den, slong degree, slong nb)
     }
   
   gcd_bits = fmpz_bits(gcd);
-  if (v) flint_printf("(pol_simplify) Simplify result by %wd-bit integer\n", gcd_bits);
+  if (v)
+    {
+      flint_printf("(pol_simplify) Simplify result by %wd-bit integer\n", gcd_bits);
+      fmpz_set_si(coeff, 2);
+      flint_printf("(pol_simplify) Valuation at 2: %wd\n", fmpz_remove(gcd ,gcd, coeff));
+      fmpz_set_si(coeff, 3);
+      flint_printf("(pol_simplify) Valuation at 3: %wd\n", fmpz_remove(gcd, gcd, coeff));
+      fmpz_set_si(coeff, 5);
+      flint_printf("(pol_simplify) Valuation at 5: %wd\n", fmpz_remove(gcd, gcd, coeff));
+      fmpz_set_si(coeff, 7);
+      flint_printf("(pol_simplify) Valuation at 7: %wd\n", fmpz_remove(gcd, gcd, coeff));
+    }    
   
   fmpz_clear(gcd);
   fmpz_clear(coeff);

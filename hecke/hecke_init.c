@@ -13,6 +13,7 @@ void hecke_init(hecke_t H, slong nb)
   fmpz_poly_init(hecke_beta(H));
 
   hecke_nb(H) = nb;
+  fmpz_init(hecke_normalize(H));
   H->cosets = flint_malloc(nb * sizeof(fmpz_mat_struct));  
   H->isog = flint_malloc(nb * sizeof(acb_mat_struct));
   H->stars = flint_malloc(nb * sizeof(acb_mat_struct));

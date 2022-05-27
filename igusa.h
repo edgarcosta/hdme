@@ -18,6 +18,7 @@
 #include <acb_modular.h>
 #include <flint/fmpq_mpoly.h>
 #include <flint/ulong_extras.h>
+#include <flint/fmpz_factor.h>
 
 #include "hdme_data.h"
 #include "siegel.h"
@@ -27,15 +28,17 @@
 #define IGUSA_HALFWEIGHTS {2,3,5,6}
 #define IC_WEIGHTS {2,4,6,10}
 #define IC_HALFWEIGHTS {1,2,3,5}
+/* #define IGUSA_NB 4 would clutter the code. */
+#define X_WEIGHTS {4,6,10,12,12,16,18,24,28,30,36,40,42,48}
+#define X_NB 14
 
-#define COV_MAXP 10000
+#define COV_FACTOR_BITS 25
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
 #define THOMAE_VERBOSE 0
-/* #define IGUSA_NB 4 would clutter the code. */
 
-/* We use the following projective covariants throughout:
+/* We call I the following vector of covariants:
    psi4 = I4/4
    psi6 = I6prime/4 (Streng's notation)
    chi10 = -I10/2^12
@@ -92,13 +95,18 @@ void cov_divexact_fmpz_si(fmpz* I, fmpz* S, slong scal, slong nb, slong* weights
 
 void cov_normalize(acb_ptr I, acb_srcptr S, slong nb, slong* weights, slong prec);
 
+#define cov_factor_nb(fac) ((fac)->num)
+#define cov_factor_p(fac, k) (&(fac)->p[k])
+
+void cov_factors(fmpz_factor_t fac, fmpz* I, slong nb);
+
+void cov_valuation_fmpq(fmpq_t val, fmpq* I, const fmpz_t p, slong nb, slong* weights);
+
 void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights);
 
 void cov_normalize_fmpz_wt1(fmpz* I, fmpz* S, slong nb);
 
 void cov_normalize_fmpq_wt1(fmpz* I, fmpq* S, slong nb);
-
-slong cov_height(fmpz* I, slong nb, slong* weights);
 
 void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
 				slong nb, slong* weights);
@@ -111,6 +119,8 @@ int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights,
 
 int cov_distinct(acb_srcptr I1, acb_srcptr I2,
 		 slong nb, slong* weights, slong prec);
+
+slong cov_height(fmpz* I, slong nb, slong* weights);
 
 
 /* Weighted polynomials in general covariants */
@@ -133,11 +143,19 @@ void igusa_base_exps(slong* exps, slong wt, slong k);
 void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
+void igusa_print_coordinate(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
+
+void igusa_try_coordinate(fmpz_mpoly_t pol, slong wt, slong j,
+			  const fmpz_mpoly_ctx_t ctx);
+
+void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt);
+
 
 /* Different covariants:
    - Streng I4, I6prime, I10, I12,
    - classical Igusa--Clebsch I2, I4, I6, I10,
-   - Clebsch A, B, C, D */
+   - Clebsch A, B, C, D 
+   - Igusa Y12, X16, ..., X48 */
 
 void igusa_streng(acb_ptr S, acb_srcptr I, slong prec);
 
@@ -162,6 +180,8 @@ void igusa_R2_from_IC(acb_t res, acb_srcptr IC, slong prec);
 void igusa_ABCD_from_IC_fmpz(fmpq* ABCD, fmpz* IC);
 
 void igusa_R2_from_IC_fmpz(fmpq_t R2, fmpz* IC);
+
+void igusa_X(fmpq* X, fmpz* I);
 
 
 /* Links with genus 2 curves */

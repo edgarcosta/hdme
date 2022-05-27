@@ -31,7 +31,7 @@
 
 /* one may want to define verbosity at compile time */
 #ifndef MODEQ_VERBOSE
-#define MODEQ_VERBOSE 0
+#define MODEQ_VERBOSE 1
 #endif
 
 #define MODEQ_CTX_ALLOC 100
@@ -139,6 +139,9 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
 
 void modeq_rescale(modeq_acb_t R, const modeq_acb_t E,
 		   const acb_t c, slong prec);
+
+void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
+		  const modeq_ctx_t ctx, slong prec);
 
 void modeq_verbose_start(slong prec);
 

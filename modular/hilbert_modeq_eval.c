@@ -27,7 +27,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
       if (res) modeq_product_trees(E, H, ctx, prec);
       if (res && (delta == 5))
 	{
-	  hilbert_modeq_scalar(c, H, I, ctx, delta, prec);
+	  modeq_scalar(c, H, I, ctx, prec);
 	  modeq_rescale(E, E, c, prec);
 	  modeq_round(R, E);
 	}

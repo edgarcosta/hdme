@@ -15,7 +15,7 @@ void modeq_ctx_init(modeq_ctx_t ctx)
   fmpz_mpoly_init(modeq_ctx_den(ctx), modeq_ctx_ctx(ctx));
   fmpz_mpoly_init(modeq_ctx_num(ctx), modeq_ctx_ctx(ctx));
 
-  ctx->pairs = flint_malloc(MODEQ_CTX_ALLOC * sizeof(slong));
+  ctx->pairs = flint_malloc(MODEQ_CTX_ALLOC * 2 * sizeof(slong));
   ctx->alloc_pairs = MODEQ_CTX_ALLOC;
   ctx->nb_pairs = 0;						     
 }

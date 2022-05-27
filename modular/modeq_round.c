@@ -28,7 +28,8 @@ int modeq_round(modeq_t R, const modeq_acb_t E)
     }
 
   radius_bits = arf_abs_bound_lt_2exp_si(max_radius);
-  if (v && res) flint_printf("(modeq_round) Excess precision: %wd\n", -radius_bits);  
+  if (v && res) flint_printf("(modeq_round) Excess precision: %wd\n", -radius_bits);
+  if (v && !res) flint_printf("(modeq_round) Insufficient precision.\n");
   if (res) pol_simplify(modeq_all_nums(R), modeq_den(R), modeq_degree(R),
 			modeq_nb(R)+1);
   

@@ -36,6 +36,9 @@ int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
   
   if (v) flint_printf("\n");
 
+  fmpz_set_si(hecke_normalize(H), ell);
+  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), hecke_nb(H) - 1);
+
   fmpz_poly_mat_clear(m);
   fmpz_mat_clear(gamma);
   return res;  

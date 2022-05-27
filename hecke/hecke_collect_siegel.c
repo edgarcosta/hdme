@@ -27,6 +27,10 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
     }     
   if (v) flint_printf("\n");
 
+  /* Set normalization factor */
+  fmpz_set_si(hecke_normalize(H), ell);
+  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 2*hecke_nb(H) - (2*ell*ell + ell + 1));
+  
   fmpz_mat_clear(gamma);
   return res;  
 }

@@ -51,7 +51,8 @@ typedef struct
   acb_mat_struct* stars; /* Cocycles C*tau+D */
   acb_ptr stardets; /* Determinants of stars */
   acb_ptr theta2; /* Values of theta constants at isog */
-  acb_ptr I; /* Values of Igusa-Clebsch covariants at isog */    
+  acb_ptr I; /* Values of Igusa-Clebsch covariants at isog */
+  fmpz_t norm; /* Normalization factor */
 } hecke_struct;
 
 typedef hecke_struct hecke_t[1];
@@ -75,6 +76,7 @@ typedef hecke_struct hecke_t[1];
 #define hecke_theta2(H, k) (&(H)->theta2[16*(k)])
 #define hecke_all_I(H) ((H)->I)
 #define hecke_I(H, k) (&(H)->I[4*(k)])
+#define hecke_normalize(H) ((H)->norm)
 
 
 /* Memory management */

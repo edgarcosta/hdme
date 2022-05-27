@@ -8,7 +8,7 @@ int modeq_stop(int res, slong prec)
   
   if (res)
     {
-      if (v) flint_printf("(modeq_stop) Success at working precision %wd\n", prec);
+      if (v) flint_printf("(modeq_stop) Success at current working precision\n", prec);
       stop = 1;
     }
   else if (prec > MODEQ_MAX_PREC)    

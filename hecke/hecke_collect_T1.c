@@ -27,6 +27,9 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
       res = hecke_set_entry(H, k, gamma, prec);
     }
   if (v) flint_printf("\n");
+
+  fmpz_set_si(hecke_normalize(H), p);
+  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 3*hecke_nb(H) - (p*p + 2*p + 1));
   
   fmpz_mat_clear(gamma);
   return res;  

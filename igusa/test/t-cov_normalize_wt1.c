@@ -34,7 +34,7 @@ int main()
 	  fmpz_randtest_not_zero(&I[k], state, mag_bits);
 	}
       
-      fmpz_set_si(scal, 1 + n_randint(state, COV_MAXP-1));
+      fmpz_set_si(scal, 1 + n_randint(state, n_pow(2, COV_FACTOR_BITS + 2)));
       cov_rescale_fmpz(S, I, scal, nb, weights);
       cov_normalize_fmpz(I, S, nb, weights);
       cov_normalize_fmpz_wt1(S, S, nb);

@@ -12,7 +12,7 @@ int acb_round(fmpz_t c, arf_t radius, const acb_t x)
 
   if (!acb_contains_int(x))
     {
-      flint_printf("(acb_round) Error: contains no integer");
+      flint_printf("(acb_round) Error: contains no integer\n");
       acb_printd(x, 10); flint_printf("\n");
       fflush(stdout);
       flint_abort();
