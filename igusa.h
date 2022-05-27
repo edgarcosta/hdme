@@ -128,6 +128,9 @@ slong cov_height(fmpz* I, slong nb, slong* weights);
 void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
 		    const fmpz_mpoly_ctx_t ctx, slong prec);
 
+void cov_mpoly_eval_fmpz(fmpz_t ev, const fmpz_mpoly_t pol, fmpz* I,
+			 const fmpz_mpoly_ctx_t ctx);
+
 void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
 
 void cov_monomial_degrees(slong* exps, const fmpz_mpoly_t mon,

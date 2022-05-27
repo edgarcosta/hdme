@@ -9,6 +9,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
   acb_t c;
   slong nb = 2*hilbert_nb_cosets(ell, delta);
   slong prec = hilbert_modeq_startprec(I, ell, delta);
+  slong div = MODEQ_CTX_DIV_PREC;
   int res;
   int v = MODEQ_VERBOSE;
   int stop = 0;
@@ -23,7 +24,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
       
       res = hecke_set_I_fmpz_hilbert(H, I, prec, delta);
       if (res) res = hecke_collect_hilbert_sym(H, ell, delta, prec);
-      if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
+      if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec/div);
       if (res) modeq_product_trees(E, H, ctx, prec);
       if (res && (delta == 5))
 	{

@@ -35,6 +35,7 @@
 #endif
 
 #define MODEQ_CTX_ALLOC 100
+#define MODEQ_CTX_DIV_PREC 10
 #define MODEQ_MAX_NB_MONOMIALS 11
 #define MODEQ_MAX_PREC n_pow(10,6)
 
