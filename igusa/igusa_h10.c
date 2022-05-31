@@ -5,7 +5,7 @@ void igusa_h10(acb_t h10, acb_srcptr theta2, slong prec)
 { 
   slong g = 2;
   ulong ch;
-  slong n = n_pow(2, 2*g);
+  ulong n = n_pow(2, 2*g);
 
   acb_t res;
   

@@ -8,7 +8,7 @@
     LICENCE or <http://www.gnu.org/licenses/> for more details.
 */
 
-#include "igusa.h"
+#include "../igusa.h"
 
 /* INPUT: Entries \tau_{1,1}, \tau_{2,2}, \tau_{3,3} of a small period
    matrix, as well as the desired output precision prec, in the

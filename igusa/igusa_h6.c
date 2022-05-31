@@ -37,7 +37,7 @@ void igusa_h6(acb_t h6, acb_srcptr theta2, slong prec)
 {
   slong g = 2;
   ulong ch1, ch2, ch3;
-  slong n = n_pow(2, 2*g);
+  ulong n = n_pow(2, 2*g);
   slong sgn;
 
   acb_t res, aux;

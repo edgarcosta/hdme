@@ -3,7 +3,9 @@
 
 void siegel_coset(fmpz_mat_t m, slong k, slong ell)
 {
-  slong a, b, c;
+  slong a = 0;
+  slong b = 0;
+  slong c = 0;
   fmpz_mat_t eta, etaR;
   fmpz_mat_t temp;
   slong u, v, w, x, y, z;

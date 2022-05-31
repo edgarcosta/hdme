@@ -10,9 +10,12 @@
 *.a
 *.png
 build/
+programs/
+!programs/*.c
 data-*
 plot-*
 *.exe
 Makefile
 *.txt
-todo
+*.o
+*.so*

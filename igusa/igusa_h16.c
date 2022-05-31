@@ -5,7 +5,7 @@ void igusa_h16(acb_t h16, acb_srcptr theta2, slong prec)
 {
   slong g = 2;
   ulong ch1, ch2, ch3, ch4, ch;
-  slong n = n_pow(2, 2*g);
+  ulong n = n_pow(2, 2*g);
 
   acb_t res, aux1, aux2;
   

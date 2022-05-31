@@ -1,176 +1,87 @@
 #
-#   Copyright (C) 2021 Jean Kieffer
+#   This file was adapted from
+#   https://github.com/fredrik-johansson/arb/Makefile.in
+#   and
+#   https://github.com/edgarcosta/controlledreduction/blob/master/Makefile.in
+#   See LICENCE or <http://www.gnu.org/licenses/> for more details.
 #
-#   This file is part of the hdme library.
-#
-#   hdme is free software: you can redistribute it and/or modify it
-#   under the terms of the GNU General Public License (GPL v3). See
-#   LICENCE or <http://www.gnu.org/licenses/> for more details.
-#
-
-
-# Directories
-
-# MODIFY THIS:
-# is where the other libraries are installed. See also ARB_DIR, etc.
-MYDIR = /path/to/libs
-# and if necessary
-# CURDIR is where the source files lie
-# CURDIR = /path/to/hdme
-# in GNU make, $(CURDIR) is actually a built-in variable, so one can leave it commented out
-
-ARB_DIR = $(MYDIR)
-ARB_INCDIR = $(ARB_DIR)/include
-ARB_LIBDIR = $(ARB_DIR)/lib
-
-FLINT_DIR = $(MYDIR)
-FLINT_INCDIR = $(FLINT_DIR)/include
-FLINT_LIBDIR = $(FLINT_DIR)/lib
-
-MPFR_DIR = $(MYDIR)
-MPFR_INCDIR = $(MPFR_DIR)/include
-MPFR_LIBDIR = $(MPFR_DIR)/lib
-
-GMP_DIR = $(MYDIR)
-GMP_INCDIR = $(GMP_DIR)/include
-GMP_LIBDIR = $(GMP_DIR)/lib
 
 HDME_PATH = $(CURDIR)
+CFLAGS += -D'HDME_PATH="$(HDME_PATH)"'
 
-# DO NOT MODIFY
-# Compiling and linking
-
-SHELL = /bin/sh
-
-CC = gcc
-CFLAGS = -ansi -Wall -pedantic -Werror -D'HDME_PATH="$(HDME_PATH)"'
-
-AR = ar
-ARFLAGS = -rcs
-
-VALGRIND = valgrind
-
-# recursive function for uniqueness
-uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
-
-
-LIBRARIES = ARB FLINT MPFR GMP
-# we remove duplicated paths
-INCDIR_LIBRARIES = $(call uniq, $(sort $(foreach elt, $(patsubst %, %_INCDIR, $(LIBRARIES)), -isystem"$($(elt))")))
-INCS = -I"$(CURDIR)" $(INCDIR_LIBRARIES)
-
-# we remove duplicated paths
-LLIBS = $(call uniq, $(sort $(foreach elt, $(patsubst %, %_LIBDIR, $(LIBRARIES)), -L"$($(elt))"))) 
-
-lDEPS = arb flint mpfr gmp pthread m
-lLIBS = $(patsubst %, -l%, $(lDEPS))
-
-
-# Modules to be compiled
+LIBDIR=lib
 
 MODULES = hdme_data polynomials siegel theta igusa hilbert hecke modular
+
 SOURCES = $(wildcard $(patsubst %, %/*.c, $(MODULES)))
 HEADERS = $(patsubst %, %.h, $(MODULES))
 OBJS = $(patsubst %.c, build/%.o, $(SOURCES))
 
-EXMP_SOURCES = $(wildcard examples/*.c)
-EXMP_NAMES = $(patsubst %.c, %, $(EXMP_SOURCES))
-
 TEST_SOURCES = $(wildcard $(patsubst %, %/test/t-*.c, $(MODULES)))
-TESTS = $(patsubst %.c, build/test/%, $(TEST_SOURCES))
-RUNTESTS = $(patsubst build/test/%, run/%, $(TESTS))
-RUNVALGRIND = $(patsubst build/test/%, valgrind/%, $(TESTS))
+TESTS = $(patsubst %.c, build/%$(EXEEXT), $(TEST_SOURCES))
+RUNTESTS = $(patsubst build/%, run/%, $(TESTS))
 
-TIMING_SOURCES = $(wildcard $(patsubst %, %/time/time-*.c, $(MODULES)))
-TIMINGS = $(patsubst %.c, build/time/%, $(TIMING_SOURCES))
-RUNTIMINGS = $(patsubst build/time/%, timerun/%, $(TIMINGS))
-
-REPRODUCE_SOURCES = modular/time/time-siegel.c modular/time/time-hilbert_gundlach.c modular/time/time-hilbert_igusa.c
-REPRODUCE = $(patsubst %.c, build/time/%, $(REPRODUCE_SOURCES))
-RUNREPRODUCE = $(patsubst build/time/%, timerun/%, $(REPRODUCE))
-
-PROGRAMS = $(patsubst programs/%.c, %.exe, $(wildcard programs/*.c))
-
-EXAMPLES = $(patsubs %.c, %, $(wildcard examples/*.c))
-
-# Timing data is written in TIMEDIR
-
-TIMEDIR = $(CURDIR)/time
+PROGRAMS = $(patsubst programs/%.c, programs/%$(EXEEXT), $(wildcard programs/*.c))
 
 # Targets
 
-all: library programs examples
+all: library tests programs
 
 check: library tests $(RUNTESTS)
 
-time: library timings $(RUNTIMINGS)
-
-valgrind: library tests $(RUNVALGRIND)
-
 tests: library $(TESTS)
-
-timings: library $(TIMINGS)
 
 programs: library $(PROGRAMS)
 
-examples: library $(EXAMPLES)
-
 clean:
 	rm -rf build/
-	rm libhdme.a
-	rm -rf time/
-	rm *.exe
-	rm examples/*.exe
+	rm -f $(wildcard $(HDME_LIBNAME)*)
+	rm -f $(PROGRAMS)
 
-library: libhdme.a
+distclean: clean
+	rm -f Makefile
 
-libhdme.a: $(OBJS) $(SOURCES) $(HEADERS) | build
-	@echo AR libhdme.a
-	@$(AR) $(ARFLAGS) libhdme.a $(OBJS)
+library: shared
+
+shared: $(HDME_LIB)
+
+$(HDME_LIB): $(OBJS) $(SOURCES) $(HEADERS) | build
+	@echo AR $(HDME_LIB)
+	@$(AR) $(ARFLAGS) $(HDME_LIB) $(OBJS);
+	ln -sf "$(HDME_LIB)" "$(HDME_LIBNAME)"; \
+	ln -sf "$(HDME_LIB)" "$(HDME_LIBNAME).$(HDME_MAJOR)";
 
 build:
-	@mkdir -p build time build/test build/time \
+	@mkdir -p build \
 	$(foreach mod, $(MODULES), build/$(mod)) \
-	$(foreach mod, $(MODULES), build/test/$(mod)/test) \
-	$(foreach mod, $(MODULES), build/time/$(mod)/time)
+	$(foreach mod, $(MODULES), build/$(mod)/test) \
 
 build/%.o: %.c $(HEADERS) | build
 	@echo CC $<
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-run/%: build/test/%
+run/%: build/%
 	@$<
 
-timerun/%: build/time/%
-	@$<
+$(TESTS): %: %.o $(OBJS)
+	@$(CC) $(CFLAGS) $(INCS) $^ -o $@ $(LIBS)
 
-valgrind/%: build/test/%
-	$(VALGRIND) --leak-check=full --track-origins=yes $<
+$(PROGRAMS): %: %.o $(OBJS)
+	@$(CC) $(CFLAGS) $(INCS) $^ -o $@ $(LIBS)
 
-build/test/%: %.c $(SOURCES) $(HEADERS) | build
-	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
+install: library
+	mkdir -p $(PREFIX)/$(LIBDIR)
+	mkdir -p $(PREFIX)/include/hdme
+	cp $(HDME_LIB) "$(PREFIX)/$(LIBDIR)"
+	cp -a $(shell ls $(HDME_LIBNAME)*) "$(PREFIX)/$(LIBDIR)"
+	cp $(HEADERS) $(PREFIX)/include/hdme
+	if [ $(OS) = "Darwin" ]; then \
+		install_name_tool -id "$(PREFIX)/$(LIBDIR)/$(HDME_LIB)" "$(PREFIX)/$(LIBDIR)/$(HDME_LIBNAME)"; \
+	fi
 
-build/time/%: %.c $(SOURCES) $(HEADERS) | build
-	@echo CC $<
-	@$(CC) -DTIMEDIR=\"$(TIMEDIR)\" $(CFLAGS) $(INCS) $(LLIBS) $< $(OBJS) -o $@ $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
-
-%.exe: programs/%.c library
-	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L'$(CURDIR)' $< -o $@ -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
-
-examples/%: examples/%.c library
-	@echo CC $<
-	@$(CC) $(CFLAGS) $(INCS) $(LLIBS) -L'$(CURDIR)' $< -o $@.exe -lhdme $(lLIBS) -Wl,-rpath $(ARB_LIBDIR)
 
 print-%:
 	@echo '$*=$($*)'
 
-plots:
-	python $(CURDIR)/make_plots.py
+.PHONY: check clean tests library shared examples build
 
-reproduce: library timings $(RUNREPRODUCE)
-
-.PHONY: all check clean tests library examples build valgrind
-
-.PRECIOUS: Makefile

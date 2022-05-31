@@ -8,7 +8,7 @@
 
 int theta_char_is_syzygous(ulong ch1, ulong ch2, ulong ch3, slong g)
 {
-  slong n = n_pow(2, 2*g);
+  ulong n = n_pow(2, 2*g);
   int res = 0;
   ulong ch;
 

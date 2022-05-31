@@ -36,7 +36,10 @@
 
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
+
+#ifndef THOMAE_VERBOSE
 #define THOMAE_VERBOSE 0
+#endif
 
 /* We call I the following vector of covariants:
    psi4 = I4/4

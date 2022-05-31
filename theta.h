@@ -29,7 +29,10 @@
 #define THETA_DER_LOSS 25
 
 #define BORCHARDT_VERBOSE 0
+
+#ifndef THETA_VERBOSE
 #define THETA_VERBOSE 0
+#endif
 
 
 /* Borchardt means */

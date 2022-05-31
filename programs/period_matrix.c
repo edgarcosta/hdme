@@ -8,7 +8,7 @@
     LICENCE or <http://www.gnu.org/licenses/> for more details.
 */
 
-#include "igusa.h"
+#include "../igusa.h"
 
 /* INPUT: Real and imaginary parts of Igusa-Clebsch invariants I2, I4,
    I6, I10 as well as the desired output precision prec, in the
