@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2021 Jean Kieffer
+    Copyright (C) 2022 Jean Kieffer
 
     This file is part of the hdme library.
 
@@ -72,11 +72,8 @@ int main(int argc, char* argv[])
       acb_set(&I[k], c);
     }
 
-  /* Correct vector of Igusa-Clebsch invariants: program uses I6', not I6 */
-  acb_mul(c, &I[0], &I[1], prec);
-  acb_addmul_si(c, &I[2], -3, prec);
-  acb_div_si(c, c, 2, prec);
-  acb_set(&I[2], c);
+  /* Correct vector of Igusa-Clebsch invariants */
+  igusa_from_IC(I, I, prec);
 
   /* Compute period matrix */
   tau_from_igusa(tau, I, prec);

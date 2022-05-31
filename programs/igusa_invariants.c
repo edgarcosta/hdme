@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2021 Jean Kieffer
+    Copyright (C) 2022 Jean Kieffer
 
     This file is part of the hdme library.
 
@@ -21,7 +21,7 @@
    fundamental domain. (If necessary, use the function
    siegel_fundamental_domain in siegel.h to reduce the input).
 
-   OUTPUT: Values of Igusa-Clebsch invariants
+   OUTPUT: Values of Igusa-Clebsch covariants
 
    I4, I6' = (I2*I4 - 3*I6)/2, I10, I12=I2*I10
    
@@ -104,9 +104,9 @@ int main(int argc, char* argv[])
   /* Renormalize by correct scalar factor */
   theta2_renormalize(theta2, theta2, prec);
   /* Compute associated Igusa-Clebsch invariants */
-  cov_from_theta2(I, theta2, prec);
-  /* Correct output: we want I6, not I6' */
-  igusa_I6(&I[2], I, prec);
+  igusa_from_theta2(I, theta2, prec);
+  igusa_streng(I, I, prec);
+  
   /* Print result in base 10 */
   prec10 = n_clog_2exp(prec, 10);
   for (k = 0; k < 4; k++)
