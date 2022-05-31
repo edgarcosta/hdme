@@ -16,8 +16,9 @@ rationals or prime finite fields:
   discriminant 5.
 
 Along the way, the library provides functionality for the evaluation
-of genus 2 theta constants in quasi-linear time. The algorithms are
-described in the associated paper `[K21]`_.
+of genus 2 theta constants in quasi-linear time, and for the action of
+Hecke operators on Siegel modular forms. The algorithms are described
+in the associated paper `[K21]`_.
 
 Prerequisites
 =============
@@ -42,9 +43,12 @@ Makefile also responds to the standard commands::
 Documentation
 =============
 
-See the `doc` folder for the documentation of the individual
-modules. For examples of usage, look at the test files in the `test`
-subfolder of each module.
+A detailed documentation for each function existed in previous
+versions, but is now outdated. For examples of usage, look at the test
+files in the `test` subfolder of each module.
+
+Examples
+========
 
 Example programs are also available in the `time` subfolder of certain
 modules. To compile and run them, use::
@@ -58,6 +62,10 @@ directory. Then::
 will produce simple graph representations of the raw data in the
 `time` subfolder of the source directory, if a Python interpreter is
 available.
+
+Some of the library's functionalities (computation of period matrices
+and Igusa invariants to high precisions) are also available as
+standalone programs.
   
 Credits
 =======
