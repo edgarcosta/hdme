@@ -10,7 +10,7 @@ int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
   acb_t c;
   slong nb = siegel_nb_T1_cosets(ell);
   slong prec = siegel_modeq_2step_startprec(I, ell);
-  slong div = MODEQ_CTX_DIV_PREC;
+  slong gap;
   int res;
   int v = MODEQ_VERBOSE;
   int stop = 0;
@@ -25,16 +25,19 @@ int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
       
       res = hecke_set_I_fmpz(H, I, prec);
       if (res) res = hecke_collect_T1(H, ell, prec);
-      if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec/div);
+      if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res)
 	{
 	  modeq_scalar(c, H, I, ctx, prec);
 	  modeq_product_trees(E, H, ctx, prec);
 	  modeq_rescale(E, E, c, prec);
-	  res = modeq_round(R, E);
+	  res = modeq_round(R, &gap, E);
+	  prec = modeq_nextprec_precise(prec, gap);
 	}
-      
-      prec = siegel_modeq_nextprec(prec);
+      else
+	{	  
+	  prec = modeq_nextprec_generic(prec);
+	}
       stop = modeq_stop(res, prec);
     }
   

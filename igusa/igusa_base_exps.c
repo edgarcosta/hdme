@@ -7,10 +7,10 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
   slong* ptr;
   slong wt20[4*5] =
     {
+      0, 0, 2, 0,
       1, 1, 1, 0,
       2, 0, 0, 1,
       5, 0, 0, 0,
-      0, 0, 2, 0,
       2, 2, 0, 0
     };  
   slong wt30[4*7] =

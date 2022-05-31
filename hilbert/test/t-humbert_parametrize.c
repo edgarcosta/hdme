@@ -75,6 +75,7 @@ int main()
 	      if (!res)
 		{
 		  flint_printf("FAIL (Hilbert inversion)\n");
+		  flint_printf("delta = %wd\n", delta);
 		  for (k = 0; k < 2; k++)
 		    {
 		      fmpq_print(&rs[k]); flint_printf("\n");

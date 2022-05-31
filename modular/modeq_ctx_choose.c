@@ -4,6 +4,7 @@
 int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 {
   slong j, k, l;
+  slong j0 = -1;
   acb_srcptr ptr; /* Do not initialize */
   slong weights[4] = IGUSA_HALFWEIGHTS;
   slong exps[4];
@@ -18,6 +19,8 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   fmpz_mpoly_init(den, modeq_ctx_ctx(ctx));
   evden = _acb_vec_init(nb);
   evnum = _acb_vec_init(nb);
+
+  prec = modeq_ctx_prec(prec);
 
   /* Do we have: psi4 is never zero? */
   res = 1;
@@ -80,12 +83,9 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
     }
 
   /* Choose denominator: should never vanish */
-  res = 0;
-  j = 0;
-  while (!res)
+  for (j = 0; j < MODEQ_CTX_MAX_NB_COORDS; j++)
     {
       igusa_try_coordinate(den, wt, j, modeq_ctx_ctx(ctx));
-      if (v) flint_printf("(modeq_ctx_choose) Trying coordinate %wd as denominator\n", j);	
       res = 1;
       for (k = 0; k < nb; k++)
 	{
@@ -96,10 +96,15 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 	      break;
 	    }
 	}
-      j++;
-    }  
-  fmpz_mpoly_set(modeq_ctx_den(ctx), den, modeq_ctx_ctx(ctx));
-  if (v)
+      if (res)
+	{
+	  j0 = j;
+	  break;
+	}
+    }
+  
+  if (res) fmpz_mpoly_set(modeq_ctx_den(ctx), den, modeq_ctx_ctx(ctx));
+  if (res && v)
     {
       flint_printf("(modeq_ctx_choose) Denominator found: ");
       igusa_print_coordinate(modeq_ctx_den(ctx), modeq_ctx_ctx(ctx));
@@ -107,42 +112,43 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
     }
   
   /* Choose numerator: num/den should be distinct on non-"equal" pairs */
-  /* Again, 8 of them should be sufficient. */
-  res = 0;
-  j = 0;
-  while (!res)
+  if (res)
     {
-      igusa_try_coordinate(num, wt, j, modeq_ctx_ctx(ctx));
-      if (v) flint_printf("(modeq_ctx_choose) Trying coordinate %wd as numerator\n", j);
-      
-      for (k = 0; k < nb; k++)
+      for (j = 0; j < MODEQ_CTX_MAX_NB_COORDS; j++)
 	{
-	  cov_mpoly_eval(&evnum[k], num, &I[4*k], modeq_ctx_ctx(ctx), prec);
-	  acb_div(&evnum[k], &evnum[k], &evden[k], prec);
-	}
-      res = 1;
-      for (k = 0; k < nb; k++)
-	{
-	  for (l = k+1; l < nb; l++)
+	  if (j == j0) continue;
+	  
+	  igusa_try_coordinate(num, wt, j, modeq_ctx_ctx(ctx));	  
+	  for (k = 0; k < nb; k++)
 	    {
-	      /* For performance, use that pairs are ordered? */
-	      if (acb_overlaps(&evnum[k], &evnum[l])
-		  && !modeq_ctx_is_pair(k, l, ctx))
-		{
-		  res = 0;
-		  break;
-		}
+	      cov_mpoly_eval(&evnum[k], num, &I[4*k], modeq_ctx_ctx(ctx), prec);
+	      acb_div(&evnum[k], &evnum[k], &evden[k], prec);
 	    }
-	  if (!res) break;
+	  res = 1;
+	  for (k = 0; k < nb; k++)
+	    {
+	      for (l = k+1; l < nb; l++)
+		{
+		  /* For performance, use that pairs are ordered? */
+		  if (acb_overlaps(&evnum[k], &evnum[l])
+		      && !modeq_ctx_is_pair(k, l, ctx))
+		    {
+		      res = 0;
+		      break;
+		    }
+		}
+	      if (!res) break;
+	    }
+	  if (res) break;
 	}
-      j++;
-    }
-  fmpz_mpoly_set(modeq_ctx_num(ctx), num, modeq_ctx_ctx(ctx));
-  if (v)
-    {
-      flint_printf("(modeq_ctx_choose) Numerator found: ");
-      igusa_print_coordinate(modeq_ctx_num(ctx), modeq_ctx_ctx(ctx));
-      flint_printf("\n");
+      
+      if (res) fmpz_mpoly_set(modeq_ctx_num(ctx), num, modeq_ctx_ctx(ctx));
+      if (res && v)
+	{
+	  flint_printf("(modeq_ctx_choose) Numerator found: ");
+	  igusa_print_coordinate(modeq_ctx_num(ctx), modeq_ctx_ctx(ctx));
+	  flint_printf("\n");
+	}
     }
     
   fmpz_mpoly_clear(num, modeq_ctx_ctx(ctx));

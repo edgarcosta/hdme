@@ -12,7 +12,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 2 * arb_test_multiplier(); iter++)
     {
       fmpz* I;
       modeq_t R;
@@ -21,15 +21,19 @@ int main()
       slong k;
       slong mag_bits = 20;
       int print = 1;
+      int zeroentries = 0;
 
       I = _fmpz_vec_init(4);
       modeq_init(R);
       modeq_ctx_init(ctx);
 
       for (k = 0; k < 4; k++) fmpz_randtest_not_zero(&I[k], state, mag_bits);
-      if (iter % 2 == 0) fmpz_zero(igusa_psi4(I));
-      if (iter % 3 == 0) fmpz_zero(igusa_psi6(I));
-      if (iter % 3 == 1) fmpz_zero(igusa_chi10(I));
+      if (zeroentries)
+	{
+	  if (iter % 2 == 0) fmpz_zero(igusa_psi4(I));
+	  if (iter % 3 == 0) fmpz_zero(igusa_psi6(I));
+	  if (iter % 3 == 1) fmpz_zero(igusa_chi10(I));
+	}
 
       if (print)
 	{

@@ -151,7 +151,7 @@ void igusa_print_coordinate(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
 void igusa_try_coordinate(fmpz_mpoly_t pol, slong wt, slong j,
 			  const fmpz_mpoly_ctx_t ctx);
 
-void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt);
+void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt, slong corr_2_3);
 
 
 /* Different covariants:

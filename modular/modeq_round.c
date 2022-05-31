@@ -1,10 +1,11 @@
 
 #include "modular.h"
 
-int modeq_round(modeq_t R, const modeq_acb_t E)
+int modeq_round(modeq_t R, slong* bits, const modeq_acb_t E)
 {  
   arf_t radius, max_radius;
-  slong radius_bits;  
+  slong radius_bits;
+  int b;
   int res = 1;
   slong k;
   slong v = MODEQ_VERBOSE;
@@ -19,17 +20,17 @@ int modeq_round(modeq_t R, const modeq_acb_t E)
   
   for (k = 0; k < modeq_nb(E)+1; k++)
     {
-      if (res)
-	{
-	  res = acb_poly_round(&modeq_all_nums(R)[k], radius,
-			       &modeq_all_nums(E)[k], modeq_degree(E));
-	  arf_max(max_radius, max_radius, radius);	  
-	}
+      b = acb_poly_round(&modeq_all_nums(R)[k], radius,
+			 &modeq_all_nums(E)[k], modeq_degree(E));
+      res = res && b;
+      arf_max(max_radius, max_radius, radius);
     }
 
   radius_bits = arf_abs_bound_lt_2exp_si(max_radius);
-  if (v && res) flint_printf("(modeq_round) Excess precision: %wd\n", -radius_bits);
-  if (v && !res) flint_printf("(modeq_round) Insufficient precision.\n");
+  *bits = radius_bits;
+  
+  if (v && res) flint_printf("(modeq_round) Excess precision: %wd\n", - *bits);
+  if (v && !res) flint_printf("(modeq_round) Need %wd more bits of precision\n", *bits);
   if (res) pol_simplify(modeq_all_nums(R), modeq_den(R), modeq_degree(R),
 			modeq_nb(R)+1);
   

@@ -17,7 +17,7 @@ int acb_round(fmpz_t c, arf_t radius, const acb_t x)
       fflush(stdout);
       flint_abort();
     }
-  
+
   acb_get_rad_ubound_arf(radius, x, radius_prec);
 
   res = arb_get_unique_fmpz(re, acb_realref(x))

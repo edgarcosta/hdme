@@ -58,6 +58,7 @@ int hecke_collect_hilbert_sym(hecke_t H,
   
   fmpz_set_si(hecke_normalize(H), ell);
   fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), hecke_nb(H) - 2);
+  hecke_prod_ec(H) = 0;
 
   fmpz_poly_mat_clear(m);
   fmpz_mat_clear(gamma);

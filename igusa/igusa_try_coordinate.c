@@ -20,7 +20,7 @@ void igusa_try_coordinate(fmpz_mpoly_t pol, slong wt, slong j,
   else
     {
       /* Decompose j in k numbers of roughly the same size */
-      bound = n_clog(j, k);
+      bound = FLINT_MAX(2, n_clog(j, k));
       fmpz_mpoly_zero(pol, ctx);
       for (i = 0; i < k; i++)
 	{

@@ -40,6 +40,7 @@ void pol_simplify(fmpz_poly_struct* num_vec, fmpz_t den, slong degree, slong nb)
       flint_printf("(pol_simplify) Valuation at 5: %wd\n", fmpz_remove(gcd, gcd, coeff));
       fmpz_set_si(coeff, 7);
       flint_printf("(pol_simplify) Valuation at 7: %wd\n", fmpz_remove(gcd, gcd, coeff));
+      flint_printf("(pol_simplify) Rest: "); fmpz_print(gcd); flint_printf("\n");
     }    
   
   fmpz_clear(gcd);

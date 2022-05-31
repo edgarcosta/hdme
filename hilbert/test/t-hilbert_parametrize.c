@@ -12,7 +12,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 2 * arb_test_multiplier(); iter++)
     {
       slong delta;
       fmpq* rs;
@@ -20,7 +20,7 @@ int main()
       acb_ptr I;
       
       slong rs_bits = 5 + n_randint(state, 10);
-      slong prec = 100 + n_randint(state, 1000);
+      slong prec = 1000 + n_randint(state, 1000);
       slong delta_max = 18;
       slong k;
 
@@ -59,6 +59,7 @@ int main()
 	      if (!res)
 		{
 		  flint_printf("FAIL (inverse)\n");
+		  flint_printf("delta = %wd, prec = %wd\n", delta, prec);
 		  fflush(stdout);
 		  flint_abort();
 		}

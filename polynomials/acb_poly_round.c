@@ -8,6 +8,7 @@ int acb_poly_round(fmpz_poly_t pol, arf_t max_radius,
   arf_t radius;
   fmpz_t rd;
   slong k;
+  int b;
   int res = 1;
 
   acb_init(coeff);
@@ -19,14 +20,13 @@ int acb_poly_round(fmpz_poly_t pol, arf_t max_radius,
   
   for (k = 0; k < degree + 1; k++)
     {
-      fmpz_zero(rd);
-      if (res)
-	{
-	  acb_poly_get_coeff_acb(coeff, pol_acb, k);
-	  res = acb_round(rd, radius, coeff);
-	  arf_max(max_radius, max_radius, radius);
-	  fmpz_poly_set_coeff_fmpz(pol, k, rd);
-	}
+      acb_poly_get_coeff_acb(coeff, pol_acb, k);
+      
+      b = acb_round(rd, radius, coeff);      
+      res = res && b;
+      arf_max(max_radius, max_radius, radius);
+      
+      fmpz_poly_set_coeff_fmpz(pol, k, rd);
     }
 
   acb_clear(coeff);

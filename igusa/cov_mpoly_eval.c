@@ -18,7 +18,7 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
   fmpz_mpoly_degrees_si(degrees, pol, ctx);
   for (k = 0; k < n; k++)
     {
-      powers[k] = _acb_vec_init(degrees[k]+1);
+      powers[k] = _acb_vec_init(degrees[k]+2);
       acb_one(&(powers[k][0]));
       for (j = 1; j <= degrees[k]; j++)
 	{
@@ -49,7 +49,7 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
   fmpz_clear(coeff);
   for (k = 0; k < n; k++)
     {
-      _acb_vec_clear(powers[k], degrees[k]+1);
+      _acb_vec_clear(powers[k], degrees[k]+2);
     }
   flint_free(degrees);
   flint_free(powers);

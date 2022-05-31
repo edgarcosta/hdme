@@ -35,20 +35,21 @@
 #endif
 
 #define MODEQ_CTX_ALLOC 100
-#define MODEQ_CTX_DIV_PREC 10
+#define MODEQ_CTX_MIN_PREC 50
 #define MODEQ_MAX_NB_MONOMIALS 11
+#define MODEQ_CTX_MAX_NB_COORDS 100
+
 #define MODEQ_MAX_PREC n_pow(10,6)
+#define MODEQ_MUL_PREC 1.8
 
-#define SIEGEL_START_PREC_MUL 30
-#define SIEGEL_START_PREC_ADD 0
-#define SIEGEL_MUL_PREC 1.5
+#define SIEGEL_START_PREC_MUL 2
+#define SIEGEL_START_PREC_ADD 200
 
-#define SIEGEL_2STEP_START_PREC_MUL 30
-#define SIEGEL_2STEP_START_PREC_ADD 0
+#define SIEGEL_2STEP_START_PREC_MUL 2
+#define SIEGEL_2STEP_START_PREC_ADD 200
 
 #define HILBERT_START_PREC_MUL 10
 #define HILBERT_START_PREC_ADD 200
-#define HILBERT_MUL_PREC 1.8
 
 
 /* Define a data structure modeq_t that contains all the necessary
@@ -111,7 +112,11 @@ void modeq_ctx_add_pair(modeq_ctx_t ctx, slong i1, slong i2);
 
 int modeq_ctx_is_pair(slong i1, slong i2, const modeq_ctx_t ctx);
 
+slong modeq_ctx_prec(slong prec);
+
 int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec);
+
+int modeq_ctx_has_chi10_factor(const modeq_ctx_t ctx);
 
 /* Handle modeq_t structures */
 
@@ -146,9 +151,13 @@ void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
 
 void modeq_verbose_start(slong prec);
 
+slong modeq_nextprec_generic(slong current_prec);
+
+slong modeq_nextprec_precise(slong current_prec, slong gap);
+
 int modeq_stop(int res, slong prec);
 
-int modeq_round(modeq_t R, const modeq_acb_t E);
+int modeq_round(modeq_t R, slong* bits, const modeq_acb_t E);
 
 int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec);
 
@@ -174,11 +183,6 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 
 slong siegel_modeq_startprec(fmpz* I, slong ell);
 
-slong siegel_modeq_nextprec(slong current_prec);
-
-void siegel_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
-			 const modeq_ctx_t ctx, slong prec);
-
 int siegel_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
 
 int siegel_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
@@ -193,9 +197,6 @@ int siegel_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 
 slong siegel_modeq_2step_startprec(fmpz* I, slong ell);
 
-void siegel_modeq_2step_scalar(acb_t c, const hecke_t H, fmpz* I,
-			       const modeq_ctx_t ctx, slong prec);
-
 int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
 
 int siegel_2step_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
@@ -209,11 +210,6 @@ int siegel_2step_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
 /* Hilbert modular equations */
 
 slong hilbert_modeq_startprec(fmpz* I, slong ell, slong delta);
-
-slong hilbert_modeq_nextprec(slong current_prec);
-
-void hilbert_modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
-			  const modeq_ctx_t ctx, slong delta, slong prec);
 
 int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 		       slong ell, slong delta);

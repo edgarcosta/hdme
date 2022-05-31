@@ -1,13 +1,14 @@
 
 #include "igusa.h"
 
-void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt)
+void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt, slong corr_2_3)
 {
   fmpq* X;
   fmpz_factor_t fac;
   fmpz_t p;
   fmpz_t c;
   fmpq_t val;
+  fmpq_t corr;
   slong k;
   slong weights[X_NB] = X_WEIGHTS;
   
@@ -16,6 +17,7 @@ void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt)
   fmpz_init(p);
   fmpz_init(c);
   fmpq_init(val);
+  fmpq_init(corr);
   
   fmpz_one(p);
   igusa_X(X, I);
@@ -33,7 +35,17 @@ void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt)
 	}
       
       cov_valuation_fmpq(val, X, p, X_NB, weights);
-      fmpq_mul_si(val, val, wt);
+
+      /* Correction from superspecial reduction */
+      if (fmpz_equal_si(p,2) || fmpz_equal_si(p,3))
+	{
+	  fmpq_mul_si(val, val, wt - corr_2_3);
+	}
+      else
+	{
+	  fmpq_mul_si(val, val, wt);
+	}
+      
       /* Get ceil(val) */
       fmpz_cdiv_q(c, fmpq_numref(val), fmpq_denref(val));
       if (fmpz_cmp_si(c, 0) < 0)
@@ -54,4 +66,5 @@ void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt)
   fmpz_clear(p);
   fmpz_clear(c);
   fmpq_clear(val);
+  fmpq_clear(corr);
 }

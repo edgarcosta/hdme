@@ -7,15 +7,15 @@ void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights)
   slong k;
 
   fmpz_factor_init(fac);
-  cov_factors(fac, I, nb);
+  cov_factors(fac, S, nb);
 
-  for (k = 0; k < nb; k++) fmpz_set(&S[k], &I[k]);
+  for (k = 0; k < nb; k++) fmpz_set(&I[k], &S[k]);
   
   for (k = 0; k < cov_factor_nb(fac); k++)
     {
-      while (cov_divisible_fmpz(S, cov_factor_p(fac, k), nb, weights))
+      while (cov_divisible_fmpz(I, cov_factor_p(fac, k), nb, weights))
 	{
-	  cov_divexact_fmpz(S, S, cov_factor_p(fac, k), nb, weights);
+	  cov_divexact_fmpz(I, I, cov_factor_p(fac, k), nb, weights);
 	}
     }  
   

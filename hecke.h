@@ -53,6 +53,8 @@ typedef struct
   acb_ptr theta2; /* Values of theta constants at isog */
   acb_ptr I; /* Values of Igusa-Clebsch covariants at isog */
   fmpz_t norm; /* Normalization factor */
+  slong prod_ec; /* When tau is a product of elliptic curves, number
+		    of isogenous such products */  
 } hecke_struct;
 
 typedef hecke_struct hecke_t[1];
@@ -77,6 +79,7 @@ typedef hecke_struct hecke_t[1];
 #define hecke_all_I(H) ((H)->I)
 #define hecke_I(H, k) (&(H)->I[4*(k)])
 #define hecke_normalize(H) ((H)->norm)
+#define hecke_prod_ec(H) ((H)->prod_ec)
 
 
 /* Memory management */

@@ -35,7 +35,7 @@ int main()
       igusa_h16(h16, theta2, prec);
       acb_div(h16, h16, h10, prec);
 
-      if (!acb_overlaps(h16, &IC[1]))
+      if (!acb_overlaps(h16, &IC[2]))
 	{
 	  flint_printf("FAIL (h16)");
 	  flint_printf("Theta constants:\n");

@@ -8,7 +8,7 @@ int main()
   flint_printf("siegel_2step_isog_monomials_Q....");
   fflush(stdout);
 
-  for (iter = 0; iter < 1; iter++)
+  for (iter = 0; iter < 2; iter++)
     {
       fmpz* I1;
       fmpz* I2;

@@ -60,7 +60,7 @@ int main()
       
       for (k = 0; k < X_NB; k++)
 	{
-	  igusa_make_integral(scal, I, weights[k]);
+	  igusa_make_integral(scal, I, weights[k], 0);
 	  fmpq_mul(test, &X[k], scal);
 	  if (print)
 	    {

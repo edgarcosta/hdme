@@ -29,7 +29,8 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
 
   /* Set normalization factor */
   fmpz_set_si(hecke_normalize(H), ell);
-  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 2*hecke_nb(H) - (2*ell*ell + ell + 1));
+  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 2*hecke_nb(H) - (ell*ell + ell + 2));
+  hecke_prod_ec(H) = n_pow(ell+1, 2);
   
   fmpz_mat_clear(gamma);
   return res;  

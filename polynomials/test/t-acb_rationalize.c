@@ -11,7 +11,7 @@ int main()
   
   flint_randinit(state);
   
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 50 * arb_test_multiplier(); iter++)
     {
       fmpq_t c;
       fmpq_t r;
