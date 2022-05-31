@@ -21,8 +21,6 @@ TEST_SOURCES = $(wildcard $(patsubst %, %/test/t-*.c, $(MODULES)))
 TESTS = $(patsubst %.c, build/%$(EXEEXT), $(TEST_SOURCES))
 RUNTESTS = $(patsubst build/%, run/%, $(TESTS))
 
-PROGRAMS = $(patsubst programs/%.c, programs/%$(EXEEXT), $(wildcard programs/*.c))
-
 # Targets
 
 all: library tests programs
@@ -31,12 +29,9 @@ check: library tests $(RUNTESTS)
 
 tests: library $(TESTS)
 
-programs: library $(PROGRAMS)
-
 clean:
 	rm -rf build/
 	rm -f $(wildcard $(HDME_LIBNAME)*)
-	rm -f $(PROGRAMS)
 
 distclean: clean
 	rm -f Makefile
@@ -66,9 +61,6 @@ run/%: build/%
 $(TESTS): %: %.o $(OBJS)
 	@$(CC) $(CFLAGS) $(INCS) $^ -o $@ $(LIBS)
 
-$(PROGRAMS): %: %.o $(OBJS)
-	@$(CC) $(CFLAGS) $(INCS) $^ -o $@ $(LIBS)
-
 install: library
 	mkdir -p $(PREFIX)/$(LIBDIR)
 	mkdir -p $(PREFIX)/include/hdme
@@ -78,7 +70,6 @@ install: library
 	if [ $(OS) = "Darwin" ]; then \
 		install_name_tool -id "$(PREFIX)/$(LIBDIR)/$(HDME_LIB)" "$(PREFIX)/$(LIBDIR)/$(HDME_LIBNAME)"; \
 	fi
-
 
 print-%:
 	@echo '$*=$($*)'

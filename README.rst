@@ -29,12 +29,11 @@ version 2.8.0 or later.
 Installation
 ============
 
-Save a copy of `Makefile.in` as `Makefile` at the top of the source
-tree, and modify the variables `CURDIR` and `MYDIR` as appropriate. To
-compile the library, run::
-  make
-  
-This will produce an archive file `libhdme.a` in the source directory. The
+Run::
+  ./configure
+to create the Makefile. To compile the library, run::
+  make  
+This will produce a shared library in the source directory. The
 Makefile also responds to the standard commands::
   make tests
   make check
@@ -47,26 +46,6 @@ A detailed documentation for each function existed in previous
 versions, but is now outdated. For examples of usage, look at the test
 files in the `test` subfolder of each module.
 
-Examples
-========
-
-Example programs are also available in the `time` subfolder of certain
-modules. To compile and run them, use::
-  make time
-  
-This will take a few minutes. Otherwise, these programs can be run
-individually from the `build/time` subfolder of the source
-directory. Then::
-  make plots
-
-will produce simple graph representations of the raw data in the
-`time` subfolder of the source directory, if a Python interpreter is
-available.
-
-Some of the library's functionalities (computation of period matrices
-and Igusa invariants to high precisions) are also available as
-standalone programs.
-  
 Credits
 =======
 
