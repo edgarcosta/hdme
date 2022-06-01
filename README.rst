@@ -29,10 +29,12 @@ version 2.8.0 or later.
 Installation
 ============
 
-Run::
+Run
+::
   ./configure
   
-to create the Makefile. To compile the library, run::
+to create the Makefile. To compile the library, run
+::
   make
   
 This will produce a shared library in the source directory. The
