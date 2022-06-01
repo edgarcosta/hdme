@@ -8,7 +8,7 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
   modeq_acb_t E;
   acb_t c;
   fmpz_poly_t beta;
-  slong nb = 2*hilbert_nb_cosets(ell, delta);
+  slong nb = hilbert_nb_cosets(ell, delta);
   slong prec = hilbert_modeq_startprec(I, ell, delta);
   int res;
   int v = MODEQ_VERBOSE;
@@ -50,6 +50,7 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
   
   hecke_clear(H);
   modeq_acb_clear(E);
+  fmpz_poly_clear(beta);
   acb_clear(c);
   return res;
 }

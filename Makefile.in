@@ -23,7 +23,7 @@ RUNTESTS = $(patsubst build/%, run/%, $(TESTS))
 
 # Targets
 
-all: library tests programs
+all: library tests
 
 check: library tests $(RUNTESTS)
 
