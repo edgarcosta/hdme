@@ -2,18 +2,18 @@ Description
 ===========
 
 This repository contains a C library for evaluating higher-dimensional
-modular equations by analytic methods. As it stands now, only a few
+modular equations by analytic methods. As it stands now, the following
 types of modular equations in genus g=2 are supported, either over the
 rationals or prime finite fields:
 
-- Modular equations of Siegel type in Igusa invariants;
+- Modular equations of Siegel type;
 
-- Modular equations of Hilbert type in Igusa invariants, using
-  parametrizations of Humbert surfaces for all fundamental
-  discriminants less than 100;
+- Modular equations of Hilbert type, using parametrizations of Humbert
+  surfaces for all fundamental discriminants less than 100, and
+  Hilbert surfaces for all fundamental discriminants less than 20.
 
-- Modular equations of Hilbert type in Gundlach invariants for
-  discriminant 5.
+The choice of coordinates is dynamic, so that all corner cases (extra
+endomorphisms, vanishing of I4...) can be covered.
 
 Along the way, the library provides functionality for the evaluation
 of genus 2 theta constants in quasi-linear time, and for the action of
