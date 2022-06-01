@@ -51,6 +51,7 @@ int hecke_collect_hilbert_sym(hecke_t H,
       
       hilbert_mat_map(gamma, m, delta);
       fmpz_mat_mul(gamma, gamma, hecke_eta(H));
+      
       res = hecke_set_entry(H, k, gamma, prec);    
     }
   

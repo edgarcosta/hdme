@@ -25,7 +25,7 @@ int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec)
       flint_abort();
     }
   
-  res = siegel_transform(im, gamma, hecke_tau(H), prec);  
+  res = siegel_transform(im, gamma, hecke_tau(H), prec);
   if (res) res = siegel_fundamental_domain(hecke_isog(H, k), eta, im, tol, prec);
  
   if (res)

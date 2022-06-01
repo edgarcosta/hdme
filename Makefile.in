@@ -59,6 +59,7 @@ run/%: build/%
 	@$<
 
 $(TESTS): %: %.o $(OBJS)
+	@echo CC $<
 	@$(CC) $(CFLAGS) $(INCS) $^ -o $@ $(LIBS)
 
 install: library

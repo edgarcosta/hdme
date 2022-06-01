@@ -37,7 +37,12 @@ int siegel_reduce_real(acb_mat_t w, fmpz_mat_t u, const acb_mat_t z,
   
   for (i = 0; i < g; i++)
     {
-      for (j = 0; j < g; j++)
+      for (j = 0; j < i; j++)
+	{
+	  fmpz_set(acb_mat_entry(round, i, j),
+		   acb_mat_entry(round, j, i));
+	}
+      for (j = i; j < g; j++)
 	{
 	  res = res && arb_round_fmpz(fmpz_mat_entry(round, i, j),
 				      acb_realref(acb_mat_entry(z, i, j)), tol);

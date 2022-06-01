@@ -35,12 +35,12 @@ void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
   acb_pow_si(c, c, wt, prec);
 
   /* Step 5: additional factor according to additional MF generators */
-  igusa_make_integral(scal, I, hecke_nb(H) * wt, (hecke_prod_ec(H) - 1) * wt);
+  igusa_make_integral(scal, I, hecke_nb(H) * wt, FLINT_MAX(hecke_prod_ec(H) - 1, 0) * wt);
   acb_set_fmpq(s, scal, prec);
   acb_mul(c, c, s, prec);
 
   /* Step 6: divide by power of chi10 if appropriate */
-  if (modeq_ctx_has_chi10_factor(ctx))
+  if (modeq_ctx_has_chi10_factor(ctx) && hecke_prod_ec(H) >= 1)
     {
       acb_set_fmpz(s, igusa_chi10(I));
       acb_pow_si(s, s, 1 - hecke_prod_ec(H), prec);

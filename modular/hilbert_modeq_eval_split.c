@@ -31,7 +31,7 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
     {
       if (v) modeq_verbose_start(prec);
       
-      res = hecke_set_I_fmpz_hilbert(H, I, prec, delta);
+      res = hecke_set_I_fmpz_hilbert(H, I, delta, prec);
       if (res) res = hecke_collect_hilbert(H, beta, ell, delta, prec);
       if (res) res = modeq_ctx_choose(ctx1, hecke_all_I(H), nb, prec);
       if (res) modeq_product_trees(E, H, ctx1, prec);

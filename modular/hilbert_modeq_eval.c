@@ -22,7 +22,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
     {
       if (v) modeq_verbose_start(prec);
       
-      res = hecke_set_I_fmpz_hilbert(H, I, prec, delta);
+      res = hecke_set_I_fmpz_hilbert(H, I, delta, prec);
       if (res) res = hecke_collect_hilbert_sym(H, ell, delta, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res) modeq_product_trees(E, H, ctx, prec);
@@ -30,13 +30,13 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 	{
 	  modeq_scalar(c, H, I, ctx, prec);
 	  modeq_rescale(E, E, c, prec);
-	  modeq_round(R, &gap, E);
+	  res = modeq_round(R, &gap, E);
 	  prec = modeq_nextprec_precise(prec, gap);
 	}
-      else if (res) /* Delta is not 5 */
+      else
 	{
-	  res = modeq_rationalize(R, E, prec);
 	  prec = modeq_nextprec_generic(prec);
+	  if (res) res = modeq_rationalize(R, E, prec);
 	}
 
       stop = modeq_stop(res, prec);

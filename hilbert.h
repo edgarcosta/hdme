@@ -73,6 +73,8 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec);
 
 void gundlach_from_hilbert_param(fmpz* G, fmpq* mn, slong delta);
 
+void igusa_from_gundlach_fmpz(fmpz* I, fmpz* G, slong delta);
+
 
 /* The Hilbert half space */
 

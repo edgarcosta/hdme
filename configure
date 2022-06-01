@@ -359,6 +359,7 @@ echo "LIBS=$LIBS" >> Makefile
 echo "" >> Makefile
 echo "CC=$CC" >> Makefile
 echo "AR=$AR" >> Makefile
+echo "ARFLAGS=$ARFLAGS" >> Makefile
 echo "LDCONFIG=$LDCONFIG" >> Makefile
 echo "" >> Makefile
 echo "" >> Makefile

@@ -68,16 +68,18 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   /* Collect possibly equal pairs */
   for (j = 0; j < nb; j++)
     {
+      j0 = -1;
       for (k = j+1; k < nb; k++)
 	{
 	  if (!cov_distinct(&I[4*j], &I[4*k], 4, weights, prec))
 	    {
-	      if (v)
+	      if (v && (j0==-1))
 		{
-		  flint_printf("(modeq_ctx_choose) Found suspicious pair: %wd, %wd\n",
+		  flint_printf("(modeq_ctx_choose) Possibly isomorphic: %wd, %wd\n",
 			       j, k);
 		}
 	      modeq_ctx_add_pair(ctx, j, k);
+	      j0 = k;
 	    }
 	}
     }
