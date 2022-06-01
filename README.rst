@@ -31,10 +31,12 @@ Installation
 
 Run::
   ./configure
+  
 to create the Makefile. To compile the library, run::
-  make  
+  make
+  
 This will produce a shared library in the source directory. The
-Makefile also responds to the standard commands::
+Makefile also responds to the standard commands ::
   make tests
   make check
   make clean
