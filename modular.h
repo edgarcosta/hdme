@@ -171,12 +171,11 @@ void modeq_isog_monomials_Fp(fmpz* M, const modeq_t E, const fmpz_t root,
 void modeq_isog_monomials_nf(fmpz_poly_struct* M, const modeq_t E,
 			     const fmpz_poly_t factor, slong mult);
 
-void modeq_all_isog_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
-		      slong* exp_array, const modeq_t E, const modeq_ctx_t ctx);
+void modeq_all_isog_Q(slong* nb_roots, fmpz* all_I,
+		      const modeq_t E, const modeq_ctx_t ctx);
 
-int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
-		      slong* exp_array, const modeq_t E, const modeq_ctx_t ctx,
-		      const fmpz_mod_ctx_t fpctx);
+int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
+		      const modeq_ctx_t ctx, const fmpz_mod_ctx_t fpctx);
 
 
 /* Siegel modular equations */
@@ -185,12 +184,10 @@ slong siegel_modeq_startprec(fmpz* I, slong ell);
 
 int siegel_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
 
-int siegel_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
-			    slong* exp_array, fmpz* I, slong ell);
+int siegel_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell);
 
-int siegel_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
-			     slong* exp_array, fmpz* I, slong ell,
-			     const fmpz_mod_ctx_t ctx);
+int siegel_all_isog_Fp(slong* nb_roots, fmpz* all_I,
+		       fmpz* I, slong ell, const fmpz_mod_ctx_t fpctx);
 
 
 /* 2-step Siegel modular equations */
@@ -199,12 +196,10 @@ slong siegel_modeq_2step_startprec(fmpz* I, slong ell);
 
 int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell);
 
-int siegel_2step_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
-				  slong* exp_array, fmpz* I, slong ell);
+int siegel_2step_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell);
 
-int siegel_2step_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
-                                   slong* exp_array, fmpz* I, slong ell,
-				   const fmpz_mod_ctx_t ctx);
+int siegel_2step_all_isog_Fp(slong* nb_roots, fmpz* all_I,
+			     fmpz* I, slong ell, const fmpz_mod_ctx_t fpctx);
 
 
 /* Hilbert modular equations */
@@ -214,14 +209,11 @@ slong hilbert_modeq_startprec(fmpz* I, slong ell, slong delta);
 int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 		       slong ell, slong delta);
 
-int hilbert_isog_monomials_Q(slong* nb_roots, fmpz* all_M, slong* nb_M,
-			     slong* exp_array, fmpz* I, slong ell,
-			     slong delta);
+int hilbert_all_isog_Q(slong* nb_roots, fmpz* all_I,
+		       fmpz* I, slong ell, slong delta);
 
-int hilbert_isog_monomials_Fp(slong* nb_roots, fmpz* all_M, slong* nb_M,
-			      slong* exp_array, fmpz* I, slong ell,
-			      slong delta, const fmpz_mod_ctx_t fpctx);
-
+int hilbert_all_isog_Fp(slong* nb_roots, fmpz* all_I, fmpz* I,
+			slong ell, slong delta, const fmpz_mod_ctx_t fpctx);
 
 int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
 			     modeq_ctx_t ctx2, fmpz* I, slong ell, slong delta);

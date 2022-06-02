@@ -5,39 +5,23 @@ int main()
 {
   slong iter;
   
-  flint_printf("siegel_2step_isog_monomials_Q....");
+  flint_printf("siegel_2step_all_isog_Q....");
   fflush(stdout);
 
   for (iter = 0; iter < 2; iter++)
     {
       fmpz* I1;
       fmpz* I2;
+      fmpz* all_I;
       slong ell;
       slong max_nb_roots = 2;
-      slong nb_roots;
-      slong wt;
-      fmpz* all_M;
-      slong nb_M;
-      slong* exp_array;
-      fmpz_mpoly_ctx_t ctx;
-      fmpz_mpoly_t mon;
-      fmpz* test_M;
+      slong nb_roots = 1;
       slong k;
-      int print = 0;
       int res;
-
-      nb_roots = 1;
-      wt = 20;
-      nb_M = igusa_nb_base_monomials(wt);
       
       I1 = _fmpz_vec_init(4);
       I2 = _fmpz_vec_init(4);
-      all_M = _fmpz_vec_init(nb_M * max_nb_roots);
-      exp_array = flint_malloc(4 * nb_M * sizeof(slong));
-      
-      fmpz_mpoly_ctx_init(ctx, 4, ORD_LEX);
-      fmpz_mpoly_init(mon, ctx);
-      test_M = _fmpz_vec_init(nb_M);
+      all_I = _fmpz_vec_init(4 * max_nb_roots);
       
       if (iter == 0)
 	{
@@ -71,37 +55,20 @@ int main()
       igusa_from_IC_fmpz(I1, I1);
       igusa_from_IC_fmpz(I2, I2);
 
-      siegel_2step_isog_monomials_Q(&nb_roots, all_M, &nb_M, exp_array,
-				    I1, ell);
-      if (nb_roots == 0 || nb_M != igusa_nb_base_monomials(wt))
+      siegel_2step_all_isog_Q(&nb_roots, all_I, I1, ell);
+      
+      if (nb_roots == 0)
 	{
-	  flint_printf("FAIL (roots/weight)\n");
-	  flint_printf("nb_roots = %wd, nb_M = %wd\n", nb_roots, nb_M);
+	  flint_printf("FAIL (roots)\n");
+	  flint_printf("nb_roots = %wd\n", nb_roots);
 	  fflush(stdout);
 	  flint_abort();
 	}
 
-      if (print)
-	{
-	  flint_printf("Exponents:\n");
-	  for (k = 0; k < 4*nb_M; k++)
-	    {
-	      flint_printf("%wd ", exp_array[k]);
-	    }
-	  flint_printf("\n");
-	}
-
-      for (k = 0; k < nb_M; k++)
-	{
-	  cov_monomial(mon, &exp_array[4*k], ctx);
-	  cov_mpoly_eval_fmpz(&test_M[k], mon, I2, ctx);
-	}
-      cov_normalize_fmpz_wt1(test_M, test_M, nb_M);
-
       res = 0;
       for (k = 0; k < nb_roots; k++)
 	{
-	  if (_fmpz_vec_equal(test_M, &all_M[k*nb_M], nb_M)) res = 1;
+	  if (_fmpz_vec_equal(I2, &all_I[4*k], 4)) res = 1;
 	}
       if (!res)
 	{
@@ -112,11 +79,7 @@ int main()
 
       _fmpz_vec_clear(I1, 4);
       _fmpz_vec_clear(I2, 4);
-      _fmpz_vec_clear(all_M, nb_M * max_nb_roots);
-      flint_free(exp_array);
-      _fmpz_vec_clear(test_M, nb_M);
-      fmpz_mpoly_clear(mon, ctx);
-      fmpz_mpoly_ctx_clear(ctx);
+      _fmpz_vec_clear(all_I, 4 * max_nb_roots);
     }
 
   flint_cleanup();

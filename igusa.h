@@ -152,7 +152,7 @@ void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
 void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
-				 fmpz* M, slong wt);				 
+				 fmpz* M, slong wt);	 
 
 void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 			       int z4, int z6, int z10, int z12, slong wt);
