@@ -105,6 +105,8 @@ void cov_factors(fmpz_factor_t fac, fmpz* I, slong nb);
 
 void cov_valuation_fmpq(fmpq_t val, fmpq* I, const fmpz_t p, slong nb, slong* weights);
 
+void cov_adjust_weights(slong* adj, slong* weights, fmpz* I, slong nb);
+
 void cov_normalize_fmpz(fmpz* I, fmpz* S, slong nb, slong* weights);
 
 void cov_normalize_fmpz_wt1(fmpz* I, fmpz* S, slong nb);
@@ -149,7 +151,13 @@ void igusa_base_exps(slong* exps, slong wt, slong k);
 void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
-void igusa_from_monomials(fmpz* I, fmpz* mon, slong wt);
+void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
+				 fmpz* M, slong wt);				 
+
+void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
+			       int z4, int z6, int z10, int z12, slong wt);
+
+void igusa_from_monomials(fmpz* I, fmpz* M, slong wt);
 
 void igusa_print_coordinate(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
 
