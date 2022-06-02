@@ -47,7 +47,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
   
   if (z10 && z12)
     {	      
-      flint_printf("(igusa_rec_exps) Error: chi10, chi12 cannot be simultaneously zero\n");
+      flint_printf("(igusa_from_monomials_exps) Error: chi10, chi12 cannot be simultaneously zero\n");
       fflush(stdout);
       flint_abort();
     }
@@ -56,7 +56,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
     {
       if (z4)
 	{
-	  flint_printf("(igusa_rec_exps) Error: psi4 cannot be zero in case of weight 20\n");
+	  flint_printf("(igusa_from_monomials_exps) Error: psi4 cannot be zero in case of weight 20\n");
 	  fflush(stdout);
 	  flint_abort();	  
 	}
