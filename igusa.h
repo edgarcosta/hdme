@@ -149,6 +149,8 @@ void igusa_base_exps(slong* exps, slong wt, slong k);
 void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
+void igusa_from_monomials(fmpz* I, fmpz* mon, slong wt);
+
 void igusa_print_coordinate(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
 
 void igusa_try_coordinate(fmpz_mpoly_t pol, slong wt, slong j,
