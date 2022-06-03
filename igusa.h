@@ -141,6 +141,10 @@ void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx);
 void cov_monomial_degrees(slong* exps, const fmpz_mpoly_t mon,
 			  const fmpz_mpoly_ctx_t ctx);
 
+slong cov_nb_monomials(slong wt, slong nb, slong* weights);
+
+void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights);
+		  
 
 /* Weighted polynomials in Igusa covariants */
 

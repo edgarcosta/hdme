@@ -305,7 +305,7 @@ if [ -z "$HDME_LIB" ]; then
       *)
          HDME_LIBNAME="libhdme.so"
 	 HDME_LIB="libhdme.so.$HDME_MAJOR.$HDME_MINOR.$HDME_PATCH"
-	 EXTRA_SHARED_FLAGS="-Wl,-soname,libhdme.so.$HDME_MAJOR"
+	 EXTRA_SHARED_FLAGS="-Wl,-rpath,-soname,libhdme.so.$HDME_MAJOR"
 	 HDME_SOLIB=1;;
    esac
 fi
