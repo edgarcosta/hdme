@@ -1,29 +1,27 @@
 
 #include "modular.h"
 
-int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
-			      fmpz* I, slong ell)
+int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
+				 hecke_t H, fmpz* I, slong ell)
 {
-  hecke_t H;
   modeq_acb_t E;
   acb_t c;
-  slong nb = siegel_nb_T1_cosets_with_line(ell);
+  slong nb = siegel_nb_cosets(ell);
   slong prec = siegel_modeq_startprec(I, ell);
   slong gap;
   int res;
   int v = MODEQ_VERBOSE;
   int stop = 0;
-  
-  hecke_init(H, nb);
+
   modeq_acb_init(E);
   acb_init(c);
-  
+
   while (!stop)
     {
       if (v) modeq_verbose_start(prec);
       
       res = hecke_set_I_fmpz(H, I, prec);
-      if (res) res = hecke_collect_T1_with_line(H, L, ell, prec);
+      if (res) res = hecke_collect_siegel(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res)
 	{
@@ -41,7 +39,6 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
       stop = modeq_stop(res, prec);
     }
   
-  hecke_clear(H);
   modeq_acb_clear(E);
   acb_clear(c);
   return res;

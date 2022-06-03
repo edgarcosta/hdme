@@ -221,13 +221,16 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
 
 /* Alternative take on siegel_2step_all_isog_Q? */
 
+int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
+				 hecke_t H, fmpz* I, slong ell);
+
 void alt_2step_factors(slong* nb, fmpz_poly_struct* factors, slong* mults,
 		       const modeq_t E, slong ell);
 
 int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
-			  const hecke_t H, const modeq_ctx_t ctx, slong prec);
+			  const hecke_t H, const modeq_ctx_t ctx);
 
-int alt_2step_line(fmpz_mat_t L, slong* indices, const hecke_t H);
+int alt_2step_line(fmpz_mat_t L, slong* indices, slong nb, const hecke_t H);
 
 int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
 			      fmpz* I, slong ell);

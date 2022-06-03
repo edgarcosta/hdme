@@ -34,6 +34,7 @@
 typedef struct
 {
   /* Context information */
+  slong prec;
   acb_mat_t tau; /* Original period matrix */
   acb_ptr theta2_tau;
   acb_ptr I_tau;
@@ -62,6 +63,7 @@ typedef hecke_struct hecke_t[1];
 
 /* Access macros */
 
+#define hecke_prec(H) ((H)->prec)
 #define hecke_tau(H) ((H)->tau)
 #define hecke_theta2_tau(H) ((H)->theta2_tau)
 #define hecke_I_tau(H) ((H)->I_tau)

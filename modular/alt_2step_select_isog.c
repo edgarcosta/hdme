@@ -2,11 +2,12 @@
 #include "modular.h"
 
 int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
-			  const hecke_t H, const modeq_ctx_t ctx, slong prec)
+			  const hecke_t H, const modeq_ctx_t ctx)
 {
   acb_t num, den;
   acb_poly_t pol;
   slong* seen;
+  slong prec = hecke_prec(H);
   
   slong k, j;
   slong nb;

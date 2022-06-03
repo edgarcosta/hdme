@@ -6,6 +6,7 @@ int hecke_set_tau(hecke_t H, const acb_mat_t tau, slong prec)
   int res;
   int v = MODEQ_VERBOSE;
 
+  hecke_prec(H) = prec;
   acb_mat_set(hecke_tau(H), tau);
   
   res = theta2_unif(hecke_theta2_tau(H), tau, prec);
