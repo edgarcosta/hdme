@@ -22,6 +22,8 @@
 #include "hilbert.h"
 
 #define HECKE_RED_TOL_BITS 50
+#define HECKE_CHARPOLY_PREC_MUL 1.8
+#define HECKE_SELECT_BASEPTS_TRIALS 3
 
 #ifndef HECKE_VERBOSE
 #define HECKE_VERBOSE 1
@@ -165,6 +167,26 @@ void hecke_eigenvalue_eisenstein_p(fmpz_t eig, slong k, slong p);
 
 void hecke_eigenvalues_eisenstein_p2(fmpz* eig, slong k, slong p);
 
+
+/* Hecke tables */
+
+void hecke_action_all_monomials(acb_ptr r, const hecke_t H, slong wt,
+				slong ell, slong prec);
+
+int hecke_basis_matrix(acb_mat_t basis, slong nb, const acb_mat_struct* pts,
+		       slong wt, slong prec);
+
+int hecke_image_matrix(acb_mat_t image, slong nb, const acb_mat_struct* pts,
+		       slong wt, slong ell, slong prec);
+
+int hecke_select_basepts(acb_mat_struct* pts, acb_mat_t basis_inv,
+			 slong wt, slong prec);
+
+slong hecke_charpoly_startprec(slong wt);
+
+slong hecke_charpoly_nextprec(slong prec);
+
+int hecke_charpoly(fmpz_poly_t pol, slong ell, slong wt);
 
 #endif 
 

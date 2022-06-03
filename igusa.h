@@ -144,9 +144,12 @@ void cov_monomial_degrees(slong* exps, const fmpz_mpoly_t mon,
 slong cov_nb_monomials(slong wt, slong nb, slong* weights);
 
 void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights);
-		  
 
-/* Weighted polynomials in Igusa covariants */
+void cov_eval_all_monomials(acb_ptr ev, acb_srcptr I, slong wt,
+			    slong nb, slong* weights, slong prec);
+
+
+/* Weighted polynomials in Igusa covariants */			      
 
 slong igusa_nb_base_monomials(slong wt);
 
@@ -162,6 +165,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 			       int z4, int z6, int z10, int z12, slong wt);
 
 void igusa_from_monomials(fmpz* I, fmpz* M, slong wt);
+
 
 void igusa_print_coordinate(const fmpz_mpoly_t pol, const fmpz_mpoly_ctx_t ctx);
 
