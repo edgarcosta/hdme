@@ -149,7 +149,7 @@ void cov_eval_all_monomials(acb_ptr ev, acb_srcptr I, slong wt,
 			    slong nb, slong* weights, slong prec);
 
 
-/* Weighted polynomials in Igusa covariants */			      
+/* Weighted polynomials in Igusa covariants */	      
 
 slong igusa_nb_base_monomials(slong wt);
 

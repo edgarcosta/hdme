@@ -29,6 +29,8 @@ void hdme_data_vars_clear(char** vars, slong nb);
 
 void hdme_data_vars_set(char** vars, const char* name, slong k);
 
+void hdme_data_get_string(char* s, const char* key);
+
 void hdme_data_read(fmpq_mpoly_t pol, const char** vars, const char* name,
 		    const fmpq_mpoly_ctx_t ctx);
 
