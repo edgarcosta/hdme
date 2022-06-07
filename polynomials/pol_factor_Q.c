@@ -6,11 +6,11 @@ void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
 {
   fmpz_poly_factor_t fac;
   slong k;
-  int v = MODEQ_VERBOSE;
+  int v = POL_FACTOR_VERBOSE;
 
   fmpz_poly_factor_init(fac);
   
-  if (v) flint_printf("(modeq_factor_Q) Factoring...\n");
+  if (v) flint_printf("(pol_factor_Q) Factoring...\n");
   
   fmpz_poly_factor(fac, pol);
   *nb_factors = fac->num;
@@ -23,7 +23,7 @@ void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
   
   if (v)
     {
-      flint_printf("(modeq_factor_Q) Factorization pattern: %wd",
+      flint_printf("(pol_factor_Q) Factorization pattern: %wd",
 		   fmpz_poly_degree(&factors[0]));
       for (k = 1; k < *nb_factors; k++)
 	{
