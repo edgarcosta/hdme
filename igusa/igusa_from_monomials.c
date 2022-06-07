@@ -34,8 +34,13 @@ void igusa_from_monomials(fmpz* I, fmpz* M, slong wt)
   cov_monomial(pol, e12, ctx);
   cov_mpoly_eval_fmpz(igusa_chi12(res), pol, M, ctx);
 
+  if (z4) fmpz_zero(igusa_psi4(res));
+  if (z6) fmpz_zero(igusa_psi6(res));
+  if (z10) fmpz_zero(igusa_chi10(res));
+  if (z12) fmpz_zero(igusa_chi12(res));
+
   _fmpz_vec_set(I, res, 4);
-  cov_adjust_weights(weights, weights, I, 4);  
+  cov_adjust_weights(weights, weights, I, 4);
   cov_normalize_fmpz(I, I, 4, weights);
 
   fmpz_mpoly_clear(pol, ctx);

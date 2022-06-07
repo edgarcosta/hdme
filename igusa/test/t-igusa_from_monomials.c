@@ -11,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
     {
       fmpz* I;
       fmpz* M;
@@ -24,6 +24,7 @@ int main()
       slong mag_bits = 10;
       slong wts[3] = {20, 30, 60};
       slong weights[4] = IGUSA_HALFWEIGHTS;
+      int print = 0;
 
       I = _fmpz_vec_init(4);
       test = _fmpz_vec_init(4);
@@ -59,6 +60,23 @@ int main()
 	{
 	  igusa_base_monomial(mon, wt, k, ctx);
 	  cov_mpoly_eval_fmpz(&M[k], mon, I, ctx);
+	}
+
+      if (print)
+	{
+	  flint_printf("I:\n");
+	  for (k = 0; k < 4; k++)
+	    {
+	      fmpz_print(&I[k]); flint_printf("\n");
+	    }
+	  flint_printf("Adjusted weights: ");
+	  for (k = 0; k < 4; k++) flint_printf("%wd ", weights[k]);
+	  flint_printf("\n");
+	  flint_printf("Weight %wd, monomials:\n", wt);
+	  for (k = 0; k < nb; k++)
+	    {
+	      fmpz_print(&M[k]); flint_printf("\n");
+	    }
 	}
 
       igusa_from_monomials(test, M, wt);

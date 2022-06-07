@@ -45,7 +45,7 @@ void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
       *z10 = fmpz_is_zero(&M[i_0020]);
       *z6 = fmpz_is_zero(&M[i_2200]);
       *z12 = fmpz_is_zero(&M[i_2001]);
-      *z4 = 1;
+      *z4 = 0;
     }
 
   else if (wt == 30)
