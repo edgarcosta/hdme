@@ -7,7 +7,6 @@ int pol_reduce_Fp(fmpz_mod_poly_t red, const fmpz_poly_t num,
   int res;
   fmpz_t one;
   fmpz_t invden;
-  int v = MODEQ_VERBOSE;
   
   fmpz_init(one);
   fmpz_init(invden);
