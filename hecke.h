@@ -146,7 +146,7 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec);
 
 slong siegel_nb_T1_cosets_with_line(slong ell);
 
-int siegel_T1_coset_contains_line(const fmpz_mat_t m, const fmpz_mat_t L, slong ell);
+int siegel_T1_coset_contains_line_dual(const fmpz_mat_t m, const fmpz_mat_t L, slong ell);
 
 int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
 			       slong ell, slong prec);

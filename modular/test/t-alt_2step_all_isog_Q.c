@@ -9,7 +9,7 @@ int main()
   flint_printf("alt_2step_all_isog_Q....");
   fflush(stdout);
 
-  for (iter = 0; iter < 2; iter++)
+  for (iter = 0; iter < 1; iter++)
     {
       fmpz* I1;
       fmpz* I2;

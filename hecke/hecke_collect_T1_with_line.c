@@ -23,7 +23,7 @@ int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
   for (j = 0; j < nb_all; j++)
     {      
       siegel_T1_coset(gamma, j, ell);
-      if (siegel_T1_coset_contains_line(gamma, L, ell))
+      if (siegel_T1_coset_contains_line_dual(gamma, L, ell))
 	{	  
 	  if (v) hecke_collect_print_status(res, k, nb);
 	  if (!res) break;

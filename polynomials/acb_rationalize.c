@@ -64,11 +64,20 @@ int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
   
   acb_mul_fmpz(z, x, probable_den, prec);
   
-  if (!arb_contains_zero(acb_imagref(z)) ||
-      mag_cmp_2exp_si(arb_radref(acb_realref(z)), 0) > 0)
+  if (!arb_contains_zero(acb_imagref(z)))
+    {      
+      flint_printf("(acb_rationalize) Error: contains no real number\n");
+      acb_printd(x, 10); flint_printf("\n");
+      fflush(stdout);
+      flint_abort();
+    }
+  
+  if (mag_cmp_2exp_si(arb_radref(acb_realref(z)), 0) > 0)
     {
+      /* Too imprecise */
       res = 0;
     }
+  
   if (res)
     {
       arf_set(current, arb_midref(acb_realref(z)));
@@ -84,9 +93,6 @@ int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
 	      tol_exp = -prec/8;
 	    }
 	  stop = cont_frac_step(&r_vec[k], current, current, prec, tol_exp);
-	  /*
-	  flint_printf("Step %wd: ", k);
-	  fmpz_print(&r_vec[k]); flint_printf("\nStop: %d\n", stop); */
 	  k++;
 	}
       if (k == max_steps)

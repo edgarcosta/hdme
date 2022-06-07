@@ -37,7 +37,7 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
 	{	  
 	  prec = modeq_nextprec_generic(prec);
 	}
-
+      
       stop = modeq_stop(res, prec);
     }
   

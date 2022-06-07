@@ -112,6 +112,10 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
       igusa_print_coordinate(modeq_ctx_den(ctx), modeq_ctx_ctx(ctx));
       flint_printf("\n");
     }
+  else if (!res && v)
+    {
+      flint_printf("(modeq_ctx_choose) No suitable denominator found\n");
+    }
   
   /* Choose numerator: num/den should be distinct on non-"equal" pairs */
   if (res)
@@ -150,6 +154,10 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 	  flint_printf("(modeq_ctx_choose) Numerator found: ");
 	  igusa_print_coordinate(modeq_ctx_num(ctx), modeq_ctx_ctx(ctx));
 	  flint_printf("\n");
+	}
+      else if (!res && v)
+	{
+	  flint_printf("(modeq_ctx_choose) No suitable numerator found\n");
 	}
     }
     

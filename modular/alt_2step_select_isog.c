@@ -51,6 +51,7 @@ int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
 	      break;
 	    }
 	  indices[nb] = k;
+	  seen[k] = 1;
 	  nb++;
 	}
     }
