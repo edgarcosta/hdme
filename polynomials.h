@@ -17,6 +17,10 @@
 #include <flint/fmpz_poly.h>
 #include <flint/fmpz_mod_poly.h>
 
+#ifndef POL_FACTOR_VERBOSE
+#define POL_FACTOR_VERBOSE 1
+#endif
+
 #define HDME_RD_RADIUS_PREC 100
 
 void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,

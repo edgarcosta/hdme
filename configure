@@ -262,7 +262,7 @@ if [ "$GDB" = "1" ]; then
 fi
 
 if [ "$VERBOSE" = "0" ]; then
-    FLAGS="${FLAGS} -DMODEQ_VERBOSE=0 -DHECKE_VERBOSE=0";
+    FLAGS="${FLAGS} -DMODEQ_VERBOSE=0 -DHECKE_VERBOSE=0 -DPOL_FACTOR_VERBOSE=0";
 elif [ "$VERBOSE" = "1" ]; then
     FLAGS="${FLAGS} -DMODEQ_VERBOSE=1 -DHECKE_VERBOSE=1";
 elif [ "$VERBOSE" = "2" ]; then
