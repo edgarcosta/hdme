@@ -4,7 +4,7 @@
 int hecke_set_I_fmpz(hecke_t H, fmpz* I, slong prec)
 {
   int res;
-  int v = MODEQ_VERBOSE;
+  int v = HECKE_VERBOSE;
 
   hecke_prec(H) = prec;
 
