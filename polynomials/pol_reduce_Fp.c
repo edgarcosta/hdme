@@ -14,8 +14,6 @@ int pol_reduce_Fp(fmpz_mod_poly_t red, const fmpz_poly_t num,
   
   fmpz_one(one);
   res = fmpz_mod_divides(invden, one, den, ctx);
-  
-  if (v && !res) flint_printf("(pol_reduce_Fp) Warning: denominator vanishes\n");
 
   if (res)
     {
