@@ -19,29 +19,29 @@ void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights)
     {
       for (k = 0; k < nb; k++) exps[k] = 0;
     }
-  else
+  
+  else if (nb >= 1)
     {
       w = 0;
       cur_j = 0;
       while (w <= wt)
 	{
 	  aux_j = cov_nb_monomials(wt - w, nb - 1, &weights[1]);
-	  aux = flint_malloc(aux_j * sizeof(slong));
+	  aux = flint_malloc(aux_j * (nb-1) * sizeof(slong));
 	  
 	  cov_all_exps(aux, wt - w, nb - 1, &weights[1]);
 	  for (k = cur_j; k < cur_j + aux_j; k++)
 	    {
-	      exps[k*nb] = w;
-	      for (i = 0; i < nb-1; i++)
+	      exps[k*nb] = w / weights[0];
+	      for (i = 1; i < nb; i++)
 		{
-		  exps[k*nb + i] = aux[k*(nb-1) + i];
+		  exps[k*nb + i] = aux[(k-cur_j)*(nb-1) + (i-1)];
 		}
 	    }
 
 	  flint_free(aux);
 	  cur_j += aux_j;
-	  wt += weights[0];	  
+	  w += weights[0];	  
 	}
-    }
-  
+    }  
 }
