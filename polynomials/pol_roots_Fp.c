@@ -8,7 +8,7 @@ void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
   fmpz_mod_poly_t lin;
   fmpz_t num, den;
   slong k;
-  int v = MODEQ_VERBOSE;
+  int v = POL_VERBOSE;
 
   fmpz_mod_poly_factor_init(fac, ctx);
   fmpz_mod_poly_init(lin, ctx);

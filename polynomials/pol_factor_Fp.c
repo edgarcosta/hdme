@@ -6,7 +6,7 @@ void pol_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* exps
 {
   fmpz_mod_poly_factor_t fac;
   slong k;
-  int v = POL_FACTOR_VERBOSE;
+  int v = POL_VERBOSE;
 
   fmpz_mod_poly_factor_init(fac, ctx);
   if (v) flint_printf("(pol_factor_Fp) Factoring...\n");

@@ -17,8 +17,8 @@
 #include <flint/fmpz_poly.h>
 #include <flint/fmpz_mod_poly.h>
 
-#ifndef POL_FACTOR_VERBOSE
-#define POL_FACTOR_VERBOSE 1
+#ifndef POL_VERBOSE
+#define POL_VERBOSE 1
 #endif
 
 #define HDME_RD_RADIUS_PREC 100

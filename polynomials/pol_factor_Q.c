@@ -6,7 +6,7 @@ void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
 {
   fmpz_poly_factor_t fac;
   slong k;
-  int v = POL_FACTOR_VERBOSE;
+  int v = POL_VERBOSE;
 
   fmpz_poly_factor_init(fac);
   
