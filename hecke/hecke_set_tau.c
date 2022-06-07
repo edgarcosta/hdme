@@ -4,7 +4,7 @@
 int hecke_set_tau(hecke_t H, const acb_mat_t tau, slong prec)
 {
   int res;
-  int v = MODEQ_VERBOSE;
+  int v = HECKE_VERBOSE;
 
   hecke_prec(H) = prec;
   acb_mat_set(hecke_tau(H), tau);
