@@ -23,6 +23,7 @@
 #include "hdme_data.h"
 #include "siegel.h"
 #include "theta.h"
+#include "verbose.h"
 
 #define IGUSA_WEIGHTS {4,6,10,12}
 #define IGUSA_HALFWEIGHTS {2,3,5,6}
@@ -37,9 +38,6 @@
 #define THOMAE_LOWPREC 50
 #define THOMAE_MULPREC 8
 
-#ifndef THOMAE_VERBOSE
-#define THOMAE_VERBOSE 0
-#endif
 
 /* We call I the following vector of covariants:
    psi4 = I4/4

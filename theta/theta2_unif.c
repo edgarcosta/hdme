@@ -18,7 +18,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   int flag_naive, flag_newton;
   int res;
   slong i, j;
-  int v = THETA_VERBOSE;
+  int v = get_theta_verbose();
 
   fmpz_mat_init(eta, 2*g, 2*g);
   fmpz_mat_init(eta_inv, 2*g, 2*g);

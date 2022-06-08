@@ -12,7 +12,7 @@ int hecke_charpoly(fmpz_poly_t pol, slong ell, slong wt)
   arf_t rad;
   slong gap;
   slong prec = hecke_charpoly_startprec(wt);
-  int v = HECKE_VERBOSE;
+  int v = get_hecke_verbose();
   slong k;
   int res = 0;
 

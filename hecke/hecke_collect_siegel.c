@@ -7,7 +7,7 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
   fmpz_mat_t gamma;
   slong nb = hecke_nb(H);
   int res = 1;
-  int v = HECKE_VERBOSE;
+  int v = get_hecke_verbose();
   
   fmpz_mat_init(gamma, 4, 4);
   

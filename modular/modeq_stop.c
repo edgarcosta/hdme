@@ -3,7 +3,7 @@
 
 int modeq_stop(int res, slong prec)
 {
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
   int stop;
   
   if (res)

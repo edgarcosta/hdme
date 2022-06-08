@@ -8,7 +8,7 @@ int modeq_round(modeq_t R, slong* bits, const modeq_acb_t E)
   int b;
   int res = 1;
   slong k;
-  slong v = MODEQ_VERBOSE;
+  slong v = get_modeq_verbose();
 
   arf_init(radius);
   arf_init(max_radius);
