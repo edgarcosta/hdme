@@ -11,7 +11,7 @@ CFLAGS += -D'HDME_PATH="$(HDME_PATH)"'
 
 LIBDIR=lib
 
-MODULES = hdme_data polynomials siegel theta igusa hilbert hecke modular
+MODULES = verbose hdme_data polynomials siegel theta igusa hilbert hecke modular
 
 SOURCES = $(wildcard $(patsubst %, %/*.c, $(MODULES)))
 HEADERS = $(patsubst %, %.h, $(MODULES))
