@@ -20,14 +20,12 @@
 #include "theta.h"
 #include "igusa.h"
 #include "hilbert.h"
+#include "verbose.h"
 
 #define HECKE_RED_TOL_BITS 50
 #define HECKE_CHARPOLY_PREC_MUL 1.8
 #define HECKE_SELECT_BASEPTS_TRIALS 3
 
-#ifndef HECKE_VERBOSE
-#define HECKE_VERBOSE 1
-#endif
 
 /* Define a data structure hecke_t that contains all the necessary
    data related to Hecke correspondences over the complex numbers,

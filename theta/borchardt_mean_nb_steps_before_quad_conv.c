@@ -27,7 +27,7 @@ borchardt_mean_nb_steps_before_quad_conv(fmpz_t nb, acb_srcptr a, slong prec)
       || !arb_is_finite(Delta0)
       || arb_contains_negative(Delta0)) res = 0;
 
-  if (!res && BORCHARDT_VERBOSE)
+  if (!res && get_borchardt_verbose())
     {
       flint_printf("(borchardt_mean_nb_steps_before_quad_conv) Failure values:\n");
       flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");

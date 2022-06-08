@@ -11,7 +11,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
   slong prec = hilbert_modeq_startprec(I, ell, delta);
   slong gap;
   int res;
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
   int stop = 0;
   
   hecke_init(H, nb);

@@ -18,7 +18,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   acb_mat_t tau;
   int res = 1;
   int tau_success;
-  int v = THOMAE_VERBOSE;
+  int v = get_thomae_verbose();
   
   int removed_ps[720][16];
   int removed_p[720];

@@ -10,7 +10,7 @@ int siegel_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
   slong prec = siegel_modeq_startprec(I, ell);
   slong gap;
   int res;
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
   int stop = 0;
 
   hecke_init(H, nb);

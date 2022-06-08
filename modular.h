@@ -29,10 +29,6 @@
 #include "hilbert.h"
 #include "hecke.h"
 
-/* one may want to define verbosity at compile time */
-#ifndef MODEQ_VERBOSE
-#define MODEQ_VERBOSE 1
-#endif
 
 #define MODEQ_CTX_ALLOC 100
 #define MODEQ_CTX_MIN_PREC 50

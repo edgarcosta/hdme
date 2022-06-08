@@ -7,7 +7,7 @@ void pol_simplify(fmpz_poly_struct* num_vec, fmpz_t den, slong degree, slong nb)
   fmpz_t coeff;
   slong gcd_bits;
   slong i, k;
-  int v = POL_VERBOSE;
+  int v = get_pol_verbose();
   
   fmpz_init(gcd);
   fmpz_init(coeff);

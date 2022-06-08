@@ -12,7 +12,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   slong exp = prec/2;
   slong k, l, m;
   int res;
-  int verbose = HILBERT_LLL_VERBOSE;
+  int verbose = get_hilbert_lll_verbose();
 
   fmpz_lll_context_init_default(fl);
   fmpz_mat_init(B, 7, 5);

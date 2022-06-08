@@ -11,7 +11,7 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
   slong prec = siegel_modeq_startprec(I, ell);
   slong gap;
   int res;
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
   int stop = 0;
   
   hecke_init(H, nb);

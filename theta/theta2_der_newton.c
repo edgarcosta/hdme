@@ -16,7 +16,7 @@ int theta2_der_newton(acb_ptr th2, acb_mat_t dth2, const acb_mat_t tau, slong pr
   slong current_prec, next_prec;
   slong j, k;
   int res = 1;
-  int v = THETA_VERBOSE;
+  int v = get_theta_verbose();
 
   acb_mat_init(tau_half, g, g);
   current_th = _acb_vec_init(4);

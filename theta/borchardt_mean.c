@@ -24,7 +24,7 @@ int borchardt_mean(acb_t r, acb_srcptr b, slong prec)
   
   res = borchardt_mean_nb_steps_before_quad_conv(nb, a, prec);
 
-  if (res && BORCHARDT_VERBOSE)
+  if (res && get_borchardt_verbose())
     {
       flint_printf("(borchardt_mean) Steps before quadratic convergence: ");
       fmpz_print(nb); flint_printf("\n");
@@ -41,14 +41,14 @@ int borchardt_mean(acb_t r, acb_srcptr b, slong prec)
 	}
     }
 
-  if (res && BORCHARDT_VERBOSE)
+  if (res && get_borchardt_verbose())
     {
       flint_printf("(borchardt_mean) Quadratic convergence reached after %wd steps\n", i+1);
     }
   
   if (res) borchardt_mean_nb_steps_after_quad_conv(nb, a, prec);
 
-  if (res && BORCHARDT_VERBOSE)
+  if (res && get_borchardt_verbose())
     {
       flint_printf("(borchardt_mean) Current values:\n");
       for (i = 0; i < 4; i++)
@@ -74,7 +74,7 @@ int borchardt_mean(acb_t r, acb_srcptr b, slong prec)
       acb_mul(r, r, &b[0], prec);
     }
   
-  if (res && BORCHARDT_VERBOSE)
+  if (res && get_borchardt_verbose())
     {
       flint_printf("(borchardt_mean) End balues:\n");
       for (i = 0; i < 4; i++)

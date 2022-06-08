@@ -16,7 +16,7 @@ int alt_2step_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell)
   slong add_nb;
   fmpz* add_I;
   int res, res2;
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
 
   hecke_init(H, siegel_nb_cosets(ell));
   modeq_init(E);

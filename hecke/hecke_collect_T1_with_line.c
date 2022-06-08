@@ -10,7 +10,7 @@ int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
   slong nb_all = siegel_nb_T1_cosets(ell);
   
   int res = 1;
-  int v = HECKE_VERBOSE;
+  int v = get_hecke_verbose();
   
   fmpz_mat_init(gamma, 4, 4);  
   hecke_ell(H) = ell;

@@ -10,7 +10,7 @@ int tau_theta2_from_curve(acb_mat_t tau, acb_ptr theta2, const acb_poly_t crv,
   acb_ptr ros;
   acb_ptr th2, th4;
   int res;
-  int v = THOMAE_VERBOSE;
+  int v = get_thomae_verbose();
 
   I = _acb_vec_init(4);
   roots = _acb_vec_init(6);

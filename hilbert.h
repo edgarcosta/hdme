@@ -26,12 +26,10 @@
 #include "siegel.h"
 #include "theta.h"
 #include "igusa.h"
+#include "verbose.h"
 
 #define GUNDLACH_WEIGHTS_5 {2,6,10}
 
-#ifndef HILBERT_LLL_VERBOSE
-#define HILBERT_LLL_VERBOSE 0
-#endif
 
 /* Basic functionality for real quadratic fields */
 
