@@ -59,7 +59,7 @@ int get_thomae_verbose() {
   return set_thomae_verbose(-1);
 }
 
-int set_hilbert_verbose(int i) {
+int set_hilbert_lll_verbose(int i) {
 #ifndef HILBERT_LLL_VERBOSE
   static int verbose = 0;
 #else
