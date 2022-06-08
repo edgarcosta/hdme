@@ -89,7 +89,7 @@ typedef hecke_struct hecke_t[1];
 #define hecke_norm_ind(H) ((H)->norm_ind)
 #define hecke_norm_all(H) ((H)->norm_all)
 #define hecke_prod_ec(H) ((H)->prod_ec)
-#define hecke_I_norm(H, k) (&(H)->I_norm[(k)])
+#define hecke_I_norm(H, k) (&(H)->I_norm[4*(k)])
 
 
 /* Memory management */
@@ -155,6 +155,17 @@ int siegel_T1_coset_contains_line_dual(const fmpz_mat_t m, const fmpz_mat_t L, s
 int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
 			       slong ell, slong prec);
 
+/* Normalization */
+
+void hecke_normalize_entry(hecke_t H, slong k,
+			   fmpz* I, slong norm_ind, slong prec);
+
+void hecke_make_integral(hecke_t H, fmpz* I, slong prec);
+
+slong hecke_integral_highprec(hecke_t H, slong prec);
+
+int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong prec);
+			 
 
 /* Hecke operators */
 

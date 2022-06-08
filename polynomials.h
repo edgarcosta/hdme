@@ -23,6 +23,8 @@
 
 #define HDME_RD_RADIUS_PREC 100
 
+int acb_vec_contains_int(acb_srcptr v, slong nb);
+
 void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
 			     acb_srcptr yi, slong d, slong prec);
 
