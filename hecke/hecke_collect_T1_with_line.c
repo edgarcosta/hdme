@@ -34,8 +34,9 @@ int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
     }
   if (v) flint_printf("\n");
 
-  fmpz_set_si(hecke_normalize(H), ell);
-  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 3*hecke_nb(H));
+  hecke_norm_ind(H) = n_pow(ell, 3);
+  fmpz_set_si(hecke_norm_all(H), ell);
+  fmpz_pow_ui(hecke_norm_all(H), hecke_norm_all(H), 3*hecke_nb(H));
   hecke_prod_ec(H) = 0;
   
   fmpz_mat_clear(gamma);

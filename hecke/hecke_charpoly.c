@@ -35,12 +35,11 @@ int hecke_charpoly(fmpz_poly_t pol, slong ell, slong wt)
 	  acb_mat_charpoly(charpoly, image, prec);
 	  res = acb_poly_round(pol, rad, charpoly, nb);
 	  gap = arf_abs_bound_lt_2exp_si(rad);
-	  prec = prec + gap + 50;
+	  prec += gap/2 + 50;
 	}
-      else
-	{
-	  prec = hecke_charpoly_nextprec(prec);
-	}
+
+      prec = hecke_charpoly_nextprec(prec);
+      
       if (prec > n_pow(10, 6))
 	{
 	  flint_printf("(hecke_charpoly) Precision too high, abort.\n");

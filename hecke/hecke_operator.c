@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
-		   slong m, slong k, slong j, slong prec)
+		   slong ell, slong k, slong j, slong prec)
 {
   slong nb = hecke_nb(H);
   slong len = j+1;
@@ -27,7 +27,7 @@ void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
       hecke_slash(term, hecke_star(H, i), &val[i*len], k, j, prec);
       _acb_vec_add(res, res, term, len, prec);
     }
-  acb_set_si(scal, m);
+  acb_set_si(scal, ell);
   acb_pow_si(scal, scal, 2*k + j - 3, prec);
   _acb_vec_scalar_mul(res, res, len, scal, prec);
 

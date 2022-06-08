@@ -12,7 +12,7 @@ void hecke_clear(hecke_t H)
   _acb_vec_clear(hecke_t1t2(H), 2);
   fmpz_mat_clear(hecke_eta(H));
   fmpz_poly_clear(hecke_beta(H));
-  fmpz_clear(hecke_normalize(H));
+  fmpz_clear(hecke_norm_all(H));
   
   for (k = 0; k < nb; k++) fmpz_mat_clear(hecke_coset(H, k));
   for (k = 0; k < nb; k++) acb_mat_clear(hecke_star(H, k));
@@ -23,5 +23,6 @@ void hecke_clear(hecke_t H)
   flint_free(H->stars);
   _acb_vec_clear(H->stardets, nb);
   _acb_vec_clear(H->theta2, 16*nb);
-  _acb_vec_clear(H->I, 4*nb);  
+  _acb_vec_clear(H->I, 4*nb);
+  _acb_vec_clear(H->I_norm, 4*nb);
 }

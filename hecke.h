@@ -53,9 +53,13 @@ typedef struct
   acb_ptr stardets; /* Determinants of stars */
   acb_ptr theta2; /* Values of theta constants at isog */
   acb_ptr I; /* Values of Igusa-Clebsch covariants at isog */
-  fmpz_t norm; /* Normalization factor */
+
+  slong norm_ind; /* Individual normalization factor */
+  fmpz_t norm_all; /* Global normalization factor */
   slong prod_ec; /* When tau is a product of elliptic curves, number
-		    of isogenous such products */  
+		    of isogenous such products */
+  acb_ptr I_norm; /* Normalized isogenous covariants */
+  
 } hecke_struct;
 
 typedef hecke_struct hecke_t[1];
@@ -80,8 +84,10 @@ typedef hecke_struct hecke_t[1];
 #define hecke_theta2(H, k) (&(H)->theta2[16*(k)])
 #define hecke_all_I(H) ((H)->I)
 #define hecke_I(H, k) (&(H)->I[4*(k)])
-#define hecke_normalize(H) ((H)->norm)
+#define hecke_norm_ind(H) ((H)->norm_ind)
+#define hecke_norm_all(H) ((H)->norm_all)
 #define hecke_prod_ec(H) ((H)->prod_ec)
+#define hecke_I_norm(H, k) (&(H)->I_norm[4*(k)])
 
 
 /* Memory management */
@@ -133,13 +139,11 @@ int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
 int hecke_collect_hilbert_sym(hecke_t H, slong ell, slong delta, slong prec);
 
 
-/* Hecke correspondence of level p^2 */
+slong siegel_nb_T1_cosets(slong ell);
 
-slong siegel_nb_T1_cosets(slong p);
+void siegel_T1_coset(fmpz_mat_t m, slong k, slong ell);
 
-void siegel_T1_coset(fmpz_mat_t m, slong k, slong p);
-
-int hecke_collect_T1(hecke_t H, slong p, slong prec);
+int hecke_collect_T1(hecke_t H, slong ell, slong prec);
 
 
 slong siegel_nb_T1_cosets_with_line(slong ell);
@@ -149,6 +153,17 @@ int siegel_T1_coset_contains_line_dual(const fmpz_mat_t m, const fmpz_mat_t L, s
 int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
 			       slong ell, slong prec);
 
+/* Normalization */
+
+void hecke_normalize_entry(hecke_t H, slong k,
+			   fmpz* I, slong norm_ind, slong prec);
+
+void hecke_make_integral(hecke_t H, fmpz* I, slong prec);
+
+slong hecke_integral_highprec(hecke_t H, slong prec);
+
+int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong prec);
+			 
 
 /* Hecke operators */
 
@@ -159,11 +174,11 @@ void hecke_slash_scalar(acb_t im, const acb_t stardet, const acb_t val,
 			slong k, slong prec);
 
 void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
-		    slong m, slong k, slong j, slong prec);
+		    slong ell, slong k, slong j, slong prec);
 
-void hecke_eigenvalue_eisenstein_p(fmpz_t eig, slong k, slong p);
+void hecke_eigenvalue_eisenstein(fmpz_t eig, slong k, slong ell);
 
-void hecke_eigenvalues_eisenstein_p2(fmpz* eig, slong k, slong p);
+void hecke_eigenvalues_eisenstein_2(fmpz* eig, slong k, slong ell);
 
 
 /* Hecke tables */

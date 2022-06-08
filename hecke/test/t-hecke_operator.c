@@ -51,7 +51,7 @@ int main()
 	  hecke_operator(r, H, val, ell, 4, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
 	  
-	  hecke_eigenvalue_eisenstein_p(eig, 4, ell);
+	  hecke_eigenvalue_eisenstein(eig, 4, ell);
 	  if (!acb_contains_fmpz(r, eig))
 	    {
 	      flint_printf("FAIL (I4 eigenvalue)\n");
@@ -66,7 +66,7 @@ int main()
 	  hecke_operator(r, H, val, ell, 6, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
 	  
-	  hecke_eigenvalue_eisenstein_p(eig, 6, ell);
+	  hecke_eigenvalue_eisenstein(eig, 6, ell);
 	  if (!acb_contains_fmpz(r, eig))
 	    {
 	      flint_printf("FAIL (I6' eigenvalue)\n");
