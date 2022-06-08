@@ -49,8 +49,6 @@ int hecke_charpoly(fmpz_poly_t pol, slong ell, slong wt)
 	}
     }
 
-  fmpz_poly_print_pretty(pol, "x"); flint_printf("\n");
-
   for (k = 0; k < nb; k++) acb_mat_clear(&pts[k]);
   flint_free(pts);  
   acb_mat_clear(basis_inv);
