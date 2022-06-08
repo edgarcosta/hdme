@@ -12,6 +12,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
   arf_t rad;
   int res;
   int v = get_hecke_verbose();
+  slong weights[4] = IGUSA_HALFWEIGHTS;
 
   hecke_init(H2, hecke_nb(H));
   round = _fmpz_vec_init(4);
@@ -21,6 +22,8 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
   arf_init(rad);
   
   highprec = hecke_integral_highprec(H, prec);
+  if (v) flint_printf("(hecke_all_isog_Q) Chosen high precision: %wd\n", highprec);
+  
   hecke_set_I_fmpz(H2, I, highprec);
 
   if (!acb_mat_overlaps(hecke_tau(H2), hecke_tau(H)))
@@ -46,7 +49,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
 
       /* Recompute k-th entry of H at high precision */
 
-      if (v) flint_printf("(hecke_all_isog_Q) Recomputing entry at high precision\n");
+      if (v) flint_printf("(hecke_all_isog_Q) Recomputing entry at precision %wd\n", highprec);
       hecke_set_entry(H2, k, hecke_coset(H, k), highprec);
       hecke_normalize_entry(H2, k, I, hecke_norm_ind(H), highprec);
 
@@ -66,6 +69,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
       if (!res) break;
       
       /* Set result */
+      cov_normalize_fmpz(round, round, 4, weights);
       _fmpz_vec_set(&all_I[4*(*nb_roots)], round, 4);
       *nb_roots += 1;
     }

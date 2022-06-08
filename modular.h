@@ -215,7 +215,7 @@ int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
 			     modeq_ctx_t ctx2, fmpz* I, slong ell, slong delta);
 
 
-/* Alternative take on siegel_2step_all_isog_Q? */
+/* Alternative take on siegel_2step_all_isog_Q */
 
 int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
 				 hecke_t H, fmpz* I, slong ell);
@@ -233,5 +233,11 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
 
 int alt_2step_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell);
 		      
+
+/* Third strategy using the Hecke correspondence only */
+
+int siegel_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell);
+
+int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell);
 
 #endif 

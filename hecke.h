@@ -160,6 +160,8 @@ void hecke_normalize_entry(hecke_t H, slong k,
 
 void hecke_make_integral(hecke_t H, fmpz* I, slong prec);
 
+int hecke_has_integral_precision(hecke_t H, slong prec);
+
 slong hecke_integral_highprec(hecke_t H, slong prec);
 
 int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong prec);
