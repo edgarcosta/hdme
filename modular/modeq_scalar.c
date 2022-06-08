@@ -23,7 +23,7 @@ void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
     }
   
   /* Step 2: normalize Hecke operator */
-  acb_set_fmpz(s, hecke_normalize(H));
+  acb_set_fmpz(s, hecke_norm_all(H));
   acb_mul(c, c, s, prec);
   
   /* Step 3: multiply by scaling factor between hecke_I_tau and I */

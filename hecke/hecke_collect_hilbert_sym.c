@@ -56,9 +56,10 @@ int hecke_collect_hilbert_sym(hecke_t H,
     }
   
   if (v) flint_printf("\n");
-  
-  fmpz_set_si(hecke_normalize(H), ell);
-  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), hecke_nb(H) - 2);
+
+  hecke_norm_ind(H) = ell;
+  fmpz_set_si(hecke_norm_all(H), ell);
+  fmpz_pow_ui(hecke_norm_all(H), hecke_norm_all(H), hecke_nb(H) - 2);
   hecke_prod_ec(H) = 0;
 
   fmpz_poly_mat_clear(m);

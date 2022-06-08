@@ -25,7 +25,7 @@ int main()
 	  fmpz_poly_print_pretty(pol, "x"); flint_printf("\n");
 	}
 
-      hecke_eigenvalue_eisenstein_p(eig, wt, ell);
+      hecke_eigenvalue_eisenstein(eig, wt, ell);
       fmpz_poly_evaluate_fmpz(eig, pol, eig);
 
       if (!fmpz_is_zero(eig))

@@ -1,7 +1,7 @@
 
 #include "hecke.h"
 
-slong siegel_nb_T1_cosets(slong p)
+slong siegel_nb_T1_cosets(slong ell)
 {
-  return p + n_pow(p, 2) + n_pow(p, 3) + n_pow(p, 4);
+  return ell + n_pow(ell, 2) + n_pow(ell, 3) + n_pow(ell, 4);
 }

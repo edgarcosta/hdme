@@ -3,7 +3,7 @@
 
 /* See also hecke_collect_siegel */
 
-int hecke_collect_T1(hecke_t H, slong p, slong prec)
+int hecke_collect_T1(hecke_t H, slong ell, slong prec)
 {  
   slong k;
   fmpz_mat_t gamma;
@@ -12,8 +12,8 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
   int v = HECKE_VERBOSE;
   
   fmpz_mat_init(gamma, 4, 4);  
-  hecke_ell(H) = p;
-  hecke_check_nb(H, siegel_nb_T1_cosets(p));
+  hecke_ell(H) = ell;
+  hecke_check_nb(H, siegel_nb_T1_cosets(ell));
     
   if (v) hecke_collect_verbose_start(nb);
 
@@ -23,15 +23,17 @@ int hecke_collect_T1(hecke_t H, slong p, slong prec)
       if (v) hecke_collect_print_status(res, k, nb);
       if (!res) break;
       
-      siegel_T1_coset(gamma, k, p);
+      siegel_T1_coset(gamma, k, ell);
       res = hecke_set_entry(H, k, gamma, prec);
     }
   if (v) flint_printf("\n");
 
-  fmpz_set_si(hecke_normalize(H), p);
-  fmpz_pow_ui(hecke_normalize(H), hecke_normalize(H), 3*hecke_nb(H) - (p*p + 2*p + 1));
-  hecke_prod_ec(H) = 2*(p*p + p);
+  hecke_norm_ind(H) = n_pow(ell, 3);
+  fmpz_set_si(hecke_norm_all(H), ell);
+  fmpz_pow_ui(hecke_norm_all(H), hecke_norm_all(H),
+	      3*hecke_nb(H) - (ell*ell + 2*ell + 1));
+  hecke_prod_ec(H) = 2*(ell*ell + ell);
   
   fmpz_mat_clear(gamma);
-  return res;  
+  return res;
 }
