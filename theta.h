@@ -18,6 +18,7 @@
 #include <stdio.h>
 
 #include "siegel.h"
+#include "verbose.h"
 
 #define THETA_NEWTON_MINPREC 100
 #define THETA_NEWTON_LOSS 25
@@ -28,11 +29,6 @@
 #define THETA_NEWTON_TOL_EXP -5
 #define THETA_DER_LOSS 25
 
-#define BORCHARDT_VERBOSE 0
-
-#ifndef THETA_VERBOSE
-#define THETA_VERBOSE 0
-#endif
 
 
 /* Borchardt means */

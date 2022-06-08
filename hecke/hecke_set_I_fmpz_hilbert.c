@@ -4,7 +4,7 @@
 int hecke_set_I_fmpz_hilbert(hecke_t H, fmpz* I, slong delta, slong prec)
 {
   int res;
-  int v = HECKE_VERBOSE;
+  int v = get_hecke_verbose();
 
   res = hecke_set_I_fmpz(H, I, prec);
   if (res)

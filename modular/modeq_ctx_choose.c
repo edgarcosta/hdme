@@ -13,7 +13,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   acb_ptr evnum;
   int res;
   slong wt = 60;
-  int v = MODEQ_VERBOSE;
+  int v = get_modeq_verbose();
 
   fmpz_mpoly_init(num, modeq_ctx_ctx(ctx));
   fmpz_mpoly_init(den, modeq_ctx_ctx(ctx));
