@@ -283,8 +283,14 @@ slong thomae_startprec(slong prec);
 int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 			 acb_srcptr I, slong prec);
 
-int tau_theta2_from_curve(acb_mat_t tau, acb_ptr th2, const acb_poly_t crv,
-			  slong prec);
+int thomae_correct_signs_with_lowprec(slong* perm, slong* signs, acb_srcptr roots,
+				      acb_srcptr I, acb_srcptr th2_lp, slong prec);
+
+int tau_theta2_from_curve(acb_mat_t tau, acb_ptr th2,
+			  const acb_poly_t crv, slong prec);
+
+int tau_theta2_from_curve_with_lowprec(acb_mat_t tau, acb_ptr th2, const acb_poly_t crv,
+				       acb_srcptr th2_lp, slong prec);
 
 
 /* Period computations from Igusa covariants */
@@ -302,6 +308,9 @@ int igusa_ec_period(acb_t tau, const acb_t j, slong prec);
 int tau_theta2_from_igusa_ec(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
 
 int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec);
+
+int tau_theta2_from_igusa_fmpz_with_lowprec(acb_mat_t tau, acb_ptr th2,
+					    fmpz* I, acb_srcptr th2_lp, slong prec);
 
 
 #endif 

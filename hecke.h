@@ -111,6 +111,9 @@ int hecke_set_t1t2(hecke_t H, acb_srcptr t, slong delta, slong prec);
 
 int hecke_set_I_fmpz_hilbert(hecke_t H, fmpz* I, slong delta, slong prec);
 
+int hecke_set_I_fmpz_with_lowprec(hecke_t H, fmpz* I, acb_srcptr th2_lp,
+				  slong prec);
+
 
 /* Set whole Hecke correspondence */
 

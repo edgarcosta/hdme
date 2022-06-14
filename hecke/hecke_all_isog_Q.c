@@ -24,20 +24,12 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
   highprec = hecke_integral_highprec(H, prec);
   if (v) flint_printf("(hecke_all_isog_Q) Chosen high precision: %wd\n", highprec);
   
-  hecke_set_I_fmpz(H2, I, highprec);
-
-  if (!acb_mat_overlaps(hecke_tau(H2), hecke_tau(H)))
-    {
-      flint_printf("(hecke_all_isog_Q) Error: not implemented (period matrices don't overlap)\n");
-      fflush(stdout);
-      flint_abort();
-    }
-
-  res = 1;
+  res = hecke_set_I_fmpz_with_lowprec(H2, I, hecke_theta2_tau(H), highprec);
   *nb_roots = 0;
   
   for (k = 0; k < hecke_nb(H); k++)
     {
+      if (!res) break;
       if (!acb_vec_contains_int(hecke_I_norm(H, k), 4)) continue;
 
       /* Round to nearest integers; if failure, abort with res = 0 */
