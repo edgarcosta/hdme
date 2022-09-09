@@ -147,7 +147,7 @@ void cov_eval_all_monomials(acb_ptr ev, acb_srcptr I, slong wt,
 			    slong nb, slong* weights, slong prec);
 
 
-/* Weighted polynomials in Igusa covariants */	      
+/* Weighted polynomials in Igusa covariants */
 
 slong igusa_nb_base_monomials(slong wt);
 
@@ -157,7 +157,7 @@ void igusa_base_monomial(fmpz_mpoly_t mon, slong wt, slong k,
 			 const fmpz_mpoly_ctx_t ctx);
 
 void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
-				 fmpz* M, slong wt);	 
+				 fmpz* M, slong wt);
 
 void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 			       int z4, int z6, int z10, int z12, slong wt);
@@ -176,7 +176,7 @@ void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt, slong corr_2_3);
 /* Different covariants:
    - Streng I4, I6prime, I10, I12,
    - classical Igusa--Clebsch I2, I4, I6, I10,
-   - Clebsch A, B, C, D 
+   - Clebsch A, B, C, D
    - Igusa Y12, X16, ..., X48 */
 
 void igusa_streng(acb_ptr S, acb_srcptr I, slong prec);
@@ -313,4 +313,4 @@ int tau_theta2_from_igusa_fmpz_with_lowprec(acb_mat_t tau, acb_ptr th2,
 					    fmpz* I, acb_srcptr th2_lp, slong prec);
 
 
-#endif 
+#endif
