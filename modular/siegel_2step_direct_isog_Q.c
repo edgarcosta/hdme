@@ -16,11 +16,9 @@ int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell)
 
     if (res) res = hecke_collect_T1(H, ell, prec);
     if (res) hecke_make_integral(H, I, prec);
-
-    if (res && hecke_has_integral_precision(H, prec)) {
-      res = hecke_all_isog_Q(nb, all_I, H, I, prec);
-      if (res) stop = 1;
-    }
+    if (res) res = hecke_has_integral_precision(H, prec);
+    if (res) res = hecke_all_isog_Q(nb, all_I, H, I, prec);
+    
     prec = modeq_nextprec_generic(prec);
     stop = modeq_stop(res, prec);
   }
