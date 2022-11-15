@@ -9,7 +9,7 @@ int siegel_transform(acb_mat_t w, const fmpz_mat_t m, const acb_mat_t z, slong p
   arb_mat_t im;
   int valid_output;
 
-  fmpz_mat_init(a, g, g);  
+  fmpz_mat_init(a, g, g);
   acb_mat_init(x, g, g);
   acb_mat_init(num, g, g);
   acb_mat_init(den, g, g);
@@ -35,7 +35,7 @@ int siegel_transform(acb_mat_t w, const fmpz_mat_t m, const acb_mat_t z, slong p
   acb_mat_mul(w, num, invden, prec);
   acb_mat_get_imag(im, w);
   if (arb_mat_is_nonsymmetric(im))
-    {      
+    {
       flint_printf("(siegel_transform) Error: nonsymmetric image\n");
       acb_mat_printd(z, 10);
       fmpz_mat_print_pretty(m); flint_printf("\n");
@@ -43,7 +43,7 @@ int siegel_transform(acb_mat_t w, const fmpz_mat_t m, const acb_mat_t z, slong p
       fflush(stdout);
       flint_abort();
     }
-    
+
 
   fmpz_mat_clear(a);
   acb_mat_clear(x);
