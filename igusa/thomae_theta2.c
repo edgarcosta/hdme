@@ -28,14 +28,12 @@ void thomae_theta2(acb_ptr th2, acb_srcptr th4, acb_srcptr ros, slong signs, slo
   acb_one(&res[0]);
 
   /* "Fundamental" ones (why?): 1, 2, 4, 8 */
-  for (k = 1; k < 9; k *= 2)
-    {
-      ch = theta_char_set_label_g2(k);
-      acb_sqrt(&res[k], &th4[k], prec); /* th4[0] is one. */
-      if (signs % 2 == 1) acb_neg(&res[k], &res[k]);
-      signs = signs/2;
-    }
-  
+  for (k = 1; k < 9; k *= 2) {
+    acb_sqrt(&res[k], &th4[k], prec); /* th4[0] is one. */
+    if (signs % 2 == 1) acb_neg(&res[k], &res[k]);
+    signs = signs/2;
+  }
+
   /* Set other entries using Thomae's formulae */
   ch = theta_char_set_label_g2(6);
   acb_set(num, &res[theta_char_set_label_g2(2)]);
@@ -64,7 +62,7 @@ void thomae_theta2(acb_ptr th2, acb_srcptr th4, acb_srcptr ros, slong signs, slo
   acb_mul(num, num, aux, prec);
   acb_set(den, &res[theta_char_set_label_g2(1)]);
   acb_div(&res[ch], num, den, prec);
-  
+
   ch = theta_char_set_label_g2(15);
   acb_mul(num, &res[theta_char_set_label_g2(1)],
 	  &res[theta_char_set_label_g2(12)], prec);
