@@ -4,7 +4,6 @@
 /* See also hecke_collect_siegel */
 
 int hecke_collect_T1(hecke_t H, slong ell, slong prec) {
-  slong k;
   fmpz_mat_t gamma;
   slong nb = hecke_nb(H);
   int res = 1;
@@ -18,7 +17,7 @@ int hecke_collect_T1(hecke_t H, slong ell, slong prec) {
 
   /* Loop over all cosets to compute desired data */
   #pragma omp parallel for shared(res, H)
-  for (k = 0; k < nb; k++) {
+  for(slong k = 0; k < nb; ++k) {
     if (v) hecke_collect_print_status(res, k, nb);
     if (!res) continue; // OpenMP doesn't allow break, and thus we continue
 
