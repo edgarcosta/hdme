@@ -24,25 +24,25 @@ int hecke_set_entry(hecke_t H, slong k, const fmpz_mat_t gamma, slong prec)
       fflush(stdout);
       flint_abort();
     }
-  
+
   res = siegel_transform(im, gamma, hecke_tau(H), prec);
   if (res) res = siegel_fundamental_domain(hecke_isog(H, k), eta, im, tol, prec);
- 
+
   if (res)
     {
       /* Can fill hecke_coset, hecke_star */
-      fmpz_mat_mul(hecke_coset(H, k), eta, gamma);	  
+      fmpz_mat_mul(hecke_coset(H, k), eta, gamma);
       siegel_star(hecke_star(H, k), hecke_coset(H, k), hecke_tau(H), prec);
       acb_mat_det(hecke_stardet(H, k), hecke_star(H, k), prec);
-      
+
       /* Compute projective vector of theta constants */
       res = theta2_unif(hecke_theta2(H, k), hecke_isog(H, k), prec);
-    }     
+    }
   if (res) res = theta2_renormalize(hecke_theta2(H, k), hecke_theta2(H, k), prec);
   if (res) igusa_from_theta2(hecke_I(H, k), hecke_theta2(H, k), prec);
 
   acb_mat_clear(im);
   fmpz_mat_clear(eta);
   arb_clear(tol);
-  return res;  
+  return res;
 }
