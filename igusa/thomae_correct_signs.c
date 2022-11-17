@@ -19,7 +19,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 
 
 // initialize removed_p
-#pragma omp parallel for
+#pragma omp parallel for schedule(static)
 	for(slong p = 0; p < 720; p++) {
 		removed_p[p] = 0;
 		for (slong s = 0; s < 16; s++) removed_ps[p][s] = 0;
@@ -46,15 +46,15 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 
 
 		while((nb_candidates > 1) && (current_prec < prec)) {
+#pragma omp barrier
 #pragma omp single
 			{
 				if(v) flint_printf("(thomae_correct_signs) Trying precision %wd\n", current_prec);
 				nb_candidates = 0;
 			}
-			flint_printf("(thomae_correct_signs) nb_candidates=%d\n", nb_candidates);
-#pragma omp for
+#pragma omp barrier
+#pragma omp for schedule(static)
 			for (slong p = 0; p < 720; p++) {
-				flint_printf("(thomae_correct_signs) p=%d\n", p);
 				if (removed_p[p]) continue;
 				removed_p[p] = 1;
 				thomae_reorder(new_roots, roots, p);
@@ -99,8 +99,10 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 #pragma omp barrier
 		}
 
+#pragma omp barrier
 		/* Then we have a last run at prec: this time we want to succeed in computing tau */
 		if (nb_candidates > 1) {
+#pragma omp barrier
 #pragma omp single
 			{
 				if(v) flint_printf("(thomae_correct_signs) Last run at precision %wd\n", prec);
@@ -108,7 +110,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 			}
 #pragma omp barrier
 
-#pragma omp parallel for
+#pragma omp for schedule(static)
 			for(slong p = 0; p < 720; p++) {
 				if(nb_candidates) continue;
 				thomae_reorder(new_roots, roots, p);
