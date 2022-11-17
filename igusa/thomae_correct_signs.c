@@ -40,11 +40,9 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
 		acb_mat_init(tau, 2, 2);
 		slong current_prec = thomae_startprec(prec);
 
-		flint_printf("(thomae_correct_signs) done with init\n");
-		flint_printf("(thomae_correct_signs) current_prec = %wd prec = %wd\n", current_prec, prec);
+
+
 #pragma omp barrier
-
-
 		while((nb_candidates > 1) && (current_prec < prec)) {
 #pragma omp barrier
 #pragma omp single
