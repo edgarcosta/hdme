@@ -3,31 +3,33 @@
 
 /* See also hecke_collect_T1 */
 
-int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
-{
-  slong k;
-  fmpz_mat_t gamma;
+int hecke_collect_siegel(hecke_t H, slong ell, slong prec) {
   slong nb = hecke_nb(H);
   int res = 1;
   int v = get_hecke_verbose();
-
-  fmpz_mat_init(gamma, 4, 4);
 
   hecke_ell(H) = ell;
   hecke_check_nb(H, siegel_nb_cosets(ell));
 
   if (v) hecke_collect_verbose_start(nb);
 
-  /* Loop over all cosets to compute desired data */
-  #pragma omp parallel for shared(res, H)
-  for (k = 0; k < nb; k++) {
-    if (v) hecke_collect_print_status(res, k, nb);
-    if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+#pragma omp parallel
+  {
+    fmpz_mat_t gamma;
+    fmpz_mat_init(gamma, 4, 4);
+#pragma omp for schedule(static)
+    /* Loop over all cosets to compute desired data */
+    for(slong k = 0; k < nb; ++k) {
+      if (v) hecke_collect_print_status(res, k, nb);
+      if (!res) continue; // OpenMP doesn't allow break, and thus we continue
 
-    siegel_coset(gamma, k, ell);
-    int localres = hecke_set_entry(H, k, gamma, prec);
-    #pragma omp atomic
-    res &= localres;
+      siegel_coset(gamma, k, ell);
+      int localres = hecke_set_entry(H, k, gamma, prec);
+#pragma omp atomic
+      res &= localres;
+    }
+
+    fmpz_mat_clear(gamma);
   }
   if (v) flint_printf("\n");
 
@@ -37,6 +39,5 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec)
   fmpz_pow_ui(hecke_norm_all(H), hecke_norm_all(H), 2*hecke_nb(H) - (ell*ell + ell + 2));
   hecke_prod_ec(H) = n_pow(ell+1, 2);
 
-  fmpz_mat_clear(gamma);
   return res;
 }

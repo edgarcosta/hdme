@@ -59,7 +59,7 @@ typedef struct
   slong prod_ec; /* When tau is a product of elliptic curves, number
 		    of isogenous such products */
   acb_ptr I_norm; /* Normalized isogenous covariants */
-  
+
 } hecke_struct;
 
 typedef hecke_struct hecke_t[1];
@@ -168,7 +168,7 @@ int hecke_has_integral_precision(hecke_t H, slong prec);
 slong hecke_integral_highprec(hecke_t H, slong prec);
 
 int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong prec);
-			 
+
 
 /* Hecke operators */
 
@@ -206,5 +206,5 @@ slong hecke_charpoly_nextprec(slong prec);
 
 int hecke_charpoly(fmpz_poly_t pol, slong ell, slong wt);
 
-#endif 
+#endif
 
