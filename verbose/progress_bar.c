@@ -1,7 +1,6 @@
 #include <stdio.h> // printf
 #include <string.h> // memset
 #include <unistd.h> // stdout
-#include <wchar.h> // wchar_t
 #include <flint/flint.h> // slong
 //#include <omp.h>
 //What I really wanted ot use '▰' '▱'
