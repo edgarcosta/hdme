@@ -49,7 +49,7 @@ timestamp_type end) {
 
 #include <time.h>
 
-typedef timespec timestamp_type;
+typedef struct timespec timestamp_type;
 
 static void get_timestamp(timestamp_type *t)
 {
