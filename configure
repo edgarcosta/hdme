@@ -33,15 +33,20 @@ LIBS="m"
 VERBOSE=1 #From 0 to 3
 GDB=1
 OPENMP=1
+PTHREAD=1
 
 usage()
 {
     echo "Usage: ./configure <options> <args>"
-    echo "   where <options> may be"
-    echo "     -h or --help display usage information"
-    echo "     --enable-gdb or --disable-gdb"
-    echo "     --enable-openmp or --disable-openmp"
-    echo "   where <args> may be:"
+    echo "  where <options> may be"
+    echo "      -h or --help display usage information"
+    echo "      --enable-gdb        Use GDB (default)"
+    echo "      --disable-gdb       Do not use GDB"
+    echo "      --enable-openmp     Use openmp (default)"
+    echo "      --disable-openmp    Do not use openmp"
+    echo "      --enable-pthread    Use pthread (default) for FLINT"
+    echo "      --disable-pthread   Do not use pthread"
+    echo "  where <args> may be:"
 
     if [ ! -z ${PREFIX+word} ]; then
         echo "     --prefix=<path>      Specify path to installation location (default: $PREFIX"
@@ -129,6 +134,12 @@ while [ "$1" != "" ]; do
         --disable-openmp)
             OPENMP=0
             ;;
+        --enable-pthread)
+         PTHREAD=1
+         ;;
+      --disable-pthread)
+         PTHREAD=0
+         ;;
         CC)
             CC="$VALUE"
             ;;
@@ -275,6 +286,11 @@ if [ "$OPENMP" = "1" ]; then
     LIBS="${LIBS} -lomp"
   fi
   FLAGS="${FLAGS} -fopenmp";
+fi
+
+
+if [ "$PTHREAD" = "1" ]; then
+    LIBS="${LIBS} -lpthread"
 fi
 
 if [ "$VERBOSE" = "0" ]; then
