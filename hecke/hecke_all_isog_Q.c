@@ -49,7 +49,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
       // filter out entries that need to be recomputed
       #pragma omp for schedule(dynamic)
       for (slong k = 0; k < nb; ++k) {
-        if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+        if (!res) continue; // OpenMP does not allow break, and thus we continue
         if (!has_int[k]) continue;
 
         /* Round to nearest integers; if failure, abort with res = 0 */
@@ -59,7 +59,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
         }
         #pragma omp atomic
         res &=localres;
-        if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+        if (!res) continue; // OpenMP does not allow break, and thus we continue
 
         /* Recompute k-th entry of H at high precision */
         if (v) flint_printf("(hecke_all_isog_Q) Recomputing %wd-th entry of H at high precision\n", k);
@@ -84,7 +84,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
         }
         #pragma omp atomic
         res &=localres;
-        if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+        if (!res) continue; // OpenMP does not allow break, and thus we continue
 
         cov_normalize_fmpz(round, round, 4, weights);
         #pragma omp critical

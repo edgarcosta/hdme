@@ -27,7 +27,7 @@ int hecke_collect_siegel(hecke_t H, slong ell, slong prec) {
 #pragma omp for schedule(static)
     /* Loop over all cosets to compute desired data */
     for (slong k = 0; k < nb; ++k) {
-      if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+      if (!res) continue; // OpenMP does not allow break, and thus we continue
       if (master && v) progress_bar(steps_completed, nb, "(hecke_collect)");
 
       siegel_coset(gamma, k, ell);
