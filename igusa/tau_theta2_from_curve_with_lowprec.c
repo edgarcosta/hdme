@@ -24,18 +24,18 @@ int tau_theta2_from_curve_with_lowprec(acb_mat_t tau, acb_ptr theta2, const acb_
   igusa_from_curve(I, crv, prec);
 
   if (v) flint_printf("(tau_theta2_from_curve_with_lowprec) Looking for correct root ordering...\n");
-
   res = thomae_roots(roots, crv, prec);
+
   if (res) res = thomae_correct_signs_with_lowprec(&perm, &signs, roots, I, th2_lp, prec);
-  if (res)
-  {
+  if (res) {
+    time_pair mid; timestamp_mark(&mid);
     if(v) flint_printf("(tau_theta2_from_curve_with_lowprec) Computing period matrix at high precision...\n");
     thomae_reorder(roots, roots, perm);
     thomae_rosenhain(ros, roots, prec);
     thomae_theta4(th4, ros, prec);
     thomae_theta2(th2, th4, ros, signs, prec);
     res = theta2_inverse(tau, th2, prec);
-    if(v) flint_printf("(tau_theta2_from_curve_with_lowprec) Done.\n");
+    if (v) report_end(mid);
   }
 
   theta2_renormalize(theta2, th2, prec);
