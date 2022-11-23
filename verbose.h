@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "timing.h"
 
-#define time_since(s) (double) (clock() - s)/CLOCKS_PER_SEC
 #define report(message, s) {\
   double utime, wtime;\
   timestamp_report(&utime, &wtime, &s);\
