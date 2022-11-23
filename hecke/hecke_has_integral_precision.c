@@ -13,15 +13,15 @@ int hecke_has_integral_precision(hecke_t H, slong prec)
   for (k = 0; k < hecke_nb(H); k++)
     {
       for (j = 0; j < 4; j++)
-	{
-	  acb_get_rad_ubound_arf(rad, &hecke_I_norm(H, k)[j], prec);
-	  bits = arf_abs_bound_lt_2exp_si(rad);
-	  if (bits > -2)
-	    {
-	      res = 0;
-	      break;
-	    }
-	}
+        {
+          acb_get_rad_ubound_arf(rad, &hecke_I_norm(H, k)[j], prec);
+          bits = arf_abs_bound_lt_2exp_si(rad);
+          if (bits > -2)
+            {
+              res = 0;
+              break;
+            }
+        }
       if (!res) break;
     }
 

@@ -16,8 +16,8 @@ static void fmpq_div_si(fmpq_t r, const fmpq_t n, slong d)
 static int bolza_conditions_12(fmpq* ABCD)
 {
   return (fmpq_is_zero(&ABCD[1])
-	  && fmpq_is_zero(&ABCD[2])
-	  && fmpq_is_zero(&ABCD[3]));
+          && fmpq_is_zero(&ABCD[2])
+          && fmpq_is_zero(&ABCD[3]));
 }
 
 static int bolza_conditions_11(fmpq* ABCD)
@@ -39,8 +39,8 @@ static int bolza_conditions_11(fmpq* ABCD)
   fmpq_add(t2, t2, temp);
 
   res = (fmpq_is_zero(t1)
-	 && fmpq_is_zero(t2)
-	 && fmpq_is_zero(&ABCD[3]));
+         && fmpq_is_zero(t2)
+         && fmpq_is_zero(&ABCD[3]));
 
   fmpq_clear(t1);
   fmpq_clear(t2);
@@ -82,11 +82,11 @@ static int bolza_conditions_19(acb_t a, fmpq* ABCD, slong prec)
   if (res)
     {
       if (fmpq_is_zero(&ABCD[3]) || fmpq_is_zero(t3))
-	{
-	  flint_printf("(mestre_fmpz: bolza_conditions_19) Error: unexpected vanishing\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("(mestre_fmpz: bolza_conditions_19) Error: unexpected vanishing\n");
+          fflush(stdout);
+          flint_abort();
+        }
       fmpq_div(t4, t4, t3);
       fmpq_neg(t4, t4);
       acb_set_fmpq(a, t4, prec);
@@ -148,12 +148,12 @@ static int bolza_conditions_23(acb_t a, fmpq* ABCD, slong prec)
   if (res)
     {
       if (fmpq_is_zero(&ABCD[3]) || fmpq_is_zero(t3))
-	{
-	  flint_printf("(mestre_fmpz: bolza_conditions_23) Error: unexpected vanishing\n");
-	  fflush(stdout);
-	  flint_abort();
+        {
+          flint_printf("(mestre_fmpz: bolza_conditions_23) Error: unexpected vanishing\n");
+          fflush(stdout);
+          flint_abort();
 
-	}
+        }
       /* Set t4 to denominator of alpha^2 */
       fmpq_pow_si(t4, &ABCD[0], 2);
       fmpq_mul(t4, t4, &ABCD[1]);

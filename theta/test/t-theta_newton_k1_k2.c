@@ -38,12 +38,12 @@ int main()
 
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
 
 
@@ -52,34 +52,34 @@ int main()
       res = siegel_is_weakly_reduced(tau, tol, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (k2)\n");
-	  flint_printf("res = %wd, k2 = %wd\n", res, k2);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (k2)\n");
+          flint_printf("res = %wd, k2 = %wd\n", res, k2);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       k1 = theta_newton_k1(tau, tau, prec);
       res = siegel_is_weakly_reduced(tau, tol, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (k1)\n");
-	  flint_printf("res = %wd, k1 = %wd,\n", res, k1);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (k1)\n");
+          flint_printf("res = %wd, k1 = %wd,\n", res, k1);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       flag_naive = theta_use_naive(tau, prec);
       flag_newton = theta_use_newton(tau, prec);
 
       if (!flag_naive && !flag_newton)
-	{
-	  flint_printf("FAIL (k1+k2)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (k1+k2)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       /* flint_printf("prec = %wd\n", prec); */
       /* flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n"); */

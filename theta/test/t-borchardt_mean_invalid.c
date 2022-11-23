@@ -22,41 +22,41 @@ int main()
       a = _acb_vec_init(4);
 
       /* If all entries have positive or negative real part, then it's
-	 not invalid */
+         not invalid */
       for (k = 0; k < 4; k++)
-	{
-	  acb_randtest_precise(&a[k], state, prec, mag_bits);
-	  arb_sqr(acb_realref(&a[k]), acb_realref(&a[k]), prec);
-	}
+        {
+          acb_randtest_precise(&a[k], state, prec, mag_bits);
+          arb_sqr(acb_realref(&a[k]), acb_realref(&a[k]), prec);
+        }
       res = borchardt_mean_invalid(a, prec);
       if (res)
-	{
-	  flint_printf("FAIL (positive real parts)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&a[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (positive real parts)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&a[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       for (k = 0; k < 4; k++)
-	{
-	  acb_randtest_precise(&a[k], state, prec, mag_bits);
-	  arb_sqr(acb_realref(&a[k]), acb_realref(&a[k]), prec);
-	  acb_neg(&a[k], &a[k]);
-	}
+        {
+          acb_randtest_precise(&a[k], state, prec, mag_bits);
+          arb_sqr(acb_realref(&a[k]), acb_realref(&a[k]), prec);
+          acb_neg(&a[k], &a[k]);
+        }
       res = borchardt_mean_invalid(a, prec);
       if (res)
-	{
-	  flint_printf("FAIL (negative real parts)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&a[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (negative real parts)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&a[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
 
       /* If there is one entry on each half axis, then it is invalid */
@@ -77,15 +77,15 @@ int main()
 
       res = borchardt_mean_invalid(a, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (axes)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&a[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (axes)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&a[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(a, 4);
     }

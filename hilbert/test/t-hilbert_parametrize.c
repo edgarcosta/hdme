@@ -37,34 +37,34 @@ int main()
       t = _acb_vec_init(3);
 
       for (delta = 5; delta < delta_max; delta++)
-	{
-	  if (hilbert_is_fundamental(delta))
-	    {
-	      for (k = 0; k < 2; k++)
-		{
-		  fmpq_randbits(&rs[k], state, rs_bits);
-		}
-	      acb_set_fmpq(&rs_acb[0], &rs[0], prec);
-	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
-	      hilbert_parametrize(I, rs_acb, delta, prec);
+        {
+          if (hilbert_is_fundamental(delta))
+            {
+              for (k = 0; k < 2; k++)
+                {
+                  fmpq_randbits(&rs[k], state, rs_bits);
+                }
+              acb_set_fmpq(&rs_acb[0], &rs[0], prec);
+              acb_set_fmpq(&rs_acb[1], &rs[1], prec);
+              hilbert_parametrize(I, rs_acb, delta, prec);
 
-	      res = tau_from_igusa(tau, I, prec);
-	      if (!res)
-		{
-		  flint_printf("FAIL (tau)\n");
-		  fflush(stdout);
-		  flint_abort();
-		}
-	      res = hilbert_inverse(t, m, tau, delta, prec);
-	      if (!res)
-		{
-		  flint_printf("FAIL (inverse)\n");
-		  flint_printf("delta = %wd, prec = %wd\n", delta, prec);
-		  fflush(stdout);
-		  flint_abort();
-		}
-	    }
-	}
+              res = tau_from_igusa(tau, I, prec);
+              if (!res)
+                {
+                  flint_printf("FAIL (tau)\n");
+                  fflush(stdout);
+                  flint_abort();
+                }
+              res = hilbert_inverse(t, m, tau, delta, prec);
+              if (!res)
+                {
+                  flint_printf("FAIL (inverse)\n");
+                  flint_printf("delta = %wd, prec = %wd\n", delta, prec);
+                  fflush(stdout);
+                  flint_abort();
+                }
+            }
+        }
 
       _fmpq_vec_clear(rs, 2);
       _acb_vec_clear(rs_acb, 2);

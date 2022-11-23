@@ -32,10 +32,10 @@ int main()
       weights = flint_malloc(nb * sizeof(slong));
       I = _acb_vec_init(nb);
       for (k = 0; k < nb; k++)
-	{
-	  weights[k] = 1 + n_randint(state, 10);
-	  acb_randtest_precise(&I[k], state, prec, mag_bits);
-	}
+        {
+          weights[k] = 1 + n_randint(state, 10);
+          acb_randtest_precise(&I[k], state, prec, mag_bits);
+        }
       wt = n_randint(state, 20);
       m = cov_nb_monomials(wt, nb, weights);
       ev = _acb_vec_init(m);
@@ -47,39 +47,39 @@ int main()
       cov_all_exps(exps, wt, nb, weights);
 
       if (print)
-	{
-	  flint_printf("Weights:\n");
-	  for (k = 0; k < nb; k++) flint_printf("%wd ", weights[k]);
-	  flint_printf("\nTarget weight %wd, number of monomials: %wd\n", wt, m);
-	  flint_printf("Exponents:\n");
-	  for (k = 0; k < m; k++)
-	    {
-	      for (j = 0; j < nb; j++) flint_printf("%wd ", exps[k*nb + j]);
-	      flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("Weights:\n");
+          for (k = 0; k < nb; k++) flint_printf("%wd ", weights[k]);
+          flint_printf("\nTarget weight %wd, number of monomials: %wd\n", wt, m);
+          flint_printf("Exponents:\n");
+          for (k = 0; k < m; k++)
+            {
+              for (j = 0; j < nb; j++) flint_printf("%wd ", exps[k*nb + j]);
+              flint_printf("\n");
+            }
+        }
 
       cov_eval_all_monomials(ev, I, wt, nb, weights, prec);
 
       if (m >= 1)
-	{
-	  k = n_randint(state, m);
-	  cov_monomial(mon, &exps[k*nb], ctx);
-	  cov_mpoly_eval(test, mon, I, ctx, prec);
+        {
+          k = n_randint(state, m);
+          cov_monomial(mon, &exps[k*nb], ctx);
+          cov_mpoly_eval(test, mon, I, ctx, prec);
 
-	  res = 0;
-	  for (k = 0; k < m; k++)
-	    {
-	      if (acb_overlaps(&ev[k], test)) res = 1;
-	    }
+          res = 0;
+          for (k = 0; k < m; k++)
+            {
+              if (acb_overlaps(&ev[k], test)) res = 1;
+            }
 
-	  if (!res)
-	    {
-	      flint_printf("FAIL\n");
-	      fflush(stdout);
-	      flint_abort();
-	    }
-	}
+          if (!res)
+            {
+              flint_printf("FAIL\n");
+              fflush(stdout);
+              flint_abort();
+            }
+        }
 
       _acb_vec_clear(ev, m);
       _acb_vec_clear(I, nb);

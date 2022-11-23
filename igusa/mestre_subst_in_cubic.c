@@ -3,7 +3,7 @@
 
 /* Factor computations of x1sqr, x2sqr, x3sqr ? */
 void mestre_subst_in_cubic(acb_poly_t subst, const acb_poly_t x1, const acb_poly_t x2,
-			   const acb_poly_t x3, acb_srcptr cubic, slong prec)
+                           const acb_poly_t x3, acb_srcptr cubic, slong prec)
 {
   acb_t coeff;
   acb_poly_t res;

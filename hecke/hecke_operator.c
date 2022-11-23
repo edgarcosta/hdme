@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_operator(acb_ptr im, const hecke_t H, acb_srcptr val,
-		   slong ell, slong k, slong j, slong prec)
+                   slong ell, slong k, slong j, slong prec)
 {
   slong nb = hecke_nb(H);
   slong len = j+1;

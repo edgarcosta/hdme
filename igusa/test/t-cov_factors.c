@@ -27,10 +27,10 @@ int main()
       fmpz_factor_init(fac);
 
       for (k = 0; k < nb; k++)
-	{
-	  weights[k] = 1 + n_randint(state, 5);
-	  fmpz_randtest(&I[k], state, mag_bits);
-	}
+        {
+          weights[k] = 1 + n_randint(state, 5);
+          fmpz_randtest(&I[k], state, mag_bits);
+        }
       k = n_randint(state, nb);
       fmpz_randtest_not_zero(&I[k], state, mag_bits);
 
@@ -45,17 +45,17 @@ int main()
       res1 = 0;
       res2 = 0;
       for (k = 0; k < cov_factor_nb(fac); k++)
-	{
-	  if (fmpz_equal_si(cov_factor_p(fac, k), p1)) res1++;
-	  if (fmpz_equal_si(cov_factor_p(fac, k), p2)) res2++;
-	}
+        {
+          if (fmpz_equal_si(cov_factor_p(fac, k), p1)) res1++;
+          if (fmpz_equal_si(cov_factor_p(fac, k), p2)) res2++;
+        }
       if (res1 != 1 || (p2 != p3 && res2 != 1))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("p1 = %wd, p2 = %wd, res1 = %wd, res2 = %wd\n", p1, p2, res1, res2);
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("p1 = %wd, p2 = %wd, res1 = %wd, res2 = %wd\n", p1, p2, res1, res2);
+          fflush(stdout);
+          flint_abort();
+        }
 
       flint_free(weights);
       _fmpz_vec_clear(I, nb);

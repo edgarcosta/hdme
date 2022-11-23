@@ -15,7 +15,7 @@ slong cov_nb_monomials(slong wt, slong nb, slong* weights)
   if (nb >= 1 && weights[0] <= 0)
     {
       flint_printf("(cov_nb_monomials) Error: nonpositive coordinate weight %wd\n",
-		   weights[0]);
+                   weights[0]);
       fflush(stdout);
       flint_abort();
     }

@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
-			     acb_srcptr pt, acb_srcptr conic, slong prec)
+                             acb_srcptr pt, acb_srcptr conic, slong prec)
 {
   slong i, j, k;
   acb_poly_t ui, uj, uk, aux;

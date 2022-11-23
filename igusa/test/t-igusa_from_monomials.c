@@ -45,57 +45,57 @@ int main()
       wt = wts[k];
 
       if (fmpz_is_zero(igusa_psi4(I)))
-	{
-	  wt = FLINT_MAX(wt, 30);
-	}
+        {
+          wt = FLINT_MAX(wt, 30);
+        }
       if (wt == 30 && fmpz_is_zero(igusa_psi6(I)) &&
-	  (fmpz_is_zero(igusa_psi4(I)) || fmpz_is_zero(igusa_chi10(I))))
-	{
-	  wt = 60;
-	}
+          (fmpz_is_zero(igusa_psi4(I)) || fmpz_is_zero(igusa_chi10(I))))
+        {
+          wt = 60;
+        }
 
       nb = igusa_nb_base_monomials(wt);
       M = _fmpz_vec_init(nb);
       for (k = 0; k < nb; k++)
-	{
-	  igusa_base_monomial(mon, wt, k, ctx);
-	  cov_mpoly_eval_fmpz(&M[k], mon, I, ctx);
-	}
+        {
+          igusa_base_monomial(mon, wt, k, ctx);
+          cov_mpoly_eval_fmpz(&M[k], mon, I, ctx);
+        }
 
       if (print)
-	{
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  flint_printf("Adjusted weights: ");
-	  for (k = 0; k < 4; k++) flint_printf("%wd ", weights[k]);
-	  flint_printf("\n");
-	  flint_printf("Weight %wd, monomials:\n", wt);
-	  for (k = 0; k < nb; k++)
-	    {
-	      fmpz_print(&M[k]); flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          flint_printf("Adjusted weights: ");
+          for (k = 0; k < 4; k++) flint_printf("%wd ", weights[k]);
+          flint_printf("\n");
+          flint_printf("Weight %wd, monomials:\n", wt);
+          for (k = 0; k < nb; k++)
+            {
+              fmpz_print(&M[k]); flint_printf("\n");
+            }
+        }
 
       igusa_from_monomials(test, M, wt);
       if (!_fmpz_vec_equal(test, I, 4))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("Weight %wd, I:\n", wt);
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  flint_printf("test:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&test[k]); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("Weight %wd, I:\n", wt);
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          flint_printf("test:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&test[k]); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpz_vec_clear(I, 4);
       _fmpz_vec_clear(test, 4);

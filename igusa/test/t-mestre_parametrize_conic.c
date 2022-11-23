@@ -44,26 +44,26 @@ int main()
       res = !mestre_point_is_outside_conic(test_pt, conic, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (Point outside conic)\n");
-	  flint_printf("Conic: \n");
-	  for (k = 0; k < 6; k++)
-	    {
-	      flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
-	    }
-	  flint_printf("Parametrization: \n");
-	  flint_printf("    "); acb_poly_printd(x1, 30); flint_printf("\n");
-	  flint_printf("    "); acb_poly_printd(x2, 30); flint_printf("\n");
-	  flint_printf("    "); acb_poly_printd(x3, 30); flint_printf("\n");
-	  flint_printf("Parameter: "); acb_printd(param, 30); flint_printf("\n");
-	  flint_printf("Point: \n");
-	  for (k = 0; k < 3; k++)
-	    {
-	      flint_printf("    "); acb_printd(&test_pt[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (Point outside conic)\n");
+          flint_printf("Conic: \n");
+          for (k = 0; k < 6; k++)
+            {
+              flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
+            }
+          flint_printf("Parametrization: \n");
+          flint_printf("    "); acb_poly_printd(x1, 30); flint_printf("\n");
+          flint_printf("    "); acb_poly_printd(x2, 30); flint_printf("\n");
+          flint_printf("    "); acb_poly_printd(x3, 30); flint_printf("\n");
+          flint_printf("Parameter: "); acb_printd(param, 30); flint_printf("\n");
+          flint_printf("Point: \n");
+          for (k = 0; k < 3; k++)
+            {
+              flint_printf("    "); acb_printd(&test_pt[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(conic, 6);
       _acb_vec_clear(pt, 3);

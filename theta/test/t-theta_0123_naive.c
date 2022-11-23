@@ -41,44 +41,44 @@ int main()
       res = res && theta_0123_naive(th_0123_2tau, tau, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("th_0123[%wd] = ", i);
-	      acb_printd(&th_0123[i], 30); flint_printf("\n");
-	    }
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("th_0123_2tau[%wd] = ", i);
-	      acb_printd(&th_0123_2tau[i], 30); flint_printf("\n");
-	    }
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("th_0123[%wd] = ", i);
+              acb_printd(&th_0123[i], 30); flint_printf("\n");
+            }
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("th_0123_2tau[%wd] = ", i);
+              acb_printd(&th_0123_2tau[i], 30); flint_printf("\n");
+            }
+          flint_abort();
+        }
 
       theta_duplication(th2_2tau, th_0123, prec);
       for (i = 0; i < 4; i++)
-	{
-	  acb_sqr(&th2_0123_2tau[i], &th_0123_2tau[i], prec);
-	}
+        {
+          acb_sqr(&th2_0123_2tau[i], &th_0123_2tau[i], prec);
+        }
       for (i = 0; i < 4; i++)
-	{
-	  if (!acb_overlaps(&th2_0123_2tau[i], &th2_2tau[i]))
-	    {
-	      flint_printf("FAIL\n");
-	      flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+        {
+          if (!acb_overlaps(&th2_0123_2tau[i], &th2_2tau[i]))
+            {
+              flint_printf("FAIL\n");
+              flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 
-	      flint_printf("th_0123[%wd] = ", i);
-	      acb_printd(&th_0123[i], 30); flint_printf("\n");
+              flint_printf("th_0123[%wd] = ", i);
+              acb_printd(&th_0123[i], 30); flint_printf("\n");
 
-	      flint_printf("th2_0123_2tau[%wd] = ", i);
-	      acb_printd(&th2_0123_2tau[i], 30); flint_printf("\n");
+              flint_printf("th2_0123_2tau[%wd] = ", i);
+              acb_printd(&th2_0123_2tau[i], 30); flint_printf("\n");
 
-	      flint_abort();
-	    }
-	}
+              flint_abort();
+            }
+        }
 
       acb_mat_clear(tau);
       _acb_vec_clear(th_0123, 4);

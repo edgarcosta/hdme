@@ -30,22 +30,22 @@ int theta2_invalid(acb_srcptr th2, slong prec)
   for (i = 0; i < 4; i++)
     {
       for (j = 0; j < 4; j++)
-	{
-	  acb_set(&a[j], &th2[theta_char_set_label_g2(theta_labels[i][j])]);
-	}
+        {
+          acb_set(&a[j], &th2[theta_char_set_label_g2(theta_labels[i][j])]);
+        }
       res = res || borchardt_mean_invalid(a, prec);
       if (!res && b_success)
-	{
-	  b_success = borchardt_mean(&means[i], a, prec);
-	  /* if (!b_success)
-	    {
-	      flint_printf("(theta2_invalid) Undecided Borchardt mean:\n");
-	      for (j = 0; j < 4; j++)
-		{
-		  acb_printd(&a[j], 30); flint_printf("\n");
-		}
-		} */
-	}
+        {
+          b_success = borchardt_mean(&means[i], a, prec);
+          /* if (!b_success)
+            {
+              flint_printf("(theta2_invalid) Undecided Borchardt mean:\n");
+              for (j = 0; j < 4; j++)
+                {
+                  acb_printd(&a[j], 30); flint_printf("\n");
+                }
+                } */
+        }
     }
 
   if (!res && b_success)
@@ -58,9 +58,9 @@ int theta2_invalid(acb_srcptr th2, slong prec)
       acb_addmul(&tau_entries[2], &tau_entries[0], &tau_entries[1], prec);
       acb_sqrt(&tau_entries[2], &tau_entries[2], prec);
       if (arf_cmp_si(arb_midref(acb_imagref(&tau_entries[2])), 0) < 0)
-	{
-	  acb_neg(&tau_entries[2], &tau_entries[2]);
-	}
+        {
+          acb_neg(&tau_entries[2], &tau_entries[2]);
+        }
       acb_set(acb_mat_entry(tau, 0, 0), &tau_entries[0]);
       acb_set(acb_mat_entry(tau, 1, 1), &tau_entries[1]);
       acb_set(acb_mat_entry(tau, 0, 1), &tau_entries[2]);

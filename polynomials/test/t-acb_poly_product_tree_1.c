@@ -33,17 +33,17 @@ int main()
       acb_poly_product_tree_1(P, xi, yi, d, prec);
 
       if (!acb_poly_overlaps(P, P_test))
-	{
-	  flint_printf("FAIL (overlap)\n");
-	  acb_poly_printd(P_test, 10);
-	  acb_poly_printd(P, 10);
-	  /* for (k = 0; k < d; k++)
-	    {
-	      acb_printd(&yi[k], 30); flint_printf("\n");
-	      } */
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (overlap)\n");
+          acb_poly_printd(P_test, 10);
+          acb_poly_printd(P, 10);
+          /* for (k = 0; k < d; k++)
+            {
+              acb_printd(&yi[k], 30); flint_printf("\n");
+              } */
+          fflush(stdout);
+          flint_abort();
+        }
 
 
       acb_poly_clear(P);

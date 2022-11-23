@@ -26,28 +26,28 @@ int main()
       modeq_ctx_init(ctx);
 
       for (k = 0; k < nb; k++)
-	{
-	  i1[k] = n_randint(state, 1000);
-	  i2[k] = n_randint(state, 1000);
-	  modeq_ctx_add_pair(ctx, i1[k], i2[k]);
-	}
+        {
+          i1[k] = n_randint(state, 1000);
+          i2[k] = n_randint(state, 1000);
+          modeq_ctx_add_pair(ctx, i1[k], i2[k]);
+        }
       res = 1;
       for (k = 0; k < nb; k++)
-	{
-	  if (!modeq_ctx_is_pair(i1[k], i2[k], ctx))
-	    {
-	      res = 0;
-	      break;
-	    }
-	}
+        {
+          if (!modeq_ctx_is_pair(i1[k], i2[k], ctx))
+            {
+              res = 0;
+              break;
+            }
+        }
       if (modeq_ctx_is_pair(-1, -1, ctx)) res = 0;
 
       if (!res)
-	{
-	  flint_printf("FAIL\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       flint_free(i1);
       flint_free(i2);

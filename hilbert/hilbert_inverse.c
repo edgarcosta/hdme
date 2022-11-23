@@ -480,7 +480,7 @@ hilbert_bw_M5(fmpz_mat_t m, fmpz* abcde)
 }
 
 int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
-		    slong delta, slong prec)
+                    slong delta, slong prec)
 {
   fmpz* abcde;
   int res;
@@ -517,11 +517,11 @@ int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
       acb_mat_mul(im, R, im, prec);
 
       if (!acb_contains_zero(acb_mat_entry(im, 0, 1)))
-	{
-	  flint_printf("(hilbert_inverse) Warning: could not bring tau to normal form\n");
-	  acb_mat_printd(tau, 30); flint_printf("\n");
-	  res = 0;
-	}
+        {
+          flint_printf("(hilbert_inverse) Warning: could not bring tau to normal form\n");
+          acb_mat_printd(tau, 30); flint_printf("\n");
+          res = 0;
+        }
     }
   if (res)
     {

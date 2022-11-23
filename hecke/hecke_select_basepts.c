@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int hecke_select_basepts(acb_mat_struct* pts, acb_mat_t basis_inv,
-			 slong wt, slong prec)
+                         slong wt, slong prec)
 {
   flint_rand_t state;
   slong k, j;
@@ -16,9 +16,9 @@ int hecke_select_basepts(acb_mat_struct* pts, acb_mat_t basis_inv,
   for (j = 0; j < jmax; j++)
     {
       for (k = 0; k < nb; k++)
-	{
-	  siegel_fundamental_domain_randtest(&pts[k], state, prec);
-	}
+        {
+          siegel_fundamental_domain_randtest(&pts[k], state, prec);
+        }
       res = hecke_basis_matrix(basis_inv, nb, pts, wt, prec);
       if (!res) continue;
       res = acb_mat_inv(basis_inv, basis_inv, prec);

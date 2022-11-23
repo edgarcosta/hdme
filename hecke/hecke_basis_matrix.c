@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int hecke_basis_matrix(acb_mat_t basis, slong nb, const acb_mat_struct* pts,
-		       slong wt, slong prec)
+                       slong wt, slong prec)
 {
   acb_ptr I;
   acb_ptr M;
@@ -21,9 +21,9 @@ int hecke_basis_matrix(acb_mat_t basis, slong nb, const acb_mat_struct* pts,
       if (!res) break;
       cov_eval_all_monomials(M, I, wt, 4, weights, prec);
       for (j = 0; j < m; j++)
-	{
-	  acb_set(acb_mat_entry(basis, j, k), &M[j]);
-	}
+        {
+          acb_set(acb_mat_entry(basis, j, k), &M[j]);
+        }
     }
 
   _acb_vec_clear(I, 4);

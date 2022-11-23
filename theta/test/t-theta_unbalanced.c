@@ -29,7 +29,7 @@ int main()
       int res;
       slong k;
       /* slong k1, k2;
-	 slong i, j; */
+         slong i, j; */
 
       acb_mat_init(tau, g, g);
       acb_mat_init(w, g, g);
@@ -46,7 +46,7 @@ int main()
       /* Set tau to reduced, unbalanced value */
       siegel_fundamental_domain_randtest(tau, state, prec);
       arb_add_si(acb_imagref(acb_mat_entry(tau, 1, 1)),
-		 acb_imagref(acb_mat_entry(tau, 1, 1)), jump, prec);
+                 acb_imagref(acb_mat_entry(tau, 1, 1)), jump, prec);
 
       /* arb_set_d(acb_realref(c), -0.415); */
       /* arb_set_d(acb_imagref(c), 1.05); */
@@ -67,43 +67,43 @@ int main()
       arb_mul_2exp_si(tol, tol, -bits);
       res = siegel_is_in_fundamental_domain(tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  acb_mat_printd(tau, 10);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          acb_mat_printd(tau, 10);
+          flint_abort();
+        }
 
       theta2_unif(th2, tau, prec);
       theta2_renormalize(th2, th2, prec);
       theta2_naive(current_th2, tau, prec);
 
       for (k = 0; k < 16; k++)
-	{
-	  if (!acb_overlaps(&th2[k], &current_th2[k])) res = 0;
-	}
+        {
+          if (!acb_overlaps(&th2[k], &current_th2[k])) res = 0;
+        }
       if (!res)
-	{
-	  flint_printf("FAIL (theta)\n");
-	  acb_mat_printd(tau, 10);
-	  for (k = 0; k < 16; k++)
-	    {
-	      acb_printd(&th2[k], 30); flint_printf("\n");
-	      acb_printd(&current_th2[k], 30); flint_printf("\n\n");
-	    }
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (theta)\n");
+          acb_mat_printd(tau, 10);
+          for (k = 0; k < 16; k++)
+            {
+              acb_printd(&th2[k], 30); flint_printf("\n");
+              acb_printd(&current_th2[k], 30); flint_printf("\n\n");
+            }
+          flint_abort();
+        }
 
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&th2[k], 30); flint_printf("\n"); */
+      /*         } */
 
       /* flint_printf("Renormalized values:\n"); */
       /* theta2_renormalize(th2, th2, prec); */
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&th2[k], 30); flint_printf("\n"); */
+      /*         } */
 
       /* k2 = theta_newton_k2(w, tau, prec); */
       /* siegel_reduce_real(w, real_red, w, tol, prec); */
@@ -115,31 +115,31 @@ int main()
 
       /* theta2_newton(current_th2, w, prec); */
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&current_th2[k], 30); flint_printf("\n"); */
+      /*         } */
 
       /* /\* Propagate along k1 sequence *\/ */
       /* for (i = 0; (i < k1) && res; i++) */
-      /* 	{ */
-      /* 	  /\* Each step: rescale; compute square roots in four first */
-      /* 	     entries of current_th2; apply theta_duplication *\/ */
-      /* 	  for (j = 1; j < 4; j++) */
-      /* 	    { */
-      /* 	      acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec); */
-      /* 	      res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec); */
-      /* 	    } */
-      /* 	  acb_one(&current_th2[0]); */
-      /* 	  /\* theta_duplication uses only the first 4 entries and allows */
-      /* 	     aliasing *\/ */
-      /* 	  theta_duplication(current_th2, current_th2, prec); */
-      /* 	} */
+      /*         { */
+      /*           /\* Each step: rescale; compute square roots in four first */
+      /*              entries of current_th2; apply theta_duplication *\/ */
+      /*           for (j = 1; j < 4; j++) */
+      /*             { */
+      /*               acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec); */
+      /*               res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec); */
+      /*             } */
+      /*           acb_one(&current_th2[0]); */
+      /*           /\* theta_duplication uses only the first 4 entries and allows */
+      /*              aliasing *\/ */
+      /*           theta_duplication(current_th2, current_th2, prec); */
+      /*         } */
 
       /* flint_printf("After k1 steps:\n"); */
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&current_th2[k], 30); flint_printf("\n"); */
+      /*         } */
 
       /* /\* We're back to the end of the k2 sequence. Propagate again *\/ */
       /* fmpz_mat_zero(eta); */
@@ -155,52 +155,52 @@ int main()
 
       /* fmpz_set(nb_real_red, fmpz_mat_entry(real_red, 0, 2)); */
       /* if (arb_is_positive(acb_realref(acb_mat_entry(tau, 0, 0)))) */
-      /* 	{ */
-      /* 	  fmpz_set_si(fmpz_mat_entry(M1, 0, 2), 1); */
-      /* 	} */
+      /*         { */
+      /*           fmpz_set_si(fmpz_mat_entry(M1, 0, 2), 1); */
+      /*         } */
       /* else */
-      /* 	{ */
-      /* 	  fmpz_set_si(fmpz_mat_entry(M1, 0, 2), -1); */
-      /* 	} */
+      /*         { */
+      /*           fmpz_set_si(fmpz_mat_entry(M1, 0, 2), -1); */
+      /*         } */
 
       /* for (i = 0; (i < k2) && res; i++) */
-      /* 	{ */
-      /* 	  /\* Each step: apply translation if nb_real_red is currently odd; */
-      /* 	     apply theta_transform with eta; square roots and duplication; */
-      /* 	     finally apply theta2_transform with eta_inv. *\/ */
-      /* 	  if (fmpz_is_odd(nb_real_red)) */
-      /* 	    { */
-      /* 	      theta2_transform(current_th2, M1, current_th2, prec); */
-      /* 	    } */
-      /* 	  /\* Divide by 2, round towards zero *\/ */
-      /* 	  fmpz_tdiv_q_2exp(nb_real_red, nb_real_red, 1); */
-      /* 	  /\* Get theta constants at eta * current *\/ */
-      /* 	  theta2_transform(current_th2, eta, current_th2, prec); */
-      /* 	  /\* Rescale and square roots *\/ */
-      /* 	  for (j = 1; j < 4; j++) */
-      /* 	    { */
-      /* 	      acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec); */
-      /* 	      res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec); */
-      /* 	    } */
-      /* 	  acb_one(&current_th2[0]); */
-      /* 	  /\* Duplication *\/ */
-      /* 	  theta_duplication(current_th2, current_th2, prec); */
-      /* 	  /\* Apply eta_inv *\/ */
-      /* 	  theta2_transform(current_th2, eta_inv, current_th2, prec); */
-      /* 	} */
+      /*         { */
+      /*           /\* Each step: apply translation if nb_real_red is currently odd; */
+      /*              apply theta_transform with eta; square roots and duplication; */
+      /*              finally apply theta2_transform with eta_inv. *\/ */
+      /*           if (fmpz_is_odd(nb_real_red)) */
+      /*             { */
+      /*               theta2_transform(current_th2, M1, current_th2, prec); */
+      /*             } */
+      /*           /\* Divide by 2, round towards zero *\/ */
+      /*           fmpz_tdiv_q_2exp(nb_real_red, nb_real_red, 1); */
+      /*           /\* Get theta constants at eta * current *\/ */
+      /*           theta2_transform(current_th2, eta, current_th2, prec); */
+      /*           /\* Rescale and square roots *\/ */
+      /*           for (j = 1; j < 4; j++) */
+      /*             { */
+      /*               acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec); */
+      /*               res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec); */
+      /*             } */
+      /*           acb_one(&current_th2[0]); */
+      /*           /\* Duplication *\/ */
+      /*           theta_duplication(current_th2, current_th2, prec); */
+      /*           /\* Apply eta_inv *\/ */
+      /*           theta2_transform(current_th2, eta_inv, current_th2, prec); */
+      /*         } */
 
 
       /* flint_printf("After k2 steps:\n"); */
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&current_th2[k], 30); flint_printf("\n"); */
+      /*         } */
       /* flint_printf("Renormalized:\n"); */
       /* theta2_renormalize(current_th2, current_th2, prec); */
       /* for (k = 0; k < 16; k++) */
-      /* 	{ */
-      /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
-      /* 	} */
+      /*         { */
+      /*           acb_printd(&current_th2[k], 30); flint_printf("\n"); */
+      /*         } */
 
       acb_mat_clear(tau);
       acb_mat_clear(w);

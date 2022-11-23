@@ -2,7 +2,7 @@
 #include "theta.h"
 
 int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
-		      const acb_mat_t tau, slong prec)
+                      const acb_mat_t tau, slong prec)
 {
   acb_mat_t tau_pert;
   arb_t eps;
@@ -24,7 +24,7 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
 
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 0),
-	      acb_mat_entry(tau_pert, 0, 0), eps, prec);
+              acb_mat_entry(tau_pert, 0, 0), eps, prec);
   res = res && theta2_naive(value_pert, tau_pert, prec);
   _acb_vec_sub(value_pert, value_pert, value, n, prec);
   _acb_vec_scalar_div_arb(value_pert, value_pert, n, eps, prec);
@@ -35,7 +35,7 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
 
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 1, 1),
-	      acb_mat_entry(tau_pert, 1, 1), eps, prec);
+              acb_mat_entry(tau_pert, 1, 1), eps, prec);
   res = res && theta2_naive(value_pert, tau_pert, prec);
   _acb_vec_sub(value_pert, value_pert, value, n, prec);
   _acb_vec_scalar_div_arb(value_pert, value_pert, n, eps, prec);
@@ -46,9 +46,9 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
 
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 1),
-	      acb_mat_entry(tau_pert, 0, 1), eps, prec);
+              acb_mat_entry(tau_pert, 0, 1), eps, prec);
   acb_add_arb(acb_mat_entry(tau_pert, 1, 0),
-	      acb_mat_entry(tau_pert, 1, 0), eps, prec);
+              acb_mat_entry(tau_pert, 1, 0), eps, prec);
   res = res && theta2_naive(value_pert, tau_pert, prec);
   _acb_vec_sub(value_pert, value_pert, value, n, prec);
   _acb_vec_scalar_div_arb(value_pert, value_pert, n, eps, prec);

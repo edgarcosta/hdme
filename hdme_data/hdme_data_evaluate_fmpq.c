@@ -2,7 +2,7 @@
 #include "hdme_data.h"
 
 void hdme_data_evaluate_fmpq(fmpq_t ev, const fmpq_mpoly_t pol,
-			     fmpq* vals, const fmpq_mpoly_ctx_t ctx)
+                             fmpq* vals, const fmpq_mpoly_ctx_t ctx)
 {
   slong nb = fmpq_mpoly_ctx_nvars(ctx);
   fmpq** ptr;

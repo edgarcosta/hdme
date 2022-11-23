@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int siegel_T1_coset_contains_line_dual(const fmpz_mat_t m,
-				       const fmpz_mat_t L, slong ell)
+                                       const fmpz_mat_t L, slong ell)
 {
   fmpz_mat_t J;
   nmod_mat_t dual;

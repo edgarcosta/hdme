@@ -40,74 +40,74 @@ int main()
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, eta, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       fmpz_mat_randtest_symplectic(eta, state, eta_bits);
       /* fmpz_mat_print(eta); flint_printf("\n\n"); */
 
       res = theta2_naive(th2, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
       theta2_transform(th2, eta, th2, prec);
 
       res = siegel_transform(tau, eta, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (Siegel transform)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (Siegel transform)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
+          flint_abort();
+        }
 
       res = theta2_naive(th2_test, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta at eta*tau)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta at eta*tau)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
+          flint_abort();
+        }
 
       /* Rescale: theta0 cannot be exactly zero */
       for (i = 1; i < n; i++)
-	{
-	  acb_div(&th2[i], &th2[i], &th2[0], prec);
-	  acb_div(&th2_test[i], &th2_test[i], &th2_test[0], prec);
-	}
+        {
+          acb_div(&th2[i], &th2[i], &th2[0], prec);
+          acb_div(&th2_test[i], &th2_test[i], &th2_test[0], prec);
+        }
       acb_one(&th2[0]);
       acb_one(&th2_test[0]);
 
       /* Check overlap */
       for (i = 0; i < n; i++)
-	{
-	  /* acb_printd(&th2[i], 30); flint_printf("\n");
-	     acb_printd(&th2_test[i], 30); flint_printf("\n\n"); */
-	  if (!acb_overlaps(&th2[i], &th2_test[i]))
-	    {
-	      flint_printf("FAIL (theta overlap)\n");
-	      flint_printf("prec = %wd\n", prec);
-	      flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	      flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
-	      flint_printf("i = %wd\n", i);
-	      flint_printf("th2[i] = ");
-	      acb_printd(&th2[i], 30); flint_printf("\n");
-	      flint_printf("th2_test[i] = ");
-	      acb_printd(&th2_test[i], 30); flint_printf("\n");
-	      flint_abort();
-	    }
-	}
+        {
+          /* acb_printd(&th2[i], 30); flint_printf("\n");
+             acb_printd(&th2_test[i], 30); flint_printf("\n\n"); */
+          if (!acb_overlaps(&th2[i], &th2_test[i]))
+            {
+              flint_printf("FAIL (theta overlap)\n");
+              flint_printf("prec = %wd\n", prec);
+              flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+              flint_printf("eta = \n"); fmpz_mat_print(eta); flint_printf("\n");
+              flint_printf("i = %wd\n", i);
+              flint_printf("th2[i] = ");
+              acb_printd(&th2[i], 30); flint_printf("\n");
+              flint_printf("th2_test[i] = ");
+              acb_printd(&th2_test[i], 30); flint_printf("\n");
+              flint_abort();
+            }
+        }
 
       arb_clear(tol);
       acb_mat_clear(tau);

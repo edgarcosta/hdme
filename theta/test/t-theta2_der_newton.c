@@ -34,32 +34,32 @@ int main()
       theta2_der_newton(th2, dth2, tau, prec);
 
       for (k = 1; k < 16; k++)
-	{
-	  /* Compute derivatives of theta_k/theta_0 */
-	  for (j = 0; j < 3; j++)
-	    {
-	      acb_mul(df, acb_mat_entry(dth2, k, j), &th2[0], prec);
-	      acb_submul(df, &th2[k], acb_mat_entry(dth2, 0, j), prec);
-	      acb_div(df, df, &th2[0], prec);
-	      acb_div(df, df, &th2[0], prec);
+        {
+          /* Compute derivatives of theta_k/theta_0 */
+          for (j = 0; j < 3; j++)
+            {
+              acb_mul(df, acb_mat_entry(dth2, k, j), &th2[0], prec);
+              acb_submul(df, &th2[k], acb_mat_entry(dth2, 0, j), prec);
+              acb_div(df, df, &th2[0], prec);
+              acb_div(df, df, &th2[0], prec);
 
-	      acb_mul(df_test, acb_mat_entry(dth2_test, k, j), &th2_test[0], prec);
-	      acb_submul(df_test, &th2_test[k], acb_mat_entry(dth2_test, 0, j), prec);
-	      acb_div(df_test, df_test, &th2_test[0], prec);
-	      acb_div(df_test, df_test, &th2_test[0], prec);
+              acb_mul(df_test, acb_mat_entry(dth2_test, k, j), &th2_test[0], prec);
+              acb_submul(df_test, &th2_test[k], acb_mat_entry(dth2_test, 0, j), prec);
+              acb_div(df_test, df_test, &th2_test[0], prec);
+              acb_div(df_test, df_test, &th2_test[0], prec);
 
-	      if (!acb_overlaps(df, df_test)) res = 0;
-	    }
-	}
+              if (!acb_overlaps(df, df_test)) res = 0;
+            }
+        }
 
       if (!res)
-	{
-	  flint_printf("FAIL\n");
-	  acb_mat_printd(dth2, 5); flint_printf("\n");
-	  acb_mat_printd(dth2_test, 5); flint_printf("\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          acb_mat_printd(dth2, 5); flint_printf("\n");
+          acb_mat_printd(dth2_test, 5); flint_printf("\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       acb_mat_clear(tau);
       _acb_vec_clear(th2, 16);

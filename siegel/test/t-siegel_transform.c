@@ -37,48 +37,48 @@ int main()
       valid_transform = siegel_transform(z2, mn, z1, prec);
 
       if (!valid_transform)
-	{
-	  flint_printf("FAIL (insufficient precision to invert)\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("mn = "); fmpz_mat_print(mn); flint_printf("\n\n");
-	  flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (insufficient precision to invert)\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("mn = "); fmpz_mat_print(mn); flint_printf("\n\n");
+          flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       valid_transform = siegel_transform(z3, n, z1, prec);
 
       if (!valid_transform)
-	{
-	  flint_printf("FAIL (insufficient precision to invert)\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("n = "); fmpz_mat_print(n); flint_printf("\n\n");
-	  flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (insufficient precision to invert)\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("n = "); fmpz_mat_print(n); flint_printf("\n\n");
+          flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       valid_transform = siegel_transform(z3, m, z3, prec);
 
       if (!valid_transform)
-	{
-	  flint_printf("FAIL (insufficient precision to invert)\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
-	  flint_printf("z3 = "); acb_mat_printd(z3, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (insufficient precision to invert)\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+          flint_printf("z3 = "); acb_mat_printd(z3, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       if (!acb_mat_overlaps(z2, z3))
-	{
+        {
 
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
-	  flint_printf("n = "); fmpz_mat_print(n); flint_printf("\n\n");
-	  flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
-	  flint_printf("z2 = "); acb_mat_printd(z2, 30); flint_printf("\n\n");
-	  flint_printf("z3 = "); acb_mat_printd(z3, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+          flint_printf("n = "); fmpz_mat_print(n); flint_printf("\n\n");
+          flint_printf("z1 = "); acb_mat_printd(z1, 30); flint_printf("\n\n");
+          flint_printf("z2 = "); acb_mat_printd(z2, 30); flint_printf("\n\n");
+          flint_printf("z3 = "); acb_mat_printd(z3, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       fmpz_mat_clear(m);
       fmpz_mat_clear(n);

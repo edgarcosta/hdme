@@ -2,7 +2,7 @@
 #include "polynomials.h"
 
 void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
-		  const fmpz_poly_t pol)
+                  const fmpz_poly_t pol)
 {
   fmpz_poly_factor_t fac;
   slong k;
@@ -24,11 +24,11 @@ void pol_factor_Q(slong* nb_factors, fmpz_poly_struct* factors, slong* exps,
   if (v)
     {
       flint_printf("(pol_factor_Q) Factorization pattern: %wd",
-		   fmpz_poly_degree(&factors[0]));
+                   fmpz_poly_degree(&factors[0]));
       for (k = 1; k < *nb_factors; k++)
-	{
-	  flint_printf(" + %wd", fmpz_poly_degree(&factors[k]));
-	}
+        {
+          flint_printf(" + %wd", fmpz_poly_degree(&factors[k]));
+        }
       flint_printf("\n");
     }
 

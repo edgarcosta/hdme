@@ -38,30 +38,30 @@ int main()
       igusa_X(X, I);
 
       if (print)
-	{
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  flint_printf("X:\n");
-	  for (k = 0; k < X_NB; k++)
-	    {
-	      fmpq_print(&X[k]); flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          flint_printf("X:\n");
+          for (k = 0; k < X_NB; k++)
+            {
+              fmpq_print(&X[k]); flint_printf("\n");
+            }
+        }
 
       res = 1;
       for (k = 0; k < X_NB; k++)
-	{
-	  if (!fmpz_is_one(fmpq_denref(&X[k]))) res = 0;
-	}
+        {
+          if (!fmpz_is_one(fmpq_denref(&X[k]))) res = 0;
+        }
       if (!res)
-	{
-	  flint_printf("FAIL (not integral)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (not integral)\n");
+          fflush(stdout);
+          flint_abort();
+        }
       for (k = 0; k < X_NB; k++) fmpz_set(&XZ[k], fmpq_numref(&X[k]));
       cov_rescale_fmpz(XZ, XZ, scal, X_NB, Xweights);
 
@@ -71,21 +71,21 @@ int main()
 
       res = 1;
       for (k = 0; k < X_NB; k++)
-	{
-	  if (!fmpz_equal(&XZ[k], &test[k])) res = 0;
-	}
+        {
+          if (!fmpz_equal(&XZ[k], &test[k])) res = 0;
+        }
       if (!res)
-	{
-	  flint_printf("FAIL (rescaling)\n");
-	  for (k = 0; k < X_NB; k++)
-	    {
-	      flint_printf("k = %wd:\n", k);
-	      fmpz_print(&XZ[k]); flint_printf("\n");
-	      fmpz_print(&test[k]); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (rescaling)\n");
+          for (k = 0; k < X_NB; k++)
+            {
+              flint_printf("k = %wd:\n", k);
+              fmpz_print(&XZ[k]); flint_printf("\n");
+              fmpz_print(&test[k]); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpz_vec_clear(I, 4);
       _fmpq_vec_clear(X, X_NB);

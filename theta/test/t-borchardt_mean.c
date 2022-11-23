@@ -46,19 +46,19 @@ int main()
       res = borchardt_mean(r, a, prec);
 
       if (!res || !arb_overlaps(z, acb_realref(r)) || !arb_contains_zero(acb_imagref(r)))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("x = "); arb_printd(x, 100); flint_printf("\n");
-	  flint_printf("y = "); arb_printd(y, 100); flint_printf("\n");
-	  flint_printf("z = "); arb_printd(z, 100); flint_printf("\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
-	    }
-	  flint_printf("r = "); acb_printd(r, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("x = "); arb_printd(x, 100); flint_printf("\n");
+          flint_printf("y = "); arb_printd(y, 100); flint_printf("\n");
+          flint_printf("z = "); arb_printd(z, 100); flint_printf("\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
+            }
+          flint_printf("r = "); acb_printd(r, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       _acb_vec_clear(a, 4);
       arb_clear(x);

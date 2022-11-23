@@ -27,26 +27,26 @@ int main()
       weights = flint_malloc(nb * sizeof(slong));
 
       for (k = 0; k < nb; k++)
-	{
-	  weights[k] = 1 + n_randint(state, 10);
-	  acb_randtest_precise(&I[k], state, prec, mag_bits);
-	}
+        {
+          weights[k] = 1 + n_randint(state, 10);
+          acb_randtest_precise(&I[k], state, prec, mag_bits);
+        }
       acb_randtest_precise(scal, state, prec, mag_bits);
       cov_rescale(S, I, scal, nb, weights, prec);
 
       if (cov_distinct(S, I, nb, weights, prec))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("Scalar: "); acb_printd(scal, 10); flint_printf("\n");
-	  for (k = 0; k < nb; k++)
-	    {
-	      flint_printf("Weight %wd: ", weights[k]);
-	      acb_div(scal, &S[k], &I[k], prec);
-	      acb_printd(scal, 10); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("Scalar: "); acb_printd(scal, 10); flint_printf("\n");
+          for (k = 0; k < nb; k++)
+            {
+              flint_printf("Weight %wd: ", weights[k]);
+              acb_div(scal, &S[k], &I[k], prec);
+              acb_printd(scal, 10); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(I, nb);
       _acb_vec_clear(S, nb);

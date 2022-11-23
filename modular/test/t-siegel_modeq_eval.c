@@ -29,30 +29,30 @@ int main()
 
       for (k = 0; k < 4; k++) fmpz_randtest_not_zero(&I[k], state, mag_bits);
       if (zeroentries)
-	{
-	  if (iter % 2 == 0) fmpz_zero(igusa_psi4(I));
-	  if (iter % 3 == 0) fmpz_zero(igusa_psi6(I));
-	  if (iter % 3 == 1) fmpz_zero(igusa_chi10(I));
-	}
+        {
+          if (iter % 2 == 0) fmpz_zero(igusa_psi4(I));
+          if (iter % 3 == 0) fmpz_zero(igusa_psi6(I));
+          if (iter % 3 == 1) fmpz_zero(igusa_chi10(I));
+        }
 
       if (print)
-	{
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]);
-	      flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]);
+              flint_printf("\n");
+            }
+        }
 
       siegel_modeq_eval(R, ctx, I, ell);
 
       if (fmpz_poly_is_zero(modeq_equation(R)))
-	{
-	  flint_printf("FAIL\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpz_vec_clear(I, 4);
       modeq_clear(R);

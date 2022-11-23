@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
-			       slong ell, slong prec)
+                               slong ell, slong prec)
 {
   slong k, j;
   fmpz_mat_t gamma;
@@ -24,13 +24,13 @@ int hecke_collect_T1_with_line(hecke_t H, const fmpz_mat_t L,
     {
       siegel_T1_coset(gamma, j, ell);
       if (siegel_T1_coset_contains_line_dual(gamma, L, ell))
-	{
-	  if (v) hecke_collect_print_status(res, k, nb);
-	  if (!res) break;
+        {
+          if (v) hecke_collect_print_status(res, k, nb);
+          if (!res) break;
 
-	  res = hecke_set_entry(H, k, gamma, prec);
-	  k++;
-	}
+          res = hecke_set_entry(H, k, gamma, prec);
+          k++;
+        }
     }
   if (v) flint_printf("\n");
 

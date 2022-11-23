@@ -16,10 +16,10 @@ void pol_simplify(fmpz_poly_struct* num_vec, fmpz_t den, slong degree, slong nb)
   for (i = 0; i < nb; i++)
     {
       for (k = 0; k <= degree ; k++)
-	{
-	  fmpz_poly_get_coeff_fmpz(coeff, &num_vec[i], k);
-	  fmpz_gcd(gcd, gcd, coeff);
-	}
+        {
+          fmpz_poly_get_coeff_fmpz(coeff, &num_vec[i], k);
+          fmpz_gcd(gcd, gcd, coeff);
+        }
     }
 
   fmpz_divexact(den, den, gcd);

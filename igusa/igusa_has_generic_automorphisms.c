@@ -16,8 +16,8 @@ int igusa_has_generic_automorphisms(acb_srcptr IC, slong prec)
   res = !acb_contains_zero(&IC[3])
     && !acb_contains_zero(R2)
     && (!acb_contains_zero(&ABCD[0])
-	|| !acb_contains_zero(&ABCD[1])
-	|| !acb_contains_zero(&ABCD[2]));
+        || !acb_contains_zero(&ABCD[1])
+        || !acb_contains_zero(&ABCD[2]));
   /*
   if (!res)
     {

@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 void hilbert_scalar_mul(acb_ptr z, const fmpz_poly_t x, acb_srcptr t,
-			slong delta, slong prec)
+                        slong delta, slong prec)
 {
   acb_ptr res;
   acb_t c;

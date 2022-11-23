@@ -17,9 +17,9 @@ void humbert_vars_set(char** vars, slong delta)
       strcpy(vars[1], "h");
     }
   else if ((delta == 12) ||
-	   (delta == 40) ||
-	   (delta == 85)
-	   )
+           (delta == 40) ||
+           (delta == 85)
+           )
     {
       strcpy(vars[0], "e");
       strcpy(vars[1], "f");
@@ -30,9 +30,9 @@ void humbert_vars_set(char** vars, slong delta)
       strcpy(vars[1], "d");
     }
   else if ((delta == 28) ||
-	   (delta == 29) ||
-	   (delta == 37)
-	   )
+           (delta == 29) ||
+           (delta == 37)
+           )
     {
       strcpy(vars[0], "f");
       strcpy(vars[1], "g");

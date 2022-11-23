@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_slash(acb_ptr im, const acb_mat_t star, acb_srcptr val,
-		 slong k, slong j, slong prec)
+                 slong k, slong j, slong prec)
 {
   acb_t det;
 
@@ -11,7 +11,7 @@ void hecke_slash(acb_ptr im, const acb_mat_t star, acb_srcptr val,
   if (j != 0)
     {
       flint_printf("(hecke_slash) Error: not implemented for vector-valued forms (j = %wd)\n",
-		   j);
+                   j);
       fflush(stdout);
       flint_abort();
     }

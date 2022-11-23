@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 void humbert_AA1BB1B2(acb_ptr AA1BB1B2, acb_srcptr rs, slong delta,
-		      slong prec)
+                      slong prec)
 {
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
@@ -44,11 +44,11 @@ void humbert_AA1BB1B2(acb_ptr AA1BB1B2, acb_srcptr rs, slong delta,
       humbert_get_mpoly(pol, (const char**) vars, "B1", delta, ctx);
       hdme_data_evaluate_acb(&AA1BB1B2[3], pol, rs, ctx, prec);
       if (delta == 61)
-	{
-	  humbert_get_mpoly(pol, (const char**) vars, "B1den", delta, ctx);
-	  hdme_data_evaluate_acb(&AA1BB1B2[4], pol, rs, ctx, prec);
-	  acb_div(&AA1BB1B2[3], &AA1BB1B2[3], &AA1BB1B2[4], prec);
-	}
+        {
+          humbert_get_mpoly(pol, (const char**) vars, "B1den", delta, ctx);
+          hdme_data_evaluate_acb(&AA1BB1B2[4], pol, rs, ctx, prec);
+          acb_div(&AA1BB1B2[3], &AA1BB1B2[3], &AA1BB1B2[4], prec);
+        }
       humbert_get_mpoly(pol, (const char**) vars, "B2", delta, ctx);
       hdme_data_evaluate_acb(&AA1BB1B2[4], pol, rs, ctx, prec);
     }

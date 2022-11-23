@@ -21,9 +21,9 @@ static void perm_nb_to_images(slong* images, slong nb, slong n)
       images[0] = q;
       perm_nb_to_images(&images[1], r, n-1);
       for (k = 1; k < n; k++)
-	{
-	  if (images[k] >= q) images[k] += 1;
-	}
+        {
+          if (images[k] >= q) images[k] += 1;
+        }
     }
 }
 
@@ -35,7 +35,7 @@ void thomae_reorder(acb_ptr new_roots, acb_srcptr roots, slong perm)
 
   perm_nb_to_images(images, perm, 6);
   aux = _acb_vec_init(6); /* Do this AFTER computing images, otherwise
-			     segfault: what is this mess? Compiler optimization? */
+                             segfault: what is this mess? Compiler optimization? */
 
   for (k = 0; k < 6; k++)
     {

@@ -227,19 +227,19 @@ void hdme_data_get_string(char *s, const char *key)
 
     for (i = 0; i < NKEYS; ++i)
       {
-	item = &lookuptable[i];
+        item = &lookuptable[i];
         if (strcmp(item->key, key) == 0)
-	  {
+          {
             strcpy(s, item->val);
-	    res = 1;
-	    break;
-	  }
+            res = 1;
+            break;
+          }
       }
 
     if (!res)
       {
-	flint_printf("(hdme_data_get_string) Error: could not find key %s\n", key);
-	fflush(stdout);
-	flint_abort();
+        flint_printf("(hdme_data_get_string) Error: could not find key %s\n", key);
+        fflush(stdout);
+        flint_abort();
       }
 }

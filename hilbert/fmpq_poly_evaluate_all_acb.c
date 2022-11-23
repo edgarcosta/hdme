@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr vals,
-				 const fmpq_mpoly_ctx_t ctx, slong prec)
+                                 const fmpq_mpoly_ctx_t ctx, slong prec)
 {
   slong n = fmpq_mpoly_ctx_nvars(ctx);
   slong L = fmpq_mpoly_length(pol, ctx);
@@ -19,9 +19,9 @@ void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr va
       powers[k] = _acb_vec_init(degrees[k]+1);
       acb_one(&(powers[k][0]));
       for (j = 1; j <= degrees[k]; j++)
-	{
-	  acb_mul(&(powers[k][j]), &(powers[k][j-1]), &vals[k], prec);
-	}
+        {
+          acb_mul(&(powers[k][j]), &(powers[k][j-1]), &vals[k], prec);
+        }
     }
   acb_init(res);
   acb_init(temp);
@@ -33,10 +33,10 @@ void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr va
       fmpq_mpoly_get_term_coeff_fmpq(coeff, pol, j, ctx);
       acb_set_fmpq(temp, coeff, prec);
       for (k = 0; k < n; k++)
-	{
-	  exp = fmpq_mpoly_get_term_var_exp_si(pol, j, k, ctx);
-	  acb_mul(temp, temp, &(powers[k][exp]), prec);
-	}
+        {
+          exp = fmpq_mpoly_get_term_var_exp_si(pol, j, k, ctx);
+          acb_mul(temp, temp, &(powers[k][exp]), prec);
+        }
       acb_add(res, res, temp, prec);
     }
 

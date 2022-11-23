@@ -35,15 +35,15 @@ int main()
       siegel_transform(w2, u, z, prec);
 
       if (!res || !siegel_is_real_reduced(w1, tol, prec) || !acb_mat_overlaps(w1, w2))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_printf("u = "); fmpz_mat_print(u); flint_printf("\n\n");
-	  flint_printf("w1 = "); acb_mat_printd(w1, 30); flint_printf("\n\n");
-	  flint_printf("w2 = "); acb_mat_printd(w2, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_printf("u = "); fmpz_mat_print(u); flint_printf("\n\n");
+          flint_printf("w1 = "); acb_mat_printd(w1, 30); flint_printf("\n\n");
+          flint_printf("w2 = "); acb_mat_printd(w2, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       acb_mat_clear(z);
       acb_mat_clear(w1);

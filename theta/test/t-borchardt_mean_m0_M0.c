@@ -34,17 +34,17 @@ int main()
 
       /* Generate four complex numbers with positive real part */
       for (i = 0; i < 4; i++)
-	{
-	  acb_randtest_precise(&b[i], state, prec, mag_bits);
-	  while (arb_contains_zero(acb_realref(&b[i])))
-	    {
-	      acb_randtest_precise(&b[i], state, prec, mag_bits);
-	    }
-	  if (arb_is_negative(acb_realref(&b[i])))
-	    {
-	      acb_neg(&b[i], &b[i]);
-	    }
-	}
+        {
+          acb_randtest_precise(&b[i], state, prec, mag_bits);
+          while (arb_contains_zero(acb_realref(&b[i])))
+            {
+              acb_randtest_precise(&b[i], state, prec, mag_bits);
+            }
+          if (arb_is_negative(acb_realref(&b[i])))
+            {
+              acb_neg(&b[i], &b[i]);
+            }
+        }
       /* Scale so that first element becomes 1 */
       acb_inv(scal, &b[0], prec);
       _acb_vec_scalar_mul(a, b, 4, scal, prec);
@@ -54,31 +54,31 @@ int main()
       borchardt_mean_M0(M0, a, prec);
 
       if (!arb_is_positive(m0) || !arb_is_positive(M0))
-	{
-	  flint_printf("FAIL (not positive)\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
-	      flint_printf("b[%wd] = ", i); acb_printd(&b[i], 30); flint_printf("\n");
-	    }
-	  flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");
-	  flint_printf("M0 = "); arb_printd(M0, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (not positive)\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
+              flint_printf("b[%wd] = ", i); acb_printd(&b[i], 30); flint_printf("\n");
+            }
+          flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");
+          flint_printf("M0 = "); arb_printd(M0, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       for (i = 0; i < 4; i++)
-	{
-	  acb_abs(abs, &a[i], prec);
-	  if (arb_lt(abs, m0) || arb_lt(M0, abs))
-	    {
-	      flint_printf("FAIL (comparison)\n");
-	      flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
-	      flint_printf("abs = "); arb_printd(abs, 30); flint_printf("\n");
-	      flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");
-	      flint_printf("M0 = "); arb_printd(M0, 30); flint_printf("\n");
-	      flint_abort();
-	    }
-	}
+        {
+          acb_abs(abs, &a[i], prec);
+          if (arb_lt(abs, m0) || arb_lt(M0, abs))
+            {
+              flint_printf("FAIL (comparison)\n");
+              flint_printf("a[%wd] = ", i); acb_printd(&a[i], 30); flint_printf("\n");
+              flint_printf("abs = "); arb_printd(abs, 30); flint_printf("\n");
+              flint_printf("m0 = "); arb_printd(m0, 30); flint_printf("\n");
+              flint_printf("M0 = "); arb_printd(M0, 30); flint_printf("\n");
+              flint_abort();
+            }
+        }
 
       _acb_vec_clear(a, 4);
       _acb_vec_clear(b, 4);

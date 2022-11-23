@@ -35,37 +35,37 @@ int alt_2step_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell)
       *nb_roots = 0;
       alt_2step_factors(&nb_factors, factors, mults, E, ell);
       for (k = 0; k < nb_factors; k++)
-	{
-	  if (v) flint_printf("(alt_2step_all_isog_Q) Studying factor number %wd\n", k+1);
+        {
+          if (v) flint_printf("(alt_2step_all_isog_Q) Studying factor number %wd\n", k+1);
 
-	  /* Find out what the roots are; if failure, abort */
-	  res = alt_2step_select_isog(indices, &factors[k], mults[k], H, ctx);
-	  if (!res)
-	    {
-	      if (v) flint_printf("(alt_2step_all_isog_Q) Unable to isolate roots, abort.\n");
-	      break;
-	    }
+          /* Find out what the roots are; if failure, abort */
+          res = alt_2step_select_isog(indices, &factors[k], mults[k], H, ctx);
+          if (!res)
+            {
+              if (v) flint_printf("(alt_2step_all_isog_Q) Unable to isolate roots, abort.\n");
+              break;
+            }
 
-	  /* Find out what the stable line is; if failure, continue loop */
-	  res2 = alt_2step_line(L, indices, fmpz_poly_degree(&factors[k]), H);
-	  if (!res2)
-	    {
-	      if (v) flint_printf("(alt_2step_all_isog_Q) Found no stable line\n");
-	      continue;
-	    }
-	  else if (v) flint_printf("(alt_2step_all_isog_Q) Stable line found; evaluating new modular equation\n");
+          /* Find out what the stable line is; if failure, continue loop */
+          res2 = alt_2step_line(L, indices, fmpz_poly_degree(&factors[k]), H);
+          if (!res2)
+            {
+              if (v) flint_printf("(alt_2step_all_isog_Q) Found no stable line\n");
+              continue;
+            }
+          else if (v) flint_printf("(alt_2step_all_isog_Q) Stable line found; evaluating new modular equation\n");
 
-	  /* Evaluate new modular equation; if failure, abort */
-	  res = alt_2step_modeq_with_line(E, ctx, L, I, ell);
-	  if (!res) break;
+          /* Evaluate new modular equation; if failure, abort */
+          res = alt_2step_modeq_with_line(E, ctx, L, I, ell);
+          if (!res) break;
 
-	  /* Compute and set roots */
-	  modeq_all_isog_Q(&add_nb, add_I, E, ctx);
-	  if (v) flint_printf("(alt_2step_all_isog_Q) Found %wd rational roots\n", add_nb);
+          /* Compute and set roots */
+          modeq_all_isog_Q(&add_nb, add_I, E, ctx);
+          if (v) flint_printf("(alt_2step_all_isog_Q) Found %wd rational roots\n", add_nb);
 
-	  _fmpz_vec_set(&all_I[4*(*nb_roots)], add_I, 4*add_nb);
-	  *nb_roots += add_nb;
-	}
+          _fmpz_vec_set(&all_I[4*(*nb_roots)], add_I, 4*add_nb);
+          *nb_roots += add_nb;
+        }
     }
 
   hecke_clear(H);

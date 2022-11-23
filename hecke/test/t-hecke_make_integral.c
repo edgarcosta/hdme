@@ -35,33 +35,33 @@ int main()
       hecke_make_integral(H, I, prec);
 
       for (k = 0; k < nb; k++)
-	{
-	  is_int = 1;
-	  if (print)
-	    {
-	      flint_printf("Is this integral?\n");
-	      acb_printd(&hecke_I_norm(H, k)[0], 20); flint_printf("\n");
-	      acb_printd(&hecke_I_norm(H, k)[1], 20); flint_printf("\n");
-	      acb_printd(&hecke_I_norm(H, k)[2], 20); flint_printf("\n");
-	      acb_printd(&hecke_I_norm(H, k)[3], 20); flint_printf("\n");
-	    }
-	  for (j = 0; j < 4; j++)
-	    {
-	      is_int = is_int && acb_contains_int(&hecke_I_norm(H, k)[j]);
-	    }
-	  if (is_int)
-	    {
-	      res = 1;
-	      break;
-	    }
-	}
+        {
+          is_int = 1;
+          if (print)
+            {
+              flint_printf("Is this integral?\n");
+              acb_printd(&hecke_I_norm(H, k)[0], 20); flint_printf("\n");
+              acb_printd(&hecke_I_norm(H, k)[1], 20); flint_printf("\n");
+              acb_printd(&hecke_I_norm(H, k)[2], 20); flint_printf("\n");
+              acb_printd(&hecke_I_norm(H, k)[3], 20); flint_printf("\n");
+            }
+          for (j = 0; j < 4; j++)
+            {
+              is_int = is_int && acb_contains_int(&hecke_I_norm(H, k)[j]);
+            }
+          if (is_int)
+            {
+              res = 1;
+              break;
+            }
+        }
 
       if (!res)
-	{
-	  flint_printf("FAIL\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpz_vec_clear(I, 4);
       hecke_clear(H);

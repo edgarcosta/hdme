@@ -30,42 +30,42 @@ int main()
       res = tau_from_igusa(tau, I_test, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (tau)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (tau)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       /* Compute Igusa invariants and check */
       res = igusa_from_tau(I, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (I)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 30); flint_printf("\n");
-	    }
-	  acb_mat_printd(tau, 10);
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (I)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 30); flint_printf("\n");
+            }
+          acb_mat_printd(tau, 10);
+          fflush(stdout);
+          flint_abort();
+        }
 
       if (cov_distinct(I, I_test, 4, weights, prec))
-	{
-	  flint_printf("FAIL (overlap)\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 30); flint_printf("\n");
-	      acb_printd(&I[k], 30); flint_printf("\n");
-	    }
-	  acb_mat_printd(tau, 10);
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (overlap)\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 30); flint_printf("\n");
+              acb_printd(&I[k], 30); flint_printf("\n");
+            }
+          acb_mat_printd(tau, 10);
+          fflush(stdout);
+          flint_abort();
+        }
 
       acb_mat_clear(tau);
       _acb_vec_clear(I_test, 4);

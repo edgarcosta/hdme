@@ -9,11 +9,11 @@ static int cov_not_one(acb_srcptr I, slong nb)
   for (j = 0; j < nb; j++)
     {
       if (!arb_contains_si(acb_imagref(&I[j]), 0)
-	  || !arb_contains_si(acb_realref(&I[j]), 1))
-	{
-	  res = 1;
-	  break;
-	}
+          || !arb_contains_si(acb_realref(&I[j]), 1))
+        {
+          res = 1;
+          break;
+        }
     }
 
   return res;
@@ -35,10 +35,10 @@ int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights, slong prec)
   for (j = 0; j < nb; j++)
     {
       if (!acb_contains_zero(&I[j]))
-	{
-	  i0 = j;
-	  break;
-	}
+        {
+          i0 = j;
+          break;
+        }
     }
   if (i0 == -1) res = 0; /* Don't know. */
 
@@ -50,15 +50,15 @@ int cov_no_rescale_to_one(acb_srcptr I, slong nb, slong* weights, slong prec)
       acb_inv(rt, rt, prec);
       acb_unit_root(zeta, weights[i0], prec);
       for (k = 0; k < weights[i0]; k++)
-	{
-	  cov_rescale(test, I, rt, nb, weights, prec);
-	  if (!cov_not_one(test, nb)) /* Found a potentially correct rescaling factor */
-	    {
-	      res = 0;
-	      break;
-	    }
-	  acb_mul(rt, rt, zeta, prec);
-	}
+        {
+          cov_rescale(test, I, rt, nb, weights, prec);
+          if (!cov_not_one(test, nb)) /* Found a potentially correct rescaling factor */
+            {
+              res = 0;
+              break;
+            }
+          acb_mul(rt, rt, zeta, prec);
+        }
     }
 
   acb_clear(rt);

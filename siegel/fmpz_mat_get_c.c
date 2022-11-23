@@ -8,9 +8,9 @@ void fmpz_mat_get_c(fmpz_mat_t c, const fmpz_mat_t m)
   for (j = 0; j < g; j++)
     {
       for (k = 0; k < g; k++)
-	{
-	  fmpz_set(fmpz_mat_entry(c, j, k),
-		   fmpz_mat_entry(m, j+g, k));
-	}
+        {
+          fmpz_set(fmpz_mat_entry(c, j, k),
+                   fmpz_mat_entry(m, j+g, k));
+        }
     }
 }

@@ -34,17 +34,17 @@ siegel_is_in_fundamental_domain(const acb_mat_t z, const arb_t tol, slong prec)
     {
       /* Test matrices */
       for (j = 0; j < siegel_nb_test_matrices(g); j++)
-	{
-	  siegel_test_matrix(test, j);
-	  siegel_star(star, test, z, prec);
-	  acb_mat_det(det, star, prec);
-	  acb_abs(absdet, det, prec);
-	  if (!arb_gt(absdet, one_minus_eps))
-	    {
-	      res = 0;
-	      break; /* for loop */
-	    }
-	}
+        {
+          siegel_test_matrix(test, j);
+          siegel_star(star, test, z, prec);
+          acb_mat_det(det, star, prec);
+          acb_abs(absdet, det, prec);
+          if (!arb_gt(absdet, one_minus_eps))
+            {
+              res = 0;
+              break; /* for loop */
+            }
+        }
     }
 
   fmpz_mat_clear(test);

@@ -2,7 +2,7 @@
 #include "polynomials.h"
 
 int pol_reduce_Fp(fmpz_mod_poly_t red, const fmpz_poly_t num,
-		  const fmpz_t den, const fmpz_mod_ctx_t ctx)
+                  const fmpz_t den, const fmpz_mod_ctx_t ctx)
 {
   int res;
   fmpz_t one;

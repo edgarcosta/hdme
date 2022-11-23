@@ -18,10 +18,10 @@ void hilbert_transform_randtest(fmpz_poly_mat_t m, flint_rand_t state, slong bit
   for (j = 0; j < 2; j++)
     {
       for (k = 0; k < 2; k++)
-	{
-	    fmpz_poly_set_coeff_fmpz(fmpz_poly_mat_entry(m, j, k),
-				     0, fmpz_mat_entry(x, j, k));
-	}
+        {
+            fmpz_poly_set_coeff_fmpz(fmpz_poly_mat_entry(m, j, k),
+                                     0, fmpz_mat_entry(x, j, k));
+        }
     }
 
   fmpz_mat_clear(x);

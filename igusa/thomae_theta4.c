@@ -79,7 +79,7 @@ void thomae_theta4(acb_ptr th4, acb_srcptr ros, slong prec)
 
   ch = theta_char_set_label_g2(3);
   acb_mul(num, &th4[theta_char_set_label_g2(4)],
-	  &th4[theta_char_set_label_g2(6)], prec);
+          &th4[theta_char_set_label_g2(6)], prec);
   acb_sub_si(aux, n, 1, prec);
   acb_sqr(aux, aux, prec);
   acb_mul(num, num, aux, prec);
@@ -88,7 +88,7 @@ void thomae_theta4(acb_ptr th4, acb_srcptr ros, slong prec)
 
   ch = theta_char_set_label_g2(9);
   acb_mul(num, &th4[theta_char_set_label_g2(4)],
-	  &th4[theta_char_set_label_g2(12)], prec);
+          &th4[theta_char_set_label_g2(12)], prec);
   acb_sub_si(aux, l, 1, prec);
   acb_sqr(aux, aux, prec);
   acb_mul(num, num, aux, prec);
@@ -97,7 +97,7 @@ void thomae_theta4(acb_ptr th4, acb_srcptr ros, slong prec)
 
   ch = theta_char_set_label_g2(15);
   acb_mul(num, &th4[theta_char_set_label_g2(1)],
-	  &th4[theta_char_set_label_g2(12)], prec);
+          &th4[theta_char_set_label_g2(12)], prec);
   acb_sub(aux, n, m, prec);
   acb_sqr(aux, aux, prec);
   acb_mul(num, num, aux, prec);

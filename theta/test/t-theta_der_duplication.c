@@ -39,15 +39,15 @@ int main()
       theta_der_duplication(th2_tau, dth2_test, th_half, dth_half, prec);
 
       if (!res || !acb_mat_overlaps(dth2_test, dth2))
-	{
-	  flint_printf("FAIL\n");
-	  acb_mat_printd(tau, 5); flint_printf("\n");
-	  acb_mat_printd(dth_half, 5); flint_printf("\n");
-	  acb_mat_printd(dth2, 5); flint_printf("\n");
-	  acb_mat_printd(dth2_test, 5); flint_printf("\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          acb_mat_printd(tau, 5); flint_printf("\n");
+          acb_mat_printd(dth_half, 5); flint_printf("\n");
+          acb_mat_printd(dth2, 5); flint_printf("\n");
+          acb_mat_printd(dth2_test, 5); flint_printf("\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       acb_mat_clear(tau);
       acb_mat_clear(dth_half);

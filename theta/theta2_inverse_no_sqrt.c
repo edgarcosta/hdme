@@ -29,9 +29,9 @@ theta2_inverse_no_sqrt(acb_mat_t tau, acb_srcptr th, slong prec)
     {
       /* Set means[i] to a Borchardt mean */
       for (j = 0; j < 4; j++)
-	{
-	  acb_set(&a[j], &th[theta_char_set_label_g2(theta_labels[i][j])]);
-	}
+        {
+          acb_set(&a[j], &th[theta_char_set_label_g2(theta_labels[i][j])]);
+        }
       res = res && borchardt_mean(&means[i], a, prec);
     }
 

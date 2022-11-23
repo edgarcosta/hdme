@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
-				 hecke_t H, fmpz* I, slong ell)
+                                 hecke_t H, fmpz* I, slong ell)
 {
   modeq_acb_t E;
   acb_t c;
@@ -24,17 +24,17 @@ int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
       if (res) res = hecke_collect_siegel(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res)
-	{
-	  modeq_scalar(c, H, I, ctx, prec);
-	  modeq_product_trees(E, H, ctx, prec);
-	  modeq_rescale(E, E, c, prec);
-	  res = modeq_round(R, &gap, E);
-	  prec = modeq_nextprec_precise(prec, gap);
-	}
+        {
+          modeq_scalar(c, H, I, ctx, prec);
+          modeq_product_trees(E, H, ctx, prec);
+          modeq_rescale(E, E, c, prec);
+          res = modeq_round(R, &gap, E);
+          prec = modeq_nextprec_precise(prec, gap);
+        }
       else
-	{
-	  prec = modeq_nextprec_generic(prec);
-	}
+        {
+          prec = modeq_nextprec_generic(prec);
+        }
 
       stop = modeq_stop(res, prec);
     }

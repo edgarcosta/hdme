@@ -43,16 +43,16 @@ int main()
       gundlach_from_igusa(G_test, I, delta, prec);
 
       if (cov_distinct(G_acb, G_test, 3, weights, prec))
-	{
-	  flint_printf("FAIL\n");
-	  for (k = 0; k < 3; k++)
-	    {
-	      fmpz_print(&G[k]); flint_printf("\n");
-	      acb_printd(&G_test[k], 300); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          for (k = 0; k < 3; k++)
+            {
+              fmpz_print(&G[k]); flint_printf("\n");
+              acb_printd(&G_test[k], 300); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpq_vec_clear(mn, 2);
       _acb_vec_clear(rs, 2);

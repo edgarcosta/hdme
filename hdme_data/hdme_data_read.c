@@ -5,7 +5,7 @@
 #include "hdme_data.h"
 
 void hdme_data_read(fmpq_mpoly_t pol, const char** vars, const char* name,
-		    const fmpq_mpoly_ctx_t ctx)
+                    const fmpq_mpoly_ctx_t ctx)
 {
   char str[HDME_DATA_STR_LEN];
   int res;

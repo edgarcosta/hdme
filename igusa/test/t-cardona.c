@@ -30,10 +30,10 @@ int main()
       acb_init(c);
 
       for (k = 0; k < 4; k++)
-	{
-	  acb_randtest_precise(c, state, prec, mag_bits);
-	  acb_poly_set_coeff_acb(crv, 2*k, c);
-	}
+        {
+          acb_randtest_precise(c, state, prec, mag_bits);
+          acb_poly_set_coeff_acb(crv, 2*k, c);
+        }
 
       /*
       acb_poly_set_coeff_si(crv, 6, 1);
@@ -46,47 +46,47 @@ int main()
       igusa_R2_from_IC(c, IC, prec);
 
       if (!acb_contains_zero(c))
-	{
-	  flint_printf("FAIL (R2)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (R2)\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       cardona(crv, IC, prec);
       igusa_from_curve(I_test, crv, prec);
       igusa_ABCD_from_IC(IC, IC, prec);
 
       if (cov_distinct(I_test, I, 4, weights, prec))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I[k], 10); flint_printf("\n");
-	      acb_printd(&I_test[k], 10); flint_printf("\n");
-	    }
-	  flint_printf("ABCD:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&IC[k], 10); flint_printf("\n");
-	    }
-	  flint_printf("Curve:\n");
-	  acb_poly_printd(crv, 10); flint_printf("\n");
+        {
+          flint_printf("FAIL\n");
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I[k], 10); flint_printf("\n");
+              acb_printd(&I_test[k], 10); flint_printf("\n");
+            }
+          flint_printf("ABCD:\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&IC[k], 10); flint_printf("\n");
+            }
+          flint_printf("Curve:\n");
+          acb_poly_printd(crv, 10); flint_printf("\n");
 
-	  flint_printf("Normalized covariants:\n");
-	  cov_normalize(I, I, 4, weights, prec);
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I[k], 10); flint_printf("\n");
-	    }
-	  cov_normalize(I_test, I_test, 4, weights, prec);
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 10); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+          flint_printf("Normalized covariants:\n");
+          cov_normalize(I, I, 4, weights, prec);
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I[k], 10); flint_printf("\n");
+            }
+          cov_normalize(I_test, I_test, 4, weights, prec);
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 10); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       acb_poly_clear(crv);
       _acb_vec_clear(I, 4);

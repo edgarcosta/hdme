@@ -27,24 +27,24 @@ int main()
       fmpz_mpoly_init(mon, ctx);
 
       for (k = 0; k < igusa_nb_base_monomials(wt); k++)
-	{
-	  igusa_base_monomial(mon, wt, k, ctx);
-	  cov_monomial_degrees(exps, mon, ctx);
-	  test = 0;
-	  for (j = 0; j < 4; j++) test += weights[j] * exps[j];
-	  if (test != wt)
-	    {
-	      flint_printf("FAIL\n");
-	      flint_printf("Weight %wd, k = %wd, exponents:\n", wt, k);
-	      for (j = 0; j < 4; j++) flint_printf("%wd ", exps[j]);
-	      flint_printf("\n");
-	      igusa_base_exps(exps, wt, k);
-	      for (j = 0; j < 4; j++) flint_printf("%wd ", exps[j]);
-	      flint_printf("\n");
-	      fflush(stdout);
-	      flint_abort();
-	    }
-	}
+        {
+          igusa_base_monomial(mon, wt, k, ctx);
+          cov_monomial_degrees(exps, mon, ctx);
+          test = 0;
+          for (j = 0; j < 4; j++) test += weights[j] * exps[j];
+          if (test != wt)
+            {
+              flint_printf("FAIL\n");
+              flint_printf("Weight %wd, k = %wd, exponents:\n", wt, k);
+              for (j = 0; j < 4; j++) flint_printf("%wd ", exps[j]);
+              flint_printf("\n");
+              igusa_base_exps(exps, wt, k);
+              for (j = 0; j < 4; j++) flint_printf("%wd ", exps[j]);
+              flint_printf("\n");
+              fflush(stdout);
+              flint_abort();
+            }
+        }
 
       fmpz_mpoly_clear(mon, ctx);
       fmpz_mpoly_ctx_clear(ctx);

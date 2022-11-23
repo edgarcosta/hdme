@@ -48,15 +48,15 @@ void igusa_h6(acb_t h6, acb_srcptr theta2, slong prec)
   for (ch1 = 0; ch1 < n; ch1++) {
     for (ch2 = ch1 + 1; ch2 < n; ch2++) {
       for (ch3 = ch2 + 1; ch3 < n; ch3++) {
-	if (theta_char_is_syzygous(ch1, ch2, ch3, g))
-	  {
-	    sgn = igusa_h6_sign(ch1, ch2, ch3);
-	    acb_mul(aux, &theta2[ch1], &theta2[ch2], prec);
-	    acb_mul(aux, aux, &theta2[ch3], prec);
-	    acb_sqr(aux, aux, prec);
-	    acb_mul_si(aux, aux, sgn, prec);
-	    acb_add(res, res, aux, prec);
-	  }
+        if (theta_char_is_syzygous(ch1, ch2, ch3, g))
+          {
+            sgn = igusa_h6_sign(ch1, ch2, ch3);
+            acb_mul(aux, &theta2[ch1], &theta2[ch2], prec);
+            acb_mul(aux, aux, &theta2[ch3], prec);
+            acb_sqr(aux, aux, prec);
+            acb_mul_si(aux, aux, sgn, prec);
+            acb_add(res, res, aux, prec);
+          }
       }
     }
   }

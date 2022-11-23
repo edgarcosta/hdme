@@ -4,7 +4,7 @@
 /* Here I is the Streng covariants */
 
 static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
-			     const acb_t G2, acb_srcptr I, slong prec)
+                             const acb_t G2, acb_srcptr I, slong prec)
 {
   acb_t temp;
   acb_init(temp);
@@ -59,11 +59,11 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
       acb_neg(G2, G2);
       complete_from_G2(F6, F10, x, y, G2, S, prec);
       if (!acb_overlaps(x, y))
-	{
-	  flint_printf("(gundlach_from_igusa) Could not compute corresponding Gundlach covariants\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("(gundlach_from_igusa) Could not compute corresponding Gundlach covariants\n");
+          fflush(stdout);
+          flint_abort();
+        }
     }
 
   acb_set(&G[0], G2);

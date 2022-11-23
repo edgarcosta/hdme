@@ -2,7 +2,7 @@
 #include "modular.h"
 
 void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
-		  const modeq_ctx_t ctx, slong prec)
+                  const modeq_ctx_t ctx, slong prec)
 {
   slong wt = modeq_ctx_weight(ctx);
   slong weights[4] = IGUSA_WEIGHTS;

@@ -47,47 +47,47 @@ int main()
       r = r && !acb_contains_zero(test);
 
       if (r)
-	{
+        {
 
-	  acb_zero(test);
-	  acb_modular_theta(&th[0], &th[1], &th[2], &th[3], test, tau, prec);
-	  acb_div(test, &th[3], &th[2], prec);
-	  acb_sqr(test, test, prec);
-	  acb_sqr(test, test, prec);
+          acb_zero(test);
+          acb_modular_theta(&th[0], &th[1], &th[2], &th[3], test, tau, prec);
+          acb_div(test, &th[3], &th[2], prec);
+          acb_sqr(test, test, prec);
+          acb_sqr(test, test, prec);
 
-	  r = igusa_ec_possible_kp2(kp2, j, prec);
-	  if (!r)
-	    {
-	      flint_printf("FAIL (kp2)\n");
-	      flint_printf("tau, j, kp2:\n");
-	      acb_printd(tau, 10); flint_printf("\n");
-	      acb_printd(j, 10); flint_printf("\n");
-	      acb_printd(test, 10); flint_printf("\n");
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          r = igusa_ec_possible_kp2(kp2, j, prec);
+          if (!r)
+            {
+              flint_printf("FAIL (kp2)\n");
+              flint_printf("tau, j, kp2:\n");
+              acb_printd(tau, 10); flint_printf("\n");
+              acb_printd(j, 10); flint_printf("\n");
+              acb_printd(test, 10); flint_printf("\n");
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  r = 0;
-	  for (k = 0; k < 6; k++)
-	    {
-	      if (acb_overlaps(test, &kp2[k])) r = 1;
-	    }
-	  if (!r)
-	    {
-	      flint_printf("FAIL (kp2 not found)\n");
-	      flint_printf("tau, j, kp2:\n");
-	      acb_printd(tau, 10); flint_printf("\n");
-	      acb_printd(j, 10); flint_printf("\n");
-	      acb_printd(test, 10); flint_printf("\n");
-	      flint_printf("kp2 vector:\n");
-	      for (k = 0; k < 6; k++)
-		{
-		  acb_printd(&kp2[k], 10); flint_printf("\n");
-		}
-	      fflush(stdout);
-	      flint_abort();
-	    }
-	}
+          r = 0;
+          for (k = 0; k < 6; k++)
+            {
+              if (acb_overlaps(test, &kp2[k])) r = 1;
+            }
+          if (!r)
+            {
+              flint_printf("FAIL (kp2 not found)\n");
+              flint_printf("tau, j, kp2:\n");
+              acb_printd(tau, 10); flint_printf("\n");
+              acb_printd(j, 10); flint_printf("\n");
+              acb_printd(test, 10); flint_printf("\n");
+              flint_printf("kp2 vector:\n");
+              for (k = 0; k < 6; k++)
+                {
+                  acb_printd(&kp2[k], 10); flint_printf("\n");
+                }
+              fflush(stdout);
+              flint_abort();
+            }
+        }
 
       acb_clear(tau);
       acb_clear(j);

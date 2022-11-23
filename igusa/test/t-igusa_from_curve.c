@@ -40,19 +40,19 @@ int main()
       igusa_from_curve(I, crv, prec);
 
       if (!acb_contains_zero(&I[0])
-	  || !acb_contains_zero(&I[1])
-	  || !acb_contains_zero(&I[2])
-	  || !acb_contains_zero(&I[3]))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("Curve: "), acb_poly_printd(crv, 30), flint_printf("\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+          || !acb_contains_zero(&I[1])
+          || !acb_contains_zero(&I[2])
+          || !acb_contains_zero(&I[3]))
+        {
+          flint_printf("FAIL\n");
+          flint_printf("Curve: "), acb_poly_printd(crv, 30), flint_printf("\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       /* Generate crv with less multiple roots; check that I10, R2 is zero */
       acb_randtest_precise(&roots[0], state, prec, 1);
@@ -69,18 +69,18 @@ int main()
       igusa_R2_from_IC(R2, IC, prec);
 
       if (!acb_contains_zero(&IC[3])
-	  || !acb_contains_zero(R2))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("Curve: "), acb_poly_printd(crv, 30), flint_printf("\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I[k], 30); flint_printf("\n");
-	    }
-	  flint_printf("R2 = "); acb_printd(R2, 30); flint_printf("\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+          || !acb_contains_zero(R2))
+        {
+          flint_printf("FAIL\n");
+          flint_printf("Curve: "), acb_poly_printd(crv, 30), flint_printf("\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I[k], 30); flint_printf("\n");
+            }
+          flint_printf("R2 = "); acb_printd(R2, 30); flint_printf("\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(roots, 6);
       _acb_vec_clear(I, 4);

@@ -16,10 +16,10 @@ slong hecke_integral_highprec(hecke_t H, slong prec)
     {
       acb_one(m);
       for (k = 0; k < hecke_nb(H); k++)
-	{
-	  acb_mul(m, m, &hecke_I_norm(H, k)[j], prec);
-	  acb_mul_si(m, m, 2, prec);
-	}
+        {
+          acb_mul(m, m, &hecke_I_norm(H, k)[j], prec);
+          acb_mul_si(m, m, 2, prec);
+        }
       acb_get_abs_ubound_arf(rad, m, prec);
       res = FLINT_MAX(res, arf_abs_bound_lt_2exp_si(rad));
     }

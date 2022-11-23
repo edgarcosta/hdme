@@ -18,14 +18,14 @@ borchardt_mean_Delta0(arb_t Delta0, acb_srcptr a, slong prec)
   for (i = 0; i < 4; i++)
     {
       for (j = 0; j < 4; j++)
-	{
-	  if (i != j)
-	    {
-	      acb_sub(diff, &a[i], &a[j], prec);
-	      acb_get_abs_ubound_arf(abs, diff, prec);
-	      arf_add(Delta0_arf, Delta0_arf, abs, prec, ARF_RND_CEIL);
-	    }
-	}
+        {
+          if (i != j)
+            {
+              acb_sub(diff, &a[i], &a[j], prec);
+              acb_get_abs_ubound_arf(abs, diff, prec);
+              arf_add(Delta0_arf, Delta0_arf, abs, prec, ARF_RND_CEIL);
+            }
+        }
     }
 
   arb_set_arf(Delta0, Delta0_arf);

@@ -37,9 +37,9 @@ int main()
       acb_poly_randtest(x2, state, 3, prec, mag_bits);
       acb_poly_randtest(x3, state, 3, prec, mag_bits);
       for (k = 0; k < 10; k++)
-	{
-	  acb_randtest_precise(&cubic[k], state, prec, mag_bits);
-	}
+        {
+          acb_randtest_precise(&cubic[k], state, prec, mag_bits);
+        }
       acb_randtest_precise(param, state, prec, mag_bits);
 
       acb_poly_evaluate(&pt[0], x1, param, prec);
@@ -51,11 +51,11 @@ int main()
       acb_poly_evaluate(ev_test, subst, param, prec);
 
       if (!acb_overlaps(ev, ev_test))
-	{
-	  flint_printf("FAIL (overlap)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (overlap)\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(cubic, 10);
       _acb_vec_clear(pt, 3);

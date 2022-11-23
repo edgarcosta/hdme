@@ -27,64 +27,64 @@ int main()
       fmpz_init(det);
 
       /* Check:
-	 - Determinant ell^2
-	 - General symplectic
-	 - Lower left is zero
-	 - All distinct cosets */
+         - Determinant ell^2
+         - General symplectic
+         - Lower left is zero
+         - All distinct cosets */
 
       for (k = 0; k < nb; k++)
-	{
-	  siegel_coset(m1, k, ell);
+        {
+          siegel_coset(m1, k, ell);
 
-	  fmpz_mat_get_c(c, m1);
-	  if (!fmpz_mat_is_zero(c))
-	    {
-	      flint_printf("FAIL (nonzero c)\n");
-	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      fmpz_mat_print(m1);
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          fmpz_mat_get_c(c, m1);
+          if (!fmpz_mat_is_zero(c))
+            {
+              flint_printf("FAIL (nonzero c)\n");
+              flint_printf("ell = %wd, k = %wd\n", ell, k);
+              fmpz_mat_print(m1);
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  fmpz_mat_det(det, m1);
-	  if (!fmpz_equal_si(det, ell*ell))
-	    {
-	      flint_printf("FAIL (determinant)\n");
-	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      fmpz_mat_print(m1);
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          fmpz_mat_det(det, m1);
+          if (!fmpz_equal_si(det, ell*ell))
+            {
+              flint_printf("FAIL (determinant)\n");
+              flint_printf("ell = %wd, k = %wd\n", ell, k);
+              fmpz_mat_print(m1);
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  if (!fmpz_mat_is_general_symplectic(m1))
-	    {
-	      flint_printf("FAIL (not symplectic)\n");
-	      flint_printf("ell = %wd, k = %wd\n", ell, k);
-	      fmpz_mat_print(m1);
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          if (!fmpz_mat_is_general_symplectic(m1))
+            {
+              flint_printf("FAIL (not symplectic)\n");
+              flint_printf("ell = %wd, k = %wd\n", ell, k);
+              fmpz_mat_print(m1);
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  fmpq_mat_set_fmpz_mat(n, m1);
-	  fmpq_mat_inv(n, n);
+          fmpq_mat_set_fmpz_mat(n, m1);
+          fmpq_mat_inv(n, n);
 
-	  for (i = k+1; i < nb; i++)
-	    {
-	      siegel_coset(m2, i, ell);
-	      fmpq_mat_mul_r_fmpz_mat(test, m2, n);
+          for (i = k+1; i < nb; i++)
+            {
+              siegel_coset(m2, i, ell);
+              fmpq_mat_mul_r_fmpz_mat(test, m2, n);
 
-	      if (fmpq_mat_is_integral(test))
-		{
-		  flint_printf("FAIL (same cosets)\n");
-		  flint_printf("ell = %wd, k = %wd, i = %wd\n", ell, k, i);
-		  fmpz_mat_print(m1);
-		  fmpz_mat_print(m2);
-		  fmpq_mat_print(test);
-		  fflush(stdout);
-		  flint_abort();
-		}
-	    }
-	}
+              if (fmpq_mat_is_integral(test))
+                {
+                  flint_printf("FAIL (same cosets)\n");
+                  flint_printf("ell = %wd, k = %wd, i = %wd\n", ell, k, i);
+                  fmpz_mat_print(m1);
+                  fmpz_mat_print(m2);
+                  fmpq_mat_print(test);
+                  fflush(stdout);
+                  flint_abort();
+                }
+            }
+        }
 
       fmpz_mat_clear(m1);
       fmpz_mat_clear(m2);

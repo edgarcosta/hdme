@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_modeq_eval_split(modeq_t R1, modeq_t R2, modeq_ctx_t ctx1,
-			     modeq_ctx_t ctx2, fmpz* I, slong ell, slong delta)
+                             modeq_ctx_t ctx2, fmpz* I, slong ell, slong delta)
 {
   hecke_t H;
   modeq_acb_t E;

@@ -41,26 +41,26 @@ int main()
       modeq_ctx_choose(ctx, I, nb, prec);
 
       if (i1 != i2 && !modeq_ctx_is_pair(i1, i2, ctx)
-	  && !modeq_ctx_is_pair(i2, i1, ctx))
-	{
-	  flint_printf("FAIL (pair)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+          && !modeq_ctx_is_pair(i2, i1, ctx))
+        {
+          flint_printf("FAIL (pair)\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       res = 1;
       for (k = 0; k < nb; k++)
-	{
-	  cov_mpoly_eval(ev, modeq_ctx_den(ctx), &I[4*k], modeq_ctx_ctx(ctx), prec);
-	  if (acb_contains_zero(ev)) res = 0;
-	}
+        {
+          cov_mpoly_eval(ev, modeq_ctx_den(ctx), &I[4*k], modeq_ctx_ctx(ctx), prec);
+          if (acb_contains_zero(ev)) res = 0;
+        }
 
       if (!res)
-	{
-	  flint_printf("FAIL (denominator)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (denominator)\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(I, 4*nb);
       modeq_ctx_clear(ctx);

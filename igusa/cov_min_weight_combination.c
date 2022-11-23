@@ -8,10 +8,10 @@ static void nonzero_indices(slong* inds, slong* k, fmpz* I, slong nb)
   for (j = 0; j < nb; j++)
     {
       if (!fmpz_is_zero(&I[j]))
-	{
-	  inds[*k] = j;
-	  (*k)++;
-	}
+        {
+          inds[*k] = j;
+          (*k)++;
+        }
     }
 }
 
@@ -22,11 +22,11 @@ static void extract_inds(slong* extr, slong* inds, slong k, slong* vec)
     {
       extr[j] = vec[inds[j]];
       if (vec[inds[j]] < 0)
-	{
-	  flint_printf("(cov_min_weight_combination) Error: negative weight\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("(cov_min_weight_combination) Error: negative weight\n");
+          fflush(stdout);
+          flint_abort();
+        }
     }
 }
 
@@ -49,26 +49,26 @@ static void xgcd_vec_si(slong* gcd, slong* coefs, slong* a, slong nb)
   for (j = 1; j < nb; j++)
     {
       if (a[j] % (*gcd) == 0)
-	{
-	  coefs[j] = 0;
-	}
+        {
+          coefs[j] = 0;
+        }
       else if (*gcd >= a[j])
-	{
-	  *gcd = n_xgcd(&u, &v, *gcd, a[j]);
-	  coefs[j] = -v;
-	  for (i = 0; i < j; i++) coefs[i] *= u;
-	}
+        {
+          *gcd = n_xgcd(&u, &v, *gcd, a[j]);
+          coefs[j] = -v;
+          for (i = 0; i < j; i++) coefs[i] *= u;
+        }
       else
-	{
-	  *gcd = n_xgcd(&u, &v, a[j], *gcd);
-	  coefs[j] = u;
-	  for (i = 0; i < j; i++) coefs[i] *= (-v);
-	}
+        {
+          *gcd = n_xgcd(&u, &v, a[j], *gcd);
+          coefs[j] = u;
+          for (i = 0; i < j; i++) coefs[i] *= (-v);
+        }
     }
 }
 
 void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
-				slong nb, slong* weights)
+                                slong nb, slong* weights)
 {
   slong* inds;
   slong* extr;

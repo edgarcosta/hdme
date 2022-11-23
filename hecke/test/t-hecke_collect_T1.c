@@ -30,49 +30,49 @@ int main()
       siegel_fundamental_domain_randtest(tau, state, prec);
 
       while (ell < ellmax)
-	{
-	  nb = siegel_nb_T1_cosets(ell);
-	  hecke_init(H, nb);
-	  val = _acb_vec_init(nb);
+        {
+          nb = siegel_nb_T1_cosets(ell);
+          hecke_init(H, nb);
+          val = _acb_vec_init(nb);
 
-	  hecke_set_tau(H, tau, prec);
-	  hecke_collect_T1(H, ell, prec);
+          hecke_set_tau(H, tau, prec);
+          hecke_collect_T1(H, ell, prec);
 
-	  /* Test expected eigenvalues for I4, I6' */
-	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
-	  hecke_operator(r, H, val, n_pow(ell, 2), 4, 0, prec);
-	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
+          /* Test expected eigenvalues for I4, I6' */
+          for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
+          hecke_operator(r, H, val, n_pow(ell, 2), 4, 0, prec);
+          acb_div(r, r, &hecke_I_tau(H)[0], prec);
 
-	  hecke_eigenvalues_eisenstein_2(eig, 4, ell);
-	  if (!acb_contains_fmpz(r, &eig[1]))
-	    {
-	      flint_printf("FAIL (I4 eigenvalue)\n");
-	      flint_printf("ell = %wd\n", ell);
-	      acb_printd(r, 30); flint_printf("\n");
-	      fmpz_print(&eig[1]); flint_printf("\n");
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          hecke_eigenvalues_eisenstein_2(eig, 4, ell);
+          if (!acb_contains_fmpz(r, &eig[1]))
+            {
+              flint_printf("FAIL (I4 eigenvalue)\n");
+              flint_printf("ell = %wd\n", ell);
+              acb_printd(r, 30); flint_printf("\n");
+              fmpz_print(&eig[1]); flint_printf("\n");
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k)));
-	  hecke_operator(r, H, val, n_pow(ell, 2), 6, 0, prec);
-	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
+          for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k)));
+          hecke_operator(r, H, val, n_pow(ell, 2), 6, 0, prec);
+          acb_div(r, r, &hecke_I_tau(H)[1], prec);
 
-	  hecke_eigenvalues_eisenstein_2(eig, 6, ell);
-	  if (!acb_contains_fmpz(r, &eig[1]))
-	    {
-	      flint_printf("FAIL (I6' eigenvalue)\n");
-	      flint_printf("ell = %wd\n", ell);
-	      acb_printd(r, 30); flint_printf("\n");
-	      fmpz_print(&eig[1]); flint_printf("\n");
-	      fflush(stdout);
-	      flint_abort();
-	    }
+          hecke_eigenvalues_eisenstein_2(eig, 6, ell);
+          if (!acb_contains_fmpz(r, &eig[1]))
+            {
+              flint_printf("FAIL (I6' eigenvalue)\n");
+              flint_printf("ell = %wd\n", ell);
+              acb_printd(r, 30); flint_printf("\n");
+              fmpz_print(&eig[1]); flint_printf("\n");
+              fflush(stdout);
+              flint_abort();
+            }
 
-	  hecke_clear(H);
-	  _acb_vec_clear(val, nb);
-	  ell = n_nextprime(ell, 1);
-	}
+          hecke_clear(H);
+          _acb_vec_clear(val, nb);
+          ell = n_nextprime(ell, 1);
+        }
 
       acb_mat_clear(tau);
       acb_clear(r);

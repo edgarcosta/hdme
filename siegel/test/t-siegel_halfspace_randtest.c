@@ -38,28 +38,28 @@ int main()
       arb_mat_transpose(imt, im);
 
       if (!arb_mat_overlaps(ret, re) || !arb_mat_overlaps(imt, im))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_printf("re = "); arb_mat_printd(re, 30); flint_printf("\n\n");
-	  flint_printf("im = "); arb_mat_printd(im, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_printf("re = "); arb_mat_printd(re, 30); flint_printf("\n\n");
+          flint_printf("im = "); arb_mat_printd(im, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       arb_mat_det(det, im, prec);
       arb_mat_trace(tr, im, prec);
 
       if (!arb_is_positive(det) || !arb_is_positive(tr))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_printf("im = "); arb_mat_printd(im, 30); flint_printf("\n\n");
-	  flint_printf("det = "); arb_printd(det, 30); flint_printf("\n\n");
-	  flint_printf("tr = "); arb_printd(tr, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_printf("im = "); arb_mat_printd(im, 30); flint_printf("\n\n");
+          flint_printf("det = "); arb_printd(det, 30); flint_printf("\n\n");
+          flint_printf("tr = "); arb_printd(tr, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       acb_mat_clear(z);
       arb_mat_clear(re);

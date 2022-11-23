@@ -2,7 +2,7 @@
 #include "modular.h"
 
 void modeq_isog_monomials_nf(fmpz_poly_struct* M, const modeq_t E,
-			     const fmpz_poly_t factor, slong mult)
+                             const fmpz_poly_t factor, slong mult)
 {
   fmpz_poly_t num;
   fmpq* aux;

@@ -22,27 +22,27 @@ int main()
       fmpz_mat_randtest_triangular_symplectic(m, state, n_randint(state, 50));
       if (!fmpz_mat_is_symplectic(m))
         {
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
-	  flint_abort();
-	}
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
+          flint_abort();
+        }
       fmpz_mat_randtest_diagonal_symplectic(m, state, n_randint(state, 50));
       if (!fmpz_mat_is_symplectic(m))
         {
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
-	  flint_abort();
-	}
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
+          flint_abort();
+        }
       fmpz_mat_randtest_symplectic(m, state, n_randint(state, 50));
       if (!fmpz_mat_is_symplectic(m))
         {
-	  flint_printf("FAIL\n");
-	  flint_printf("g = %wd\n", g);
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
-	  flint_abort();
-	}
+          flint_printf("FAIL\n");
+          flint_printf("g = %wd\n", g);
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n");
+          flint_abort();
+        }
 
       fmpz_mat_clear(m);
     }

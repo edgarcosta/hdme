@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 void mestre_subst_in_conic(acb_poly_t subst, const acb_poly_t x1, const acb_poly_t x2,
-			   const acb_poly_t x3, acb_srcptr conic, slong prec)
+                           const acb_poly_t x3, acb_srcptr conic, slong prec)
 {
 
   acb_t coeff;

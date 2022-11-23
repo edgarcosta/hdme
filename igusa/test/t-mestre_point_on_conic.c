@@ -27,40 +27,40 @@ int main()
       res = mestre_point_on_conic(pt, conic, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (Compute pt)\n");
-	  flint_printf("Conic: \n");
-	  for (k = 0; k < 6; k++)
-	    {
-	      flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
-	    }
-	  flint_printf("Point: \n");
-	  for (k = 0; k < 3; k++)
-	    {
-	      flint_printf("    "); acb_printd(&pt[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (Compute pt)\n");
+          flint_printf("Conic: \n");
+          for (k = 0; k < 6; k++)
+            {
+              flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
+            }
+          flint_printf("Point: \n");
+          for (k = 0; k < 3; k++)
+            {
+              flint_printf("    "); acb_printd(&pt[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       res = !mestre_point_is_outside_conic(pt, conic, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (Point outside conic)\n");
-	  flint_printf("Conic: \n");
-	  for (k = 0; k < 6; k++)
-	    {
-	      flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
-	    }
-	  flint_printf("Point: \n");
-	  for (k = 0; k < 3; k++)
-	    {
-	      flint_printf("    "); acb_printd(&pt[k], 30); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (Point outside conic)\n");
+          flint_printf("Conic: \n");
+          for (k = 0; k < 6; k++)
+            {
+              flint_printf("    "); acb_printd(&conic[k], 30); flint_printf("\n");
+            }
+          flint_printf("Point: \n");
+          for (k = 0; k < 3; k++)
+            {
+              flint_printf("    "); acb_printd(&pt[k], 30); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(conic, 6);
       _acb_vec_clear(pt, 3);

@@ -49,12 +49,12 @@ int main()
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	  }
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+          }
 
       /* Custom value */
       /* acb_set_si_si(acb_mat_entry(tau, 0, 0), 0, 2);
@@ -67,12 +67,12 @@ int main()
 
       res = theta_0123_naive(th_half, tau_half, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
+          flint_abort();
+        }
       acb_set(th0, &th_half[0]);
       _acb_vec_scalar_div(th_half, th_half, 4, th0, prec);
 
@@ -82,49 +82,49 @@ int main()
 
       /* dtau_inv should be small. */
       for (i = 0; i < 3; i++)
-	{
-	  for (j = 0; j < 3; j++)
-	    {
-	      acb_get_mag(abs, acb_mat_entry(dtau_inv, i, j));
-	      if (mag_cmp_2exp_si(abs, 0) > 0) res = 0;
-	    }
-	}
+        {
+          for (j = 0; j < 3; j++)
+            {
+              acb_get_mag(abs, acb_mat_entry(dtau_inv, i, j));
+              if (mag_cmp_2exp_si(abs, 0) > 0) res = 0;
+            }
+        }
 
       if (res == 0)
-	{
-	  flint_printf("FAIL (dtau_inv too large)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30);
-	      flint_printf("\n");
-	    }
-	  flint_printf("dtau = "); acb_mat_printd(dtau, 30); flint_printf("\n");
-	  flint_printf("dtau_inv = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
-	  flint_printf("dth_naive = "); acb_mat_printd(dth_naive, 30); flint_printf("\n");
-	  acb_mat_sub(dtau_inv, dtau_inv, dth_naive, prec);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (dtau_inv too large)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30);
+              flint_printf("\n");
+            }
+          flint_printf("dtau = "); acb_mat_printd(dtau, 30); flint_printf("\n");
+          flint_printf("dtau_inv = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
+          flint_printf("dth_naive = "); acb_mat_printd(dth_naive, 30); flint_printf("\n");
+          acb_mat_sub(dtau_inv, dtau_inv, dth_naive, prec);
+          flint_abort();
+        }
 
       /* dtau_inv and dth_naive should coincide. */
       if (!acb_mat_overlaps(dtau_inv, dth_naive))
-	{
-	  flint_printf("FAIL (dth_naive)\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30);
-	      flint_printf("\n");
-	    }
-	  flint_printf("dtau = "); acb_mat_printd(dtau, 30); flint_printf("\n");
-	  flint_printf("dtau_inv = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
-	  flint_printf("dth_naive = "); acb_mat_printd(dth_naive, 30); flint_printf("\n");
-	  acb_mat_sub(dtau_inv, dtau_inv, dth_naive, prec);
-	  flint_printf("error = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (dth_naive)\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30);
+              flint_printf("\n");
+            }
+          flint_printf("dtau = "); acb_mat_printd(dtau, 30); flint_printf("\n");
+          flint_printf("dtau_inv = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
+          flint_printf("dth_naive = "); acb_mat_printd(dth_naive, 30); flint_printf("\n");
+          acb_mat_sub(dtau_inv, dtau_inv, dth_naive, prec);
+          flint_printf("error = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(tau);

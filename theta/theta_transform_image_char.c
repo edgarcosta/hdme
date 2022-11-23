@@ -43,14 +43,14 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
   for (i = 0; i < g; i++)
     {
       fmpz_sub(fmpz_mat_entry(alphabeta, i, 0),
-	       fmpz_mat_entry(alphabeta, i, 0), fmpz_mat_entry(block, i, i));
+               fmpz_mat_entry(alphabeta, i, 0), fmpz_mat_entry(block, i, i));
     }
   fmpz_mat_transpose(block, b);
   fmpz_mat_mul(block, a, block);
   for (i = 0; i < g; i++)
     {
       fmpz_sub(fmpz_mat_entry(alphabeta, g+i, 0),
-	       fmpz_mat_entry(alphabeta, g+i, 0), fmpz_mat_entry(block, i, i));
+               fmpz_mat_entry(alphabeta, g+i, 0), fmpz_mat_entry(block, i, i));
     }
 
   /* Turn ch into a 2g x 1 fmpz matrix, and update alphabeta */
@@ -58,7 +58,7 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
     {
       /* Least significant bits first */
       fmpz_add_si(fmpz_mat_entry(alphabeta, 2*g-1-i, 0),
-		  fmpz_mat_entry(alphabeta, 2*g-1-i, 0), ch & 1);
+                  fmpz_mat_entry(alphabeta, 2*g-1-i, 0), ch & 1);
       ch = ch >> 1;
     }
 

@@ -39,47 +39,47 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
   if (res)
     {
       for (i = 0; i < 6; i++)
-	{
-	  borchardt_sqrt(t, &kp2[i], prec);
-	  acb_sub_si(&kp2[i], &kp2[i], 1, prec);
-	  acb_neg(&kp2[i], &kp2[i]);
-	  borchardt_sqrt(u, &kp2[i], prec);
+        {
+          borchardt_sqrt(t, &kp2[i], prec);
+          acb_sub_si(&kp2[i], &kp2[i], 1, prec);
+          acb_neg(&kp2[i], &kp2[i]);
+          borchardt_sqrt(u, &kp2[i], prec);
 
-	  /* Adjust signs given that real parts must be positive */
-	  if (arb_is_negative(acb_realref(t))) acb_neg(t, t);
-	  if (arb_is_negative(acb_realref(u))) acb_neg(u, u);
+          /* Adjust signs given that real parts must be positive */
+          if (arb_is_negative(acb_realref(t))) acb_neg(t, t);
+          if (arb_is_negative(acb_realref(u))) acb_neg(u, u);
 
-	  /* If real part of k' contains zero, but not smaller than 0.1,
-	     we do not know what to do. */
-	  arb_abs(cmp, acb_realref(t));
-	  arb_mul_si(cmp, cmp, 10, prec);
-	  arb_sub_si(cmp, cmp, 1, prec);
-	  if (!arb_is_negative(cmp) && arb_contains_zero(acb_realref(t)))
-	    {
-	      res = 0;
-	      break;
-	    }
+          /* If real part of k' contains zero, but not smaller than 0.1,
+             we do not know what to do. */
+          arb_abs(cmp, acb_realref(t));
+          arb_mul_si(cmp, cmp, 10, prec);
+          arb_sub_si(cmp, cmp, 1, prec);
+          if (!arb_is_negative(cmp) && arb_contains_zero(acb_realref(t)))
+            {
+              res = 0;
+              break;
+            }
 
-	  /* If real part of k contains zero, but argument of k is not
-	     outside [-1.5, 1.5], we do not know what to do. */
-	  acb_arg(cmp, u, prec);
-	  arb_abs(cmp, cmp);
-	  arb_mul_si(cmp, cmp, 2, prec);
-	  arb_sub_si(cmp, cmp, 3, prec);
-	  if (!arb_is_positive(cmp) && arb_contains_zero(acb_realref(u)))
-	    {
-	      res = 0;
-	      break;
-	    }
+          /* If real part of k contains zero, but argument of k is not
+             outside [-1.5, 1.5], we do not know what to do. */
+          acb_arg(cmp, u, prec);
+          arb_abs(cmp, cmp);
+          arb_mul_si(cmp, cmp, 2, prec);
+          arb_sub_si(cmp, cmp, 3, prec);
+          if (!arb_is_positive(cmp) && arb_contains_zero(acb_realref(u)))
+            {
+              res = 0;
+              break;
+            }
 
-	  /* Now we can restrict to k, k' with positive real part */
-	  if (arb_is_positive(acb_realref(t)) && arb_is_positive(acb_realref(u)))
-	    {
-	      acb_set(&kp[nb], t);
-	      acb_set(&k[nb], u);
-	      nb++;
-	    }
-	}
+          /* Now we can restrict to k, k' with positive real part */
+          if (arb_is_positive(acb_realref(t)) && arb_is_positive(acb_realref(u)))
+            {
+              acb_set(&kp[nb], t);
+              acb_set(&k[nb], u);
+              nb++;
+            }
+        }
     }
 
   /* We have collected candidate values for k, k'. Now apply AGM,
@@ -88,19 +88,19 @@ static int igusa_ec_period_gen(acb_t tau, const acb_t j, slong prec)
     {
       res = 0;
       for (i = 0; i < nb; i++)
-	{
-	  acb_agm1(t, &kp[i], prec);
-	  acb_agm1(u, &k[i], prec);
-	  acb_div(t, t, u, prec);
-	  acb_mul_onei(t, t);
-	  acb_set(acb_mat_entry(m, 0, 0), t);
-	  if (!siegel_not_in_fundamental_domain(m, prec))
-	    {
-	      res = 1;
-	      acb_set(tau, t);
-	      break;
-	    }
-	}
+        {
+          acb_agm1(t, &kp[i], prec);
+          acb_agm1(u, &k[i], prec);
+          acb_div(t, t, u, prec);
+          acb_mul_onei(t, t);
+          acb_set(acb_mat_entry(m, 0, 0), t);
+          if (!siegel_not_in_fundamental_domain(m, prec))
+            {
+              res = 1;
+              acb_set(tau, t);
+              break;
+            }
+        }
     }
 
   acb_clear(t);

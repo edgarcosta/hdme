@@ -12,7 +12,7 @@ cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec, slong tol_
   if (arf_cmp_2exp_si(next, tol_exp) < 0)
     {
       /* flint_printf("Stop cont_frac with value ");
-	 arf_printd(next, 30); flint_printf("\n"); */
+         arf_printd(next, 30); flint_printf("\n"); */
       res = 1;
     }
   else
@@ -42,7 +42,7 @@ cont_frac_get_fmpq(fmpq_t c, fmpz* r_vec, slong nb_steps)
 }
 
 int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
-		    const fmpz_t probable_den, slong prec)
+                    const fmpz_t probable_den, slong prec)
 {
   acb_t z;
   arf_t current;
@@ -83,31 +83,31 @@ int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
       arf_set(current, arb_midref(acb_realref(z)));
       k = 0;
       while (!stop && (k < max_steps))
-	{
-	  if (k < 2)
-	    {
-	      tol_exp = -prec/2;
-	    }
-	  else
-	    {
-	      tol_exp = -prec/8;
-	    }
-	  stop = cont_frac_step(&r_vec[k], current, current, prec, tol_exp);
-	  k++;
-	}
+        {
+          if (k < 2)
+            {
+              tol_exp = -prec/2;
+            }
+          else
+            {
+              tol_exp = -prec/8;
+            }
+          stop = cont_frac_step(&r_vec[k], current, current, prec, tol_exp);
+          k++;
+        }
       if (k == max_steps)
-	{
-	  res = 0;
-	}
+        {
+          res = 0;
+        }
       else
-	{
-	  res = 1;
-	  cont_frac_get_fmpq(c, r_vec, k);
-	  fmpq_div_fmpz(c, c, probable_den);
-	  fmpq_get_mpz_frac(n, d, c);
-	  fmpz_set_mpz(d_fmpz, d);
-	  fmpz_lcm(den, d_fmpz, probable_den);
-	}
+        {
+          res = 1;
+          cont_frac_get_fmpq(c, r_vec, k);
+          fmpq_div_fmpz(c, c, probable_den);
+          fmpq_get_mpz_frac(n, d, c);
+          fmpz_set_mpz(d_fmpz, d);
+          fmpz_lcm(den, d_fmpz, probable_den);
+        }
     }
 
   acb_clear(z);

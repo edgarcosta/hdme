@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 void hilbert_transform(acb_ptr z, const fmpz_poly_mat_t m, acb_srcptr t,
-		       slong delta, slong prec)
+                       slong delta, slong prec)
 {
   acb_t a, b, c, d, temp, sqrtd;
   acb_ptr res;

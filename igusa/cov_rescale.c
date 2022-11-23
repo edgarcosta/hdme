@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 void cov_rescale(acb_ptr I, acb_srcptr S, const acb_t scal,
-		 slong nb, slong* weights, slong prec)
+                 slong nb, slong* weights, slong prec)
 {
   acb_t temp;
   acb_ptr res;

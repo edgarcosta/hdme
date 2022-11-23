@@ -37,35 +37,35 @@ int main()
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       res = theta2_naive(th, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       res = theta2_inverse(tau_test, th, prec);
       if (!res || !acb_mat_overlaps(tau_test, tau))
-	{
-	  flint_printf("FAIL (inverse theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 16; i++)
-	    {
-	      flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
-	    }
-	  flint_printf("tau_test = "); acb_mat_printd(tau_test, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (inverse theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 16; i++)
+            {
+              flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
+            }
+          flint_printf("tau_test = "); acb_mat_printd(tau_test, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(tau);

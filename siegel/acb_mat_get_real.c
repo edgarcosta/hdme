@@ -11,8 +11,8 @@ acb_mat_get_real(arb_mat_t re, const acb_mat_t z)
   for (i = 0; i < nrows; i++)
     {
       for (j = 0; j < ncols; j++)
-	{
-	  acb_get_real(arb_mat_entry(re, i, j), arb_mat_entry(z, i, j));
-	}
+        {
+          acb_get_real(arb_mat_entry(re, i, j), arb_mat_entry(z, i, j));
+        }
     }
 }

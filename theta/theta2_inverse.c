@@ -27,16 +27,16 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
     {
       /* Set means[i] to a Borchardt mean */
       for (j = 0; j < 4; j++)
-	{
-	  acb_set(&a[j], &th[theta_char_set_label_g2(theta_labels[i][j])]);
-	}
+        {
+          acb_set(&a[j], &th[theta_char_set_label_g2(theta_labels[i][j])]);
+        }
       res = res && borchardt_mean(&means[i], a, prec);
       /* Debug */
       /* flint_printf("(theta2_inverse) Values:\n");
       for (j = 0; j < 4; j++)
-	{
-	  flint_printf("    "); acb_printd(&a[j], 30); flint_printf("\n");
-	}
+        {
+          flint_printf("    "); acb_printd(&a[j], 30); flint_printf("\n");
+        }
       flint_printf("(theta2_inverse) Borchardt mean:");
       acb_printd(&means[i], 30);
       flint_printf("\n"); */
@@ -60,9 +60,9 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
       borchardt_sqrt(&tau_entries[2], &tau_entries[2], prec);
       /* Adjust the sign of tau3 */
       if (arf_cmp_si(arb_midref(acb_imagref(&tau_entries[2])), 0) < 0)
-	{
-	  acb_neg(&tau_entries[2], &tau_entries[2]);
-	}
+        {
+          acb_neg(&tau_entries[2], &tau_entries[2]);
+        }
     }
 
   /* Set tau */

@@ -13,10 +13,10 @@ void igusa_h4(acb_t h4, acb_srcptr theta2, slong prec)
   for (ch = 0; ch < n_pow(2, 2*g); ch++)
     {
       if (theta_char_is_even(ch, g))
-	{
-	  acb_pow_ui(aux, &theta2[ch], 4, prec);
-	  acb_add(res, res, aux, prec);
-	}
+        {
+          acb_pow_ui(aux, &theta2[ch], 4, prec);
+          acb_add(res, res, aux, prec);
+        }
     }
 
   acb_set(h4, res);

@@ -25,17 +25,17 @@ int siegel_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
       if (res) res = hecke_collect_siegel(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res)
-	{
-	  modeq_scalar(c, H, I, ctx, prec);
-	  modeq_product_trees(E, H, ctx, prec);
-	  modeq_rescale(E, E, c, prec);
-	  res = modeq_round(R, &gap, E);
-	  prec = modeq_nextprec_precise(prec, gap);
-	}
+        {
+          modeq_scalar(c, H, I, ctx, prec);
+          modeq_product_trees(E, H, ctx, prec);
+          modeq_rescale(E, E, c, prec);
+          res = modeq_round(R, &gap, E);
+          prec = modeq_nextprec_precise(prec, gap);
+        }
       else
-	{
-	  prec = modeq_nextprec_generic(prec);
-	}
+        {
+          prec = modeq_nextprec_generic(prec);
+        }
 
       stop = modeq_stop(res, prec);
     }

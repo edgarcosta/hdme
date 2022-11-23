@@ -53,34 +53,34 @@ int main()
       /*
       flint_printf("I_test:\n");
       for (k = 0; k < 4; k++)
-	{
-	  acb_printd(&I_test[k], 10); flint_printf("\n");
-	}
+        {
+          acb_printd(&I_test[k], 10); flint_printf("\n");
+        }
       fflush(stdout); */
 
       if (!r || cov_distinct(I_test, I_acb, 4, weights, prec))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("r = %i, I:\n", r);
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  flint_printf("j1, j2:\n");
-	  for (k = 0; k < 2; k++)
-	    {
-	      acb_printd(&j[k], 10); flint_printf("\n");
-	    }
-	  flint_printf("tau:\n");
-	  acb_mat_printd(tau, 10); flint_printf("\n");
-	  flint_printf("I_test:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 10); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("r = %i, I:\n", r);
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          flint_printf("j1, j2:\n");
+          for (k = 0; k < 2; k++)
+            {
+              acb_printd(&j[k], 10); flint_printf("\n");
+            }
+          flint_printf("tau:\n");
+          acb_mat_printd(tau, 10); flint_printf("\n");
+          flint_printf("I_test:\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 10); flint_printf("\n");
+            }
+          fflush(stdout);
+          flint_abort();
+        }
       cov_find_rescaling(scal, I_test, I, 4, weights, prec);
 
       _fmpz_vec_clear(I, 4);

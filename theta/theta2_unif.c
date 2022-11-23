@@ -44,7 +44,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
       flag_newton = theta_use_newton(w, prec);
 
       res = siegel_is_weakly_reduced(w, tol, prec)
-	&& (flag_naive || flag_newton);
+        && (flag_naive || flag_newton);
     }
 
   /* Compute theta2 at w */
@@ -63,15 +63,15 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   for (i = 0; (i < k1) && res; i++)
     {
       /* Each step: rescale; compute square roots in four first
-	 entries of current_th2; apply theta_duplication */
+         entries of current_th2; apply theta_duplication */
       for (j = 1; j < 4; j++)
-	{
-	  acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec);
-	  res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec);
-	}
+        {
+          acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec);
+          res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec);
+        }
       acb_one(&current_th2[0]);
       /* theta_duplication uses only the first 4 entries and allows
-	 aliasing */
+         aliasing */
       theta_duplication(current_th2, current_th2, prec);
     }
 
@@ -101,19 +101,19 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
        apply theta_transform with eta; square roots and duplication;
        finally apply theta2_transform with eta_inv. */
       if (fmpz_is_odd(nb_real_red))
-	{
-	  theta2_transform(current_th2, M1, current_th2, prec);
-	}
+        {
+          theta2_transform(current_th2, M1, current_th2, prec);
+        }
       /* Divide by 2, round towards zero */
       fmpz_tdiv_q_2exp(nb_real_red, nb_real_red, 1);
       /* Get theta constants at eta * current */
       theta2_transform(current_th2, eta, current_th2, prec);
       /* Rescale and square roots */
       for (j = 1; j < 4; j++)
-	{
-	  acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec);
-	  res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec);
-	}
+        {
+          acb_div(&current_th2[j], &current_th2[j], &current_th2[0], prec);
+          res = res && acb_sqrt_goodpos(&current_th2[j], &current_th2[j], prec);
+        }
       acb_one(&current_th2[0]);
       /* Duplication */
       theta_duplication(current_th2, current_th2, prec);

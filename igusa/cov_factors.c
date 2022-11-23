@@ -12,18 +12,18 @@ static void cov_factors_additional(fmpz_factor_t fac, const fmpz_t g, fmpz* I, s
   for (k = 0; k < nb; k++)
     {
       if (!fmpz_is_zero(&I[k]))
-	{
-	  fmpz_remove(r, &I[k], g);
-	  fmpz_gcd(r, g, r);
-	  if (!fmpz_is_one(r))
-	    {
-	      cov_factors_additional(fac, r, I, nb);
-	      fmpz_divexact(r, g, r);
-	      cov_factors_additional(fac, r, I, nb);
-	      addg = 0;
-	      break;
-	    }
-	}
+        {
+          fmpz_remove(r, &I[k], g);
+          fmpz_gcd(r, g, r);
+          if (!fmpz_is_one(r))
+            {
+              cov_factors_additional(fac, r, I, nb);
+              fmpz_divexact(r, g, r);
+              cov_factors_additional(fac, r, I, nb);
+              addg = 0;
+              break;
+            }
+        }
     }
 
   if (addg) _fmpz_factor_append(fac, g, 1);

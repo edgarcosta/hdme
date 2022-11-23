@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int siegel_2step_all_isog_Fp(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell,
-			     const fmpz_mod_ctx_t fpctx)
+                             const fmpz_mod_ctx_t fpctx)
 {
   modeq_t E;
   modeq_ctx_t ctx;

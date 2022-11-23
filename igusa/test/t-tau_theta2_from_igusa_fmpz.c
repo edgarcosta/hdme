@@ -44,42 +44,42 @@ int main()
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
 
       if (print)
-	{
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	}
+        {
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          fflush(stdout);
+        }
       if (print && igusa_is_g2_curve_fmpz(I))
-	{
-	  igusa_IC_fmpz(I, I);
-	  mestre_fmpz(crv, I, prec);
-	  flint_printf("Curve:\n");
-	  acb_poly_printd(crv, 10); flint_printf("\n");
-	  igusa_from_IC_fmpz(I, I);
-	}
+        {
+          igusa_IC_fmpz(I, I);
+          mestre_fmpz(crv, I, prec);
+          flint_printf("Curve:\n");
+          acb_poly_printd(crv, 10); flint_printf("\n");
+          igusa_from_IC_fmpz(I, I);
+        }
 
       r = tau_theta2_from_igusa_fmpz(tau, theta2, I, prec);
       igusa_from_theta2(I_test, theta2, prec);
 
       if (print)
-	{
-	  flint_printf("I_test:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      acb_printd(&I_test[k], 10); flint_printf("\n");
-	    }
-	  fflush(stdout);
-	}
+        {
+          flint_printf("I_test:\n");
+          for (k = 0; k < 4; k++)
+            {
+              acb_printd(&I_test[k], 10); flint_printf("\n");
+            }
+          fflush(stdout);
+        }
 
       if (!r || cov_distinct(I_test, I_acb, 4, weights, prec))
-	{
-	  flint_printf("FAIL\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fflush(stdout);
+          flint_abort();
+        }
       cov_find_rescaling(scal, I_test, I, 4, weights, prec);
 
       _fmpz_vec_clear(I, 4);

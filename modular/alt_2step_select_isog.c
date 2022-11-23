@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
-			  const hecke_t H, const modeq_ctx_t ctx)
+                          const hecke_t H, const modeq_ctx_t ctx)
 {
   acb_t num, den;
   acb_poly_t pol;
@@ -27,14 +27,14 @@ int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
       new = 1;
       /* If one of the ctx pairs, add 1 to "seen" and continue */
       for (j = 0; j < k; j++)
-	{
-	  if (modeq_ctx_is_pair(j, k, ctx))
-	    {
-	      new = 0;
-	      seen[j]++;
-	      break;
-	    }
-	}
+        {
+          if (modeq_ctx_is_pair(j, k, ctx))
+            {
+              new = 0;
+              seen[j]++;
+              break;
+            }
+        }
       if (!new) continue;
 
       /* Compute associated root; is it a root of factor? */
@@ -44,25 +44,25 @@ int alt_2step_select_isog(slong* indices, const fmpz_poly_t factor, slong mult,
       acb_poly_evaluate(num, pol, num, prec);
 
       if (acb_contains_zero(num)) /* Probable root */
-	{
-	  if (nb >= d) /* Too many roots, abort with res = 0 */
-	    {
-	      res = 0;
-	      break;
-	    }
-	  indices[nb] = k;
-	  seen[k] = 1;
-	  nb++;
-	}
+        {
+          if (nb >= d) /* Too many roots, abort with res = 0 */
+            {
+              res = 0;
+              break;
+            }
+          indices[nb] = k;
+          seen[k] = 1;
+          nb++;
+        }
     }
 
   if (res) /* We collected some roots, not too many. */
     {
       if (nb != d) res = 0;
       for (k = 0; k < nb; k++)
-	{
-	  if (seen[indices[k]] != mult) res = 0;
-	}
+        {
+          if (seen[indices[k]] != mult) res = 0;
+        }
     }
 
   acb_clear(num);

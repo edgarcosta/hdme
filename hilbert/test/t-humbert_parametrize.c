@@ -37,68 +37,68 @@ int main()
       fmpz_mat_init(eta, 4, 4);
 
       for (delta = 5; delta < delta_max; delta++)
-	{
-	  if (hilbert_is_fundamental(delta))
-	    {
-	      for (k = 0; k < 2; k++)
-		{
-		  fmpq_randbits(&rs[k], state, rs_bits);
-		}
-	      if (v)
-		{
-		  flint_printf("delta = %wd; parameters are\n", delta);
-		  fmpq_print(&rs[0]); flint_printf("\n");
-		  fmpq_print(&rs[1]); flint_printf("\n");
-		}
-	      acb_set_fmpq(&rs_acb[0], &rs[0], prec);
-	      acb_set_fmpq(&rs_acb[1], &rs[1], prec);
-	      humbert_parametrize(I, rs_acb, delta, prec);
-	      res = tau_from_igusa(tau, I, prec);
+        {
+          if (hilbert_is_fundamental(delta))
+            {
+              for (k = 0; k < 2; k++)
+                {
+                  fmpq_randbits(&rs[k], state, rs_bits);
+                }
+              if (v)
+                {
+                  flint_printf("delta = %wd; parameters are\n", delta);
+                  fmpq_print(&rs[0]); flint_printf("\n");
+                  fmpq_print(&rs[1]); flint_printf("\n");
+                }
+              acb_set_fmpq(&rs_acb[0], &rs[0], prec);
+              acb_set_fmpq(&rs_acb[1], &rs[1], prec);
+              humbert_parametrize(I, rs_acb, delta, prec);
+              res = tau_from_igusa(tau, I, prec);
 
-	      if (!res)
-		{
-		  flint_printf("FAIL (period matrix)\n");
-		  for (k = 0; k < 2; k++)
-		    {
-		      fmpq_print(&rs[k]); flint_printf("\n");
-		    }
-		  for (k = 0; k < 4; k++)
-		    {
-		      acb_printd(&I[k], 30); flint_printf("\n");
-		    }
-		  fflush(stdout);
-		  flint_abort();
-		}
+              if (!res)
+                {
+                  flint_printf("FAIL (period matrix)\n");
+                  for (k = 0; k < 2; k++)
+                    {
+                      fmpq_print(&rs[k]); flint_printf("\n");
+                    }
+                  for (k = 0; k < 4; k++)
+                    {
+                      acb_printd(&I[k], 30); flint_printf("\n");
+                    }
+                  fflush(stdout);
+                  flint_abort();
+                }
 
-	      res = hilbert_inverse(t, eta, tau, delta, prec);
+              res = hilbert_inverse(t, eta, tau, delta, prec);
 
-	      if (!res)
-		{
-		  flint_printf("FAIL (Hilbert inversion)\n");
-		  flint_printf("delta = %wd\n", delta);
-		  for (k = 0; k < 2; k++)
-		    {
-		      fmpq_print(&rs[k]); flint_printf("\n");
-		    }
-		  fflush(stdout);
-		  flint_abort();
-		}
+              if (!res)
+                {
+                  flint_printf("FAIL (Hilbert inversion)\n");
+                  flint_printf("delta = %wd\n", delta);
+                  for (k = 0; k < 2; k++)
+                    {
+                      fmpq_print(&rs[k]); flint_printf("\n");
+                    }
+                  fflush(stdout);
+                  flint_abort();
+                }
 
-	      hilbert_map(tau, t, delta, prec);
-	      igusa_from_tau(I_test, tau, prec);
+              hilbert_map(tau, t, delta, prec);
+              igusa_from_tau(I_test, tau, prec);
 
-	      if (cov_distinct(I, I_test, 4, weights, prec))
-		{
-		  flint_printf("FAIL (overlap)\n");
-		  for (k = 0; k < 2; k++)
-		    {
-		      fmpq_print(&rs[k]); flint_printf("\n");
-		    }
-		  fflush(stdout);
-		  flint_abort();
-		}
-	    }
-	}
+              if (cov_distinct(I, I_test, 4, weights, prec))
+                {
+                  flint_printf("FAIL (overlap)\n");
+                  for (k = 0; k < 2; k++)
+                    {
+                      fmpq_print(&rs[k]); flint_printf("\n");
+                    }
+                  fflush(stdout);
+                  flint_abort();
+                }
+            }
+        }
 
       _fmpq_vec_clear(rs, 2);
       _acb_vec_clear(rs_acb, 2);

@@ -62,19 +62,19 @@ int theta2_der_newton(acb_ptr th2, acb_mat_t dth2, const acb_mat_t tau, slong pr
     {
       mag_set_ui_2exp_si(err, 1, -prec/2+delta);
       for (j = 0; j < 3; j++)
-	{
-	  for (k = 0; k < 3; k++)
-	    {
-	      acb_mul_si(acb_mat_entry(dth_4x3, j+1, k),
-			 acb_mat_entry(dth_approx, j, k), 2, prec);
-	      acb_add_error_mag(acb_mat_entry(dth_4x3, j+1, k), err);
-	    }
-	  acb_mul(acb_mat_entry(dth_4x3, j+1, 2),
-		  acb_mat_entry(dth_4x3, j+1, 2),
-		  acb_mat_entry(tau, 0, 1), prec);
-	  acb_mul_si(acb_mat_entry(dth_4x3, j+1, 2),
-		     acb_mat_entry(dth_4x3, j+1, 2), 2, prec);
-	}
+        {
+          for (k = 0; k < 3; k++)
+            {
+              acb_mul_si(acb_mat_entry(dth_4x3, j+1, k),
+                         acb_mat_entry(dth_approx, j, k), 2, prec);
+              acb_add_error_mag(acb_mat_entry(dth_4x3, j+1, k), err);
+            }
+          acb_mul(acb_mat_entry(dth_4x3, j+1, 2),
+                  acb_mat_entry(dth_4x3, j+1, 2),
+                  acb_mat_entry(tau, 0, 1), prec);
+          acb_mul_si(acb_mat_entry(dth_4x3, j+1, 2),
+                     acb_mat_entry(dth_4x3, j+1, 2), 2, prec);
+        }
       theta_der_duplication(th2, dth2, current_th, dth_4x3, prec);
     }
 

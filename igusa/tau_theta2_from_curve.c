@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 int tau_theta2_from_curve(acb_mat_t tau, acb_ptr theta2, const acb_poly_t crv,
-			  slong prec)
+                          slong prec)
 {
   slong perm, signs;
   acb_ptr I;

@@ -40,12 +40,12 @@ int borchardt_mean_invalid(acb_srcptr a, slong prec)
   for (j = 0; j < 4; j++)
     {
       for (k = 0; k < 4; k++)
-	{
-	  if (arf_cmp(&ints[4*k+1], l) < 0)
-	    {
-	      arf_max(l, l, &ints[4*k+2]);
-	    }
-	}
+        {
+          if (arf_cmp(&ints[4*k+1], l) < 0)
+            {
+              arf_max(l, l, &ints[4*k+2]);
+            }
+        }
     }
 
   if (arf_cmp(l, u) > 0) res = 1;

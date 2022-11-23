@@ -21,7 +21,7 @@ int modeq_round(modeq_t R, slong* bits, const modeq_acb_t E)
   for (k = 0; k < modeq_nb(E)+1; k++)
     {
       b = acb_poly_round(&modeq_all_nums(R)[k], radius,
-			 &modeq_all_nums(E)[k], modeq_degree(E));
+                         &modeq_all_nums(E)[k], modeq_degree(E));
       res = res && b;
       arf_max(max_radius, max_radius, radius);
     }
@@ -32,7 +32,7 @@ int modeq_round(modeq_t R, slong* bits, const modeq_acb_t E)
   if (v && res) flint_printf("(modeq_round) Excess precision: %wd\n", - *bits);
   if (v && !res) flint_printf("(modeq_round) Need %wd more bits of precision\n", *bits);
   if (res) pol_simplify(modeq_all_nums(R), modeq_den(R), modeq_degree(R),
-			modeq_nb(R)+1);
+                        modeq_nb(R)+1);
 
   arf_clear(radius);
   arf_clear(max_radius);

@@ -29,36 +29,36 @@ void igusa_make_integral(fmpq_t scal, fmpz* I, slong wt, slong corr_2_3)
       if (k == 0) fmpz_set_si(p, 2);
       else if (k == 1) fmpz_set_si(p, 3);
       else
-	{
-	  fmpz_set(p, cov_factor_p(fac, k-2));
-	  if (fmpz_equal_si(p, 2) || fmpz_equal_si(p, 3)) continue;
-	}
+        {
+          fmpz_set(p, cov_factor_p(fac, k-2));
+          if (fmpz_equal_si(p, 2) || fmpz_equal_si(p, 3)) continue;
+        }
 
       cov_valuation_fmpq(val, X, p, X_NB, weights);
 
       /* Correction from superspecial reduction */
       if (fmpz_equal_si(p,2) || fmpz_equal_si(p,3))
-	{
-	  fmpq_mul_si(val, val, wt - corr_2_3);
-	}
+        {
+          fmpq_mul_si(val, val, wt - corr_2_3);
+        }
       else
-	{
-	  fmpq_mul_si(val, val, wt);
-	}
+        {
+          fmpq_mul_si(val, val, wt);
+        }
 
       /* Get ceil(val) */
       fmpz_cdiv_q(c, fmpq_numref(val), fmpq_denref(val));
       if (fmpz_cmp_si(c, 0) < 0)
-	{
-	  fmpz_neg(c, c);
-	  fmpz_pow_fmpz(c, p, c);
-	  fmpq_mul_fmpz(scal, scal, c);
-	}
+        {
+          fmpz_neg(c, c);
+          fmpz_pow_fmpz(c, p, c);
+          fmpq_mul_fmpz(scal, scal, c);
+        }
       else
-	{
-	  fmpz_pow_fmpz(c, p, c);
-	  fmpq_div_fmpz(scal, scal, c);
-	}
+        {
+          fmpz_pow_fmpz(c, p, c);
+          fmpq_div_fmpz(scal, scal, c);
+        }
     }
 
   _fmpq_vec_clear(X, X_NB);

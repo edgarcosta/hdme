@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 void cov_eval_all_monomials(acb_ptr ev, acb_srcptr I, slong wt,
-			    slong nb, slong* weights, slong prec)
+                            slong nb, slong* weights, slong prec)
 {
   slong m = cov_nb_monomials(wt, nb, weights);
   slong* exps;

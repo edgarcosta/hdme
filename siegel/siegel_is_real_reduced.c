@@ -20,10 +20,10 @@ siegel_is_real_reduced(const acb_mat_t z, const arb_t tol, slong prec)
   for (i = 0; i < g; i++)
     {
       for (j = 0; j < g; j++)
-	{
-	  arb_abs(abs, acb_realref(acb_mat_entry(z, i, j)));
-	  res = res && arb_lt(abs, bound);
-	}
+        {
+          arb_abs(abs, acb_realref(acb_mat_entry(z, i, j)));
+          res = res && arb_lt(abs, bound);
+        }
     }
 
   arb_clear(bound);

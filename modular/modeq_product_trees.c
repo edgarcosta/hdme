@@ -2,7 +2,7 @@
 #include "modular.h"
 
 void modeq_product_trees(modeq_acb_t E, const hecke_t H,
-			 const modeq_ctx_t ctx, slong prec)
+                         const modeq_ctx_t ctx, slong prec)
 {
   acb_ptr dens;
   acb_ptr nums;
@@ -34,10 +34,10 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
   for (j = 0; j < modeq_ctx_nb(ctx); j++)
     {
       for (k = 0; k < d; k++)
-	{
-	  cov_mpoly_eval(&aux[k], modeq_ctx_monomial(ctx, j), hecke_I(H, k),
-			 modeq_ctx_ctx(ctx), prec);
-	}
+        {
+          cov_mpoly_eval(&aux[k], modeq_ctx_monomial(ctx, j), hecke_I(H, k),
+                         modeq_ctx_ctx(ctx), prec);
+        }
       acb_poly_product_tree_2(modeq_interpolate(E, j), dens, nums, aux, d, prec);
     }
 

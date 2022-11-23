@@ -2,7 +2,7 @@
 #include "polynomials.h"
 
 void pol_remove_root_Q(fmpz_poly_t r, const fmpz_poly_t pol,
-		       const fmpq_t root, slong mult)
+                       const fmpq_t root, slong mult)
 {
   fmpz_poly_t fac;
 

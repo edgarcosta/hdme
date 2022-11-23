@@ -37,10 +37,10 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
       arf_set_si(&b[3], 1);
     }
   else if (arb_contains_zero(acb_imagref(z))
-	   && arb_is_negative(acb_realref(z)))
+           && arb_is_negative(acb_realref(z)))
     {
       /* z intersects the negative real axis: multiply by -1 to get
-	 argument, and -1 is not excluded */
+         argument, and -1 is not excluded */
       acb_neg(temp, z);
       acb_arg(arg, temp, prec);
       arb_div(arg, arg, pi, prec);

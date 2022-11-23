@@ -36,18 +36,18 @@ int main()
       acb_div(h16, h16, h10, prec);
 
       if (!acb_overlaps(h16, &IC[2]))
-	{
-	  flint_printf("FAIL (h16)");
-	  flint_printf("Theta constants:\n");
-	  for (k = 0; k < 16; k++)
-	    {
-	      acb_printd(&theta2[k], 30); flint_printf("\n");
-	    }
-	  flint_printf("\nh16/h10: "); acb_printd(h16, 30);
-	  flint_printf("\nI6: "); acb_printd(&IC[1], 30);
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (h16)");
+          flint_printf("Theta constants:\n");
+          for (k = 0; k < 16; k++)
+            {
+              acb_printd(&theta2[k], 30); flint_printf("\n");
+            }
+          flint_printf("\nh16/h10: "); acb_printd(h16, 30);
+          flint_printf("\nI6: "); acb_printd(&IC[1], 30);
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(theta2, 16);
       _acb_vec_clear(IC, 4);

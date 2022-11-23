@@ -2,7 +2,7 @@
 #include "polynomials.h"
 
 int acb_poly_rationalize(fmpq_poly_t pol, const acb_poly_t pol_acb,
-			 slong degree, slong prec)
+                         slong degree, slong prec)
 {
   fmpq_t c;
   fmpz_t c_num;
@@ -24,9 +24,9 @@ int acb_poly_rationalize(fmpq_poly_t pol, const acb_poly_t pol_acb,
       acb_poly_get_coeff_acb(x, pol_acb, k);
       success = acb_rationalize(c, current_den, x, current_den, prec);
       if (success)
-	{
-	  fmpq_poly_set_coeff_fmpq(pol, k, c);
-	}
+        {
+          fmpq_poly_set_coeff_fmpq(pol, k, c);
+        }
     }
 
   fmpq_clear(c);

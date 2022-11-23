@@ -31,26 +31,26 @@ int main()
       modeq_init(E);
 
       while (!valid)
-	{
-	  for (k = 0; k < 3; k++) fmpz_randtest_not_zero(&G[k], state, mag_bits);
-	  if (iter % 2 == 0) fmpz_zero(&G[0]);
-	  if (iter % 3 == 0) fmpz_zero(&G[1]);
-	  if (iter % 5 == 0) fmpz_zero(&G[2]);
-	  k = n_randint(state, 3);
-	  fmpz_randtest_not_zero(&G[k], state, mag_bits);
+        {
+          for (k = 0; k < 3; k++) fmpz_randtest_not_zero(&G[k], state, mag_bits);
+          if (iter % 2 == 0) fmpz_zero(&G[0]);
+          if (iter % 3 == 0) fmpz_zero(&G[1]);
+          if (iter % 5 == 0) fmpz_zero(&G[2]);
+          k = n_randint(state, 3);
+          fmpz_randtest_not_zero(&G[k], state, mag_bits);
 
-	  igusa_from_gundlach_fmpz(I, G, delta);
-	  valid = !fmpz_is_zero(igusa_chi12(I)) || !fmpz_is_zero(igusa_chi10(I));
-	}
+          igusa_from_gundlach_fmpz(I, G, delta);
+          valid = !fmpz_is_zero(igusa_chi12(I)) || !fmpz_is_zero(igusa_chi10(I));
+        }
 
       if (print)
-	{
-	  flint_printf("Igusa covariants:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("Igusa covariants:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+        }
       hilbert_modeq_eval(E, ctx, I, ell, delta);
 
       _fmpz_vec_clear(G, 3);

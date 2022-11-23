@@ -2,8 +2,8 @@
 #include "theta.h"
 
 int theta2_der_newton_step(acb_ptr th_half, acb_mat_t dth_approx,
-			   const acb_mat_t tau, acb_srcptr th_half_approx,
-			   slong prec)
+                           const acb_mat_t tau, acb_srcptr th_half_approx,
+                           slong prec)
 {
   acb_mat_t dtau;
   acb_mat_t tau_approx;
@@ -23,9 +23,9 @@ int theta2_der_newton_step(acb_ptr th_half, acb_mat_t dth_approx,
     {
       flint_printf("(theta2_der_newton_step) Warning: unable to invert the following theta values\n");
       for (i = 0; i < 3; i++)
-	{
-	  flint_printf("    "); acb_printd(&th_half_approx[i], 30); flint_printf("\n");
-	}
+        {
+          flint_printf("    "); acb_printd(&th_half_approx[i], 30); flint_printf("\n");
+        }
     }
 
 
@@ -42,24 +42,24 @@ int theta2_der_newton_step(acb_ptr th_half, acb_mat_t dth_approx,
 
   /* Compute corrections to apply to th_half */
   acb_sub(acb_mat_entry(tau_approx, 0, 0), acb_mat_entry(tau_approx, 0, 0),
-	  acb_mat_entry(tau, 0, 0), prec);
+          acb_mat_entry(tau, 0, 0), prec);
   acb_sub(acb_mat_entry(tau_approx, 1, 1), acb_mat_entry(tau_approx, 1, 1),
-	  acb_mat_entry(tau, 1, 1), prec);
+          acb_mat_entry(tau, 1, 1), prec);
   acb_sqr(acb_mat_entry(tau_approx, 1, 0), acb_mat_entry(tau_approx, 1, 0), prec);
   acb_submul(acb_mat_entry(tau_approx, 1, 0), acb_mat_entry(tau, 1, 0),
-	     acb_mat_entry(tau, 1, 0), prec);
+             acb_mat_entry(tau, 1, 0), prec);
 
   for (i = 0; i < 3; i++)
     {
       acb_mul(&th_half_corr[i],
-	      acb_mat_entry(dth_half, i, 0),
-	      acb_mat_entry(tau_approx, 0, 0), prec);
+              acb_mat_entry(dth_half, i, 0),
+              acb_mat_entry(tau_approx, 0, 0), prec);
       acb_addmul(&th_half_corr[i],
-		 acb_mat_entry(dth_half, i, 1),
-		 acb_mat_entry(tau_approx, 1, 1), prec);
+                 acb_mat_entry(dth_half, i, 1),
+                 acb_mat_entry(tau_approx, 1, 1), prec);
       acb_addmul(&th_half_corr[i],
-		 acb_mat_entry(dth_half, i, 2),
-		 acb_mat_entry(tau_approx, 1, 0), prec);
+                 acb_mat_entry(dth_half, i, 2),
+                 acb_mat_entry(tau_approx, 1, 0), prec);
       acb_neg(&th_half_corr[i], &th_half_corr[i]);
     }
   /* Apply corrections */

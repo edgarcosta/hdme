@@ -9,7 +9,7 @@ void modeq_ctx_add_pair(modeq_ctx_t ctx, slong i1, slong i2)
     {
       modeq_ctx_alloc_pairs(ctx) += MODEQ_CTX_ALLOC;
       ctx->pairs = flint_realloc(ctx->pairs,
-				 modeq_ctx_alloc_pairs(ctx) * 2 * sizeof(slong));
+                                 modeq_ctx_alloc_pairs(ctx) * 2 * sizeof(slong));
     }
 
   modeq_ctx_nb_pairs(ctx) = k+1;

@@ -64,11 +64,11 @@ int theta_0123half_diff_naive(acb_mat_t dth, const acb_mat_t tau, slong prec)
   acb_sqr(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 0, 1), prec);
   acb_set_arb(acb_mat_entry(tau_half, 1, 0), eps);
   acb_div(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 1, 0),
-	  acb_mat_entry(tau_half, 0, 1), prec);
+          acb_mat_entry(tau_half, 0, 1), prec);
   acb_add_si(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 0, 1), 1, prec);
   borchardt_sqrt(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 0, 1), prec);
   acb_mul(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 0, 1),
-	  acb_mat_entry(tau, 0, 1), prec);
+          acb_mat_entry(tau, 0, 1), prec);
   acb_set(acb_mat_entry(tau_half, 1, 0), acb_mat_entry(tau_half, 0, 1));
 
   /* acb_add_arb(acb_mat_entry(tau_half, 0, 1), acb_mat_entry(tau_half, 0, 1), eps, prec);

@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_action_all_monomials(acb_ptr r, const hecke_t H, slong wt,
-				slong ell, slong prec)
+                                slong ell, slong prec)
 {
   slong weights[4] = IGUSA_WEIGHTS;
   slong m = cov_nb_monomials(wt, 4, weights);
@@ -20,17 +20,17 @@ void hecke_action_all_monomials(acb_ptr r, const hecke_t H, slong wt,
     {
       cov_eval_all_monomials(row, hecke_I(H, j), wt, 4, weights, prec);
       for (k = 0; k < m; k++)
-	{
-	  acb_set(acb_mat_entry(monomials, j, k), &row[k]);
-	}
+        {
+          acb_set(acb_mat_entry(monomials, j, k), &row[k]);
+        }
     }
 
   for (k = 0; k < m; k++)
     {
       for (j = 0; j < nb; j++)
-	{
-	  acb_set(&col[j], acb_mat_entry(monomials, j, k));
-	}
+        {
+          acb_set(&col[j], acb_mat_entry(monomials, j, k));
+        }
       hecke_operator(&r[k], H, col, ell, wt, 0, prec);
     }
 

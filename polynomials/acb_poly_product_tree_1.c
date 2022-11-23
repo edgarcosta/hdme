@@ -2,7 +2,7 @@
 #include "polynomials.h"
 
 void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
-			     acb_srcptr yi, slong d, slong prec)
+                             acb_srcptr yi, slong d, slong prec)
 {
   acb_poly_struct* level;
   slong k, m, mmax;
@@ -39,9 +39,9 @@ void acb_poly_product_tree_1(acb_poly_t P, acb_srcptr xi,
     {
       m *= 2;
       for (k = 0; k < mmax/m; k++)
-	{
-	  acb_poly_mul(&level[k], &level[2*k], &level[2*k+1], prec);
-	}
+        {
+          acb_poly_mul(&level[k], &level[2*k], &level[2*k+1], prec);
+        }
     }
   acb_poly_set(P, &level[0]);
 

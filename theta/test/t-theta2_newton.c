@@ -39,40 +39,40 @@ int main()
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       res = theta2_naive(th, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 16; i++)
-	    {
-	      flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
-	    }
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 16; i++)
+            {
+              flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
+            }
+          flint_abort();
+        }
       acb_set(th0, &th[0]);
       _acb_vec_scalar_div(th, th, 16, th0, prec);
 
       res = theta2_newton(th_test, tau, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (newton)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 16; i++)
-	    {
-	      flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
-	    }
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (newton)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 16; i++)
+            {
+              flint_printf("th[%wd] = ", i); acb_printd(&th[i], 30); flint_printf("\n");
+            }
+          flint_abort();
+        }
       acb_set(th0, &th_test[0]);
       _acb_vec_scalar_div(th_test, th_test, 16, th0, prec);
 
@@ -83,25 +83,25 @@ int main()
       acb_printd(th0, 30); flint_printf("\n"); */
 
       for (i = 0; i < 16; i++)
-	{
-	  if (!acb_overlaps(&th[i], &th_test[i])) res = 0;
-	}
+        {
+          if (!acb_overlaps(&th[i], &th_test[i])) res = 0;
+        }
       if (res == 0)
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  for (i = 0; i < 16; i++)
-	    {
-	      flint_printf("th[%wd] = ", i);
-	      acb_printd(&th[i], 30); flint_printf("\n");
-	      flint_printf("th_test[%wd] = ", i);
-	      acb_printd(&th_test[i], 30); flint_printf("\n");
-	      acb_sub(th0, &th_test[i], &th[i], prec);
-	      flint_printf("th_test[%wd] - th[%wd] = ", i, i);
-	      acb_printd(th0, 30); flint_printf("\n");
-	    }
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          for (i = 0; i < 16; i++)
+            {
+              flint_printf("th[%wd] = ", i);
+              acb_printd(&th[i], 30); flint_printf("\n");
+              flint_printf("th_test[%wd] = ", i);
+              acb_printd(&th_test[i], 30); flint_printf("\n");
+              acb_sub(th0, &th_test[i], &th[i], prec);
+              flint_printf("th_test[%wd] - th[%wd] = ", i, i);
+              acb_printd(th0, 30); flint_printf("\n");
+            }
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(tau);

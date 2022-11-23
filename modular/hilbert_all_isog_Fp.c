@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_all_isog_Fp(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell,
-			slong delta, const fmpz_mod_ctx_t fpctx)
+                        slong delta, const fmpz_mod_ctx_t fpctx)
 {
   modeq_t E;
   modeq_ctx_t ctx;

@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_normalize_entry(hecke_t H, slong k,
-			   fmpz* I, slong norm_ind, slong prec)
+                           fmpz* I, slong norm_ind, slong prec)
 {
   acb_t s;
   acb_t c;

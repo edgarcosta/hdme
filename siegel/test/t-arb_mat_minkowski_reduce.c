@@ -75,11 +75,11 @@ int main()
       arb_set(arb_mat_entry(r, 1, 1), y2);
 
       if (!arb_mat_is_minkowski_reduced(r, tol, prec))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("r = "); arb_mat_printd(r, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("r = "); arb_mat_printd(r, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       /* Generate random transformation in SL_2(ZZ) */
       fmpz_mat_one(uinv);
@@ -91,16 +91,16 @@ int main()
       /* Reduce */
       res = arb_mat_minkowski_reduce(r2, u2, m, tol, prec);
       if (!res || !arb_mat_overlaps(r, r2))
-	{
-	  flint_printf("FAIL (res=%d)\n", res);
-	  flint_printf("r = "); arb_mat_printd(r, 30); flint_printf("\n\n");
-	  flint_printf("u = "); fmpz_mat_print_pretty(u); flint_printf("\n\n");
-	  flint_printf("uinv = "); fmpz_mat_print_pretty(uinv); flint_printf("\n\n");
-	  flint_printf("m = "); arb_mat_printd(m, 30); flint_printf("\n\n");
-	  flint_printf("u2 = "); fmpz_mat_print_pretty(u2); flint_printf("\n\n");
-	  flint_printf("r2 = "); arb_mat_printd(r2, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (res=%d)\n", res);
+          flint_printf("r = "); arb_mat_printd(r, 30); flint_printf("\n\n");
+          flint_printf("u = "); fmpz_mat_print_pretty(u); flint_printf("\n\n");
+          flint_printf("uinv = "); fmpz_mat_print_pretty(uinv); flint_printf("\n\n");
+          flint_printf("m = "); arb_mat_printd(m, 30); flint_printf("\n\n");
+          flint_printf("u2 = "); fmpz_mat_print_pretty(u2); flint_printf("\n\n");
+          flint_printf("r2 = "); arb_mat_printd(r2, 30); flint_printf("\n\n");
+          flint_abort();
+        }
       /* u and u2 may be different when r lies on the boundary. */
 
       arb_clear(y1);

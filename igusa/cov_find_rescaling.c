@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
-			slong nb, slong* weights, slong prec)
+                        slong nb, slong* weights, slong prec)
 {
   slong wt;
   slong* exponents;
@@ -36,10 +36,10 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
   for (j = 0; j < nb; j++)
     {
       if (!acb_overlaps(&rescale[j], &I[j]))
-	{
-	  res = 0;
-	  break;
-	}
+        {
+          res = 0;
+          break;
+        }
     }
   if (!res)
     {
@@ -48,7 +48,7 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
       acb_printd(c, 10); flint_printf("\n");
       flint_printf("Weights, exponents, is zero:\n");
       for (j = 0; j < nb; j++) flint_printf("%wd, %wd, %wd\n", weights[j],
-					    exponents[j], fmpz_is_zero(&S[j]));
+                                            exponents[j], fmpz_is_zero(&S[j]));
       fflush(stdout);
       flint_abort();
     }

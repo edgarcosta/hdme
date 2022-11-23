@@ -36,14 +36,14 @@ int main()
       res = siegel_fundamental_domain(z, m, z, tol, prec);
 
       if (!res || !siegel_is_in_fundamental_domain(z, tol, prec)
-	  || !fmpz_mat_is_symplectic(m))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
-	  flint_abort();
-	}
+          || !fmpz_mat_is_symplectic(m))
+        {
+          flint_printf("FAIL\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+          flint_abort();
+        }
 
       /* Random action of Sp_{2g}(ZZ) */
       fmpz_mat_randtest_symplectic(m, state, bits);
@@ -52,28 +52,28 @@ int main()
       res = res && siegel_transform(z, m, w, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
-	  flint_printf("w = "); acb_mat_printd(w, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+          flint_printf("w = "); acb_mat_printd(w, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       res = siegel_fundamental_domain(z, m, w, tol, prec);
 
       if (!res || !siegel_is_in_fundamental_domain(z, tol, prec)
-	  || !fmpz_mat_is_symplectic(m))
-	{
-	  flint_printf("FAIL\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("prec = %wd\n", prec);
-	  flint_printf("w = "); acb_mat_printd(w, 30); flint_printf("\n\n");
-	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
-	  flint_abort();
-	}
+          || !fmpz_mat_is_symplectic(m))
+        {
+          flint_printf("FAIL\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("prec = %wd\n", prec);
+          flint_printf("w = "); acb_mat_printd(w, 30); flint_printf("\n\n");
+          flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n\n");
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(z);

@@ -39,22 +39,22 @@ int main()
       cov_rescale(test, ABCD, scal, 4, wts, prec);
       cardona_conic(test, test, prec);
       if (cov_distinct(Aij, test, 4, conic_wts, prec))
-	{
-	  flint_printf("FAIL (conic)\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (conic)\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       cardona_cubic(aijk, ABCD, prec);
       cov_rescale(test, ABCD, scal, 4, wts, prec);
       cardona_cubic(test, test, prec);
       if (cov_distinct(aijk, test, 6, cubic_wts, prec))
-	{
-	  flint_printf("FAIL (cubic)\n");
-	  /* There is a term of degree 18 in a233 */
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (cubic)\n");
+          /* There is a term of degree 18 in a233 */
+          fflush(stdout);
+          flint_abort();
+        }
 
       _acb_vec_clear(ABCD, 4);
       _acb_vec_clear(Aij, 4);

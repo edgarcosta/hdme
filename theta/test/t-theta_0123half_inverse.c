@@ -39,38 +39,38 @@ int main()
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (fundamental domain)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (fundamental domain)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       acb_mat_scalar_mul_2exp_si(tau_half, tau, -1);
 
       res = theta_0123_naive(th_half, tau_half, prec);
       if (!res)
-	{
-	  flint_printf("FAIL (naive theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (naive theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       res = theta_0123half_inverse(tau_test, th_half, prec);
       if (!res || !acb_mat_overlaps(tau_test, tau))
-	{
-	  flint_printf("FAIL (inverse theta)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
-	  flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
-	  for (i = 0; i < 4; i++)
-	    {
-	      flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30); flint_printf("\n");
-	    }
-	  flint_printf("tau_test = "); acb_mat_printd(tau_test, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (inverse theta)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
+          flint_printf("tau_half = "); acb_mat_printd(tau_half, 30); flint_printf("\n");
+          for (i = 0; i < 4; i++)
+            {
+              flint_printf("th_half[%wd] = ", i); acb_printd(&th_half[i], 30); flint_printf("\n");
+            }
+          flint_printf("tau_test = "); acb_mat_printd(tau_test, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(tau);

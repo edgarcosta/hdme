@@ -33,40 +33,40 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
   for (a2 = 0; a2 < 5; a2++) {
     for (a3 = 0; a3 < 5; a3++) {
       for (b2 = 1; b2 < 6; b2++) {
-	for (b3 = 1; b3 < 6; b3++) {
-	  acb_poly_zero(x2);
-	  acb_poly_zero(x3);
-	  acb_poly_set_coeff_si(x2, 0, b2);
-	  acb_poly_set_coeff_si(x2, 1, a2);
-	  acb_poly_set_coeff_si(x3, 0, b3);
-	  acb_poly_set_coeff_si(x3, 1, a3);
-	  mestre_subst_in_conic(subst_poly, x1, x2, x3, conic, prec);
+        for (b3 = 1; b3 < 6; b3++) {
+          acb_poly_zero(x2);
+          acb_poly_zero(x3);
+          acb_poly_set_coeff_si(x2, 0, b2);
+          acb_poly_set_coeff_si(x2, 1, a2);
+          acb_poly_set_coeff_si(x3, 0, b3);
+          acb_poly_set_coeff_si(x3, 1, a3);
+          mestre_subst_in_conic(subst_poly, x1, x2, x3, conic, prec);
 
-	  /* Are discriminant and leading term nonzero ? */
-	  acb_poly_get_coeff_acb(c0, subst_poly, 0);
-	  acb_poly_get_coeff_acb(c1, subst_poly, 1);
-	  acb_poly_get_coeff_acb(c2, subst_poly, 2);
-	  acb_sqr(discr, c1, prec);
-	  acb_mul(lead, c0, c2, prec); /* Use lead as temp */
-	  acb_submul_si(discr, lead, 4, prec);
-	  acb_poly_get_coeff_acb(lead, subst_poly, 2);
+          /* Are discriminant and leading term nonzero ? */
+          acb_poly_get_coeff_acb(c0, subst_poly, 0);
+          acb_poly_get_coeff_acb(c1, subst_poly, 1);
+          acb_poly_get_coeff_acb(c2, subst_poly, 2);
+          acb_sqr(discr, c1, prec);
+          acb_mul(lead, c0, c2, prec); /* Use lead as temp */
+          acb_submul_si(discr, lead, 4, prec);
+          acb_poly_get_coeff_acb(lead, subst_poly, 2);
 
-	  if (!acb_contains_zero(discr)
-	      && !acb_contains_zero(lead))
-	    {
-	      res = 1;
-	      /* Compute x1, x2, x3 */
-	      borchardt_sqrt(discr, discr, prec);
-	      acb_sub(&xx[0], discr, c1, prec);
-	      acb_div(&xx[0], &xx[0], lead, prec);
-	      acb_div_si(&xx[0], &xx[0], 2, prec);
-	      acb_mul_si(&xx[1], &xx[0], a2, prec);
-	      acb_add_si(&xx[1], &xx[1], b2, prec);
-	      acb_mul_si(&xx[2], &xx[0], a3, prec);
-	      acb_add_si(&xx[2], &xx[2], b3, prec);
-	      goto exit; /* Break all loops */
-	    }
-	}
+          if (!acb_contains_zero(discr)
+              && !acb_contains_zero(lead))
+            {
+              res = 1;
+              /* Compute x1, x2, x3 */
+              borchardt_sqrt(discr, discr, prec);
+              acb_sub(&xx[0], discr, c1, prec);
+              acb_div(&xx[0], &xx[0], lead, prec);
+              acb_div_si(&xx[0], &xx[0], 2, prec);
+              acb_mul_si(&xx[1], &xx[0], a2, prec);
+              acb_add_si(&xx[1], &xx[1], b2, prec);
+              acb_mul_si(&xx[2], &xx[0], a3, prec);
+              acb_add_si(&xx[2], &xx[2], b3, prec);
+              goto exit; /* Break all loops */
+            }
+        }
       }
     }
   }

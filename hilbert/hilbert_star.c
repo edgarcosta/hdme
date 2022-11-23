@@ -2,7 +2,7 @@
 #include "hilbert.h"
 
 void hilbert_star(acb_t z, const fmpz_poly_mat_t m, acb_srcptr t,
-		  slong delta, slong prec)
+                  slong delta, slong prec)
 {
   acb_t c, d, res, temp, sqrtd;
   acb_init(c);

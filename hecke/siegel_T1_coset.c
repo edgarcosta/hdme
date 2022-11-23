@@ -27,23 +27,23 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
     {
       /* Case 2 */
       if (k < 1 + (p-1))
-	{
-	  /* a is zero, b too, c is anything nonzero */
-	  a = 0;
-	  b = 0;
-	  c = k;
-	}
+        {
+          /* a is zero, b too, c is anything nonzero */
+          a = 0;
+          b = 0;
+          c = k;
+        }
       else
-	{
-	  /* a is nonzero, b is anything, c is b^2/a */
-	  /* k-p is between 0 and p(p-1)-1 */
-	  a = (k-p) % (p-1);
-	  a += 1;
-	  b = (k-p) % p;
-	  c = (b*b) % p;
-	  c *= n_invmod(a, p);
-	  c = c % p;
-	}
+        {
+          /* a is nonzero, b is anything, c is b^2/a */
+          /* k-p is between 0 and p(p-1)-1 */
+          a = (k-p) % (p-1);
+          a += 1;
+          b = (k-p) % p;
+          c = (b*b) % p;
+          c *= n_invmod(a, p);
+          c = c % p;
+        }
       for (i = 0; i < 4; i++) fmpz_set_si(fmpz_mat_entry(m, i, i), p);
       fmpz_set_si(fmpz_mat_entry(m, 0, 2), a);
       fmpz_set_si(fmpz_mat_entry(m, 0, 3), b);

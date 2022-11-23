@@ -2,7 +2,7 @@
 #include "modular.h"
 
 void modeq_all_isog_Q(slong* nb_roots, fmpz* all_I,
-		      const modeq_t E, const modeq_ctx_t ctx)
+                      const modeq_t E, const modeq_ctx_t ctx)
 {
   slong nb = modeq_degree(E);
   slong nb_M = modeq_ctx_nb(ctx);

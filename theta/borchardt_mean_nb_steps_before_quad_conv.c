@@ -36,36 +36,36 @@ borchardt_mean_nb_steps_before_quad_conv(fmpz_t nb, acb_srcptr a, slong prec)
       flint_printf("prec = %wd\n", prec);
       flint_printf("a: ");
       for (k = 0; k < 4; k++)
-	{
-	  acb_printd(&a[k], 30); flint_printf("\n");
-	}
+        {
+          acb_printd(&a[k], 30); flint_printf("\n");
+        }
     }
 
   if (res)
     {
       if (arb_is_zero(Delta0))
-	{
-	  fmpz_zero(nb);
-	}
+        {
+          fmpz_zero(nb);
+        }
       else
-	{
-	  arb_div(num, m0, Delta0, prec);
-	  arb_div_si(num, num, 7, prec);
-	  arb_log(num, num, prec);
+        {
+          arb_div(num, m0, Delta0, prec);
+          arb_div_si(num, num, 7, prec);
+          arb_log(num, num, prec);
 
-	  arb_one(den);
-	  arb_mul_2exp_si(den, den, -g);
-	  arb_neg(den, den);
-	  arb_add_si(den, den, 1, prec);
-	  arb_log(den, den, prec);
+          arb_one(den);
+          arb_mul_2exp_si(den, den, -g);
+          arb_neg(den, den);
+          arb_add_si(den, den, 1, prec);
+          arb_log(den, den, prec);
 
-	  arb_div(num, num, den, prec);
-	  if (arb_is_negative(num)) arb_zero(num);
+          arb_div(num, num, den, prec);
+          if (arb_is_negative(num)) arb_zero(num);
 
-	  arb_get_ubound_arf(sup, num, prec);
-	  arf_ceil(sup, sup);
-	  arf_get_fmpz(nb, sup, ARF_RND_NEAR);
-	}
+          arb_get_ubound_arf(sup, num, prec);
+          arf_ceil(sup, sup);
+          arf_get_fmpz(nb, sup, ARF_RND_NEAR);
+        }
     }
 
   arb_clear(m0);

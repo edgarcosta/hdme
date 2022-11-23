@@ -16,26 +16,26 @@ int main()
   for (delta = 5; delta < 100; delta++)
     {
       if (hilbert_is_fundamental(delta))
-	{
-	  for (ell = 2; ell < 200; ell++)
-	    {
-	      if (n_is_prime(ell))
-		{
-		  splits = hilbert_splits(beta, ell, delta);
-		  /*
-		  flint_printf("%wd splits correctly in Q(sqrt(%wd)): %d\n",
-		  ell, delta, splits); */
-		  if (splits)
-		    {
-		      /* flint_printf("%wd splits correctly in Q(sqrt(%wd)), generator: ",
-				   ell, delta);
-		      fmpz_poly_print_pretty(beta, "x");
-		      flint_printf("\n"); */
-		    }
+        {
+          for (ell = 2; ell < 200; ell++)
+            {
+              if (n_is_prime(ell))
+                {
+                  splits = hilbert_splits(beta, ell, delta);
+                  /*
+                  flint_printf("%wd splits correctly in Q(sqrt(%wd)): %d\n",
+                  ell, delta, splits); */
+                  if (splits)
+                    {
+                      /* flint_printf("%wd splits correctly in Q(sqrt(%wd)), generator: ",
+                                   ell, delta);
+                      fmpz_poly_print_pretty(beta, "x");
+                      flint_printf("\n"); */
+                    }
 
-		}
-	    }
-	}
+                }
+            }
+        }
     }
 
   fmpz_poly_clear(beta);

@@ -37,21 +37,21 @@ int main()
 
       res = 0;
       while (!res)
-	{
-	  for (k = 0; k < 2; k++) fmpq_randtest(&mn[k], state, mag_bits);
-	  gundlach_from_hilbert_param(G, mn, delta);
-	  igusa_from_gundlach_fmpz(I, G, delta);
-	  res = !fmpz_is_zero(igusa_chi10(I)) || !fmpz_is_zero(igusa_chi12(I));
-	}
+        {
+          for (k = 0; k < 2; k++) fmpq_randtest(&mn[k], state, mag_bits);
+          gundlach_from_hilbert_param(G, mn, delta);
+          igusa_from_gundlach_fmpz(I, G, delta);
+          res = !fmpz_is_zero(igusa_chi10(I)) || !fmpz_is_zero(igusa_chi12(I));
+        }
 
       if (print)
-	{
-	  flint_printf("Igusa covariants:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	}
+        {
+          flint_printf("Igusa covariants:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+        }
 
       hilbert_modeq_eval_split(R1, R2, ctx1, ctx2, I, ell, delta);
 

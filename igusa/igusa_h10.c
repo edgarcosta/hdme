@@ -15,9 +15,9 @@ void igusa_h10(acb_t h10, acb_srcptr theta2, slong prec)
   for (ch = 0; ch < n; ch++)
     {
       if (theta_char_is_even(ch, g))
-	{
-	  acb_mul(res, res, &theta2[ch], prec);
-	}
+        {
+          acb_mul(res, res, &theta2[ch], prec);
+        }
     }
 
   acb_set(h10, res);

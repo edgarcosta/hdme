@@ -10,8 +10,8 @@ arb_mat_randtest_precise(arb_mat_t r, flint_rand_t state, slong prec, slong mag_
   for (i = 0; i < nrows; i++)
     {
       for (j = 0; j < ncols; j++)
-	{
-	  arb_randtest_precise(arb_mat_entry(r, i, j), state, prec, mag_bits);
-	}
+        {
+          arb_randtest_precise(arb_mat_entry(r, i, j), state, prec, mag_bits);
+        }
     }
 }

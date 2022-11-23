@@ -14,14 +14,14 @@ void hecke_print(const hecke_t H, slong digits)
       acb_printd(&hecke_I_tau(H)[k], digits); flint_printf("\n");
     }
   flint_printf("%wd isogenous period matrices with cocycles and invariants:\n",
-	       hecke_nb(H));
+               hecke_nb(H));
   for (j = 0; j < hecke_nb(H); j++)
     {
       acb_mat_printd(hecke_isog(H, j), digits);
       acb_mat_printd(hecke_star(H, j), digits);
       for (k = 0; k < 4; k++)
-	{
-	  acb_printd(&hecke_I(H, j)[k], digits); flint_printf("\n");
-	}
+        {
+          acb_printd(&hecke_I(H, j)[k], digits); flint_printf("\n");
+        }
     }
 }

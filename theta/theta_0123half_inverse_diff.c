@@ -8,7 +8,7 @@
    th_half is normalized with first entry 1. */
 
 int theta_0123half_inverse_diff(acb_mat_t dtau, const acb_mat_t tau, acb_srcptr th_half,
-				slong prec)
+                                slong prec)
 {
   acb_ptr th_half_pert;
   acb_mat_t tau_pert;
@@ -37,16 +37,16 @@ int theta_0123half_inverse_diff(acb_mat_t dtau, const acb_mat_t tau, acb_srcptr 
       res = res && theta_0123half_inverse_no_sqrt(tau_pert, th_half_pert, prec);
       /* Set tau_pert to contain [dtau_1, d(tau_3^2); d(tau_3^2), dtau_2] */
       acb_sub(acb_mat_entry(tau_pert, 0, 0), acb_mat_entry(tau_pert, 0, 0),
-	      acb_mat_entry(tau, 0, 0), prec);
+              acb_mat_entry(tau, 0, 0), prec);
       acb_sub(acb_mat_entry(tau_pert, 1, 1), acb_mat_entry(tau_pert, 1, 1),
-	      acb_mat_entry(tau, 1, 1), prec);
+              acb_mat_entry(tau, 1, 1), prec);
 
       acb_sqr(acb_mat_entry(tau_pert, 1, 0), acb_mat_entry(tau, 1, 0), prec);
       /* No need to square tau3 in tau_pert because we use
-	 theta_0123half_inverse_no_sqrt */
+         theta_0123half_inverse_no_sqrt */
 
       acb_sub(acb_mat_entry(tau_pert, 1, 0), acb_mat_entry(tau_pert, 0, 1),
-	      acb_mat_entry(tau_pert, 1, 0), 2*prec);
+              acb_mat_entry(tau_pert, 1, 0), 2*prec);
       acb_set(acb_mat_entry(tau_pert, 0, 1), acb_mat_entry(tau_pert, 1, 0));
 
       acb_mat_scalar_mul_2exp_si(tau_pert, tau_pert, -eps_exp);

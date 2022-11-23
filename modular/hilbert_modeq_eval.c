@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
-		       slong ell, slong delta)
+                       slong ell, slong delta)
 {
   hecke_t H;
   modeq_acb_t E;
@@ -27,17 +27,17 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
       if (res) modeq_product_trees(E, H, ctx, prec);
       if (res && (delta == 5))
-	{
-	  modeq_scalar(c, H, I, ctx, prec);
-	  modeq_rescale(E, E, c, prec);
-	  res = modeq_round(R, &gap, E);
-	  prec = modeq_nextprec_precise(prec, gap);
-	}
+        {
+          modeq_scalar(c, H, I, ctx, prec);
+          modeq_rescale(E, E, c, prec);
+          res = modeq_round(R, &gap, E);
+          prec = modeq_nextprec_precise(prec, gap);
+        }
       else
-	{
-	  prec = modeq_nextprec_generic(prec);
-	  if (res) res = modeq_rationalize(R, E, prec);
-	}
+        {
+          prec = modeq_nextprec_generic(prec);
+          if (res) res = modeq_rationalize(R, E, prec);
+        }
 
       stop = modeq_stop(res, prec);
     }

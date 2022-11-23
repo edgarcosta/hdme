@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int hecke_collect_hilbert_sym(hecke_t H,
-			      slong ell, slong delta, slong prec)
+                              slong ell, slong delta, slong prec)
 {
   slong k;
   fmpz_poly_mat_t m;
@@ -40,14 +40,14 @@ int hecke_collect_hilbert_sym(hecke_t H,
       if (!res) break;
 
       if (k < hilbert_nb_cosets(ell, delta))
-	{
-	  hilbert_coset(m, k, beta, ell, delta);
-	}
+        {
+          hilbert_coset(m, k, beta, ell, delta);
+        }
       else
-	{
-	  hilbert_coset(m, k - hilbert_nb_cosets(ell, delta),
-			betabar, ell, delta);
-	}
+        {
+          hilbert_coset(m, k - hilbert_nb_cosets(ell, delta),
+                        betabar, ell, delta);
+        }
 
       hilbert_mat_map(gamma, m, delta);
       fmpz_mat_mul(gamma, gamma, hecke_eta(H));

@@ -23,7 +23,7 @@ arb_round_fmpz(fmpz_t z, const arb_t x, const arb_t tol)
 
 
 int siegel_reduce_real(acb_mat_t w, fmpz_mat_t u, const acb_mat_t z,
-		       const arb_t tol, slong prec)
+                       const arb_t tol, slong prec)
 {
   int res = 1;
   fmpz_mat_t round, zero, one;
@@ -38,15 +38,15 @@ int siegel_reduce_real(acb_mat_t w, fmpz_mat_t u, const acb_mat_t z,
   for (i = 0; i < g; i++)
     {
       for (j = 0; j < i; j++)
-	{
-	  fmpz_set(acb_mat_entry(round, i, j),
-		   acb_mat_entry(round, j, i));
-	}
+        {
+          fmpz_set(acb_mat_entry(round, i, j),
+                   acb_mat_entry(round, j, i));
+        }
       for (j = i; j < g; j++)
-	{
-	  res = res && arb_round_fmpz(fmpz_mat_entry(round, i, j),
-				      acb_realref(acb_mat_entry(z, i, j)), tol);
-	}
+        {
+          res = res && arb_round_fmpz(fmpz_mat_entry(round, i, j),
+                                      acb_realref(acb_mat_entry(z, i, j)), tol);
+        }
     }
   fmpz_mat_neg(round, round);
   fmpz_mat_set_abcd(u, one, round, zero, one);

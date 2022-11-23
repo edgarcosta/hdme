@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 int hecke_collect_hilbert(hecke_t H, const fmpz_poly_t beta,
-			  slong ell, slong delta, slong prec)
+                          slong ell, slong delta, slong prec)
 {
   slong k;
   fmpz_poly_mat_t m;

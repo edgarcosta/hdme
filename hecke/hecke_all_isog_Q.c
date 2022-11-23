@@ -34,7 +34,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
     res = hecke_set_I_fmpz_with_lowprec(H2, I, hecke_theta2_tau(H), highprec);
 
     #pragma omp parallel
-    { // this initializes the private	variables
+    { // this initializes the private        variables
       fmpz* round;
       fmpz_t zero;
       acb_t m, c;

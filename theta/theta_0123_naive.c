@@ -79,10 +79,10 @@ theta_0123_naive(acb_ptr th, const acb_mat_t tau, slong prec)
       acb_sqr(b, q1, prec);
       acb_set(&Q1vec[1], q1);
       for (m = 2; m < B_slong+1; m++)
-	{
-	  acb_mul(a, a, b, prec);
-	  acb_mul(&Q1vec[m], a, &Q1vec[m-1], prec);
-	}
+        {
+          acb_mul(a, a, b, prec);
+          acb_mul(&Q1vec[m], a, &Q1vec[m-1], prec);
+        }
 
       /* Compute sums */
       /* Si are already zero */
@@ -94,44 +94,44 @@ theta_0123_naive(acb_ptr th, const acb_mat_t tau, slong prec)
 
       /* Outer loop */
       for (n = 1; n < B_slong+1; n++)
-	{
-	  acb_mul(a3, a3, q3, prec);
-	  acb_mul(a4, a4, q4, prec);
-	  acb_mul(Q2, Q2, b2, prec);
-	  acb_mul(b2, b2, c2, prec);
+        {
+          acb_mul(a3, a3, q3, prec);
+          acb_mul(a4, a4, q4, prec);
+          acb_mul(Q2, Q2, b2, prec);
+          acb_mul(b2, b2, c2, prec);
 
-	  pm1_n = (n%2 == 0 ? 1 : -1);
-	  acb_add(S0, S0, &Q1vec[n], prec);
-	  acb_addmul_si(S1, &Q1vec[n], pm1_n, prec);
-	  acb_add(S2, S2, &Q1vec[n], prec);
-	  acb_addmul_si(S3, &Q1vec[n], pm1_n, prec);
+          pm1_n = (n%2 == 0 ? 1 : -1);
+          acb_add(S0, S0, &Q1vec[n], prec);
+          acb_addmul_si(S1, &Q1vec[n], pm1_n, prec);
+          acb_add(S2, S2, &Q1vec[n], prec);
+          acb_addmul_si(S3, &Q1vec[n], pm1_n, prec);
 
-	  acb_one(Q3);
-	  acb_one(Q4);
-	  acb_one(A0);
-	  acb_one(A1);
-	  acb_set_si(A2, pm1_n);
-	  acb_set_si(A3, pm1_n);
+          acb_one(Q3);
+          acb_one(Q4);
+          acb_one(A0);
+          acb_one(A1);
+          acb_set_si(A2, pm1_n);
+          acb_set_si(A3, pm1_n);
 
-	  /* Inner loop */
-	  for (m = 1; m < B_slong+1; m++)
-	    {
-	      acb_mul(Q3, Q3, a3, prec);
-	      acb_mul(Q4, Q4, a4, prec);
-	      acb_add(s, Q3, Q4, prec);
-	      acb_mul(s, s, &Q1vec[m], prec);
+          /* Inner loop */
+          for (m = 1; m < B_slong+1; m++)
+            {
+              acb_mul(Q3, Q3, a3, prec);
+              acb_mul(Q4, Q4, a4, prec);
+              acb_add(s, Q3, Q4, prec);
+              acb_mul(s, s, &Q1vec[m], prec);
 
-	      pm1_m = (m%2 == 0 ? 1 : -1);
-	      acb_add(A0, A0, s, prec);
-	      acb_addmul_si(A1, s, pm1_m, prec);
-	      acb_addmul_si(A2, s, pm1_n, prec);
-	      acb_addmul_si(A3, s, pm1_n * pm1_m, prec);
-	    } /* End inner loop */
-	  acb_addmul(S0, Q2, A0, prec);
-	  acb_addmul(S1, Q2, A1, prec);
-	  acb_addmul(S2, Q2, A2, prec);
-	  acb_addmul(S3, Q2, A3, prec);
-	} /* End outer loop */
+              pm1_m = (m%2 == 0 ? 1 : -1);
+              acb_add(A0, A0, s, prec);
+              acb_addmul_si(A1, s, pm1_m, prec);
+              acb_addmul_si(A2, s, pm1_n, prec);
+              acb_addmul_si(A3, s, pm1_n * pm1_m, prec);
+            } /* End inner loop */
+          acb_addmul(S0, Q2, A0, prec);
+          acb_addmul(S1, Q2, A1, prec);
+          acb_addmul(S2, Q2, A2, prec);
+          acb_addmul(S3, Q2, A3, prec);
+        } /* End outer loop */
 
       /* Clear Q1vec */
       _acb_vec_clear(Q1vec, B_slong + 2);
@@ -149,10 +149,10 @@ theta_0123_naive(acb_ptr th, const acb_mat_t tau, slong prec)
 
       /* Add error from tail of series */
       for (i = 0; i < 4; i++)
-	{
-	  arb_add_error_2exp_si(acb_realref(&th[i]), -prec);
-	  arb_add_error_2exp_si(acb_imagref(&th[i]), -prec);
-	}
+        {
+          arb_add_error_2exp_si(acb_realref(&th[i]), -prec);
+          arb_add_error_2exp_si(acb_imagref(&th[i]), -prec);
+        }
     }
 
   acb_clear(q1);

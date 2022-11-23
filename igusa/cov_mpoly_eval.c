@@ -4,7 +4,7 @@
 /* See also hdme_data_evaluate_acb */
 
 void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
-		    const fmpz_mpoly_ctx_t ctx, slong prec)
+                    const fmpz_mpoly_ctx_t ctx, slong prec)
 {
   slong n = fmpz_mpoly_ctx_nvars(ctx);
   slong L = fmpz_mpoly_length(pol, ctx);
@@ -21,9 +21,9 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
       powers[k] = _acb_vec_init(degrees[k]+2);
       acb_one(&(powers[k][0]));
       for (j = 1; j <= degrees[k]; j++)
-	{
-	  acb_mul(&(powers[k][j]), &(powers[k][j-1]), &I[k], prec);
-	}
+        {
+          acb_mul(&(powers[k][j]), &(powers[k][j-1]), &I[k], prec);
+        }
     }
   acb_init(res);
   acb_init(temp);
@@ -35,10 +35,10 @@ void cov_mpoly_eval(acb_t ev, const fmpz_mpoly_t pol, acb_srcptr I,
       fmpz_mpoly_get_term_coeff_fmpz(coeff, pol, j, ctx);
       acb_set_fmpz(temp, coeff);
       for (k = 0; k < n; k++)
-	{
-	  exp = fmpz_mpoly_get_term_var_exp_si(pol, j, k, ctx);
-	  acb_mul(temp, temp, &(powers[k][exp]), prec);
-	}
+        {
+          exp = fmpz_mpoly_get_term_var_exp_si(pol, j, k, ctx);
+          acb_mul(temp, temp, &(powers[k][exp]), prec);
+        }
       acb_add(res, res, temp, prec);
     }
 

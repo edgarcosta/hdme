@@ -2,7 +2,7 @@
 #include "hecke.h"
 
 void hecke_slash_scalar(acb_t im, const acb_t stardet, const acb_t val,
-			slong k, slong prec)
+                        slong k, slong prec)
 {
   acb_t scal;
 

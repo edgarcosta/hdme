@@ -24,11 +24,11 @@ int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec)
   for (k = 0; k < nb; k++)
     {
       if (res)
-	{
-	  acb_poly_scalar_div(&quo_vec[k], &modeq_all_nums(E)[k], modeq_den(E), prec);
-	  res = acb_poly_rationalize(&pol_vec[k], &quo_vec[k],
-				     modeq_degree(E), prec);
-	}
+        {
+          acb_poly_scalar_div(&quo_vec[k], &modeq_all_nums(E)[k], modeq_den(E), prec);
+          res = acb_poly_rationalize(&pol_vec[k], &quo_vec[k],
+                                     modeq_degree(E), prec);
+        }
     }
 
   /* Set R */
@@ -38,18 +38,18 @@ int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec)
   if (res)
     {
       for (k = 0; k < nb; k++)
-	{
-	  fmpq_poly_get_denominator(&den_vec[k], &pol_vec[k]);
-	}
+        {
+          fmpq_poly_get_denominator(&den_vec[k], &pol_vec[k]);
+        }
       _fmpz_vec_lcm(modeq_den(R), den_vec, nb);
       for (k = 0; k < nb; k++)
-	{
-	  fmpq_poly_scalar_mul_fmpz(&pol_vec[k], &pol_vec[k], modeq_den(R));
-	  fmpq_poly_get_numerator(&modeq_all_nums(R)[k], &pol_vec[k]);
-	}
+        {
+          fmpq_poly_scalar_mul_fmpz(&pol_vec[k], &pol_vec[k], modeq_den(R));
+          fmpq_poly_get_numerator(&modeq_all_nums(R)[k], &pol_vec[k]);
+        }
     }
   if (res) pol_simplify(modeq_all_nums(R), modeq_den(R), modeq_degree(R),
-			modeq_nb(R)+1);
+                        modeq_nb(R)+1);
 
   for (k = 0; k < nb; k++)
     {

@@ -2,7 +2,7 @@
 #include "modular.h"
 
 int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
-		      const modeq_ctx_t ctx, const fmpz_mod_ctx_t fpctx)
+                      const modeq_ctx_t ctx, const fmpz_mod_ctx_t fpctx)
 {
   slong nb = modeq_degree(E);
   slong nb_M = modeq_ctx_nb(ctx);
@@ -23,10 +23,10 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
     {
       pol_roots_Fp(nb_roots, roots, mults, red, fpctx);
       for (k = 0; k < *nb_roots; k++)
-	{
-	  modeq_isog_monomials_Fp(M, E, &roots[k], mults[k], fpctx);
-	  igusa_from_monomials(&all_I[4*k], M, modeq_ctx_weight(ctx));
-	}
+        {
+          modeq_isog_monomials_Fp(M, E, &roots[k], mults[k], fpctx);
+          igusa_from_monomials(&all_I[4*k], M, modeq_ctx_weight(ctx));
+        }
     }
 
   for (k = 0; k < 4*(*nb_roots); k++)

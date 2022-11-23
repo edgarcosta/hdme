@@ -32,17 +32,17 @@ int main()
       fmpz_mat_set_abcd(m_test, a, b, c, d);
 
       if (!fmpz_mat_equal(m, m_test))
-	{
-	  flint_printf("FAIL\n");
-	  fmpz_mat_print_pretty(m); flint_printf("\n");
-	  fmpz_mat_print_pretty(a); flint_printf("\n");
-	  fmpz_mat_print_pretty(b); flint_printf("\n");
-	  fmpz_mat_print_pretty(c); flint_printf("\n");
-	  fmpz_mat_print_pretty(d); flint_printf("\n");
-	  fmpz_mat_print_pretty(m_test); flint_printf("\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fmpz_mat_print_pretty(m); flint_printf("\n");
+          fmpz_mat_print_pretty(a); flint_printf("\n");
+          fmpz_mat_print_pretty(b); flint_printf("\n");
+          fmpz_mat_print_pretty(c); flint_printf("\n");
+          fmpz_mat_print_pretty(d); flint_printf("\n");
+          fmpz_mat_print_pretty(m_test); flint_printf("\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       fmpz_mat_clear(m);
       fmpz_mat_clear(a);

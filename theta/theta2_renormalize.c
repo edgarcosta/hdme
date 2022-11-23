@@ -21,9 +21,9 @@ int theta2_renormalize(acb_ptr th2, acb_srcptr th2_proj, slong prec)
   if (res)
     {
       for (k = 0; k < 16; k++)
-	{
-	  acb_div(&a[k], &a[k], b, prec);
-	}
+        {
+          acb_div(&a[k], &a[k], b, prec);
+        }
     }
   _acb_vec_set(th2, a, 16);
 

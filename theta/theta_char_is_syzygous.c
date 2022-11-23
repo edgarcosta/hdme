@@ -15,13 +15,13 @@ int theta_char_is_syzygous(ulong ch1, ulong ch2, ulong ch3, slong g)
   for (ch = 0; ch < n; ch++)
     {
       if (theta_char_is_even(ch, g)
-	  && (ch != ch1)
-	  && (ch != ch2)
-	  && (ch != ch3)
-	  && theta_char_is_goepel(ch, ch1, ch2, ch3, g))
-	{
-	  res = 1;
-	}
+          && (ch != ch1)
+          && (ch != ch2)
+          && (ch != ch3)
+          && theta_char_is_goepel(ch, ch1, ch2, ch3, g))
+        {
+          res = 1;
+        }
     }
   return res;
 }

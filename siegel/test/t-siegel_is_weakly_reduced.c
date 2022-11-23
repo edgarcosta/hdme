@@ -34,12 +34,12 @@ int main()
       res = siegel_is_weakly_reduced(z, tol, prec);
 
       if (!res)
-	{
-	  flint_printf("FAIL (not weakly reduced)\n");
-	  flint_printf("res = %wd\n", res);
-	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n");
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (not weakly reduced)\n");
+          flint_printf("res = %wd\n", res);
+          flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n");
+          flint_abort();
+        }
 
       arb_clear(tol);
       acb_mat_clear(z);

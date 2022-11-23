@@ -38,34 +38,34 @@ int main()
       cov_monomial_degrees(test, mon, ctx);
       res = 1;
       for (k = 0; k < nb; k++)
-	{
-	  if (exps[k] != test[k]) res = 0;
-	}
+        {
+          if (exps[k] != test[k]) res = 0;
+        }
       if (!res)
-	{
-	  flint_printf("FAIL (exponents)\n");
-	  for (k = 0; k < nb; k++) flint_printf("%wd, %wd\n", exps[k], test[k]);
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL (exponents)\n");
+          for (k = 0; k < nb; k++) flint_printf("%wd, %wd\n", exps[k], test[k]);
+          fflush(stdout);
+          flint_abort();
+        }
 
       for (k = 0; k < nb; k++) acb_randtest_precise(&val[k], state, prec, mag_bits);
       for (k = 0; k < nb; k++)
-	{
-	  for (j = 0; j < nb; j++) exps[j] = 0;
-	  exps[k] = 1 + n_randint(state, 10);
-	  cov_monomial(mon, exps, ctx);
-	  cov_mpoly_eval(ev1, mon, val, ctx, prec);
-	  acb_pow_si(ev2, &val[k], exps[k], prec);
-	  if (!acb_overlaps(ev1, ev2))
-	    {
-	      flint_printf("FAIL (eval)\n");
-	      flint_printf("exps[%wd] = %wd\n", k, exps[k]);
-	      acb_printd(&val[k], 10); flint_printf("\n");
-	      acb_printd(ev1, 10); flint_printf("\n");
-	      acb_printd(ev2, 10); flint_printf("\n");
-	    }
-	}
+        {
+          for (j = 0; j < nb; j++) exps[j] = 0;
+          exps[k] = 1 + n_randint(state, 10);
+          cov_monomial(mon, exps, ctx);
+          cov_mpoly_eval(ev1, mon, val, ctx, prec);
+          acb_pow_si(ev2, &val[k], exps[k], prec);
+          if (!acb_overlaps(ev1, ev2))
+            {
+              flint_printf("FAIL (eval)\n");
+              flint_printf("exps[%wd] = %wd\n", k, exps[k]);
+              acb_printd(&val[k], 10); flint_printf("\n");
+              acb_printd(ev1, 10); flint_printf("\n");
+              acb_printd(ev2, 10); flint_printf("\n");
+            }
+        }
 
       fmpz_mpoly_clear(mon, ctx);
       fmpz_mpoly_ctx_clear(ctx);

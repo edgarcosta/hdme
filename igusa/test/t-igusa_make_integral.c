@@ -41,45 +41,45 @@ int main()
       fmpz_zero(gcd);
 
       if (print)
-	{
-	  flint_printf("I:\n");
-	  for (k = 0; k < 4; k++)
-	    {
-	      fmpz_print(&I[k]); flint_printf("\n");
-	    }
-	  flint_printf("X:\n");
-	  for (k = 0; k < X_NB; k++)
-	    {
-	      fmpq_print(&X[k]); flint_printf("\n");
-	    }
-	  fmpz_set_si(gcd, 2);
-	  cov_valuation_fmpq(test, X, gcd, X_NB, weights);
-	  flint_printf("Weighted valuation at 2: ");
-	  fmpq_print(test); flint_printf("\n");
-	}
+        {
+          flint_printf("I:\n");
+          for (k = 0; k < 4; k++)
+            {
+              fmpz_print(&I[k]); flint_printf("\n");
+            }
+          flint_printf("X:\n");
+          for (k = 0; k < X_NB; k++)
+            {
+              fmpq_print(&X[k]); flint_printf("\n");
+            }
+          fmpz_set_si(gcd, 2);
+          cov_valuation_fmpq(test, X, gcd, X_NB, weights);
+          flint_printf("Weighted valuation at 2: ");
+          fmpq_print(test); flint_printf("\n");
+        }
 
       for (k = 0; k < X_NB; k++)
-	{
-	  igusa_make_integral(scal, I, weights[k], 0);
-	  fmpq_mul(test, &X[k], scal);
-	  if (print)
-	    {
-	      flint_printf("k = %wd: ", k); fmpq_print(test); flint_printf("\n");
-	    }
-	  if (!fmpz_is_one(fmpq_denref(test)))
-	    {
-	      res = 0;
-	      break;
-	    }
-	  fmpz_gcd(gcd, gcd, fmpq_numref(test));
-	}
+        {
+          igusa_make_integral(scal, I, weights[k], 0);
+          fmpq_mul(test, &X[k], scal);
+          if (print)
+            {
+              flint_printf("k = %wd: ", k); fmpq_print(test); flint_printf("\n");
+            }
+          if (!fmpz_is_one(fmpq_denref(test)))
+            {
+              res = 0;
+              break;
+            }
+          fmpz_gcd(gcd, gcd, fmpq_numref(test));
+        }
 
       if (!res || !fmpz_is_one(gcd))
-	{
-	  flint_printf("FAIL\n");
-	  fflush(stdout);
-	  flint_abort();
-	}
+        {
+          flint_printf("FAIL\n");
+          fflush(stdout);
+          flint_abort();
+        }
 
       _fmpz_vec_clear(I, 4);
       _fmpq_vec_clear(X, X_NB);

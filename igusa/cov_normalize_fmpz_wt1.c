@@ -14,10 +14,10 @@ void cov_normalize_fmpz_wt1(fmpz* I, fmpz* S, slong nb)
   for (j = 0; j < nb; j++)
     {
       if (!fmpz_is_zero(&I[j]))
-	{
-	  if (fmpz_cmp_si(&I[j], 0) < 0) _fmpz_vec_neg(I, I, nb);
-	  break;
-	}
+        {
+          if (fmpz_cmp_si(&I[j], 0) < 0) _fmpz_vec_neg(I, I, nb);
+          break;
+        }
     }
 
   fmpz_clear(g);
