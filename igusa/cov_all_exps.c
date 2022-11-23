@@ -14,12 +14,12 @@ void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights)
       fflush(stdout);
       flint_abort();
     }
-    
+
   if (wt == 0)
     {
       for (k = 0; k < nb; k++) exps[k] = 0;
     }
-  
+
   else if (nb >= 1)
     {
       w = 0;
@@ -28,7 +28,7 @@ void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights)
 	{
 	  aux_j = cov_nb_monomials(wt - w, nb - 1, &weights[1]);
 	  aux = flint_malloc(aux_j * (nb-1) * sizeof(slong));
-	  
+
 	  cov_all_exps(aux, wt - w, nb - 1, &weights[1]);
 	  for (k = cur_j; k < cur_j + aux_j; k++)
 	    {
@@ -41,7 +41,7 @@ void cov_all_exps(slong* exps, slong wt, slong nb, slong* weights)
 
 	  flint_free(aux);
 	  cur_j += aux_j;
-	  w += weights[0];	  
+	  w += weights[0];
 	}
-    }  
+    }
 }

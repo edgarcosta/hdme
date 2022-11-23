@@ -27,6 +27,6 @@ void theta_transform_matrix(fmpz_mat_t res, const fmpz_mat_t eta)
 	  fmpz_set_si(fmpz_mat_entry(res, label, 2), image_label);
 	}
     }
-  
+
   fmpz_clear(epsilon);
 }

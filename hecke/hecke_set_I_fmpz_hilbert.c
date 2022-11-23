@@ -15,6 +15,6 @@ int hecke_set_I_fmpz_hilbert(hecke_t H, fmpz* I, slong delta, slong prec)
 	{
 	  flint_printf("(hecke_set_I_fmpz_hilbert) Warning: Hilbert inversion failed\n");
 	}
-    }  
+    }
   return res;
 }

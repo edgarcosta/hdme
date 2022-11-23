@@ -16,7 +16,7 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
 
   modeq_nb(E) = modeq_ctx_nb(ctx);
   modeq_degree(E) = d;
-  
+
   /* Collect values of parameter num/den at all isog matrices */
   for (k = 0; k < d; k++)
     {
@@ -39,7 +39,7 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
 			 modeq_ctx_ctx(ctx), prec);
 	}
       acb_poly_product_tree_2(modeq_interpolate(E, j), dens, nums, aux, d, prec);
-    }  
+    }
 
   _acb_vec_clear(dens, d);
   _acb_vec_clear(nums, d);

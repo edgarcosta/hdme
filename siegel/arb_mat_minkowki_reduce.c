@@ -7,16 +7,16 @@ arb_round_fmpz(fmpz_t z, const arb_t x, const arb_t tol)
   arb_t rad;
   int res;
   arb_init(rad);
-  
+
   res = 1;
   arb_get_rad_arb(rad, x);
-  
+
   if (!arb_lt(rad, tol)) res = 0;
   if (res)
     {
       arf_get_fmpz(z, arb_midref(x), ARF_RND_NEAR);
     }
-  
+
   arb_clear(rad);
   return res;
 }
@@ -76,21 +76,21 @@ minkowski_reduce_g2(arb_mat_t r, fmpz_mat_t u, const arb_mat_t m,
 
   arb_mat_init(r_cur, g, g);
   fmpz_mat_init(u_step, g, g);
-  
+
   arb_mat_set(r_cur, m);
   fmpz_mat_one(u);
-  
+
   while (!stop)
     {
       iter++;
-      
+
       /* Recompute r */
       arb_mat_congr_fmpz_mat(r_cur, u, m, prec);
-      
+
       /*flint_printf("Step %d\nr = ", iter); arb_mat_printd(r_cur, 30); flint_printf("\n\n");
 	flint_printf("u = "); fmpz_mat_print_pretty(u); flint_printf("\n\n");
 	if (iter > 20) flint_abort();*/
-      
+
       /* Reduce y3 */
       res = minkowski_g2_red_y3(u_step, r_cur, tol, prec);
       if (!res) break;
@@ -104,7 +104,7 @@ minkowski_reduce_g2(arb_mat_t r, fmpz_mat_t u, const arb_mat_t m,
       minkowski_g2_sgn_y3(u_step, r_cur, tol, prec);
       fmpz_mat_mul(u, u_step, u);
       arb_mat_congr_fmpz_mat(r_cur, u_step, r_cur, prec);
-      
+
       /*flint_printf("Sign of y3\nr = "); arb_mat_printd(r_cur, 30); flint_printf("\n\n");
 	flint_printf("u = "); fmpz_mat_print_pretty(u); flint_printf("\n\n");*/
 
@@ -116,10 +116,10 @@ minkowski_reduce_g2(arb_mat_t r, fmpz_mat_t u, const arb_mat_t m,
 	  arb_mat_congr_fmpz_mat(r_cur, u_step, r_cur, prec);
 	}
       else stop = 1;
-      
+
       /*flint_printf("Swap\nr = "); arb_mat_printd(r_cur, 30); flint_printf("\n\n");
 	flint_printf("u = "); fmpz_mat_print_pretty(u); flint_printf("\n\n");*/
-      
+
     }
   /* Control result */
   arb_mat_congr_fmpz_mat(r_cur, u, m, prec);
@@ -141,7 +141,7 @@ arb_mat_minkowski_reduce(arb_mat_t r, fmpz_mat_t u, const arb_mat_t m,
 {
   slong g = arb_mat_nrows(m);
   int res;
-  
+
   switch(g)
     {
     case 1:

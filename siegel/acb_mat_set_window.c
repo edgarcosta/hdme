@@ -12,7 +12,7 @@ void acb_mat_set_window(acb_mat_t z, slong j, slong k, const acb_mat_t w)
       fflush(stdout);
       flint_abort();
     }
-  
+
   for (u = 0; u < acb_mat_nrows(w); u++)
     {
       for (v = 0; v < acb_mat_ncols(w); v++)

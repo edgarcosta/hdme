@@ -5,7 +5,7 @@ static int cov_not_one(acb_srcptr I, slong nb)
 {
   slong j;
   int res = 0;
-  
+
   for (j = 0; j < nb; j++)
     {
       if (!arb_contains_si(acb_imagref(&I[j]), 0)
@@ -15,7 +15,7 @@ static int cov_not_one(acb_srcptr I, slong nb)
 	  break;
 	}
     }
-  
+
   return res;
 }
 

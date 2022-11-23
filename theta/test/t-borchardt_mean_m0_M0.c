@@ -6,7 +6,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("borchardt_mean_m0_M0....");
   fflush(stdout);
 
@@ -16,7 +16,7 @@ int main()
     {
       slong mag_bits = n_randint(state, 5);
       slong prec = 32 + n_randint(state, 200);
-      
+
       acb_ptr a;
       acb_ptr b;
       acb_t scal;
@@ -43,7 +43,7 @@ int main()
 	  if (arb_is_negative(acb_realref(&b[i])))
 	    {
 	      acb_neg(&b[i], &b[i]);
-	    } 
+	    }
 	}
       /* Scale so that first element becomes 1 */
       acb_inv(scal, &b[0], prec);
@@ -79,7 +79,7 @@ int main()
 	      flint_abort();
 	    }
 	}
-      
+
       _acb_vec_clear(a, 4);
       _acb_vec_clear(b, 4);
       acb_clear(scal);
@@ -87,7 +87,7 @@ int main()
       arb_clear(M0);
       arb_clear(abs);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

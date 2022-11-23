@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_make_integral....");
   fflush(stdout);
 
@@ -57,7 +57,7 @@ int main()
 	  flint_printf("Weighted valuation at 2: ");
 	  fmpq_print(test); flint_printf("\n");
 	}
-      
+
       for (k = 0; k < X_NB; k++)
 	{
 	  igusa_make_integral(scal, I, weights[k], 0);
@@ -70,7 +70,7 @@ int main()
 	    {
 	      res = 0;
 	      break;
-	    }	  
+	    }
 	  fmpz_gcd(gcd, gcd, fmpq_numref(test));
 	}
 
@@ -80,12 +80,12 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _fmpz_vec_clear(I, 4);
       _fmpq_vec_clear(X, X_NB);
       fmpq_clear(scal);
       fmpq_clear(test);
-      fmpz_clear(gcd);      
+      fmpz_clear(gcd);
     }
 
   flint_randclear(state);
@@ -94,4 +94,4 @@ int main()
   return EXIT_SUCCESS;
 }
 
-      
+

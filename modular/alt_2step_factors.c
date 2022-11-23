@@ -16,10 +16,10 @@ void alt_2step_factors(slong* nb, fmpz_poly_struct* factors, slong* mults,
   for (k = 0; k < max_nb_factors; k++) fmpz_poly_init(&all_factors[k]);
   exps = flint_malloc(max_nb_factors * sizeof(slong));
   fmpz_poly_init(fac);
-  
+
   pol_factor_Q(&nb_factors, all_factors, exps, modeq_equation(E));
   *nb = 0;
-  
+
   /* Isolate all factors of degree not 1 and dividing l+1 */
   for (k = 0; k < nb_factors; k++)
     {

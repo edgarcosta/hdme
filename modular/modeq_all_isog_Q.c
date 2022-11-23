@@ -14,7 +14,7 @@ void modeq_all_isog_Q(slong* nb_roots, fmpz* all_I,
   mults = flint_malloc(nb * sizeof(slong));
   roots = _fmpq_vec_init(nb);
   M = _fmpz_vec_init(nb_M);
-  
+
   pol_roots_Q(nb_roots, roots, mults, modeq_equation(E));
   for (k = 0; k < *nb_roots; k++)
     {
@@ -26,4 +26,4 @@ void modeq_all_isog_Q(slong* nb_roots, fmpz* all_I,
   _fmpq_vec_clear(roots, nb);
   _fmpz_vec_clear(M, nb_M);
 }
-  
+

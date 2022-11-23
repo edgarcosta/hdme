@@ -17,7 +17,7 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
   acb_poly_init(aux);
   acb_poly_init(a);
   acb_poly_init(b);
-  
+
   /* Find a nonzero coordinate in pt, called i */
   if (!acb_contains_zero(&pt[0])) {i = 0; j = 1; k = 2;}
   else if (!acb_contains_zero(&pt[1])) {i = 1; j = 0; k = 2;}
@@ -35,7 +35,7 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
   else if (i == 1) mestre_subst_in_conic(subst, uj, ui, uk, conic, prec);
   else mestre_subst_in_conic(subst, uj, uk, ui, conic, prec);
 
-  /* a = coeff of degree 2 in t (poly of degree 2 in m); 
+  /* a = coeff of degree 2 in t (poly of degree 2 in m);
      b = coeff of degree 1 in t (poly of degree 1 in m) */
   acb_poly_fit_length(subst, 2*kron + 3);
   acb_poly_set_coeff_acb(a, 0, acb_poly_get_coeff_ptr(subst, 2*kron));
@@ -71,7 +71,7 @@ void mestre_parametrize_conic(acb_poly_t x1, acb_poly_t x2, acb_poly_t x3,
       acb_poly_set(x1, uj);
       acb_poly_set(x2, uk);
     }
-  
+
   acb_poly_clear(ui);
   acb_poly_clear(uj);
   acb_poly_clear(uk);

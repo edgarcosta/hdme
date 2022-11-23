@@ -8,7 +8,7 @@ void igusa_h12(acb_t h12, acb_srcptr theta2, slong prec)
   ulong n = n_pow(2, 2*g);
 
   acb_t res, aux;
-  
+
   acb_init(res);
   acb_init(aux);
 
@@ -34,7 +34,7 @@ void igusa_h12(acb_t h12, acb_srcptr theta2, slong prec)
       }
     }
   }
-  
+
   acb_set(h12, res);
   acb_clear(res);
   acb_clear(aux);

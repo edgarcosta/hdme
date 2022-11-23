@@ -18,7 +18,7 @@ int siegel_T1_coset_contains_line_dual(const fmpz_mat_t m,
   fmpz_mat_get_nmod_mat(dual, L);
   nmod_mat_transpose(dual, dual);
   fmpz_mat_get_nmod_mat(red, J);
-  nmod_mat_mul(dual, dual, red);  
+  nmod_mat_mul(dual, dual, red);
   nmod_mat_nullspace(dual, dual);
 
   fmpz_mat_get_nmod_mat(red, m);

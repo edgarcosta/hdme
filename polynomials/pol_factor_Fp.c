@@ -18,7 +18,7 @@ void pol_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* exps
       fmpz_mod_poly_set(&factors[k], (&(fac->poly))[k], ctx);
       exps[k] = (fac->exp)[k];
     }
-  
+
   if (v)
     {
       flint_printf("(pol_factor_Fp) Factorization pattern: %wd",
@@ -29,6 +29,6 @@ void pol_factor_Fp(slong* nb_factors, fmpz_mod_poly_struct* factors, slong* exps
 	}
       flint_printf("\n");
     }
-      
+
   fmpz_mod_poly_factor_clear(fac, ctx);
 }

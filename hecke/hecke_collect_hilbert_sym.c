@@ -26,13 +26,13 @@ int hecke_collect_hilbert_sym(hecke_t H,
       fflush(stdout);
       flint_abort();
     }
-  
+
   fmpz_poly_set(hecke_beta(H), beta);
   hilbert_conjugate(betabar, beta, delta);
   hecke_check_nb(H, 2*hilbert_nb_cosets(ell, delta));
-  
+
   if (v) hecke_collect_verbose_start(nb);
-  
+
   /* Loop over all cosets to compute desired data */
   for (k = 0; k < nb; k++)
     {
@@ -48,13 +48,13 @@ int hecke_collect_hilbert_sym(hecke_t H,
 	  hilbert_coset(m, k - hilbert_nb_cosets(ell, delta),
 			betabar, ell, delta);
 	}
-      
+
       hilbert_mat_map(gamma, m, delta);
       fmpz_mat_mul(gamma, gamma, hecke_eta(H));
-      
-      res = hecke_set_entry(H, k, gamma, prec);    
+
+      res = hecke_set_entry(H, k, gamma, prec);
     }
-  
+
   if (v) flint_printf("\n");
 
   hecke_norm_ind(H) = ell;
@@ -66,6 +66,6 @@ int hecke_collect_hilbert_sym(hecke_t H,
   fmpz_mat_clear(gamma);
   fmpz_poly_clear(beta);
   fmpz_poly_clear(betabar);
-  return res;  
+  return res;
 }
 

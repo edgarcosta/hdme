@@ -13,7 +13,7 @@ int mestre(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_t I10;
   int res = 1;
 
-  
+
   if (!igusa_has_generic_automorphisms(IC, prec))
     {
       flint_printf("(mestre) Warning: cannot guarantee that curve does not have extra automorphisms\n");
@@ -47,7 +47,7 @@ int mestre(acb_poly_t crv, acb_srcptr IC, slong prec)
   if (res) /* Point on conic has been found */
     {
       mestre_parametrize_conic(x1, x2, x3, pt, conic, prec);
-      mestre_subst_in_cubic(crv, x1, x2, x3, cubic, prec); 
+      mestre_subst_in_cubic(crv, x1, x2, x3, cubic, prec);
     }
 
   if (res

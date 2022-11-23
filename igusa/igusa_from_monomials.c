@@ -21,7 +21,7 @@ void igusa_from_monomials(fmpz* I, fmpz* M, slong wt)
   e10 = flint_malloc(nb * sizeof(slong));
   e12 = flint_malloc(nb * sizeof(slong));
   res = _fmpz_vec_init(4);
-  
+
   igusa_from_monomials_zeroes(&z4, &z6, &z10, &z12, M, wt);
   igusa_from_monomials_exps(e4, e6, e10, e12, z4, z6, z10, z12, wt);
 
@@ -49,6 +49,6 @@ void igusa_from_monomials(fmpz* I, fmpz* M, slong wt)
   flint_free(e6);
   flint_free(e10);
   flint_free(e12);
-  _fmpz_vec_clear(res, 4);  
+  _fmpz_vec_clear(res, 4);
 }
 

@@ -23,7 +23,7 @@ void mestre_conic_randtest(acb_ptr conic, flint_rand_t state, slong prec)
   while (acb_contains_zero(coef)) acb_randtest_precise(coef, state, prec, mag_bits);
   acb_poly_set_coeff_acb(aux, kron, coef);
   acb_poly_mul(res, aux, aux, prec);
-  
+
   acb_randtest_precise(coef, state, prec, mag_bits);
   while (acb_contains_zero(coef)) acb_randtest_precise(coef, state, prec, mag_bits);
   acb_poly_set_acb(aux, coef);

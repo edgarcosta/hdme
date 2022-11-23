@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta_newton_k1_k2....");
   fflush(stdout);
 
@@ -20,11 +20,11 @@ int main()
       int res;
       slong k1, k2;
       int flag_naive, flag_newton;
-      
+
       arb_t tol;
       acb_mat_t tau;
       fmpz_mat_t m;
-      
+
       arb_init(tol);
       acb_mat_init(tau, g, g);
       fmpz_mat_init(m, 2*g, 2*g);
@@ -34,8 +34,8 @@ int main()
 
       siegel_halfspace_randtest(tau, state, prec);
       /* Closer to the cusp for testing purposes */
-      acb_mat_scalar_mul_si(tau, tau, mult, prec); 
-      
+      acb_mat_scalar_mul_si(tau, tau, mult, prec);
+
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
 	{
@@ -69,7 +69,7 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       flag_naive = theta_use_naive(tau, prec);
       flag_newton = theta_use_newton(tau, prec);
 
@@ -80,12 +80,12 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       /* flint_printf("prec = %wd\n", prec); */
       /* flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n"); */
       /* flint_printf("k2 = %wd, k1 = %wd\n", k2, k1); */
       /* flint_printf("flag_naive = %i, flag_newton = %i\n\n", flag_naive, flag_newton); */
-      
+
       arb_clear(tol);
       acb_mat_clear(tau);
       fmpz_mat_clear(m);
@@ -97,4 +97,4 @@ int main()
   return EXIT_SUCCESS;
 }
 
-  
+

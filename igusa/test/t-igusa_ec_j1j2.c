@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_ec_j1j2....");
   fflush(stdout);
 
@@ -36,7 +36,7 @@ int main()
       I_test = _acb_vec_init(4);
       acb_init(scal);
 
-      for (k = 0; k < 4; k++) fmpz_randtest_not_zero(&I[k], state, mag_bits);	
+      for (k = 0; k < 4; k++) fmpz_randtest_not_zero(&I[k], state, mag_bits);
       fmpz_zero(igusa_chi10(I));
       if (n_randint(state, 3) == 0) fmpz_zero(igusa_psi6(I));
       if (n_randint(state, 3) == 0) fmpz_zero(igusa_psi4(I));
@@ -45,7 +45,7 @@ int main()
       igusa_ec_j1j2(j, I, prec);
       igusa_ec_period(tau1, &j[0], prec);
       igusa_ec_period(tau2, &j[1], prec);
-      if (arb_lt(acb_imagref(tau2), acb_imagref(tau1))) acb_swap(tau1, tau2);      
+      if (arb_lt(acb_imagref(tau2), acb_imagref(tau1))) acb_swap(tau1, tau2);
       acb_mat_zero(tau);
       acb_set(acb_mat_entry(tau, 0, 0), tau1);
       acb_set(acb_mat_entry(tau, 1, 1), tau2);

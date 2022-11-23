@@ -10,7 +10,7 @@ int fmpz_mat_is_general_symplectic(const fmpz_mat_t m)
   fmpz_mat_init(r, 2*g, 2*g);
   fmpz_mat_init(J, 2*g, 2*g);
   fmpz_mat_J(J);
-  
+
   fmpz_mat_transpose(r, m);
   fmpz_mat_mul(r, r, J);
   fmpz_mat_mul(r, r, m);

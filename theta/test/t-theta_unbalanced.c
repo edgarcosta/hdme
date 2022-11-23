@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta_unbalanced....");
   fflush(stdout);
 
@@ -47,7 +47,7 @@ int main()
       siegel_fundamental_domain_randtest(tau, state, prec);
       arb_add_si(acb_imagref(acb_mat_entry(tau, 1, 1)),
 		 acb_imagref(acb_mat_entry(tau, 1, 1)), jump, prec);
-      
+
       /* arb_set_d(acb_realref(c), -0.415); */
       /* arb_set_d(acb_imagref(c), 1.05); */
       /* acb_set(acb_mat_entry(tau, 0, 0), c); */
@@ -60,14 +60,14 @@ int main()
       /* arb_set_d(acb_realref(c), -0.23); */
       /* arb_set_d(acb_imagref(c), 5.79); */
       /* acb_set(acb_mat_entry(tau, 1, 1), c); */
-      
+
       /* acb_mat_printd(tau, 10); flint_printf("\n"); */
 
       arb_one(tol);
-      arb_mul_2exp_si(tol, tol, -bits);      
+      arb_mul_2exp_si(tol, tol, -bits);
       res = siegel_is_in_fundamental_domain(tau, tol, prec);
       if (!res)
-	{	  
+	{
 	  flint_printf("FAIL (fundamental domain)\n");
 	  acb_mat_printd(tau, 10);
 	  flint_abort();
@@ -92,7 +92,7 @@ int main()
 	    }
 	  flint_abort();
 	}
-      
+
       /* for (k = 0; k < 16; k++) */
       /* 	{ */
       /* 	  acb_printd(&th2[k], 30); flint_printf("\n"); */
@@ -104,7 +104,7 @@ int main()
       /* 	{ */
       /* 	  acb_printd(&th2[k], 30); flint_printf("\n"); */
       /* 	} */
-      
+
       /* k2 = theta_newton_k2(w, tau, prec); */
       /* siegel_reduce_real(w, real_red, w, tol, prec); */
       /* k1 = theta_newton_k1(w, w, prec); */
@@ -118,7 +118,7 @@ int main()
       /* 	{ */
       /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
       /* 	} */
-      
+
       /* /\* Propagate along k1 sequence *\/ */
       /* for (i = 0; (i < k1) && res; i++) */
       /* 	{ */
@@ -140,7 +140,7 @@ int main()
       /* 	{ */
       /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
       /* 	} */
-      
+
       /* /\* We're back to the end of the k2 sequence. Propagate again *\/ */
       /* fmpz_mat_zero(eta); */
       /* fmpz_set_si(fmpz_mat_entry(eta, 0, 2), 1); */
@@ -149,10 +149,10 @@ int main()
       /* fmpz_set_si(fmpz_mat_entry(eta, 3, 3), 1); */
       /* fmpz_mat_direct_inv(eta_inv, eta); */
       /* fmpz_mat_one(M1); */
-      
+
       /* /\* Real reduction happens only on the y1 coordinate *\/ */
       /* fmpz_mat_print_pretty(real_red); */
-      
+
       /* fmpz_set(nb_real_red, fmpz_mat_entry(real_red, 0, 2)); */
       /* if (arb_is_positive(acb_realref(acb_mat_entry(tau, 0, 0)))) */
       /* 	{ */
@@ -162,7 +162,7 @@ int main()
       /* 	{ */
       /* 	  fmpz_set_si(fmpz_mat_entry(M1, 0, 2), -1); */
       /* 	} */
-      
+
       /* for (i = 0; (i < k2) && res; i++) */
       /* 	{ */
       /* 	  /\* Each step: apply translation if nb_real_red is currently odd; */
@@ -189,7 +189,7 @@ int main()
       /* 	  theta2_transform(current_th2, eta_inv, current_th2, prec); */
       /* 	} */
 
-      
+
       /* flint_printf("After k2 steps:\n"); */
       /* for (k = 0; k < 16; k++) */
       /* 	{ */
@@ -201,7 +201,7 @@ int main()
       /* 	{ */
       /* 	  acb_printd(&current_th2[k], 30); flint_printf("\n"); */
       /* 	} */
-      
+
       acb_mat_clear(tau);
       acb_mat_clear(w);
       fmpz_mat_clear(real_red);
@@ -214,8 +214,8 @@ int main()
       _acb_vec_clear(th2, 16);
       _acb_vec_clear(current_th2, 16);
 
-    }  
-      
+    }
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

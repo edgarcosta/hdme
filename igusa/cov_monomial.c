@@ -5,9 +5,9 @@ void cov_monomial(fmpz_mpoly_t mon, slong* exps, const fmpz_mpoly_ctx_t ctx)
 {
   slong k;
   slong nb = fmpz_mpoly_ctx_nvars(ctx);
-    
+
   fmpz_mpoly_zero(mon, ctx);
-  
+
   for (k = 0; k < nb; k++)
     {
       if (exps[k] < 0)

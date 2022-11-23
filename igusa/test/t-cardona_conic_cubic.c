@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cardona_conic_cubic....");
   fflush(stdout);
 
@@ -44,7 +44,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       cardona_cubic(aijk, ABCD, prec);
       cov_rescale(test, ABCD, scal, 4, wts, prec);
       cardona_cubic(test, test, prec);
@@ -62,7 +62,7 @@ int main()
       acb_clear(scal);
       _acb_vec_clear(test, 6);
     }
-     
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

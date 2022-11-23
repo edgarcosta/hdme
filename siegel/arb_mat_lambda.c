@@ -6,7 +6,7 @@ arb_mat_lambda_g2(arb_t lambda, const arb_mat_t m, slong prec)
 {
   arb_t tr;
   arb_t det;
-  
+
   arb_init(tr);
   arb_init(det);
 
@@ -16,7 +16,7 @@ arb_mat_lambda_g2(arb_t lambda, const arb_mat_t m, slong prec)
   arb_sqr(lambda, tr, prec);
   arb_submul_si(lambda, det, 4, prec);
   arb_nonnegative_part(lambda, lambda);
-  
+
   arb_sqrt(lambda, lambda, prec);
   arb_sub(lambda, tr, lambda, prec);
   arb_mul_2exp_si(lambda, lambda, -1);

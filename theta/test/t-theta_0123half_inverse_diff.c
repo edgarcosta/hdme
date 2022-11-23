@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta_0123half_inverse_diff....");
   fflush(stdout);
 
@@ -18,7 +18,7 @@ int main()
       slong prec = 5 * bits;
       int res;
       slong i, j;
-      
+
       arb_t tol;
       acb_mat_t tau;
       acb_mat_t tau_half;
@@ -42,10 +42,10 @@ int main()
       acb_mat_init(dth_naive, 3, 3);
       acb_init(th0);
       mag_init(abs);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
@@ -55,14 +55,14 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	  }
-      
+
       /* Custom value */
       /* acb_set_si_si(acb_mat_entry(tau, 0, 0), 0, 2);
       acb_set_si_si(acb_mat_entry(tau, 1, 1), 0, 3);
       acb_one(acb_mat_entry(tau, 0, 1));
       acb_mul_2exp_si(acb_mat_entry(tau, 0, 1), acb_mat_entry(tau, 0, 1), -200);
       acb_set(acb_mat_entry(tau, 1, 0), acb_mat_entry(tau, 0, 1)); */
-      
+
       acb_mat_scalar_mul_2exp_si(tau_half, tau, -1);
 
       res = theta_0123_naive(th_half, tau_half, prec);
@@ -89,7 +89,7 @@ int main()
 	      if (mag_cmp_2exp_si(abs, 0) > 0) res = 0;
 	    }
 	}
-      
+
       if (res == 0)
 	{
 	  flint_printf("FAIL (dtau_inv too large)\n");
@@ -106,7 +106,7 @@ int main()
 	  acb_mat_sub(dtau_inv, dtau_inv, dth_naive, prec);
 	  flint_abort();
 	}
-	      
+
       /* dtau_inv and dth_naive should coincide. */
       if (!acb_mat_overlaps(dtau_inv, dth_naive))
 	{
@@ -125,7 +125,7 @@ int main()
 	  flint_printf("error = "); acb_mat_printd(dtau_inv, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       arb_clear(tol);
       acb_mat_clear(tau);
       acb_mat_clear(tau_half);

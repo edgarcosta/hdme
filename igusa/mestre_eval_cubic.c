@@ -54,12 +54,12 @@ void mestre_eval_cubic(acb_t res, acb_srcptr pt, acb_srcptr cubic, slong prec)
   acb_mul(term, term, &pt[1], prec);
   acb_mul_si(term, term, 3, prec);
   acb_addmul(ev, term, &cubic[8], prec);
-  
+
   acb_pow_si(term, &pt[2], 3, prec);
   acb_addmul(ev, term, &cubic[9], prec);
-  
+
   acb_set(res, ev);
-			   
+
   acb_clear(ev);
   acb_clear(term);
 }

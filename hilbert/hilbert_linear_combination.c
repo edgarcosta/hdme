@@ -30,26 +30,26 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   fmpz_one(fmpz_mat_entry(B, 4, 4));
 
   acb_mul_2exp_si(coeff, acb_mat_entry(tau, 0, 0), exp);
-  
+
   arf_get_fmpz(fmpz_mat_entry(B, 5, 0),
 	       arb_midref(acb_realref(coeff)),
 	       ARF_RND_NEAR);
   arf_get_fmpz(fmpz_mat_entry(B, 6, 0),
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
-  
+
   acb_mul_2exp_si(coeff, acb_mat_entry(tau, 0, 1), exp);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 1),
 	       arb_midref(acb_realref(coeff)),
-	       ARF_RND_NEAR);  
+	       ARF_RND_NEAR);
   arf_get_fmpz(fmpz_mat_entry(B, 6, 1),
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
-  
+
   acb_mul_2exp_si(coeff, acb_mat_entry(tau, 1, 1), exp);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 2),
 	       arb_midref(acb_realref(coeff)),
-	       ARF_RND_NEAR);  
+	       ARF_RND_NEAR);
   arf_get_fmpz(fmpz_mat_entry(B, 6, 2),
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
@@ -59,7 +59,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
   acb_mul_2exp_si(coeff, coeff, exp);
   arf_get_fmpz(fmpz_mat_entry(B, 5, 3),
 	       arb_midref(acb_realref(coeff)),
-	       ARF_RND_NEAR);  
+	       ARF_RND_NEAR);
   arf_get_fmpz(fmpz_mat_entry(B, 6, 3),
 	       arb_midref(acb_imagref(coeff)),
 	       ARF_RND_NEAR);
@@ -76,7 +76,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
       fmpz_mat_print_pretty(B);
       flint_printf("\n");
     }
-  
+
   fmpz_mat_transpose(Bt, B);
   if (verbose)
     {
@@ -96,7 +96,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
       fmpz_mat_print_pretty(B);
       flint_printf("\n");
     }
-  
+
   /* Get abcde from first column */
   for (k = 0; k < 5; k++)
     {
@@ -139,7 +139,7 @@ int hilbert_linear_combination(fmpz* abcde, const acb_mat_t tau, slong delta, sl
 	  if (res) break;
 	}
     }
-  
+
   fmpz_mat_clear(B);
   fmpz_mat_clear(Bt);
   fmpz_mat_clear(U);

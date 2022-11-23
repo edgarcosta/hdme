@@ -21,7 +21,7 @@ int theta_der_set_error(mag_t error, const acb_mat_t tau, slong prec)
   arb_mat_lambda(lambda, im, prec);
   arb_inv(lambda, lambda, prec);
   arb_one(one);
-  arb_max(lambda, lambda, one, prec);  
+  arb_max(lambda, lambda, one, prec);
   arb_get_ubound_arf(ubound, lambda, prec);
   arf_ceil(ubound, ubound);
   res = arf_is_finite(ubound);

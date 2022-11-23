@@ -6,9 +6,9 @@ void modeq_isog_monomials_Fp(fmpz* M, const modeq_t E,
 {
   fmpz_mod_poly_t num;
   slong j;
-  
+
   fmpz_mod_poly_init(num, ctx);
-  
+
   for (j = 0; j < modeq_nb(E); j++)
     {
       fmpz_mod_poly_set_fmpz_poly(num, modeq_interpolate(E, j), ctx);

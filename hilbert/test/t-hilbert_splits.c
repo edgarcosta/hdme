@@ -7,12 +7,12 @@ int main()
   slong ell;
   int splits;
   fmpz_poly_t beta;
-  
+
   flint_printf("hilbert_splits....");
   fflush(stdout);
 
   fmpz_poly_init(beta);
-    
+
   for (delta = 5; delta < 100; delta++)
     {
       if (hilbert_is_fundamental(delta))
@@ -32,14 +32,14 @@ int main()
 		      fmpz_poly_print_pretty(beta, "x");
 		      flint_printf("\n"); */
 		    }
-		  
+
 		}
 	    }
 	}
     }
 
   fmpz_poly_clear(beta);
-  
+
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

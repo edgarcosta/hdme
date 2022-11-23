@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("acb_poly_product_tree_1....");
   fflush(stdout);
 
@@ -45,16 +45,16 @@ int main()
 	  flint_abort();
 	}
 
-      
+
       acb_poly_clear(P);
       acb_poly_clear(P_test);
       _acb_vec_clear(xi, d);
       _acb_vec_clear(yi, d);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
 }
-      
+

@@ -2,11 +2,11 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
   slong wts[3] = {20, 30, 60};
-  
+
   flint_printf("igusa_base_monomial....");
   fflush(stdout);
 

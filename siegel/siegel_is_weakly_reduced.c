@@ -21,7 +21,7 @@ int siegel_is_weakly_reduced(const acb_mat_t z, const arb_t tol, slong prec)
   arb_init(target);
 
   acb_mat_get_imag(im, z);
-  
+
   res = res && siegel_is_real_reduced(z, tol, prec)
     && arb_mat_is_minkowski_reduced(im, tol, prec); /* Actually stronger than needed */
 

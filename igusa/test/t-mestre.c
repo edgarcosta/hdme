@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("mestre....");
   fflush(stdout);
 
@@ -34,9 +34,9 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       mestre(crv, IC_test, prec);
-      igusa_from_curve(I, crv, prec);      
+      igusa_from_curve(I, crv, prec);
       if (acb_contains_zero(igusa_chi10(I)))
 	{
 	  flint_printf("FAIL (chi10 = 0)\n");
@@ -45,7 +45,7 @@ int main()
 	  flint_abort();
 	}
       igusa_IC(IC, I, prec);
-      
+
       if (cov_distinct(IC, IC_test, 4, weights, prec))
 	{
 	  flint_printf("FAIL (overlap)\n");
@@ -66,7 +66,7 @@ int main()
       _acb_vec_clear(IC, 4);
       _acb_vec_clear(I, 4);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

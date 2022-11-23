@@ -13,7 +13,7 @@ int main()
 
   roots = _acb_vec_init(6);
   reorder = _acb_vec_init(6);
-  
+
   for (k = 0; k < 6; k++)
     {
       acb_set_si(&roots[k], k+1);
@@ -25,10 +25,10 @@ int main()
       for (k = 0; k < 6; k++) acb_printd(&reorder[k], 10);
       flint_printf("\n"); */
     }
-    
+
   _acb_vec_clear(roots, 6);
   _acb_vec_clear(reorder, 6);
-  
+
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

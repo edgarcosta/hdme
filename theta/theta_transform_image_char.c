@@ -15,7 +15,7 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
   fmpz_mat_t alpha, beta; /* These are windows, not initialized or freed */
   fmpz_mat_t Cvec_1, Cvec_2, Lvec;
   fmpz_mat_t coef;
-    
+
   ulong res = 0;
   slong i;
 
@@ -59,7 +59,7 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
       /* Least significant bits first */
       fmpz_add_si(fmpz_mat_entry(alphabeta, 2*g-1-i, 0),
 		  fmpz_mat_entry(alphabeta, 2*g-1-i, 0), ch & 1);
-      ch = ch >> 1;		  
+      ch = ch >> 1;
     }
 
   /* Perform matrix-vector multiplication */
@@ -71,7 +71,7 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
   fmpz_mat_window_init(beta, alphabeta, g, 0, 2*g, 1);
 
   fmpz_zero(epsilon);
-  
+
   fmpz_mat_mul(Cvec_1, c, beta);
   fmpz_mat_mul(Cvec_2, b, alpha);
   fmpz_mat_transpose(Lvec, Cvec_2);
@@ -106,7 +106,7 @@ ulong theta_transform_image_char(fmpz_t epsilon, ulong ch, const fmpz_mat_t eta)
 
   fmpz_mat_window_clear(alpha);
   fmpz_mat_window_clear(beta);
-  
+
   /* Reduce alphabeta mod 2 & convert to ulong */
   for (i = 0; i < 2*g; i++)
     {

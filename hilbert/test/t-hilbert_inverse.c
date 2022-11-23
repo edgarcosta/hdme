@@ -6,12 +6,12 @@ int main()
   slong iter;
   flint_rand_t state;
   slong delta;
-  
+
   flint_printf("hilbert_inverse....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (delta = 5; delta < 100; delta++)
     {
       if (hilbert_is_fundamental(delta))
@@ -32,7 +32,7 @@ int main()
 	      acb_mat_init(tau_test, 2, 2);
 	      fmpz_mat_init(m, 4, 4);
 	      fmpz_mat_init(minv, 4, 4);
-	      
+
 	      hilbert_halfspace_randtest(t, state, prec);
 	      hilbert_map(tau, t, delta, prec);
 	      res = hilbert_inverse(t_test, minv, tau, delta, prec);
@@ -61,11 +61,11 @@ int main()
 	      fmpz_mat_randtest_symplectic(m, state, m_bits);
 	      siegel_transform(tau, m, tau, prec);
 	      res = hilbert_inverse(t_test, minv, tau, delta, prec);
-	      
+
 	      fmpz_mat_direct_inv(minv, minv);
 	      hilbert_map(tau_test, t_test, delta, prec);
 	      siegel_transform(tau_test, minv, tau_test, prec);
-	      
+
 	      if (!res || !acb_mat_overlaps(tau, tau_test))
 		{
 		  flint_printf("FAIL (wrong preimage)\n");

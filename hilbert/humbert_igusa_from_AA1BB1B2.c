@@ -23,7 +23,7 @@ void humbert_igusa_from_AA1BB1B2(acb_ptr I, acb_srcptr AA1BB1B2, slong prec)
   acb_set(&I[0], &res[1]);
   acb_set(&I[1], &res[2]);
   acb_set(&I[2], &res[3]);
-  acb_mul(&I[3], &res[3], &res[0], prec);  
+  acb_mul(&I[3], &res[3], &res[0], prec);
   igusa_from_streng(I, I, prec);
 
   acb_clear(temp);

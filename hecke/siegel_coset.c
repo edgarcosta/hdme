@@ -9,18 +9,18 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
   fmpz_mat_t eta, etaR;
   fmpz_mat_t temp;
   slong u, v, w, x, y, z;
-  
+
   fmpz_mat_init(eta, 4, 4);
   fmpz_mat_init(etaR, 4, 4);
   fmpz_mat_init(temp, 4, 4);
-  
+
   if ((k < 0) || (k >= siegel_nb_cosets(ell)))
     {
       flint_printf("(siegel_coset) No matrix numbered %wd\n", k);
       fflush(stdout);
       flint_abort();
     }
-  
+
   if (k < n_pow(ell, 3))
     {
       /* Case T_1(a, b, c) */
@@ -29,7 +29,7 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
       b = k % ell;
       k = k / ell;
       c = k % ell;
-      
+
       fmpz_mat_one(temp);
       fmpz_mat_neg(temp, temp);
       fmpz_set_si(fmpz_mat_entry(temp, 0, 2), a);
@@ -37,7 +37,7 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
       fmpz_set_si(fmpz_mat_entry(temp, 1, 2), b);
       fmpz_set_si(fmpz_mat_entry(temp, 1, 3), c);
       fmpz_mat_set(eta, temp);
-      
+
       fmpz_mat_one(etaR);
     }
   else if (k < n_pow(ell, 3) + ell + (ell - 1) * ell)
@@ -56,7 +56,7 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
 	    }
 	  else
 	    {
-	      n_xgcd((ulong*) &v, (ulong*) &u, ell, c); 
+	      n_xgcd((ulong*) &v, (ulong*) &u, ell, c);
 	      u = -u; /* uc + lv = 1 */
 	      fmpz_mat_zero(temp);
 	      fmpz_set_si(fmpz_mat_entry(temp, 0, 1), u);
@@ -159,7 +159,7 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
       fmpz_set_si(fmpz_mat_entry(temp, 3, 1), -1);
       fmpz_mat_set(etaR, temp);
     }
-  
+
   if (!fmpz_mat_is_symplectic(eta) || !fmpz_mat_is_symplectic(etaR))
     {
       fmpz_mat_print(eta);
@@ -181,7 +181,7 @@ void siegel_coset(fmpz_mat_t m, slong k, slong ell)
 	}
     }
   fmpz_mat_mul(m, etaR, eta);
-  
+
   fmpz_mat_clear(eta);
   fmpz_mat_clear(etaR);
   fmpz_mat_clear(temp);

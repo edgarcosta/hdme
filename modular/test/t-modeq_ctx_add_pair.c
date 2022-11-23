@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("modeq_ctx_add_pair....");
   fflush(stdout);
 
@@ -41,7 +41,7 @@ int main()
 	    }
 	}
       if (modeq_ctx_is_pair(-1, -1, ctx)) res = 0;
-      
+
       if (!res)
 	{
 	  flint_printf("FAIL\n");
@@ -53,7 +53,7 @@ int main()
       flint_free(i2);
       modeq_ctx_clear(ctx);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

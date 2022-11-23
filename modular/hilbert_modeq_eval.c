@@ -3,7 +3,7 @@
 
 int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 		       slong ell, slong delta)
-{  
+{
   hecke_t H;
   modeq_acb_t E;
   acb_t c;
@@ -13,15 +13,15 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
   int res;
   int v = get_modeq_verbose();
   int stop = 0;
-  
+
   hecke_init(H, nb);
   modeq_acb_init(E);
   acb_init(c);
-  
+
   while (!stop)
     {
       if (v) modeq_verbose_start(prec);
-      
+
       res = hecke_set_I_fmpz_hilbert(H, I, delta, prec);
       if (res) res = hecke_collect_hilbert_sym(H, ell, delta, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
@@ -41,7 +41,7 @@ int hilbert_modeq_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I,
 
       stop = modeq_stop(res, prec);
     }
-  
+
   hecke_clear(H);
   modeq_acb_clear(E);
   acb_clear(c);

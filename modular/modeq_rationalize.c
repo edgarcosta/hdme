@@ -36,12 +36,12 @@ int modeq_rationalize(modeq_t R, const modeq_acb_t E, slong prec)
   modeq_nb(R) = modeq_nb(E);
 
   if (res)
-    { 
+    {
       for (k = 0; k < nb; k++)
 	{
 	  fmpq_poly_get_denominator(&den_vec[k], &pol_vec[k]);
 	}
-      _fmpz_vec_lcm(modeq_den(R), den_vec, nb);      
+      _fmpz_vec_lcm(modeq_den(R), den_vec, nb);
       for (k = 0; k < nb; k++)
 	{
 	  fmpq_poly_scalar_mul_fmpz(&pol_vec[k], &pol_vec[k], modeq_den(R));

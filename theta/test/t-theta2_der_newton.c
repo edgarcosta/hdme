@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta2_der_newton....");
   fflush(stdout);
 
@@ -42,14 +42,14 @@ int main()
 	      acb_submul(df, &th2[k], acb_mat_entry(dth2, 0, j), prec);
 	      acb_div(df, df, &th2[0], prec);
 	      acb_div(df, df, &th2[0], prec);
-	      
+
 	      acb_mul(df_test, acb_mat_entry(dth2_test, k, j), &th2_test[0], prec);
 	      acb_submul(df_test, &th2_test[k], acb_mat_entry(dth2_test, 0, j), prec);
 	      acb_div(df_test, df_test, &th2_test[0], prec);
 	      acb_div(df_test, df_test, &th2_test[0], prec);
 
 	      if (!acb_overlaps(df, df_test)) res = 0;
-	    }			
+	    }
 	}
 
       if (!res)
@@ -69,7 +69,7 @@ int main()
       acb_clear(df);
       acb_clear(df_test);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

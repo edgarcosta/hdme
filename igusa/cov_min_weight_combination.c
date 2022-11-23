@@ -35,7 +35,7 @@ static void xgcd_vec_si(slong* gcd, slong* coefs, slong* a, slong nb)
   slong j;
   ulong u, v;
   slong i;
-  
+
   if (nb == 0)
     {
       flint_printf("(cov_min_weight_combination: xgcd_vec_si) nb = 0\n");
@@ -90,12 +90,12 @@ void cov_min_weight_combination(slong* wt, slong* exponents, fmpz* I,
     }
   extract_inds(extr, inds, k, weights);
   xgcd_vec_si(&g, coefs, extr, k);
-  
+
   *wt = g;
   for (i = 0; i < nb; i++) exponents[i] = 0;
   for (i = 0; i < k; i++) exponents[inds[i]] = coefs[i];
 
   flint_free(inds);
   flint_free(extr);
-  flint_free(coefs);  
+  flint_free(coefs);
 }

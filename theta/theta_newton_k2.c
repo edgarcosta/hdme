@@ -15,7 +15,7 @@ slong theta_newton_k2(acb_mat_t w, const acb_mat_t z, slong prec)
   arb_init(t);
   arf_init(u);
   fmpz_init(v);
-  
+
   arb_set(y1, acb_imagref(acb_mat_entry(z, 0, 0)));
   arb_set(y2, acb_imagref(acb_mat_entry(z, 1, 1)));
 

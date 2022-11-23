@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("borchardt_mean_invalid....");
   fflush(stdout);
 
@@ -30,7 +30,7 @@ int main()
 	}
       res = borchardt_mean_invalid(a, prec);
       if (res)
-	{ 
+	{
 	  flint_printf("FAIL (positive real parts)\n");
 	  for (k = 0; k < 4; k++)
 	    {
@@ -39,7 +39,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       for (k = 0; k < 4; k++)
 	{
 	  acb_randtest_precise(&a[k], state, prec, mag_bits);
@@ -48,7 +48,7 @@ int main()
 	}
       res = borchardt_mean_invalid(a, prec);
       if (res)
-	{ 
+	{
 	  flint_printf("FAIL (negative real parts)\n");
 	  for (k = 0; k < 4; k++)
 	    {
@@ -57,7 +57,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
 
       /* If there is one entry on each half axis, then it is invalid */
       for (k = 0; k < 4; k++) acb_zero(&a[k]);
@@ -66,18 +66,18 @@ int main()
 
       arf_randtest_not_zero(arb_midref(acb_imagref(&a[1])), state, prec, mag_bits);
       arb_sqr(acb_imagref(&a[1]), acb_imagref(&a[1]), prec);
-      
+
       arf_randtest_not_zero(arb_midref(acb_realref(&a[2])), state, prec, mag_bits);
       arb_sqr(acb_realref(&a[2]), acb_realref(&a[2]), prec);
       acb_neg(&a[2], &a[2]);
-      
+
       arf_randtest_not_zero(arb_midref(acb_imagref(&a[3])), state, prec, mag_bits);
       arb_sqr(acb_imagref(&a[3]), acb_imagref(&a[3]), prec);
       acb_neg(&a[3], &a[3]);
-      
+
       res = borchardt_mean_invalid(a, prec);
       if (!res)
-	{ 
+	{
 	  flint_printf("FAIL (axes)\n");
 	  for (k = 0; k < 4; k++)
 	    {

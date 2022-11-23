@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_IC....");
   fflush(stdout);
 
@@ -60,7 +60,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       igusa_streng(other_acb, I_acb, prec);
       igusa_streng_fmpz(other, I);
       cov_find_rescaling(scal, other_acb, other, 4, weights, prec);
@@ -74,7 +74,7 @@ int main()
 	  flint_printf("FAIL (Streng inversion)\n");
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
       for (k = 0; k < 4; k++)
 	{ if (!fmpz_equal(&other[k], &I[k])) res = 0; }
       if (!res)
@@ -88,7 +88,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       igusa_IC(other_acb, I_acb, prec);
       cov_rescale(resc, I_acb, scal, 4, weights, prec);
       igusa_IC(resc, resc, prec);
@@ -102,28 +102,28 @@ int main()
 	  flint_abort();
 	}
 
-      
+
       /* igusa_streng_fmpz(other, I);
       for (k = 0; k < 4; k++)
-	{	  	  
+	{
 	  fmpz_print(&other[k]); flint_printf("\n");
 	}
       for (k = 0; k < 4; k++)
-	{	  	  
+	{
 	  fmpz_print(&I[k]); flint_printf("\n");
 	  } */
-      
+
       igusa_IC(other_acb, I_acb, prec);
       igusa_IC_fmpz(other, I);
       /*
       for (k = 0; k < 4; k++)
 	{
 	  fmpz_print(&other[k]); flint_printf("\n");
-	  acb_printd(&other_acb[k], 10); flint_printf("\n");	  
+	  acb_printd(&other_acb[k], 10); flint_printf("\n");
 	  fmpz_print(&I[k]); flint_printf("\n\n");
 	  } */
       cov_find_rescaling(scal, other_acb, other, 4, weights2, prec);
-      
+
       igusa_from_IC(test, other_acb, prec);
       igusa_from_IC_fmpz(other, other);
       for (k = 0; k < 4; k++)
@@ -133,7 +133,7 @@ int main()
 	  flint_printf("FAIL (IC inversion)\n");
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
       for (k = 0; k < 4; k++)
 	{ if (!fmpz_equal(&other[k], &I[k])) res = 0; }
       if (!res)
@@ -151,8 +151,8 @@ int main()
 	    }
 	  fflush(stdout);
 	  flint_abort();
-	}      
-            
+	}
+
       igusa_ABCD_from_IC(other_acb, I_acb, prec);
       cov_rescale(resc, I_acb, scal, 4, weights2, prec);
       igusa_ABCD_from_IC(resc, resc, prec);
@@ -165,7 +165,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       igusa_ABCD_from_IC(other_acb, I_acb, prec);
       igusa_ABCD_from_IC_fmpz(ABCD, I);
       for (k = 0; k < 4; k++)
@@ -176,7 +176,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
 
       igusa_R2_from_IC(R2_acb, I_acb, prec);
       cov_rescale(resc, I_acb, scal, 4, weights2, prec);
@@ -184,7 +184,7 @@ int main()
       acb_pow_si(scal, scal, 30, prec);
       acb_mul(&test[0], R2_acb, scal, prec);
       if (!acb_overlaps(&test[0], &resc[0]))
-	{	  
+	{
 	  flint_printf("FAIL (R2 rescaling)\n");
 	  fflush(stdout);
 	  flint_abort();
@@ -193,12 +193,12 @@ int main()
       igusa_R2_from_IC(R2_acb, I_acb, prec);
       igusa_R2_from_IC_fmpz(R2, I);
       if (!acb_contains_fmpq(R2_acb, R2))
-	{	  
+	{
 	  flint_printf("FAIL (R2_fmpz)\n");
 	  fflush(stdout);
 	  flint_abort();
-	}      
-      
+	}
+
       _acb_vec_clear(I_acb, 4);
       _acb_vec_clear(other_acb, 4);
       _acb_vec_clear(resc, 4);

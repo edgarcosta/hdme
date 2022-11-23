@@ -8,7 +8,7 @@ int fmpz_mat_is_J(const fmpz_mat_t m)
   int res = 1;
 
   fmpz_mat_init(x, g, g);
-  
+
   fmpz_mat_get_a(x, m);
   if (!fmpz_mat_is_zero(x)) res = 0;
   fmpz_mat_get_b(x, m);

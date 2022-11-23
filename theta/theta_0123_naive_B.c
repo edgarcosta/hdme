@@ -26,7 +26,7 @@ int theta_0123_naive_B(fmpz_t B, const acb_mat_t tau, slong prec)
       arb_neg(q, pi);
       arb_mul(q, q, lambda, prec);
       arb_exp(q, q, prec);
-      
+
       /* b = sqrt( (prec + 3 - 2log(1-q))/(pi lambda log_2(e)) ) - 1 */
       arb_sub_si(b, q, 1, prec);
       arb_neg(b, b);
@@ -39,14 +39,14 @@ int theta_0123_naive_B(fmpz_t B, const acb_mat_t tau, slong prec)
       arb_const_e(pi, prec);
       arb_log_base_ui(pi, pi, 2, prec);
       arb_div(b, b, pi, prec);
-      
+
       arb_sqrt(b, b, prec);
       arb_sub_si(b, b, 1, prec);
       arb_get_ubound_arf(sup, b, prec);
       arf_ceil(sup, sup);
       arf_get_fmpz(B, sup, ARF_RND_NEAR);
     }
-  
+
   arb_mat_clear(im);
   arb_clear(lambda);
   arb_clear(pi);

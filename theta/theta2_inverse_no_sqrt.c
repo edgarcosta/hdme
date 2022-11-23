@@ -9,7 +9,7 @@ theta2_inverse_no_sqrt(acb_mat_t tau, acb_srcptr th, slong prec)
   acb_ptr means;
   acb_ptr a;
   acb_ptr tau_entries;
-  
+
   int i, j;
   int res = 1;
 
@@ -45,13 +45,13 @@ theta2_inverse_no_sqrt(acb_mat_t tau, acb_srcptr th, slong prec)
       acb_div(&tau_entries[2], &means[0], &means[3], prec);
       acb_addmul(&tau_entries[2], &tau_entries[0], &tau_entries[1], prec);
     }
-  
+
   /* Set tau */
   acb_set(acb_mat_entry(tau, 0, 0), &tau_entries[0]);
   acb_set(acb_mat_entry(tau, 1, 1), &tau_entries[1]);
   acb_set(acb_mat_entry(tau, 0, 1), &tau_entries[2]);
   acb_set(acb_mat_entry(tau, 1, 0), &tau_entries[2]);
-  
+
   _acb_vec_clear(means, 4);
   _acb_vec_clear(a, 4);
   _acb_vec_clear(tau_entries, 3);

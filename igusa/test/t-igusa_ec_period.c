@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_ec_period....");
   fflush(stdout);
 
@@ -22,7 +22,7 @@ int main()
       slong mag_bits = 5;
       int r;
       int valid;
-      
+
       acb_init(j);
       acb_init(tau);
       acb_init(j_test);
@@ -49,7 +49,7 @@ int main()
 	      valid = valid && !acb_contains_zero(j_test);
 	    }
 	}
-      
+
       r = igusa_ec_period(tau, j, prec);
       acb_modular_j(j_test, tau, prec);
 
@@ -63,13 +63,13 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       acb_clear(j);
       acb_clear(tau);
       acb_clear(j_test);
       arf_clear(tol);
     }
-     
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");
@@ -77,5 +77,5 @@ int main()
 }
 
 
-      
-		
+
+

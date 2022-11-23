@@ -119,4 +119,4 @@ int siegel_is_weakly_reduced(const acb_mat_t z, const arb_t tol, slong prec);
 void siegel_fundamental_domain_randtest(acb_mat_t z, flint_rand_t state, slong prec);
 
 
-#endif 
+#endif

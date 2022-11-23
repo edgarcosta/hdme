@@ -5,7 +5,7 @@ void fmpz_mat_direct_inv(fmpz_mat_t minv, const fmpz_mat_t m)
 {
   fmpz_mat_t res;
   fmpz_t den;
-  
+
   fmpz_init(den);
   fmpz_mat_init(res, fmpz_mat_nrows(m), fmpz_mat_ncols(m));
 
@@ -23,7 +23,7 @@ void fmpz_mat_direct_inv(fmpz_mat_t minv, const fmpz_mat_t m)
     }
 
   fmpz_mat_set(minv, res);
-  
+
   fmpz_mat_clear(res);
   fmpz_clear(den);
 }

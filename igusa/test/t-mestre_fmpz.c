@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("mestre_fmpz....");
   fflush(stdout);
 
@@ -17,7 +17,7 @@ int main()
       fmpz_poly_t crv0;
       fmpz_t c;
       acb_t scal;
-      acb_poly_t crv;      
+      acb_poly_t crv;
       fmpz* I;
       acb_ptr I_acb;
       acb_ptr I_test;
@@ -37,7 +37,7 @@ int main()
       I_acb = _acb_vec_init(4);
       I_test = _acb_vec_init(4);
       IC = _fmpz_vec_init(4);
-      
+
       /* Generate curves of different Bolza types */
       fmpz_poly_zero(crv0);
       for (k = 0; k < 7; k++)
@@ -45,7 +45,7 @@ int main()
 	  fmpz_randtest_not_zero(c, state, mag_bits);
 	  fmpz_poly_set_coeff_fmpz(crv0, k, c);
 	}
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
@@ -71,7 +71,7 @@ int main()
 	  flint_printf("I:\n");
 	  for (k = 0; k < 4; k++)
 	    {
-	      fmpz_print(&I[k]); flint_printf("\n");	      
+	      fmpz_print(&I[k]); flint_printf("\n");
 	    }
 	  flint_printf("I_test:\n");
 	  for (k = 0; k < 4; k++)
@@ -82,17 +82,17 @@ int main()
 	  flint_abort();
 	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_zero(crv0);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 6, c);
       fmpz_poly_set_coeff_fmpz(crv0, 0, c);
-      
+
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 4, c);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 2, c);
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
@@ -118,7 +118,7 @@ int main()
 	  flint_abort();
 	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_zero(crv0);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 6, c);
@@ -148,15 +148,15 @@ int main()
 	  flint_abort();
 	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_zero(crv0);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 5, c);
       fmpz_poly_set_coeff_fmpz(crv0, 1, c);
-      
+
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 3, c);
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
@@ -182,15 +182,15 @@ int main()
 	  flint_abort();
 	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_zero(crv0);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 6, c);
       fmpz_poly_set_coeff_fmpz(crv0, 0, c);
-      
+
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 3, c);
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
@@ -216,17 +216,17 @@ int main()
 	  flint_abort();
 	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_zero(crv0);
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 6, c);
       fmpz_poly_set_coeff_fmpz(crv0, 0, c);
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
       if (valid)
-	{      
+	{
 	  igusa_IC_fmpz(IC, I);
 	  mestre_fmpz(crv, IC, prec);
 	  igusa_from_curve(I_test, crv, prec);
@@ -252,7 +252,7 @@ int main()
       fmpz_randtest_not_zero(c, state, mag_bits);
       fmpz_poly_set_coeff_fmpz(crv0, 5, c);
       fmpz_poly_set_coeff_fmpz(crv0, 1, c);
-      
+
       igusa_from_curve_fmpz(I, crv0);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       valid = igusa_is_g2_curve_fmpz(I);
@@ -276,9 +276,9 @@ int main()
 	  flint_printf("FAIL (type VI)\n");
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
       if (valid) cov_find_rescaling(scal, I_test, I, 4, weights, prec);
-      
+
       fmpz_poly_clear(crv0);
       fmpz_clear(c);
       acb_clear(scal);
@@ -288,7 +288,7 @@ int main()
       _acb_vec_clear(I_test, 4);
       _fmpz_vec_clear(IC, 4);
     }
-     
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

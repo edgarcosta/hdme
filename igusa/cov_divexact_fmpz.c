@@ -17,7 +17,7 @@ void cov_divexact_fmpz(fmpz* I, fmpz* S, const fmpz_t scal, slong nb, slong* wei
     }
 
   _fmpz_vec_set(I, res, nb);
-  
+
   _fmpz_vec_clear(res, nb);
   fmpz_clear(f);
 }

@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("mestre_point_on_conic....");
   fflush(stdout);
 
@@ -61,7 +61,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _acb_vec_clear(conic, 6);
       _acb_vec_clear(pt, 3);
     }

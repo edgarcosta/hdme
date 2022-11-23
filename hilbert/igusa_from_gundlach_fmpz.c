@@ -5,9 +5,9 @@ void igusa_from_gundlach_fmpz(fmpz* I, fmpz* G, slong delta)
 {
   fmpz_t temp;
   slong weights[4] = IGUSA_HALFWEIGHTS;
-  
+
   fmpz_init(temp);
-  
+
   if (delta != 5)
     {
       flint_printf("(igusa_from_gundlach_fmpz) Error: Gundlach invariants only implemented for discriminant 5\n");
@@ -30,6 +30,6 @@ void igusa_from_gundlach_fmpz(fmpz* I, fmpz* G, slong delta)
   fmpz_add(igusa_chi12(I), igusa_chi12(I), temp);
 
   cov_normalize_fmpz(I, I, 4, weights);
-  
+
   fmpz_clear(temp);
 }

@@ -13,7 +13,7 @@ void pol_roots_Q(slong* nb_roots, fmpq* roots, slong* mults,
 
   factors = flint_malloc(deg * sizeof(fmpz_poly_struct));
   for (k = 0; k < deg; k++) fmpz_poly_init(&factors[k]);
-  
+
   fmpz_init(num);
   fmpz_init(den);
   exps = flint_malloc(deg * sizeof(slong));

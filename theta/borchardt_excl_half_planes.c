@@ -3,8 +3,8 @@
 
 /* Half planes are defined by an angle: an angle t defines the open
    half plane containing all complex numbers with arguments in the
-   open interval ]t-pi, t[ of S^1. 
-   
+   open interval ]t-pi, t[ of S^1.
+
    Subintervals of S1 are of the form: ]-pi, b0[ \cup ]b1, b2[ \cup
    ]b3, pi]. */
 
@@ -20,16 +20,16 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
   acb_init(temp);
   arb_init(arg);
   arf_init(gap);
-  
+
   arb_const_pi(pi, prec);
   arf_set_si(gap, 1);
   /* arf_mul_2exp_si(gap, gap, BORCHARDT_ARG_GAP_EXP); */
   /* Lengthen the excluded interval by gap? NO. */
   arf_zero(gap);
-  
+
   /* Init to zero */
   for (k = 0; k < 4; k++) arf_zero(&b[k]);
-  
+
   if (acb_contains_zero(z))
     {
       /* Empty interval */
@@ -46,11 +46,11 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
       arb_div(arg, arg, pi, prec);
       arb_get_ubound_arf(&b[1], arg, prec); /* \geq 0 */
       arf_sub(&b[1], &b[1], gap, prec, ARF_RND_CEIL);
-      
+
       arb_get_lbound_arf(&b[2], arg, prec); /* \leq 0 */
       arf_add_si(&b[2], &b[2], 1, prec, ARF_RND_FLOOR);
       arf_add(&b[2], &b[2], gap, prec, ARF_RND_FLOOR);
-      
+
       arf_set_si(&b[0], -1);
       arf_set_si(&b[3], 1);
     }
@@ -61,7 +61,7 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
       arb_div(arg, arg, pi, prec);
       arb_get_lbound_arf(&b[0], arg, prec);
       arf_add(&b[0], &b[0], gap, prec, ARF_RND_FLOOR);
-      
+
       arb_get_ubound_arf(&b[3], arg, prec);
       arf_add_si(&b[3], &b[3], 1, prec, ARF_RND_CEIL);
       arf_sub(&b[3], &b[3], gap, prec, ARF_RND_CEIL);
@@ -73,10 +73,10 @@ void borchardt_excl_half_planes(arf_struct* b, const acb_t z, slong prec)
       arb_get_ubound_arf(&b[1], arg, prec);
       arf_sub_si(&b[1], &b[1], 1, prec, ARF_RND_CEIL);
       arf_sub(&b[1], &b[1], gap, prec, ARF_RND_CEIL);
-      
+
       arb_get_lbound_arf(&b[2], arg, prec);
       arf_add(&b[2], &b[2], gap, prec, ARF_RND_FLOOR);
-      
+
       arf_set_si(&b[0], -1);
       arf_set_si(&b[3], 1);
     }

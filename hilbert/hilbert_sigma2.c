@@ -5,7 +5,7 @@ void hilbert_sigma2(acb_t z, const fmpz_poly_t x, slong delta, slong prec)
 {
   acb_t res;
   fmpz_t coeff;
-  
+
   acb_init(res);
   fmpz_init(coeff);
 
@@ -23,9 +23,9 @@ void hilbert_sigma2(acb_t z, const fmpz_poly_t x, slong delta, slong prec)
 
   fmpz_poly_get_coeff_fmpz(coeff, x, 1);
   acb_mul_fmpz(res, res, coeff, prec);
-	       
+
   acb_add(z, z, res, prec);
-  
+
   acb_clear(res);
   fmpz_clear(coeff);
 }

@@ -5,10 +5,10 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_is_weakly_reduced....");
   fflush(stdout);
-  
+
   flint_randinit(state);
 
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
@@ -25,7 +25,7 @@ int main()
       arb_init(tol);
       acb_mat_init(z, g, g);
       fmpz_mat_init(m, 2*g, 2*g);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
 
@@ -34,7 +34,7 @@ int main()
       res = siegel_is_weakly_reduced(z, tol, prec);
 
       if (!res)
-	{ 
+	{
 	  flint_printf("FAIL (not weakly reduced)\n");
 	  flint_printf("res = %wd\n", res);
 	  flint_printf("z = "); acb_mat_printd(z, 30); flint_printf("\n");

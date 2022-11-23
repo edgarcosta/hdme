@@ -5,10 +5,10 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("arb_mat_minkowski_reduce....");
   fflush(stdout);
-  
+
   flint_randinit(state);
 
   for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
@@ -19,14 +19,14 @@ int main()
       arb_t tol;
       fmpq_t rand;
       fmpz_t den;
-      
+
       arb_mat_t r;
       arb_mat_t m;
       arb_mat_t r2;
       fmpz_mat_t u;
       fmpz_mat_t uinv;
       fmpz_mat_t u2;
-      
+
       int res;
 
       slong g = 2;
@@ -40,17 +40,17 @@ int main()
       arb_init(tol);
       fmpq_init(rand);
       fmpz_init(den);
-      
+
       arb_mat_init(r, g, g);
       arb_mat_init(m, g, g);
       arb_mat_init(r2, g, g);
       fmpz_mat_init(u, g, g);
       fmpz_mat_init(uinv, g, g);
       fmpz_mat_init(u2, g, g);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       /* Generate random Minkowski-reduced matrix */
       fmpq_randtest_not_zero(rand, state, bits);
       fmpq_abs(rand, rand);
@@ -60,7 +60,7 @@ int main()
       arb_set_fmpq(y2, rand, prec);
       if (chance == 0) arb_set(y2, y1); /* sometimes on the boundary */
       if (arb_lt(y2, y1)) arb_swap(y1, y2);
-      
+
       fmpq_randtest(rand, state, bits);
       fmpq_abs(rand, rand);
       while (fmpq_cmp_si(rand, 1) > 0) fmpq_div_2exp(rand, rand, 1);
@@ -75,7 +75,7 @@ int main()
       arb_set(arb_mat_entry(r, 1, 1), y2);
 
       if (!arb_mat_is_minkowski_reduced(r, tol, prec))
-	{	  
+	{
 	  flint_printf("FAIL\n");
 	  flint_printf("r = "); arb_mat_printd(r, 30); flint_printf("\n\n");
 	  flint_abort();
@@ -102,14 +102,14 @@ int main()
 	  flint_abort();
 	}
       /* u and u2 may be different when r lies on the boundary. */
-      
+
       arb_clear(y1);
       arb_clear(y2);
       arb_clear(y3);
       arb_clear(tol);
       fmpq_clear(rand);
       fmpz_clear(den);
-      
+
       arb_mat_clear(r);
       arb_mat_clear(m);
       arb_mat_clear(r2);
@@ -117,7 +117,7 @@ int main()
       fmpz_mat_clear(uinv);
       fmpz_mat_clear(u2);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

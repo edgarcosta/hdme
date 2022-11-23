@@ -17,7 +17,7 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
   roots = _fmpz_vec_init(nb);
   M = _fmpz_vec_init(nb_M);
   fmpz_mod_poly_init(red, fpctx);
-  
+
   res = pol_reduce_Fp(red, modeq_equation(E), modeq_den(E), fpctx);
   if (res)
     {
@@ -25,7 +25,7 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
       for (k = 0; k < *nb_roots; k++)
 	{
 	  modeq_isog_monomials_Fp(M, E, &roots[k], mults[k], fpctx);
-	  igusa_from_monomials(&all_I[4*k], M, modeq_ctx_weight(ctx));	  
+	  igusa_from_monomials(&all_I[4*k], M, modeq_ctx_weight(ctx));
 	}
     }
 
@@ -33,7 +33,7 @@ int modeq_all_isog_Fp(slong* nb_roots, fmpz* all_I, const modeq_t E,
     {
       fmpz_mod(&all_I[k], &all_I[k], fmpz_mod_ctx_modulus(fpctx));
     }
-  
+
   flint_free(mults);
   _fmpz_vec_clear(roots, nb);
   _fmpz_vec_clear(M, nb_M);

@@ -4,7 +4,7 @@
 /* See also siegel_modeq_eval */
 
 int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
-{  
+{
   hecke_t H;
   modeq_acb_t E;
   acb_t c;
@@ -18,11 +18,11 @@ int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
   hecke_init(H, nb);
   modeq_acb_init(E);
   acb_init(c);
- 
+
   while (!stop)
     {
       if (v) modeq_verbose_start(prec);
-      
+
       res = hecke_set_I_fmpz(H, I, prec);
       if (res) res = hecke_collect_T1(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
@@ -35,12 +35,12 @@ int siegel_modeq_2step_eval(modeq_t R, modeq_ctx_t ctx, fmpz* I, slong ell)
 	  prec = modeq_nextprec_precise(prec, gap);
 	}
       else
-	{	  
+	{
 	  prec = modeq_nextprec_generic(prec);
 	}
       stop = modeq_stop(res, prec);
     }
-  
+
   hecke_clear(H);
   modeq_acb_clear(E);
   acb_clear(c);

@@ -13,15 +13,15 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
   int res;
   int v = get_modeq_verbose();
   int stop = 0;
-  
+
   hecke_init(H, nb);
   modeq_acb_init(E);
   acb_init(c);
-  
+
   while (!stop)
     {
       if (v) modeq_verbose_start(prec);
-      
+
       res = hecke_set_I_fmpz(H, I, prec);
       if (res) res = hecke_collect_T1_with_line(H, L, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
@@ -34,13 +34,13 @@ int alt_2step_modeq_with_line(modeq_t R, modeq_ctx_t ctx, const fmpz_mat_t L,
 	  prec = modeq_nextprec_precise(prec, gap);
 	}
       else
-	{	  
+	{
 	  prec = modeq_nextprec_generic(prec);
 	}
-      
+
       stop = modeq_stop(res, prec);
     }
-  
+
   hecke_clear(H);
   modeq_acb_clear(E);
   acb_clear(c);

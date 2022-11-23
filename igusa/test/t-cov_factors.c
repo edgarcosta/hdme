@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_factors....");
   fflush(stdout);
 
@@ -21,11 +21,11 @@ int main()
       slong p1, p2, p3;
       slong k;
       int res1, res2;
-      
+
       weights = flint_malloc(nb * sizeof(slong));
       I = _fmpz_vec_init(nb);
       fmpz_factor_init(fac);
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 5);
@@ -55,7 +55,7 @@ int main()
 	  flint_printf("p1 = %wd, p2 = %wd, res1 = %wd, res2 = %wd\n", p1, p2, res1, res2);
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
 
       flint_free(weights);
       _fmpz_vec_clear(I, nb);

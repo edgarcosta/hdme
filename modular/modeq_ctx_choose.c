@@ -104,7 +104,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 	  break;
 	}
     }
-  
+
   if (res) fmpz_mpoly_set(modeq_ctx_den(ctx), den, modeq_ctx_ctx(ctx));
   if (res && v)
     {
@@ -116,15 +116,15 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
     {
       flint_printf("(modeq_ctx_choose) No suitable denominator found\n");
     }
-  
+
   /* Choose numerator: num/den should be distinct on non-"equal" pairs */
   if (res)
     {
       for (j = 0; j < MODEQ_CTX_MAX_NB_COORDS; j++)
 	{
 	  if (j == j0) continue;
-	  
-	  igusa_try_coordinate(num, wt, j, modeq_ctx_ctx(ctx));	  
+
+	  igusa_try_coordinate(num, wt, j, modeq_ctx_ctx(ctx));
 	  for (k = 0; k < nb; k++)
 	    {
 	      cov_mpoly_eval(&evnum[k], num, &I[4*k], modeq_ctx_ctx(ctx), prec);
@@ -147,7 +147,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 	    }
 	  if (res) break;
 	}
-      
+
       if (res) fmpz_mpoly_set(modeq_ctx_num(ctx), num, modeq_ctx_ctx(ctx));
       if (res && v)
 	{
@@ -160,7 +160,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
 	  flint_printf("(modeq_ctx_choose) No suitable numerator found\n");
 	}
     }
-    
+
   fmpz_mpoly_clear(num, modeq_ctx_ctx(ctx));
   fmpz_mpoly_clear(den, modeq_ctx_ctx(ctx));
   _acb_vec_clear(evden, nb);

@@ -4,7 +4,7 @@
 static int
 cont_frac_step(fmpz_t r, arf_t next, const arf_t current, slong prec, slong tol_exp)
 {
-  int res = 0;    
+  int res = 0;
   arf_get_fmpz(r, current, ARF_RND_FLOOR);
   /* arf_printd(current, 30); flint_printf("\n"); */
   arf_sub_fmpz(next, current, r, prec, ARF_RND_NEAR);
@@ -61,23 +61,23 @@ int acb_rationalize(fmpq_t c, fmpz_t den, const acb_t x,
   mpz_init(d);
   fmpz_init(d_fmpz);
   r_vec = _fmpz_vec_init(max_steps);
-  
+
   acb_mul_fmpz(z, x, probable_den, prec);
-  
+
   if (!arb_contains_zero(acb_imagref(z)))
-    {      
+    {
       flint_printf("(acb_rationalize) Error: contains no real number\n");
       acb_printd(x, 10); flint_printf("\n");
       fflush(stdout);
       flint_abort();
     }
-  
+
   if (mag_cmp_2exp_si(arb_radref(acb_realref(z)), 0) > 0)
     {
       /* Too imprecise */
       res = 0;
     }
-  
+
   if (res)
     {
       arf_set(current, arb_midref(acb_realref(z)));

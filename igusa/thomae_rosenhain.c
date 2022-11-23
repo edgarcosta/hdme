@@ -6,10 +6,10 @@ void thomae_rosenhain(acb_ptr ros, acb_srcptr roots, slong prec)
   acb_ptr proj_roots;
   acb_t den;
   slong k;
-  
+
   proj_roots = _acb_vec_init(5);
   acb_init(den);
-  
+
   /* Bring root 6 to infinity */
   for (k = 0; k < 5; k++)
     {
@@ -27,7 +27,7 @@ void thomae_rosenhain(acb_ptr ros, acb_srcptr roots, slong prec)
   /* Set Rosenhain invariants: l, m, n */
   acb_set(&ros[0], &proj_roots[2]);
   acb_set(&ros[1], &proj_roots[3]);
-  acb_set(&ros[2], &proj_roots[4]); 
+  acb_set(&ros[2], &proj_roots[4]);
 
   _acb_vec_clear(proj_roots, 5);
   acb_clear(den);

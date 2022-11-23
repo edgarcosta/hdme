@@ -7,7 +7,7 @@ void hecke_slash(acb_ptr im, const acb_mat_t star, acb_srcptr val,
   acb_t det;
 
   acb_init(det);
-  
+
   if (j != 0)
     {
       flint_printf("(hecke_slash) Error: not implemented for vector-valued forms (j = %wd)\n",
@@ -20,6 +20,6 @@ void hecke_slash(acb_ptr im, const acb_mat_t star, acb_srcptr val,
       acb_mat_det(det, star, prec);
       hecke_slash_scalar(im, det, val, k, prec);
     }
-  
+
   acb_clear(det);
 }

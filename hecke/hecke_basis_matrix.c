@@ -6,7 +6,7 @@ int hecke_basis_matrix(acb_mat_t basis, slong nb, const acb_mat_struct* pts,
 {
   acb_ptr I;
   acb_ptr M;
-  
+
   slong weights[4] = IGUSA_WEIGHTS;
   slong m = cov_nb_monomials(wt, 4, weights);
   slong j, k;

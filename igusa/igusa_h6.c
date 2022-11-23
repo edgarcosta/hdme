@@ -11,12 +11,12 @@ igusa_h6_sign(ulong b, ulong c, ulong d)
   b3 = b % 2; b = b >> 1;
   b2 = b % 2; b = b >> 1;
   b1 = b % 2; b = b >> 1;
-  
+
   c4 = c % 2; c = c >> 1;
   c3 = c % 2; c = c >> 1;
   c2 = c % 2; c = c >> 1;
   c1 = c % 2; c = c >> 1;
-  
+
   d = d >> 1;
   d3 = d % 2; d = d >> 1;
   d2 = d % 2; d = d >> 1;
@@ -28,7 +28,7 @@ igusa_h6_sign(ulong b, ulong c, ulong d)
       - b2*b4*d2 - b4*c2*d2 - b1*b2*d3 - b1*c1*d3 - b2*c1*d3;
 
   if ((sgn % 2) == 1) sgn = -1; else sgn = 1;
-  
+
   return sgn;
 }
 
@@ -58,7 +58,7 @@ void igusa_h6(acb_t h6, acb_srcptr theta2, slong prec)
 	    acb_add(res, res, aux, prec);
 	  }
       }
-    }	
+    }
   }
 
   acb_set(h6, res);

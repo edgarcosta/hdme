@@ -10,7 +10,7 @@ borchardt_mean_M0(arb_t M0, acb_srcptr a, slong prec)
 
   arf_init(abs);
   arf_init(M0_arf);
-  
+
   arf_zero(M0_arf);
   for (i = 0; i < 4; i++)
     {

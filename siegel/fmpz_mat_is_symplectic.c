@@ -47,6 +47,6 @@ int fmpz_mat_is_symplectic(const fmpz_mat_t m)
   fmpz_mat_clear(d);
   fmpz_mat_clear(prod1);
   fmpz_mat_clear(prod2);
-  
+
   return res;
 }

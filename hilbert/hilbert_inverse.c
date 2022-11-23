@@ -6,7 +6,7 @@ hilbert_bw_M0(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g0, alpha, beta, one;
   fmpz_mat_t M0, R0, R1;
-  
+
   fmpz_init(g0);
   fmpz_init(alpha);
   fmpz_init(beta);
@@ -52,14 +52,14 @@ hilbert_bw_M0(fmpz_mat_t m, fmpz* abcde)
   fmpz_mat_mul(R0, R0, M0);
   fmpz_mat_inv(M0, one, M0);
   fmpz_mat_mul(R0, M0, R0);
-  
+
   if (!fmpz_is_one(one))
     {
       flint_printf("(hilbert_bw_M0) Incorrect inversion\n");
       fflush(stdout);
       flint_abort();
     }
-  
+
   fmpz_set(&abcde[0], fmpz_mat_entry(R0, 0, 1));
   fmpz_set(&abcde[1], fmpz_mat_entry(R0, 1, 1));
   fmpz_neg(&abcde[2], fmpz_mat_entry(R0, 1, 0));
@@ -101,7 +101,7 @@ hilbert_bw_M1(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g1, n, p, absc1, pstep;
   fmpz_mat_t M1;
-  
+
   fmpz_init(g1);
   fmpz_init(n);
   fmpz_init(p);
@@ -115,7 +115,7 @@ hilbert_bw_M1(fmpz_mat_t m, fmpz* abcde)
   fmpz_divexact(pstep, &abcde[0], g1);
   fmpz_abs(pstep, pstep);
   fmpz_abs(absc1, &abcde[2]);
-  
+
   /* Use g1 in coprimality test */
   fmpz_zero(n);
   fmpz_gcd(g1, p, absc1);
@@ -125,7 +125,7 @@ hilbert_bw_M1(fmpz_mat_t m, fmpz* abcde)
       fmpz_add(p, p, pstep);
       fmpz_gcd(g1, p, absc1);
     }
-  
+
   fmpz_mat_one(M1);
   fmpz_neg(fmpz_mat_entry(M1, 0, 2), n);
   fmpz_mat_set(m, M1);
@@ -153,7 +153,7 @@ hilbert_bw_M2(fmpz_mat_t m, fmpz* abcde)
 {
   fmpz_t g2, gamma, delta, one;
   fmpz_mat_t M2, R2, R3;
-  
+
   fmpz_init(g2);
   fmpz_init(gamma);
   fmpz_init(delta);
@@ -198,7 +198,7 @@ hilbert_bw_M2(fmpz_mat_t m, fmpz* abcde)
   fmpz_mat_mul(R2, R2, M2);
   fmpz_mat_inv(M2, one, M2);
   fmpz_mat_mul(R2, M2, R2);
-  
+
   if (!fmpz_is_one(one))
     {
       flint_printf("(hilbert_bw_M2) Incorrect inversion\n");
@@ -210,7 +210,7 @@ hilbert_bw_M2(fmpz_mat_t m, fmpz* abcde)
   fmpz_set(&abcde[1], fmpz_mat_entry(R2, 1, 1));
   fmpz_neg(&abcde[2], fmpz_mat_entry(R2, 1, 0));
   fmpz_zero(&abcde[4]);
-  
+
   /* Check that new R2 is indeed the right R3 */
   fmpz_mat_zero(R3);
   fmpz_set(fmpz_mat_entry(R3, 0, 1), &abcde[0]);
@@ -288,7 +288,7 @@ hilbert_bw_M3(fmpz_mat_t m, fmpz* abcde)
   fmpz_mat_mul(R3, R3, M3);
   fmpz_mat_inv(M3, one, M3);
   fmpz_mat_mul(R3, M3, R3);
-  
+
   if (!fmpz_is_one(one))
     {
       flint_printf("(hilbert_bw_M3) Incorrect inversion\n");
@@ -378,7 +378,7 @@ hilbert_bw_M4(fmpz_mat_t m, fmpz* abcde)
   fmpz_set_si(fmpz_mat_entry(M4prime, 1, 0), -1);
   fmpz_one(fmpz_mat_entry(M4prime, 2, 3));
   fmpz_mat_mul(M4, M4, M4prime);
-  
+
   fmpz_mat_set(m, M4);
   if (!fmpz_mat_is_symplectic(m))
     {
@@ -414,7 +414,7 @@ hilbert_bw_M4(fmpz_mat_t m, fmpz* abcde)
   fmpz_set(&abcde[0], fmpz_mat_entry(R4, 0, 1));
   fmpz_set(&abcde[1], fmpz_mat_entry(R4, 1, 1));
   fmpz_one(&abcde[2]);
-  
+
   /* Check that new R4 is indeed the right R5 */
   fmpz_mat_zero(R5);
   fmpz_set(fmpz_mat_entry(R5, 0, 1), &abcde[0]);
@@ -451,7 +451,7 @@ hilbert_bw_M5(fmpz_mat_t m, fmpz* abcde)
 
   fmpz_init(t);
   fmpz_mat_init(M5, 4, 4);
-  
+
   if (fmpz_is_even(&abcde[1]))
     {
       fmpz_divexact_si(t, &abcde[1], 2);
@@ -515,7 +515,7 @@ int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
       acb_mat_mul(im, im, R, prec);
       acb_mat_transpose(R, R);
       acb_mat_mul(im, R, im, prec);
-      
+
       if (!acb_contains_zero(acb_mat_entry(im, 0, 1)))
 	{
 	  flint_printf("(hilbert_inverse) Warning: could not bring tau to normal form\n");
@@ -527,8 +527,8 @@ int hilbert_inverse(acb_ptr t, fmpz_mat_t eta, const acb_mat_t tau,
     {
       acb_set(&t[0], acb_mat_entry(im, 0, 0));
       acb_set(&t[1], acb_mat_entry(im, 1, 1));
-    }  
-  
+    }
+
   _fmpz_vec_clear(abcde, 5);
   fmpz_mat_clear(m);
   acb_mat_clear(im);

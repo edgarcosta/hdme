@@ -5,7 +5,7 @@ int fmpz_mat_is_scalar(const fmpz_mat_t m)
 {
   slong n = fmpz_mat_nrows(m);
   slong j, k;
-  
+
   if (n != fmpz_mat_ncols(m)) return 0;
   for (j = 0; j < n; j++)
     {
@@ -22,5 +22,5 @@ int fmpz_mat_is_scalar(const fmpz_mat_t m)
 	    }
 	}
     }
-  return 1;  
+  return 1;
 }

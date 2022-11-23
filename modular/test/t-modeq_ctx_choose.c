@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("modeq_ctx_choose....");
   fflush(stdout);
 
@@ -37,7 +37,7 @@ int main()
       i1 = n_randint(state, nb);
       i2 = n_randint(state, nb);
       for (k = 0; k < 4; k++) acb_set(&I[4*i1 + k], &I[4*i2 + k]);
-      
+
       modeq_ctx_choose(ctx, I, nb, prec);
 
       if (i1 != i2 && !modeq_ctx_is_pair(i1, i2, ctx)
@@ -52,7 +52,7 @@ int main()
       for (k = 0; k < nb; k++)
 	{
 	  cov_mpoly_eval(ev, modeq_ctx_den(ctx), &I[4*k], modeq_ctx_ctx(ctx), prec);
-	  if (acb_contains_zero(ev)) res = 0;	    
+	  if (acb_contains_zero(ev)) res = 0;
 	}
 
       if (!res)
@@ -66,7 +66,7 @@ int main()
       modeq_ctx_clear(ctx);
       acb_clear(ev);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

@@ -4,7 +4,7 @@
 void mestre_subst_in_conic(acb_poly_t subst, const acb_poly_t x1, const acb_poly_t x2,
 			   const acb_poly_t x3, acb_srcptr conic, slong prec)
 {
-  
+
   acb_t coeff;
   acb_poly_t res;
   acb_poly_t aux;
@@ -37,12 +37,12 @@ void mestre_subst_in_conic(acb_poly_t subst, const acb_poly_t x1, const acb_poly
   acb_mul_si(coeff, &conic[3], 2, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_poly_mul(aux, x3, x1, prec);
   acb_mul_si(coeff, &conic[4], 2, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_poly_mul(aux, x1, x2, prec);
   acb_mul_si(coeff, &conic[5], 2, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
@@ -50,7 +50,7 @@ void mestre_subst_in_conic(acb_poly_t subst, const acb_poly_t x1, const acb_poly
 
   /* Set result */
   acb_poly_set(subst, res);
-  
+
   acb_poly_clear(res);
   acb_poly_clear(aux);
   acb_clear(coeff);

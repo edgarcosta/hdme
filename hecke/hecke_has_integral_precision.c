@@ -7,7 +7,7 @@ int hecke_has_integral_precision(hecke_t H, slong prec)
   int res = 1;
   slong bits;
   slong k, j;
-  
+
   arf_init(rad);
 
   for (k = 0; k < hecke_nb(H); k++)

@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("thomae_theta4....");
   fflush(stdout);
 
@@ -132,7 +132,7 @@ int main()
       _acb_vec_clear(ros, 3);
       _acb_vec_clear(th4, 16);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

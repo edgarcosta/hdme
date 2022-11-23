@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta2_newton....");
   fflush(stdout);
 
@@ -32,10 +32,10 @@ int main()
       th = _acb_vec_init(16);
       th_test = _acb_vec_init(16);
       acb_init(th0);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
@@ -75,13 +75,13 @@ int main()
 	}
       acb_set(th0, &th_test[0]);
       _acb_vec_scalar_div(th_test, th_test, 16, th0, prec);
-      
+
       /* flint_printf("prec = %wd\n", prec);
       flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
       acb_sub(th0, &th_test[1], &th[1], prec);
       flint_printf("th_test[%wd] - th[%wd] = ", 1, 1);
       acb_printd(th0, 30); flint_printf("\n"); */
-      
+
       for (i = 0; i < 16; i++)
 	{
 	  if (!acb_overlaps(&th[i], &th_test[i])) res = 0;
@@ -102,7 +102,7 @@ int main()
 	    }
 	  flint_abort();
 	}
-      
+
       arb_clear(tol);
       acb_mat_clear(tau);
       fmpz_mat_clear(m);

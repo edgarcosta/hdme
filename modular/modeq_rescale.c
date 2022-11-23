@@ -5,7 +5,7 @@ void modeq_rescale(modeq_acb_t R, const modeq_acb_t E,
 		   const acb_t c, slong prec)
 {
   slong j;
-  
+
   modeq_acb_set(R, E);
 
   acb_poly_scalar_mul(modeq_equation(R), modeq_equation(R), c, prec);

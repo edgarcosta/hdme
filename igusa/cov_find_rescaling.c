@@ -5,7 +5,7 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
 			slong nb, slong* weights, slong prec)
 {
   slong wt;
-  slong* exponents;  
+  slong* exponents;
   acb_t r, c;
   acb_ptr rescale;
   slong j;
@@ -32,7 +32,7 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
   /* Check that rescaling works */
   for (j = 0; j < nb; j++) acb_set_fmpz(&rescale[j], &S[j]);
   cov_rescale(rescale, rescale, c, nb, weights, prec);
-  
+
   for (j = 0; j < nb; j++)
     {
       if (!acb_overlaps(&rescale[j], &I[j]))
@@ -52,7 +52,7 @@ void cov_find_rescaling(acb_t scal, acb_srcptr I, fmpz* S,
       fflush(stdout);
       flint_abort();
     }
-  
+
   acb_set(scal, c);
 
   flint_free(exponents);

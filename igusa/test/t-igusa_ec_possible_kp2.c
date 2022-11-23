@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_ec_period....");
   fflush(stdout);
 
@@ -41,20 +41,20 @@ int main()
 
       acb_set(test, j);
       acb_add_error_arf(test, tol);
-      r = !acb_contains_zero(test);      
+      r = !acb_contains_zero(test);
       acb_sub_si(test, j, 1728, prec);
       acb_add_error_arf(test, tol);
       r = r && !acb_contains_zero(test);
 
       if (r)
 	{
-	    
+
 	  acb_zero(test);
 	  acb_modular_theta(&th[0], &th[1], &th[2], &th[3], test, tau, prec);
 	  acb_div(test, &th[3], &th[2], prec);
 	  acb_sqr(test, test, prec);
 	  acb_sqr(test, test, prec);
-	  
+
 	  r = igusa_ec_possible_kp2(kp2, j, prec);
 	  if (!r)
 	    {
@@ -86,9 +86,9 @@ int main()
 		}
 	      fflush(stdout);
 	      flint_abort();
-	    }	  
+	    }
 	}
-      
+
       acb_clear(tau);
       acb_clear(j);
       acb_clear(test);

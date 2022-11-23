@@ -5,7 +5,7 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
 {
   slong a, b, c;
   slong i;
-  
+
   if ((k < 0) || (k >= siegel_nb_T1_cosets(p)))
     {
       flint_printf("(siegel_T1_coset) Error: no matrix numbered %wd\n", k);
@@ -14,7 +14,7 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
     }
 
   fmpz_mat_zero(m);
-  
+
   if (k == 0)
     {
       /* Case 1 */
@@ -64,7 +64,7 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
   else if (k < n_pow(p, 2) + p + n_pow(p, 3))
     {
       /* Case 4 */
-      k = k - n_pow(p, 2) - p;      
+      k = k - n_pow(p, 2) - p;
       b = k % p;
       a = k / p;
       fmpz_set_si(fmpz_mat_entry(m, 0, 0), 1);
@@ -91,7 +91,7 @@ void siegel_T1_coset(fmpz_mat_t m, slong k, slong p)
       fmpz_set_si(fmpz_mat_entry(m, 1, 3), a*b+c);
       fmpz_set_si(fmpz_mat_entry(m, 2, 2), p);
       fmpz_set_si(fmpz_mat_entry(m, 2, 3), a*p);
-      fmpz_set_si(fmpz_mat_entry(m, 3, 3), n_pow(p, 2));	 
+      fmpz_set_si(fmpz_mat_entry(m, 3, 3), n_pow(p, 2));
     }
-      
+
 }

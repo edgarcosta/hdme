@@ -29,7 +29,7 @@ siegel_is_in_fundamental_domain(const acb_mat_t z, const arb_t tol, slong prec)
   acb_mat_get_imag(im, z);
   res = siegel_is_real_reduced(z, tol, prec)
     &&  arb_mat_is_minkowski_reduced(im, tol, prec);
-  
+
   if (res)
     {
       /* Test matrices */
@@ -46,7 +46,7 @@ siegel_is_in_fundamental_domain(const acb_mat_t z, const arb_t tol, slong prec)
 	    }
 	}
     }
-  
+
   fmpz_mat_clear(test);
   acb_mat_clear(star);
   arb_mat_clear(im);

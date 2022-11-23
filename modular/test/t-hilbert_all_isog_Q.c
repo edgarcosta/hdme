@@ -4,7 +4,7 @@
 int main()
 {
   slong iter;
-  
+
   flint_printf("hilbert_all_isog_Q....");
   fflush(stdout);
 
@@ -18,10 +18,10 @@ int main()
       fmpz* all_I;
       int print = 1;
       slong k, j;
-            
+
       I1 = _fmpz_vec_init(4);
       all_I = _fmpz_vec_init(4 * max_nb_roots);
-            
+
       if (iter == 0)
 	{
 	  /* https://beta.lmfdb.org/Genus2Curve/Q/529/a/529/1 */
@@ -42,7 +42,7 @@ int main()
 	  ell = 7;
 	  delta = 8;
 	}
-      
+
       igusa_from_IC_fmpz(I1, I1);
       hilbert_all_isog_Q(&nb_roots, all_I, I1, ell, delta);
       if (nb_roots == 0)

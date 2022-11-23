@@ -5,12 +5,12 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_transform....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   /* Check associativity */
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
@@ -46,7 +46,7 @@ int main()
 	}
 
       valid_transform = siegel_transform(z3, n, z1, prec);
-      
+
       if (!valid_transform)
 	{
 	  flint_printf("FAIL (insufficient precision to invert)\n");
@@ -69,7 +69,7 @@ int main()
 
       if (!acb_mat_overlaps(z2, z3))
 	{
-	  
+
 	  flint_printf("FAIL\n");
 	  flint_printf("g = %wd\n", g);
 	  flint_printf("m = "); fmpz_mat_print(m); flint_printf("\n\n");
@@ -87,7 +87,7 @@ int main()
       acb_mat_clear(z2);
       acb_mat_clear(z3);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

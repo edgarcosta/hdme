@@ -6,7 +6,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta_transform....");
   fflush(stdout);
 
@@ -27,16 +27,16 @@ int main()
       fmpz_mat_t eta;
       acb_ptr th2; /* At eta*tau, computed using theta2_transform */
       acb_ptr th2_test; /* At eta*tau, computed using the naive algorithm */
-      
+
       arb_init(tol);
       acb_mat_init(tau, g, g);
       fmpz_mat_init(eta, 2*g, 2*g);
       th2 = _acb_vec_init(n);
       th2_test = _acb_vec_init(n);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, eta, tau, tol, prec);
       if (!res)
@@ -46,7 +46,7 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       fmpz_mat_randtest_symplectic(eta, state, eta_bits);
       /* fmpz_mat_print(eta); flint_printf("\n\n"); */
 
@@ -115,7 +115,7 @@ int main()
       _acb_vec_clear(th2, n);
       _acb_vec_clear(th2_test, n);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

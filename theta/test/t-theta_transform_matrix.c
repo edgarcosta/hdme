@@ -8,7 +8,7 @@ static void
 check_dupont_init(fmpz_mat_t t)
 {
   fmpz_mat_zero(t);
-  
+
   fmpz_set_si(fmpz_mat_entry(t, 1, 0), 1);
   fmpz_set_si(fmpz_mat_entry(t, 2, 0), 2);
   fmpz_set_si(fmpz_mat_entry(t, 3, 0), 3);
@@ -43,7 +43,7 @@ check_dupont_J(fmpz_mat_t t)
   check_dupont_init(t);
 
   fmpz_set_si(fmpz_mat_entry(t, 15, 1), 4);
-  
+
   fmpz_set_si(fmpz_mat_entry(t, 1, 2), 4);
   fmpz_set_si(fmpz_mat_entry(t, 2, 2), 8);
   fmpz_set_si(fmpz_mat_entry(t, 3, 2), 12);
@@ -59,7 +59,7 @@ static void
 check_dupont_M1(fmpz_mat_t t)
 {
   check_dupont_init(t);
-  
+
   fmpz_set_si(fmpz_mat_entry(t, 4, 1), 1);
   fmpz_set_si(fmpz_mat_entry(t, 6, 1), 1);
   fmpz_set_si(fmpz_mat_entry(t, 12, 1), 1);
@@ -81,7 +81,7 @@ static void
 check_dupont_M2(fmpz_mat_t t)
 {
   check_dupont_init(t);
-  
+
   fmpz_set_si(fmpz_mat_entry(t, 8, 1), 1);
   fmpz_set_si(fmpz_mat_entry(t, 9, 1), 1);
   fmpz_set_si(fmpz_mat_entry(t, 12, 1), 1);
@@ -103,7 +103,7 @@ static void
 check_dupont_M3(fmpz_mat_t t)
 {
   check_dupont_init(t);
-  
+
   fmpz_set_si(fmpz_mat_entry(t, 12, 1), 6);
   fmpz_set_si(fmpz_mat_entry(t, 15, 1), 6);
 
@@ -155,7 +155,7 @@ check_dupont_Sigma(fmpz_mat_t t)
 
 int main()
 {
-  
+
   slong g = 2;
   fmpz_mat_t transf_mat;
   fmpz_mat_t test_mat;
@@ -164,7 +164,7 @@ int main()
   fmpz_mat_t eta;
   int res = 0;
 
-  
+
   flint_printf("theta_transform_matrix....");
   fflush(stdout);
 
@@ -203,7 +203,7 @@ int main()
       fmpz_mat_print_pretty(test_mat);
       flint_abort();
     }
-  
+
   fmpz_mat_one(eta);
   fmpz_one(fmpz_mat_entry(eta, 0, 2));
   theta_transform_matrix(transf_mat, eta);
@@ -219,7 +219,7 @@ int main()
       fmpz_mat_print_pretty(test_mat);
       flint_abort();
     }
-  
+
   fmpz_mat_one(eta);
   fmpz_one(fmpz_mat_entry(eta, 1, 3));
   theta_transform_matrix(transf_mat, eta);
@@ -235,7 +235,7 @@ int main()
       fmpz_mat_print_pretty(test_mat);
       flint_abort();
     }
-  
+
   fmpz_mat_one(eta);
   fmpz_one(fmpz_mat_entry(eta, 0, 3));
   fmpz_one(fmpz_mat_entry(eta, 1, 2));
@@ -269,7 +269,7 @@ int main()
       fmpz_mat_print_pretty(test_mat);
       flint_abort();
     }
-  
+
   fmpz_mat_zero(aux);
   fmpz_set_si(fmpz_mat_entry(aux, 0, 1), -1);
   fmpz_set_si(fmpz_mat_entry(aux, 1, 0), 1);
@@ -296,7 +296,7 @@ int main()
       fmpz_mat_print_pretty(test_mat);
       flint_abort();
     }
- 
+
   fmpz_mat_clear(transf_mat);
   fmpz_mat_clear(test_mat);
   fmpz_mat_clear(aux);
@@ -307,4 +307,4 @@ int main()
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
 }
-  
+

@@ -5,7 +5,7 @@ static void perm_nb_to_images(slong* images, slong nb, slong n)
 {
   slong fact;
   slong k, q, r;
-  
+
   if (n == 0) images[0] = 0;
   else if (n < 0)
     {
@@ -32,11 +32,11 @@ void thomae_reorder(acb_ptr new_roots, acb_srcptr roots, slong perm)
   acb_ptr aux;
   slong images[6];
   slong k;
-  
+
   perm_nb_to_images(images, perm, 6);
   aux = _acb_vec_init(6); /* Do this AFTER computing images, otherwise
 			     segfault: what is this mess? Compiler optimization? */
-  
+
   for (k = 0; k < 6; k++)
     {
       acb_set(&aux[images[k]], &roots[k]);
