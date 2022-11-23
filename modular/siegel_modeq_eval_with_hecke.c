@@ -19,7 +19,7 @@ int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
   while (!stop)
     {
       if (v) modeq_verbose_start(prec);
-      
+
       res = hecke_set_I_fmpz(H, I, prec);
       if (res) res = hecke_collect_siegel(H, ell, prec);
       if (res) res = modeq_ctx_choose(ctx, hecke_all_I(H), nb, prec);
@@ -32,13 +32,13 @@ int siegel_modeq_eval_with_hecke(modeq_t R, modeq_ctx_t ctx,
 	  prec = modeq_nextprec_precise(prec, gap);
 	}
       else
-	{	  
+	{
 	  prec = modeq_nextprec_generic(prec);
 	}
 
       stop = modeq_stop(res, prec);
     }
-  
+
   modeq_acb_clear(E);
   acb_clear(c);
   return res;

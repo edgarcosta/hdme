@@ -4,7 +4,7 @@
 void hecke_print(const hecke_t H, slong digits)
 {
   slong j, k;
-  
+
   flint_printf("Hecke correspondence of level %wd\n", hecke_ell(H));
   flint_printf("Base matrix:\n");
   acb_mat_printd(hecke_tau(H), digits);
@@ -23,5 +23,5 @@ void hecke_print(const hecke_t H, slong digits)
 	{
 	  acb_printd(&hecke_I(H, j)[k], digits); flint_printf("\n");
 	}
-    }  
+    }
 }

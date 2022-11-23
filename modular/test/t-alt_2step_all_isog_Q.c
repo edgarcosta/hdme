@@ -5,7 +5,7 @@
 int main()
 {
   slong iter;
-  
+
   flint_printf("alt_2step_all_isog_Q....");
   fflush(stdout);
 
@@ -20,11 +20,11 @@ int main()
       slong nb_roots = 1;
       slong k;
       int res;
-      
+
       I1 = _fmpz_vec_init(4);
       I2 = _fmpz_vec_init(4);
       all_I = _fmpz_vec_init(4 * max_nb_roots);
-      
+
       if (iter == 0)
 	{
 	  /* https://beta.lmfdb.org/Genus2Curve/Q/249/a/249/1,
@@ -56,7 +56,7 @@ int main()
       else if (iter == 2)
 	{
 	  /* https://beta.lmfdb.org/Genus2Curve/Q/523/a/523/1,
-	     https://beta.lmfdb.org/Genus2Curve/Q/523/a/523/2 */	  
+	     https://beta.lmfdb.org/Genus2Curve/Q/523/a/523/2 */
 	  fmpz_set_si(&I1[0], 120);
 	  fmpz_set_si(&I1[1], -540);
 	  fmpz_set_si(&I1[2], -29169);
@@ -70,7 +70,7 @@ int main()
       else
 	{
 	  /* https://beta.lmfdb.org/Genus2Curve/Q/295/a/295/1,
-	     https://beta.lmfdb.org/Genus2Curve/Q/295/a/295/2 */	  
+	     https://beta.lmfdb.org/Genus2Curve/Q/295/a/295/2 */
 	  fmpz_set_si(&I1[0], 108);
 	  fmpz_set_si(&I1[1], -39);
 	  fmpz_set_si(&I1[2], 20835);
@@ -81,12 +81,12 @@ int main()
 	  fmpz_set_si(&I2[2], 18482629056189);
 	  fmpz_set_si(&I2[3], -37760);
 	}
-      
+
       igusa_from_IC_fmpz(I1, I1);
       igusa_from_IC_fmpz(I2, I2);
 
       alt_2step_all_isog_Q(&nb_roots, all_I, I1, ell);
-      
+
       if (nb_roots == 0)
 	{
 	  flint_printf("FAIL (roots)\n");
@@ -105,7 +105,7 @@ int main()
 	  flint_printf("FAIL (values)\n");
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
 
       _fmpz_vec_clear(I1, 4);
       _fmpz_vec_clear(I2, 4);

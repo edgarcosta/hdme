@@ -8,7 +8,7 @@ void igusa_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
   fmpq_mpoly_ctx_t ctx;
   char** vars;
   acb_ptr S;
-  
+
   ai = _acb_vec_init(7);
   fmpq_mpoly_ctx_init(ctx, 7, ORD_LEX);
   fmpq_mpoly_init(pol, ctx);
@@ -41,5 +41,5 @@ void igusa_from_curve(acb_ptr I, const acb_poly_t crv, slong prec)
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
   hdme_data_vars_clear(vars, 7);
-  _acb_vec_clear(S, 4);  
+  _acb_vec_clear(S, 4);
 }

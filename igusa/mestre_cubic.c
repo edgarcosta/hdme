@@ -6,7 +6,7 @@ void mestre_cubic(acb_ptr cubic, acb_srcptr ABCD, const acb_t U, const acb_t I10
   acb_ptr A_coefs;
   acb_ptr C_coefs;
   acb_t temp;
-  
+
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
   char** vars;
@@ -22,7 +22,7 @@ void mestre_cubic(acb_ptr cubic, acb_srcptr ABCD, const acb_t U, const acb_t I10
   hdme_data_vars_set(vars, "B", 1);
   hdme_data_vars_set(vars, "C", 2);
   hdme_data_vars_set(vars, "D", 3);
-  
+
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c111", ctx);
   hdme_data_evaluate_acb(&A_coefs[0], pol, ABCD, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c112", ctx);
@@ -36,7 +36,7 @@ void mestre_cubic(acb_ptr cubic, acb_srcptr ABCD, const acb_t U, const acb_t I10
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c133", ctx);
   hdme_data_evaluate_acb(&A_coefs[5], pol, ABCD, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c222", ctx);
-  hdme_data_evaluate_acb(&A_coefs[6], pol, ABCD, ctx, prec);  
+  hdme_data_evaluate_acb(&A_coefs[6], pol, ABCD, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c223", ctx);
   hdme_data_evaluate_acb(&A_coefs[7], pol, ABCD, ctx, prec);
   hdme_data_read(pol, (const char**) vars, "mestre/cubic/c233", ctx);
@@ -107,7 +107,7 @@ void mestre_cubic(acb_ptr cubic, acb_srcptr ABCD, const acb_t U, const acb_t I10
   _acb_vec_clear(A_coefs, 10);
   _acb_vec_clear(C_coefs, 10);
   acb_clear(temp);
-  
+
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
   hdme_data_vars_clear(vars, 4);

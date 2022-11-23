@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("borchardt_mean....");
   fflush(stdout);
 
@@ -15,7 +15,7 @@ int main()
     {
       slong mag_bits = n_randint(state, 10);
       slong prec = 10 + n_pow(2, mag_bits) + n_randint(state, 200);
-      
+
       acb_ptr a;
       arb_t x, y, z;
       acb_t r;
@@ -36,7 +36,7 @@ int main()
       while (arb_contains_zero(y)) arb_randtest_precise(y, state, prec, mag_bits);
       if (!arb_is_positive(x)) arb_neg(x, x);
       if (!arb_is_positive(y)) arb_neg(y, y);
-      
+
       arb_agm(z, x, y, prec);
 
       acb_set_arb(&a[0], x);
@@ -66,7 +66,7 @@ int main()
       arb_clear(z);
       acb_clear(r);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

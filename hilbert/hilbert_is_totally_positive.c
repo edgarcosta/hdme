@@ -5,7 +5,7 @@ int hilbert_is_totally_positive(const fmpz_poly_t x, slong delta)
 {
   fmpz_t lhs, rhs;
   int res = 1;
-  
+
   fmpz_init(lhs);
   fmpz_init(rhs);
 
@@ -20,7 +20,7 @@ int hilbert_is_totally_positive(const fmpz_poly_t x, slong delta)
     {
       res = 0;
     }
-  
+
   fmpz_mul(lhs, lhs, lhs);
   fmpz_mul(rhs, rhs, rhs);
   fmpz_mul_si(rhs, rhs, delta);

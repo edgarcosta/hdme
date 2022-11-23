@@ -4,7 +4,7 @@
 int main()
 {
   slong p;
-  
+
   flint_printf("siegel_T1_coset....");
   fflush(stdout);
 
@@ -35,7 +35,7 @@ int main()
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	  
+
 	  fmpz_mat_det(det, m1);
 	  if (!fmpz_equal_si(det, n_pow(p, 4)))
 	    {
@@ -45,7 +45,7 @@ int main()
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	  
+
 	  fmpq_mat_set_fmpz_mat(n, m1);
 	  fmpq_mat_inv(n, n);
 
@@ -77,4 +77,4 @@ int main()
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
 }
-      
+

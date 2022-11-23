@@ -7,18 +7,18 @@ int theta2_invalid(acb_srcptr th2, slong prec)
   acb_ptr a;
   acb_ptr tau_entries;
   acb_mat_t tau;
-  
+
   int res = 0;
   int b_success = 1;
   slong i, j;
-  
+
   int theta_labels[4][4] = {
     {0, 1, 2, 3},
     {4, 0, 6, 2},
     {8, 9, 0, 1},
     {0, 8, 4, 12}
   };
-  
+
   means = _acb_vec_init(4);
   a = _acb_vec_init(4);
   tau_entries = _acb_vec_init(3);
@@ -47,7 +47,7 @@ int theta2_invalid(acb_srcptr th2, slong prec)
 		} */
 	}
     }
-  
+
   if (!res && b_success)
     {
       acb_div(&tau_entries[0], &means[0], &means[1], prec);
@@ -67,10 +67,10 @@ int theta2_invalid(acb_srcptr th2, slong prec)
       acb_set(acb_mat_entry(tau, 1, 0), &tau_entries[2]);
 
       /* acb_mat_printd(tau, 10); */
-      
+
       res = siegel_not_in_fundamental_domain(tau, prec);
     }
-  
+
   _acb_vec_clear(means, 4);
   _acb_vec_clear(a, 4);
   _acb_vec_clear(tau_entries, 3);

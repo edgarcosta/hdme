@@ -26,7 +26,7 @@ int theta2_renormalize(acb_ptr th2, acb_srcptr th2_proj, slong prec)
 	}
     }
   _acb_vec_set(th2, a, 16);
-  
+
   _acb_vec_clear(a, 16);
   acb_clear(b);
   return res;

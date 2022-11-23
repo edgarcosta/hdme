@@ -215,7 +215,7 @@ static pair lookuptable[] =
     {"cardona/a222", cardona_a222},
     {"cardona/a233", cardona_a233}
   };
-    
+
 #define NKEYS (sizeof(lookuptable)/sizeof(pair))
 
 
@@ -224,7 +224,7 @@ void hdme_data_get_string(char *s, const char *key)
     size_t i;
     pair* item;
     int res = 0;
-    
+
     for (i = 0; i < NKEYS; ++i)
       {
 	item = &lookuptable[i];

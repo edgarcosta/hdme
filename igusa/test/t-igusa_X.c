@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_X....");
   fflush(stdout);
 
@@ -85,7 +85,7 @@ int main()
 	    }
 	  fflush(stdout);
 	  flint_abort();
-	}      
+	}
 
       _fmpz_vec_clear(I, 4);
       _fmpq_vec_clear(X, X_NB);

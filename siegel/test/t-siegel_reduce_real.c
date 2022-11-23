@@ -5,12 +5,12 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_reduce_real....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
       fmpz_mat_t u;
@@ -26,14 +26,14 @@ int main()
       acb_mat_init(w2, g, g);
       fmpz_mat_init(u, 2*g, 2*g);
       arb_init(tol);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(z, state, prec);
       res = siegel_reduce_real(w1, u, z, tol, prec);
       siegel_transform(w2, u, z, prec);
-      
+
       if (!res || !siegel_is_real_reduced(w1, tol, prec) || !acb_mat_overlaps(w1, w2))
 	{
 	  flint_printf("FAIL\n");
@@ -51,7 +51,7 @@ int main()
       fmpz_mat_clear(u);
       arb_clear(tol);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

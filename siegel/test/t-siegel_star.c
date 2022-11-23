@@ -5,12 +5,12 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_star....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   /* Check the cocycle relation: I_g = m^*(z) m^(-1)*(mz) */
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
@@ -18,7 +18,7 @@ int main()
       acb_mat_t z1, z2, w1, w2, i, t;
       slong g, prec;
       int valid_transform;
-      
+
       g = 1 + n_randint(state, 5);
       fmpz_mat_init(m, 2*g, 2*g);
       fmpz_mat_init(minv, 2*g, 2*g);
@@ -28,13 +28,13 @@ int main()
       acb_mat_init(w2, g, g);
       acb_mat_init(i, g, g);
       acb_mat_init(t, g, g);
-      
+
       acb_mat_one(i);
       fmpz_mat_randtest_symplectic(m, state, n_randint(state, 20));
       fmpz_mat_direct_inv(minv, m);
-      
+
       prec = 200 + n_randint(state, 200);
-      
+
       siegel_halfspace_randtest(z1, state, prec);
       valid_transform = siegel_transform(z2, m, z1, prec);
 

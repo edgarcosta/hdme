@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_no_rescale_to_one....");
   fflush(stdout);
 
@@ -27,7 +27,7 @@ int main()
       acb_init(root);
       acb_init(scal);
       weights = flint_malloc(nb * sizeof(slong));
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 10);
@@ -35,8 +35,8 @@ int main()
 	}
       acb_randtest_precise(scal, state, prec, mag_bits);
 
-      cov_rescale(I, I, scal, nb, weights, prec);      
-      
+      cov_rescale(I, I, scal, nb, weights, prec);
+
       if (cov_no_rescale_to_one(I, nb, weights, prec))
 	{
 	  flint_printf("FAIL\n");
@@ -50,7 +50,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  acb_one(&I[k]);

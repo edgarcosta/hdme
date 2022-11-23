@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_rescale....");
   fflush(stdout);
 
@@ -25,7 +25,7 @@ int main()
       S = _acb_vec_init(nb);
       acb_init(scal);
       weights = flint_malloc(nb * sizeof(slong));
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 10);

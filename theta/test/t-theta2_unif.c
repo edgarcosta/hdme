@@ -6,7 +6,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta2_unif....");
   fflush(stdout);
 
@@ -30,24 +30,24 @@ int main()
       acb_ptr th2; /* Computed using theta2_unif */
       acb_ptr th2_test; /* Computed using the naive algorithm */
       fmpz_mat_t m;
-      
+
       arb_init(tol);
       acb_mat_init(tau, g, g);
       acb_mat_init(w, g, g);
       th2 = _acb_vec_init(n);
       th2_test = _acb_vec_init(n);
       fmpz_mat_init(m, 2*g, 2*g);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(tau, state, prec);
       /* Closer to the cusp for testing purposes */
       acb_mat_scalar_mul_si(tau, tau, mult1, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       acb_mul_si(acb_mat_entry(tau, 1, 1), acb_mat_entry(tau, 1, 1), mult2, prec);
       res = res && siegel_fundamental_domain(tau, m, tau, tol, prec);
-      
+
       if (!res)
 	{
 	  flint_printf("FAIL (fundamental domain)\n");
@@ -70,7 +70,7 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       if (!skip) res = theta2_unif(th2, tau, prec);
       if (!res)
 	{
@@ -79,7 +79,7 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       /* Rescale: theta0 cannot be exactly zero */
       if (!skip)
 	{
@@ -91,7 +91,7 @@ int main()
 	  acb_one(&th2[0]);
 	  acb_one(&th2_test[0]);
 	}
-      
+
       /* Check overlap */
       for (i = 0; i < n; i++)
 	{
@@ -110,7 +110,7 @@ int main()
 	      flint_abort();
 	    }
 	}
-      
+
       arb_clear(tol);
       acb_mat_clear(tau);
       acb_mat_clear(w);
@@ -118,7 +118,7 @@ int main()
       _acb_vec_clear(th2_test, n);
       fmpz_mat_clear(m);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

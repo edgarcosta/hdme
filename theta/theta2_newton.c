@@ -8,7 +8,7 @@ int theta2_newton(acb_ptr th2, const acb_mat_t tau, slong prec)
   acb_mat_t tau_half;
   acb_t th0;
   mag_t err;
-  
+
   slong g = 2;
   slong delta = THETA_NEWTON_LOSS;
   slong current_prec, next_prec;
@@ -30,7 +30,7 @@ int theta2_newton(acb_ptr th2, const acb_mat_t tau, slong prec)
   _acb_vec_scalar_div(current_th, current_th, 4, th0, prec);
 
   if (v > 0) {flint_printf("(theta2_newton) %wd: ", prec); fflush(stdout);}
-  
+
   while ((current_prec < prec) && res)
     {
       if (v > 0) {flint_printf("%wd, ", current_prec); fflush(stdout);}
@@ -42,7 +42,7 @@ int theta2_newton(acb_ptr th2, const acb_mat_t tau, slong prec)
       _acb_vec_set(current_th, next_th, 4);
     }
   if (v > 0) {flint_printf("%wd.\n", current_prec); fflush(stdout);}
-  
+
   /* Add some heuristic error */
   mag_set_ui_2exp_si(err, 1, -prec+delta);
   for (j = 0; j < 4; j++) acb_add_error_mag(&current_th[j], err);

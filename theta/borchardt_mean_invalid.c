@@ -18,7 +18,7 @@ int borchardt_mean_invalid(acb_srcptr a, slong prec)
   arf_init(u);
   arf_init(l);
   for (k = 0; k < 16; k++) arf_init(&ints[k]);
-  
+
   for (k = 0; k < 4; k++) borchardt_excl_half_planes(&ints[4*k], &a[k], prec);
   /* Debug */
   /* flint_printf("(borchardt_mean_invalid) Values:\n");
@@ -31,7 +31,7 @@ int borchardt_mean_invalid(acb_srcptr a, slong prec)
     {
       arf_printd(&ints[k], 30); flint_printf("\n");
       } */
-  
+
   arf_set_si(l, -1);
   for (k = 0; k < 4; k++) arf_max(l, l, &ints[4*k]);
   arf_set_si(u, 1);

@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("tau_from_igusa....");
   fflush(stdout);
 
@@ -20,7 +20,7 @@ int main()
       slong mag_bits = 1 + n_randint(state, 10);
       slong k;
       int res;
-      
+
       acb_mat_init(tau, 2, 2);
       I = _acb_vec_init(4);
       I_test = _acb_vec_init(4);
@@ -30,7 +30,7 @@ int main()
       res = tau_from_igusa(tau, I_test, prec);
 
       if (!res)
-	{ 
+	{
 	  flint_printf("FAIL (tau)\n");
 	  for (k = 0; k < 4; k++)
 	    {
@@ -43,7 +43,7 @@ int main()
       /* Compute Igusa invariants and check */
       res = igusa_from_tau(I, tau, prec);
       if (!res)
-	{ 
+	{
 	  flint_printf("FAIL (I)\n");
 	  for (k = 0; k < 4; k++)
 	    {
@@ -71,10 +71,10 @@ int main()
       _acb_vec_clear(I_test, 4);
       _acb_vec_clear(I, 4);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
 }
-      
+

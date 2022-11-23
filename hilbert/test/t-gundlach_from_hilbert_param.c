@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("gundlach_from_hilbert_param....");
   fflush(stdout);
 
@@ -35,10 +35,10 @@ int main()
       for (k = 0; k < 2; k++) fmpq_randbits(&mn[k], state, mn_bits);
       gundlach_from_hilbert_param(G, mn, delta);
       for (k = 0; k < 3; k++) acb_set_fmpz(&G_acb[k], &G[k]);
-      
+
       acb_set_fmpq(&rs[0], &mn[0], prec);
       acb_set_fmpq(&rs[1], &mn[1], prec);
-      
+
       hilbert_parametrize(I, rs, delta, prec);
       gundlach_from_igusa(G_test, I, delta, prec);
 
@@ -53,14 +53,14 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _fmpq_vec_clear(mn, 2);
       _acb_vec_clear(rs, 2);
       _acb_vec_clear(I, 4);
       _fmpz_vec_clear(G, 3);
       _acb_vec_clear(G_acb, 3);
       _acb_vec_clear(G_test, 3);
-    }  
+    }
 
   flint_randclear(state);
   flint_cleanup();
@@ -70,5 +70,5 @@ int main()
 
 
 
-      
-      
+
+

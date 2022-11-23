@@ -6,7 +6,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("hilbert_parametrize....");
   fflush(stdout);
 
@@ -18,7 +18,7 @@ int main()
       fmpq* rs;
       acb_ptr rs_acb;
       acb_ptr I;
-      
+
       slong rs_bits = 5 + n_randint(state, 10);
       slong prec = 1000 + n_randint(state, 1000);
       slong delta_max = 18;
@@ -35,7 +35,7 @@ int main()
       acb_mat_init(tau, 2, 2);
       fmpz_mat_init(m, 4, 4);
       t = _acb_vec_init(3);
-	
+
       for (delta = 5; delta < delta_max; delta++)
 	{
 	  if (hilbert_is_fundamental(delta))

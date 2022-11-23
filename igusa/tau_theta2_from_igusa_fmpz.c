@@ -20,8 +20,8 @@ int tau_theta2_from_igusa_fmpz(acb_mat_t tau, acb_ptr th2, fmpz* I, slong prec)
     {
       res = tau_theta2_from_igusa_ec(tau, th2, I, prec);
     }
-  
+
   acb_poly_clear(crv);
   _fmpz_vec_clear(IC, 4);
-  return res;  
+  return res;
 }

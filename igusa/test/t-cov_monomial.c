@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_monomial....");
   fflush(stdout);
 
@@ -65,7 +65,7 @@ int main()
 	      acb_printd(ev1, 10); flint_printf("\n");
 	      acb_printd(ev2, 10); flint_printf("\n");
 	    }
-	}      
+	}
 
       fmpz_mpoly_clear(mon, ctx);
       fmpz_mpoly_ctx_clear(ctx);

@@ -7,12 +7,12 @@ int main()
   flint_rand_t state;
   slong delta;
   int print=0;
-  
+
   flint_printf("hilbert_linear_combination....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (delta = 5; delta < 100; delta++)
     {
       if (hilbert_is_fundamental(delta))
@@ -33,7 +33,7 @@ int main()
 	      acb_mat_init(tau, 2, 2);
 	      abcde = _fmpz_vec_init(5);
 	      fmpz_mat_init(m, 4, 4);
-	      
+
 	      hilbert_halfspace_randtest(t, state, prec);
 	      hilbert_map(tau, t, delta, prec);
 	      res = hilbert_linear_combination(abcde, tau, delta, prec);
@@ -50,7 +50,7 @@ int main()
 		  fflush(stdout);
 		  flint_abort();
 		}
-	      
+
 	      if (print)
 		{
 		  flint_printf("delta = %wd, LLL result:\n", delta);
@@ -79,7 +79,7 @@ int main()
 		  fflush(stdout);
 		  flint_abort();
 		}
-	      
+
 	      if (print)
 		{
 		  flint_printf("delta = %wd, LLL result:\n", delta);

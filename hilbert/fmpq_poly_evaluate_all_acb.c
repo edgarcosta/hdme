@@ -26,7 +26,7 @@ void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr va
   acb_init(res);
   acb_init(temp);
   fmpq_init(coeff);
-  
+
   acb_zero(res);
   for (j = 0; j < L; j++)
     {
@@ -41,7 +41,7 @@ void fmpq_mpoly_evaluate_all_acb(acb_t ev, const fmpq_mpoly_t pol, acb_srcptr va
     }
 
   acb_set(ev, res);
-  
+
   acb_clear(res);
   acb_clear(temp);
   fmpq_clear(coeff);

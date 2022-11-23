@@ -1,7 +1,7 @@
 
 #include "igusa.h"
 
-/* Cf. Igusa, "On Siegel modular forms of genus two", p. 181 
+/* Cf. Igusa, "On Siegel modular forms of genus two", p. 181
    In the static functions, I is the Streng invariants. */
 
 static void igusa_y(acb_t y1, acb_t y2, acb_srcptr I, slong prec)
@@ -19,12 +19,12 @@ static void igusa_y_fmpq(fmpq_t y1, fmpq_t y2, fmpz* I)
 {
   fmpq_t temp;
   fmpz_t one;
-  
+
   fmpq_init(temp);
   fmpz_init(one);
   fmpz_one(one);
 
-  fmpq_set_fmpz_frac(temp, &I[0], one);  
+  fmpq_set_fmpz_frac(temp, &I[0], one);
   fmpq_pow_si(y1, temp, 3);
   fmpq_div_fmpz(y1, y1, &I[3]);
   fmpq_mul_si(y1, y1, n_pow(2,11) * 3);
@@ -45,7 +45,7 @@ static void igusa_ec_j1j2_gen(acb_ptr j, const acb_t y1, const acb_t y2, slong p
 
   acb_poly_init(pol);
   acb_init(c);
-  
+
   acb_poly_set_coeff_si(pol, 2, 1);
   acb_poly_set_coeff_acb(pol, 0, y1);
 
@@ -56,7 +56,7 @@ static void igusa_ec_j1j2_gen(acb_ptr j, const acb_t y1, const acb_t y2, slong p
 
   /* Assume that thomae_roots will not throw for deg 2 polynomials? */
   thomae_roots(j, pol, prec);
-  
+
   acb_poly_clear(pol);
   acb_clear(c);
 }
@@ -89,11 +89,11 @@ static int igusa_ec_j1j2_equal(acb_ptr j, fmpz* S, slong prec)
   fmpq_init(y1);
   fmpq_init(y2);
   fmpq_init(j1);
-  
+
   igusa_y_fmpq(y1, y2, S);
   fmpq_sub(j1, y2, y1);
   fmpq_add_si(j1, j1, -n_pow(1728,2));
-  
+
   fmpq_set_si(y2, -2*1728, 1);
   fmpq_div(j1, j1, y2);
 
@@ -105,7 +105,7 @@ static int igusa_ec_j1j2_equal(acb_ptr j, fmpz* S, slong prec)
       acb_set_fmpq(&j[0], j1, prec);
       acb_set_fmpq(&j[1], j1, prec);
     }
-  
+
   fmpq_clear(y1);
   fmpq_clear(y2);
   fmpq_clear(j1);
@@ -127,7 +127,7 @@ void igusa_ec_j1j2(acb_ptr j, fmpz* I, slong prec)
   S = _fmpz_vec_init(4);
 
   igusa_streng_fmpz(S, I);
-  
+
   for (k = 0; k < 4; k++) acb_set_fmpz(&S_acb[k], &S[k]);
   igusa_y(y1, y2, S_acb, prec);
 

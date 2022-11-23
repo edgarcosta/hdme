@@ -9,7 +9,7 @@ igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* I)
 
   fmpz_init(res);
   fmpz_init(temp);
-  
+
   /* Get I6prime from I6 */
   fmpz_mul_si(res, &I[2], -3);
   fmpz_mul(temp, &I[0], &I[1]);
@@ -20,7 +20,7 @@ igusa_I6prime_from_IC_fmpz(fmpz_t I6prime, fmpz* I)
       fmpz_divexact_si(res, res, 2);
       fmpz_set(I6prime, res);
     }
-  
+
   fmpz_clear(res);
   fmpz_clear(temp);
   return r;
@@ -37,7 +37,7 @@ void igusa_from_IC_fmpz(fmpz* I, fmpz* IC)
   fmpz_init(I12);
   resc = _fmpz_vec_init(4);
   S = _fmpz_vec_init(4);
-  
+
   _fmpz_vec_set(resc, IC, 4);
 
   cov_rescale_fmpz_si(resc, IC, 2, 4, weights2);

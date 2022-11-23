@@ -16,7 +16,7 @@ void cov_rescale_fmpz(fmpz* I, fmpz* S, const fmpz_t scal, slong nb, slong* weig
       fmpz_mul(&res[j], &S[j], f);
     }
 
-  _fmpz_vec_set(I, res, nb);  
+  _fmpz_vec_set(I, res, nb);
   _fmpz_vec_clear(res, nb);
   fmpz_clear(f);
 }

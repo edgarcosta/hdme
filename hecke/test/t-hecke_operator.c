@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("hecke_operator....");
   fflush(stdout);
   flint_randinit(state);
@@ -27,9 +27,9 @@ int main()
       acb_mat_init(tau, 2, 2);
       acb_init(r);
       fmpz_init(eig);
-      
+
       siegel_fundamental_domain_randtest(tau, state, prec);
-            
+
       while (ell < ellmax)
 	{
 	  nb = siegel_nb_cosets(ell);
@@ -50,7 +50,7 @@ int main()
 	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi4(hecke_I(H, k)));
 	  hecke_operator(r, H, val, ell, 4, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[0], prec);
-	  
+
 	  hecke_eigenvalue_eisenstein(eig, 4, ell);
 	  if (!acb_contains_fmpz(r, eig))
 	    {
@@ -61,11 +61,11 @@ int main()
 	      fflush(stdout);
 	      flint_abort();
 	    }
-	  
+
 	  for (k = 0; k < nb; k++) acb_set(&val[k], igusa_psi6(hecke_I(H, k))); /* I6' */
 	  hecke_operator(r, H, val, ell, 6, 0, prec);
 	  acb_div(r, r, &hecke_I_tau(H)[1], prec);
-	  
+
 	  hecke_eigenvalue_eisenstein(eig, 6, ell);
 	  if (!acb_contains_fmpz(r, eig))
 	    {
@@ -86,7 +86,7 @@ int main()
       acb_clear(r);
       fmpz_clear(eig);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

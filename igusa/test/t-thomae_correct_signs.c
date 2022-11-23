@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("thomae_correct_signs....");
   fflush(stdout);
 
@@ -41,8 +41,8 @@ int main()
 	  arb_mul_2exp_si(abs, abs, 50);
 	  arb_sub_si(abs, abs, 1, prec);
 	} while (!arb_is_positive(abs));
-      
-      
+
+
       res = theta2_unif(th2, tau, prec);
       if (!res)
 	{
@@ -108,7 +108,7 @@ int main()
       acb_poly_clear(crv);
       _acb_vec_clear(roots, 6);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

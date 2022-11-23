@@ -5,12 +5,12 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("acb_rationalize....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (iter = 0; iter < 50 * arb_test_multiplier(); iter++)
     {
       fmpq_t c;
@@ -25,7 +25,7 @@ int main()
       fmpq_init(r);
       fmpz_init(den);
       acb_init(x);
-      
+
       fmpq_randtest(c, state, bits);
       fmpz_one(den);
       acb_set_fmpq(x, c, prec);
@@ -35,7 +35,7 @@ int main()
 	  flint_printf("FAIL (prec = %wd)\n", prec);
 	  fmpq_print(c); flint_printf("\n");
 	  acb_printd(x, 30); flint_printf("\n");
-	  fmpq_print(r); flint_printf("\n");	  
+	  fmpq_print(r); flint_printf("\n");
 	  fflush(stdout);
 	  flint_abort();
 	}
@@ -48,17 +48,17 @@ int main()
 	  flint_printf("FAIL (spurious coefficient recognized)\n", prec);
 	  fmpq_print(c); flint_printf("\n");
 	  acb_printd(x, 30); flint_printf("\n");
-	  fmpq_print(r); flint_printf("\n");	  
+	  fmpq_print(r); flint_printf("\n");
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       fmpq_clear(c);
       fmpq_clear(r);
       fmpz_clear(den);
       acb_clear(x);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

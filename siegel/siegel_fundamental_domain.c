@@ -26,7 +26,7 @@ int siegel_fundamental_domain(acb_mat_t w, fmpz_mat_t m,
   acb_mat_init(star, g, g);
   acb_init(det);
   arb_init(absdet);
-  
+
   fmpz_mat_one(m);
 
   while (!stop)
@@ -41,12 +41,12 @@ int siegel_fundamental_domain(acb_mat_t w, fmpz_mat_t m,
 	  flint_printf("tol = "); arb_printd(tol, 5); flint_printf("\n");
 	  break;
 	}
-      
+
       /* Reduce imaginary part */
       acb_mat_get_imag(im, x);
       res = arb_mat_minkowski_reduce(im, u, im, tol, prec);
       fmpz_mat_diagonal_symplectic(step, u);
-      
+
       fmpz_mat_mul(m, step, m);
       res = res && siegel_transform(x, m, z, prec);
       if (!res)
@@ -57,7 +57,7 @@ int siegel_fundamental_domain(acb_mat_t w, fmpz_mat_t m,
 	  flint_printf("tol = "); arb_printd(tol, 5); flint_printf("\n");
 	  break;
 	}
-      
+
       /* Reduce real part */
       res = siegel_reduce_real(x, step, x, tol, prec);
       fmpz_mat_mul(m, step, m);
@@ -88,7 +88,7 @@ int siegel_fundamental_domain(acb_mat_t w, fmpz_mat_t m,
 	    }
 	}
     }
-  
+
   res = res && siegel_transform(w, m, z, prec);
 
   fmpz_mat_clear(test_matrix);

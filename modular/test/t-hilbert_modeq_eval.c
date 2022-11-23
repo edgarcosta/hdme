@@ -7,7 +7,7 @@ int main()
   flint_rand_t state;
 
   flint_randinit(state);
-  
+
   flint_printf("hilbert_modeq_eval....");
   fflush(stdout);
 
@@ -38,11 +38,11 @@ int main()
 	  if (iter % 5 == 0) fmpz_zero(&G[2]);
 	  k = n_randint(state, 3);
 	  fmpz_randtest_not_zero(&G[k], state, mag_bits);
-	  
+
 	  igusa_from_gundlach_fmpz(I, G, delta);
 	  valid = !fmpz_is_zero(igusa_chi12(I)) || !fmpz_is_zero(igusa_chi10(I));
 	}
-	
+
       if (print)
 	{
 	  flint_printf("Igusa covariants:\n");
@@ -58,7 +58,7 @@ int main()
       modeq_ctx_clear(ctx);
       modeq_clear(E);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

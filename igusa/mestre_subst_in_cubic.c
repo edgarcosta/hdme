@@ -25,12 +25,12 @@ void mestre_subst_in_cubic(acb_poly_t subst, const acb_poly_t x1, const acb_poly
   acb_poly_pow_ui(aux, x1, 3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_set(coeff, &cubic[6]);
   acb_poly_pow_ui(aux, x2, 3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_set(coeff, &cubic[9]);
   acb_poly_pow_ui(aux, x3, 3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
@@ -42,31 +42,31 @@ void mestre_subst_in_cubic(acb_poly_t subst, const acb_poly_t x1, const acb_poly
   acb_poly_mul(aux, aux, x2, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_mul_si(coeff, &cubic[2], 3, prec);
   acb_poly_mul(aux, x1, x1, prec);
   acb_poly_mul(aux, aux, x3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_mul_si(coeff, &cubic[3], 3, prec);
   acb_poly_mul(aux, x2, x2, prec);
   acb_poly_mul(aux, aux, x1, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_mul_si(coeff, &cubic[5], 3, prec);
   acb_poly_mul(aux, x3, x3, prec);
   acb_poly_mul(aux, aux, x1, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_mul_si(coeff, &cubic[7], 3, prec);
   acb_poly_mul(aux, x2, x2, prec);
   acb_poly_mul(aux, aux, x3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   acb_mul_si(coeff, &cubic[8], 3, prec);
   acb_poly_mul(aux, x3, x3, prec);
   acb_poly_mul(aux, aux, x2, prec);
@@ -79,10 +79,10 @@ void mestre_subst_in_cubic(acb_poly_t subst, const acb_poly_t x1, const acb_poly
   acb_poly_mul(aux, aux, x3, prec);
   acb_poly_scalar_mul(aux, aux, coeff, prec);
   acb_poly_add(res, res, aux, prec);
-  
+
   /* Set result */
   acb_poly_set(subst, res);
-  
+
   acb_poly_clear(res);
   acb_poly_clear(aux);
   acb_clear(coeff);

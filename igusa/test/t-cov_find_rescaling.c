@@ -2,17 +2,17 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_find_rescaling....");
   fflush(stdout);
 
   flint_randinit(state);
 
   for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
-    {      
+    {
       slong nb = 1 + n_randint(state, 4);
       slong prec = 1000;
       slong mag_bits = 10;
@@ -22,7 +22,7 @@ int main()
       acb_t scal;
       slong k;
       int res;
-      
+
       I = _fmpz_vec_init(nb);
       S = _acb_vec_init(nb);
       acb_init(scal);
@@ -44,7 +44,7 @@ int main()
 	  acb_printd(&S[k], 10); flint_printf("\n");
 	  fmpz_print(&I[k]); flint_printf("\n");
 	  }*/
-      
+
       cov_find_rescaling(scal, S, I, nb, weights, prec);
       acb_inv(scal, scal, prec);
       cov_rescale(S, S, scal, nb, weights, prec);
@@ -55,7 +55,7 @@ int main()
 	  if (!acb_contains_fmpz(&S[k], &I[k])) res = 0;
 	}
       if (!res)
-	{	  
+	{
 	  flint_printf("FAIL\n");
 	  flint_printf("Scalar: "); acb_printd(scal, 10); flint_printf("\n");
 	  for (k = 0; k < nb; k++)
@@ -66,8 +66,8 @@ int main()
 	    }
 	  fflush(stdout);
 	  flint_abort();
-	}      
-      
+	}
+
       _fmpz_vec_clear(I, nb);
       _acb_vec_clear(S, nb);
       acb_clear(scal);

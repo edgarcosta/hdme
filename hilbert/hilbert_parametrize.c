@@ -30,26 +30,26 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec)
 
       strcpy(vars[1], "g");
       acb_set(&vals[1], &gh[0]);
-      
+
       hilbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
-      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec);
     }
 
   else if (delta == 8)
-    {      
+    {
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
       hilbert_get_mpoly(pol, (const char**) vars, "rnum", delta, ctx);
-      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);
       hilbert_get_mpoly(pol, (const char**) vars, "rden", delta, ctx);
       hdme_data_evaluate_acb(x, pol, vals, ctx, prec);
       acb_div(&gh[0], &gh[0], x, prec);
 
       strcpy(vars[1], "r");
       acb_set(&vals[1], &gh[0]);
-      
+
       hilbert_get_mpoly(pol, (const char**) vars, "snum", delta, ctx);
-      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec);
       hilbert_get_mpoly(pol, (const char**) vars, "sden", delta, ctx);
       hdme_data_evaluate_acb(x, pol, vals, ctx, prec);
       acb_div(&gh[1], &gh[1], x, prec);
@@ -60,7 +60,7 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec)
       strcpy(vars[0], "f");
       strcpy(vars[1], "g");
       hilbert_get_mpoly(pol, (const char**) vars, "enum", delta, ctx);
-      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);
       hilbert_get_mpoly(pol, (const char**) vars, "eden", delta, ctx);
       hdme_data_evaluate_acb(x, pol, vals, ctx, prec);
       acb_div(&gh[0], &gh[0], x, prec); /* &gh[0] is e */
@@ -69,11 +69,11 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec)
     }
 
   else if (delta == 13)
-    {    
+    {
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
       hilbert_get_mpoly(pol, (const char**) vars, "g2num", delta, ctx);
-      hdme_data_evaluate_acb(x, pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(x, pol, vals, ctx, prec);
       hilbert_get_mpoly(pol, (const char**) vars, "g2den", delta, ctx);
       hdme_data_evaluate_acb(y, pol, vals, ctx, prec);
       acb_div(x, x, y, prec); /* x is g2 */
@@ -92,7 +92,7 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec)
       strcpy(vars[0], "m");
       strcpy(vars[1], "n");
       hilbert_get_mpoly(pol, (const char**) vars, "gnum", delta, ctx);
-      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);      
+      hdme_data_evaluate_acb(&gh[0], pol, vals, ctx, prec);
       hilbert_get_mpoly(pol, (const char**) vars, "gden", delta, ctx);
       hdme_data_evaluate_acb(x, pol, vals, ctx, prec);
       acb_div(&gh[0], &gh[0], x, prec);
@@ -101,7 +101,7 @@ void hilbert_parametrize(acb_ptr I, acb_srcptr rs, slong delta, slong prec)
       acb_set(&vals[1], &gh[0]);
 
       hilbert_get_mpoly(pol, (const char**) vars, "h", delta, ctx);
-      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec); 
+      hdme_data_evaluate_acb(&gh[1], pol, vals, ctx, prec);
     }
 
   else

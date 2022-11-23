@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("tau_theta2_from_igusa_fmpz....");
   fflush(stdout);
 
@@ -59,7 +59,7 @@ int main()
 	  flint_printf("Curve:\n");
 	  acb_poly_printd(crv, 10); flint_printf("\n");
 	  igusa_from_IC_fmpz(I, I);
-	}	
+	}
 
       r = tau_theta2_from_igusa_fmpz(tau, theta2, I, prec);
       igusa_from_theta2(I_test, theta2, prec);

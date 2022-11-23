@@ -2,21 +2,21 @@
 #include "igusa.h"
 
 void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
-{  
+{
   fmpz* ai;
   fmpq* ai_fmpq;
   fmpz_t one;
   fmpq_t ev;
   slong k;
-  
+
   fmpq_mpoly_t pol;
   fmpq_mpoly_ctx_t ctx;
   char** vars;
   fmpz* S;
-  
+
   ai = _fmpz_vec_init(7);
   ai_fmpq = _fmpq_vec_init(7);
-  
+
   fmpz_init(one);
   fmpq_init(ev);
   fmpq_mpoly_ctx_init(ctx, 7, ORD_LEX);
@@ -57,11 +57,11 @@ void igusa_from_curve_fmpz(fmpz* I, const fmpz_poly_t crv)
 
   _fmpz_vec_clear(ai, 7);
   _fmpq_vec_clear(ai_fmpq, 7);
-  
+
   fmpz_clear(one);
   fmpq_clear(ev);
   fmpq_mpoly_clear(pol, ctx);
   fmpq_mpoly_ctx_clear(ctx);
   hdme_data_vars_clear(vars, 7);
-  _fmpz_vec_clear(S, 4);  
+  _fmpz_vec_clear(S, 4);
 }

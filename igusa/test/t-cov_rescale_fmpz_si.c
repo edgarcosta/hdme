@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_rescale_fmpz_si....");
   fflush(stdout);
 
@@ -24,19 +24,19 @@ int main()
       I = _fmpz_vec_init(nb);
       S = _fmpz_vec_init(nb);
       weights = flint_malloc(nb * sizeof(slong));
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 10);
 	  fmpz_randtest(&I[k], state, mag_bits);
 	}
-      
+
       cov_rescale_fmpz_si(S, I, scal, nb, weights);
       cov_divexact_fmpz_si(S, S, scal, nb, weights);
-      
+
       if (!_fmpz_vec_equal(S, I, nb))
 	{
-	  flint_printf("FAIL\n"); 
+	  flint_printf("FAIL\n");
 	  for (k = 0; k < nb; k++)
 	    {
 	      flint_printf("Scal = %wd, weight %wd: ", scal, weights[k]);
@@ -45,7 +45,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _fmpz_vec_clear(I, nb);
       _fmpz_vec_clear(S, nb);
       flint_free(weights);

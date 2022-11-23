@@ -21,7 +21,7 @@ int theta_0123_der_naive(acb_ptr th, acb_mat_t dth,
   theta_der_set_pert(eps, prec);
   res = theta_der_set_error(error, tau, prec);
   theta_0123_naive(value, tau, prec);
-  
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 0),
 	      acb_mat_entry(tau_pert, 0, 0), eps, prec);
@@ -32,7 +32,7 @@ int theta_0123_der_naive(acb_ptr th, acb_mat_t dth,
     {
       acb_set(acb_mat_entry(dth, k, 0), &value_pert[k]);
     }
-  
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 1, 1),
 	      acb_mat_entry(tau_pert, 1, 1), eps, prec);
@@ -43,7 +43,7 @@ int theta_0123_der_naive(acb_ptr th, acb_mat_t dth,
     {
       acb_set(acb_mat_entry(dth, k, 1), &value_pert[k]);
     }
-    
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 1),
 	      acb_mat_entry(tau_pert, 0, 1), eps, prec);
@@ -59,7 +59,7 @@ int theta_0123_der_naive(acb_ptr th, acb_mat_t dth,
 
   _acb_vec_set(th, value, n);
   acb_mat_add_error_mag(dth, error);
-  
+
   acb_mat_clear(tau_pert);
   arb_clear(eps);
   mag_clear(error);

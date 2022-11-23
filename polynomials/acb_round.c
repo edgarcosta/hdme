@@ -6,7 +6,7 @@ int acb_round(fmpz_t c, arf_t radius, const acb_t x)
   fmpz_t re, im;
   int res;
   slong radius_prec = HDME_RD_RADIUS_PREC;
-  
+
   fmpz_init(re);
   fmpz_init(im);
 

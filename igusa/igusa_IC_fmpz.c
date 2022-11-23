@@ -12,7 +12,7 @@ igusa_I2_from_streng_fmpz(fmpz_t I2, fmpz* S)
     {
       fmpz_divexact(I2, &S[3], &S[2]);
       return 1;
-    }      
+    }
 }
 
 static int
@@ -27,7 +27,7 @@ igusa_I6_from_streng_fmpz(fmpz_t I6, fmpz* S)
 
   r = igusa_I2_from_streng_fmpz(I2, S);
   if (!r) return 0;
-  
+
   /* Get I6 from I6prime */
   fmpz_mul_si(res, &S[1], 2);
   fmpz_mul(temp, I2, &S[0]);
@@ -60,10 +60,10 @@ void igusa_IC_fmpz(fmpz* IC, fmpz* I)
   resc = _fmpz_vec_init(4);
   S = _fmpz_vec_init(4);
 
-  igusa_streng_fmpz(S, I);  
+  igusa_streng_fmpz(S, I);
   cov_rescale_fmpz(resc, S, &S[2], 4, weights); /* Ensure I2 is an integer */
   cov_rescale_fmpz_si(resc, resc, 3, 4, weights); /* Ensure I6 is an integer */
-  
+
   r = igusa_I2_from_streng_fmpz(I2, resc)
     && igusa_I6_from_streng_fmpz(I6, resc);
   if (!r)

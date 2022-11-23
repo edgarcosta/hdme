@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_eval_all_monomials....");
   fflush(stdout);
 
@@ -30,7 +30,7 @@ int main()
       int res;
 
       weights = flint_malloc(nb * sizeof(slong));
-      I = _acb_vec_init(nb);      
+      I = _acb_vec_init(nb);
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 10);
@@ -66,13 +66,13 @@ int main()
 	  k = n_randint(state, m);
 	  cov_monomial(mon, &exps[k*nb], ctx);
 	  cov_mpoly_eval(test, mon, I, ctx, prec);
-	  
+
 	  res = 0;
 	  for (k = 0; k < m; k++)
 	    {
 	      if (acb_overlaps(&ev[k], test)) res = 1;
 	    }
-	  
+
 	  if (!res)
 	    {
 	      flint_printf("FAIL\n");
@@ -96,4 +96,4 @@ int main()
   return EXIT_SUCCESS;
 }
 
-      
+

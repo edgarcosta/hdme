@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta2_der_duplication....");
   fflush(stdout);
 
@@ -14,7 +14,7 @@ int main()
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
       slong prec = 200 + n_randint(state, 1000);
-      
+
       acb_mat_t tau;
       acb_mat_t dth_half;
       acb_mat_t dth2;
@@ -22,7 +22,7 @@ int main()
       acb_ptr th2_tau;
       acb_ptr th_half;
       int res;
-      
+
       acb_mat_init(tau, 2, 2);
       acb_mat_init(dth_half, 4, 3);
       acb_mat_init(dth2, 16, 3);
@@ -32,10 +32,10 @@ int main()
 
       siegel_fundamental_domain_randtest(tau, state, prec);
       res = theta2_der_naive(th2_tau, dth2, tau, prec);
-      
+
       acb_mat_scalar_div_si(tau, tau, 2, prec);
       res = res && theta_0123_der_naive(th_half, dth_half, tau, prec);
-      
+
       theta_der_duplication(th2_tau, dth2_test, th_half, dth_half, prec);
 
       if (!res || !acb_mat_overlaps(dth2_test, dth2))
@@ -48,7 +48,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       acb_mat_clear(tau);
       acb_mat_clear(dth_half);
       acb_mat_clear(dth2);

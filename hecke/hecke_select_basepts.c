@@ -10,9 +10,9 @@ int hecke_select_basepts(acb_mat_struct* pts, acb_mat_t basis_inv,
   slong weights[4] = IGUSA_WEIGHTS;
   slong nb = cov_nb_monomials(wt, 4, weights);
   int res = 0;
-  
+
   flint_randinit(state);
-  
+
   for (j = 0; j < jmax; j++)
     {
       for (k = 0; k < nb; k++)
@@ -26,5 +26,5 @@ int hecke_select_basepts(acb_mat_struct* pts, acb_mat_t basis_inv,
     }
 
   flint_randclear(state);
-  return res;  
+  return res;
 }

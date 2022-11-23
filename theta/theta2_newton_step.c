@@ -33,7 +33,7 @@ int theta2_newton_step(acb_ptr th_half, const acb_mat_t tau, acb_srcptr th_half_
 	}
     }
 
-  
+
   /* Compute dtau at these approx values using finite differences */
   if (res)
     {
@@ -68,7 +68,7 @@ int theta2_newton_step(acb_ptr th_half, const acb_mat_t tau, acb_srcptr th_half_
 	  flint_printf("(theta2_newton_step) prec: %wd\n", prec);
 	}
     }
-  
+
   /* Compute corrections to apply to th_half */
   acb_sub(acb_mat_entry(tau_approx, 0, 0), acb_mat_entry(tau_approx, 0, 0),
 	  acb_mat_entry(tau, 0, 0), prec);
@@ -77,7 +77,7 @@ int theta2_newton_step(acb_ptr th_half, const acb_mat_t tau, acb_srcptr th_half_
   acb_sqr(acb_mat_entry(tau_approx, 1, 0), acb_mat_entry(tau_approx, 1, 0), prec);
   acb_submul(acb_mat_entry(tau_approx, 1, 0), acb_mat_entry(tau, 1, 0),
 	     acb_mat_entry(tau, 1, 0), prec);
-  
+
   for (i = 0; i < 3; i++)
     {
       acb_mul(&th_half_corr[i],
@@ -97,7 +97,7 @@ int theta2_newton_step(acb_ptr th_half, const acb_mat_t tau, acb_srcptr th_half_
     {
       acb_add(&th_half[i+1], &th_half[i+1], &th_half_corr[i], prec);
     }
-  
+
   acb_mat_clear(dtau);
   acb_mat_clear(dth_half);
   acb_mat_clear(tau_approx);

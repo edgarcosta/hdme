@@ -7,7 +7,7 @@ void modeq_isog_monomials_Q(fmpz* M, const modeq_t E, const fmpq_t root, slong m
   fmpq* aux;
   slong nb = modeq_nb(E);
   slong j;
-  
+
   fmpz_poly_init(num);
   aux = _fmpq_vec_init(nb);
 

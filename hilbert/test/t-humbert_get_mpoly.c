@@ -10,7 +10,7 @@ int main()
 
   fmpq_mpoly_ctx_t ctx;
   fmpq_mpoly_t test;
-  
+
   flint_printf("humbert_get_mpoly....");
   fflush(stdout);
 
@@ -23,7 +23,7 @@ int main()
       if (hilbert_is_fundamental(delta) && (delta != 33))
 	{
 	  humbert_vars_set(vars, delta);
-	  
+
 	  humbert_get_mpoly(test, (const char**) vars, "A1", delta, ctx);
 	  if (print)
 	    {
@@ -31,7 +31,7 @@ int main()
 	      fmpq_mpoly_print_pretty(test, (const char**) vars, ctx);
 	      flint_printf("\n");
 	    }
-	    
+
 	  humbert_get_mpoly(test, (const char**) vars, "A", delta, ctx);
 	  if (print)
 	    {
@@ -39,7 +39,7 @@ int main()
 	      fmpq_mpoly_print_pretty(test, (const char**) vars, ctx);
 	      flint_printf("\n");
 	    }
-	  
+
 	  humbert_get_mpoly(test, (const char**) vars, "B1", delta, ctx);
 	  if (print)
 	    {
@@ -47,7 +47,7 @@ int main()
 	      fmpq_mpoly_print_pretty(test, (const char**) vars, ctx);
 	      flint_printf("\n");
 	    }
-	  
+
 	  humbert_get_mpoly(test, (const char**) vars, "B", delta, ctx);
 	  if (print)
 	    {
@@ -55,7 +55,7 @@ int main()
 	      fmpq_mpoly_print_pretty(test, (const char**) vars, ctx);
 	      flint_printf("\n");
 	    }
-	  
+
 	  humbert_get_mpoly(test, (const char**) vars, "B2", delta, ctx);
 	  if (print)
 	    {

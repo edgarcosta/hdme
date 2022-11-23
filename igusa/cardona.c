@@ -21,7 +21,7 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_poly_t P1, P2, P3;
   acb_t c;
   acb_poly_t term;
-  
+
   ABCD = _acb_vec_init(4);
   Aij = _acb_vec_init(4);
   aijk = _acb_vec_init(6);
@@ -35,12 +35,12 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   igusa_ABCD_from_IC(ABCD, IC, prec);
   cardona_conic(Aij, ABCD, prec);
   cardona_cubic(aijk, ABCD, prec);
-  
+
   /* Set P1, P2, P3 */
   acb_mul_si(c, A12(Aij), -2, prec);
   acb_poly_set_coeff_acb(P1, 0, c);
   acb_mul_si(c, A22(Aij), -2, prec);
-  acb_poly_set_coeff_acb(P1, 1, c);  
+  acb_poly_set_coeff_acb(P1, 1, c);
 
   acb_poly_set_coeff_acb(P2, 0, A11(Aij));
   acb_neg(c, A22(Aij));
@@ -53,7 +53,7 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
 
   /* Set crv */
   acb_poly_zero(crv);
-  
+
   acb_poly_pow_ui(term, P1, 3, prec);
   acb_mul(c, A33(Aij), a111(aijk), prec);
   acb_neg(c, c);
@@ -73,27 +73,27 @@ void cardona(acb_poly_t crv, acb_srcptr IC, slong prec)
   acb_mul_si(c, c, -3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
-  
+
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P1, prec);
   acb_mul(c, A22(Aij), a133(aijk), prec);
   acb_mul_si(c, c, 3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
-  
+
   acb_poly_pow_ui(term, P2, 3, prec);
   acb_mul(c, A33(Aij), a222(aijk), prec);
   acb_neg(c, c);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
-  
+
   acb_poly_pow_ui(term, P3, 2, prec);
   acb_poly_mul(term, term, P2, prec);
   acb_mul(c, A22(Aij), a233(aijk), prec);
   acb_mul_si(c, c, 3, prec);
   acb_poly_scalar_mul(term, term, c, prec);
   acb_poly_add(crv, crv, term, prec);
-    
+
   _acb_vec_clear(ABCD, 4);
   _acb_vec_clear(Aij, 4);
   _acb_vec_clear(aijk, 6);

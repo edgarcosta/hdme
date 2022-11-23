@@ -18,7 +18,7 @@ int mestre_point_is_outside_conic(acb_srcptr pt, acb_srcptr conic, slong prec)
   acb_addmul(ev, term, &conic[1], prec);
   acb_sqr(term, &pt[2], prec);
   acb_addmul(ev, term, &conic[2], prec);
-  
+
   acb_mul(term, &pt[1], &pt[2], prec);
   acb_mul_si(term, term, 2, prec);
   acb_addmul(ev, term, &conic[3], prec);
@@ -30,7 +30,7 @@ int mestre_point_is_outside_conic(acb_srcptr pt, acb_srcptr conic, slong prec)
   acb_addmul(ev, term, &conic[5], prec);
 
   res = !acb_contains_zero(ev);
-			   
+
   acb_clear(ev);
   acb_clear(term);
   return res;

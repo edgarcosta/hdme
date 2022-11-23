@@ -5,7 +5,7 @@ int main()
 {
   slong i, j, g;
   fmpz_mat_t ui, uj;
-  
+
   flint_printf("siegel_test_matrix....");
   fflush(stdout);
 
@@ -40,7 +40,7 @@ int main()
       fmpz_mat_clear(ui);
       fmpz_mat_clear(uj);
     }
-  
+
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

@@ -31,12 +31,12 @@ int igusa_ec_possible_kp2(acb_ptr kp2, const acb_t j, slong prec)
   acb_poly_scalar_mul(term, term, c, prec);
 
   acb_poly_sub(pol, pol, term, prec);
-  
+
   /* Has simple roots if j!=0, 1728 */
   /* See also thomae_roots */
   nb = acb_poly_find_roots(kp2, pol, NULL, prec, prec);
   res = (nb == 6);
-  
+
   if (!res)
     {
       flint_printf("(igusa_possible_kp2) Warning: unable to isolate roots\n");

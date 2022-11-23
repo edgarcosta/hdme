@@ -11,10 +11,10 @@ int main()
     slong g = 2;
     ulong ch, a, b;
     slong i, label;
-    
+
     slong even[10] = {0, 1, 2, 3, 4, 6, 8, 9, 12, 15};
     slong odd[6] = {5, 7, 10, 11, 13, 14};
-    
+
     for (i = 0; i < 10; i++)
       {
 	ch = theta_char_set_label_g2(even[i]);
@@ -33,7 +33,7 @@ int main()
 	    flint_abort();
 	  }
       }
-    
+
     for (i = 0; i < 6; i++)
       {
 	ch = theta_char_set_label_g2(odd[i]);
@@ -53,7 +53,7 @@ int main()
 	  }
       }
   }
-  
+
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

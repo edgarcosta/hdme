@@ -14,7 +14,7 @@ void acb_poly_product_tree_2(acb_poly_t Q, acb_srcptr xi, acb_srcptr yi,
       acb_poly_zero(Q);
       return;
     }
-  
+
   mmax = 1;
   while (mmax < d) mmax *= 2;
   levelP = flint_malloc(mmax * sizeof(acb_poly_struct));
@@ -55,7 +55,7 @@ void acb_poly_product_tree_2(acb_poly_t Q, acb_srcptr xi, acb_srcptr yi,
 	}
     }
   acb_poly_set(Q, &levelQ[0]);
-  
+
   acb_poly_clear(prod1);
   acb_poly_clear(prod2);
   for (k = 0; k < mmax; k++) acb_poly_clear(&levelP[k]);

@@ -38,7 +38,7 @@ void cov_factors(fmpz_factor_t fac, fmpz* I, slong nb)
 
   fmpz_init(g);
   fmpz_zero(g);
-  
+
   for (k = 0; k < nb; k++)
     {
       fmpz_gcd(g, g, &I[k]);

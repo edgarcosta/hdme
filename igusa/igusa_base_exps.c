@@ -12,7 +12,7 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
       2, 0, 0, 1,
       5, 0, 0, 0,
       2, 2, 0, 0
-    };  
+    };
   slong wt30[4*7] =
     {
       0, 5, 0, 0,
@@ -53,5 +53,5 @@ void igusa_base_exps(slong* exps, slong wt, slong k)
       flint_abort();
     }
 
-  for (j = 0; j < 4; j++) exps[j] = ptr[j];    
+  for (j = 0; j < 4; j++) exps[j] = ptr[j];
 }

@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("acb_poly_product_tree_2....");
   fflush(stdout);
 
@@ -33,7 +33,7 @@ int main()
       acb_poly_product_tree_1(Q_test, xi, yi, d, prec);
       acb_poly_derivative(Q_test, Q_test, prec);
       acb_poly_product_tree_2(Q, xi, yi, zi, d, prec);
-      
+
       if (!acb_poly_overlaps(Q, Q_test))
 	{
 	  flint_printf("FAIL (overlap)\n");
@@ -47,18 +47,18 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       acb_poly_clear(Q);
       acb_poly_clear(Q_test);
       _acb_vec_clear(xi, d);
       _acb_vec_clear(yi, d);
       _acb_vec_clear(zi, d);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
 }
-      
-  
+
+

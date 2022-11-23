@@ -12,7 +12,7 @@ void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
 
   acb_init(s);
   fmpq_init(scal);
-  
+
   /* Step 1: product of all stardets to the correct weight, to get
      a Siegel modular form */
   acb_one(c);
@@ -21,11 +21,11 @@ void modeq_scalar(acb_t c, const hecke_t H, fmpz* I,
       acb_inv(s, hecke_stardet(H, k), prec);
       acb_mul(c, c, s, prec);
     }
-  
+
   /* Step 2: normalize Hecke operator */
   acb_set_fmpz(s, hecke_norm_all(H));
   acb_mul(c, c, s, prec);
-  
+
   /* Step 3: multiply by scaling factor between hecke_I_tau and I */
   cov_find_rescaling(s, hecke_I_tau(H), I, 4, weights, prec);
   acb_pow_si(s, s, -hecke_nb(H), prec);

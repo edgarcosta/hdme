@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("hilbert_modeq_eval_split....");
   fflush(stdout);
 
@@ -52,18 +52,18 @@ int main()
 	      fmpz_print(&I[k]); flint_printf("\n");
 	    }
 	}
-	  
+
       hilbert_modeq_eval_split(R1, R2, ctx1, ctx2, I, ell, delta);
 
       _fmpq_vec_clear(mn, 2);
       _fmpz_vec_clear(G, 3);
-      _fmpz_vec_clear(I, 4);      
+      _fmpz_vec_clear(I, 4);
       modeq_clear(R1);
       modeq_clear(R2);
       modeq_ctx_clear(ctx1);
       modeq_ctx_clear(ctx2);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

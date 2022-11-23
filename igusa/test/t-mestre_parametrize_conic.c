@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("mestre_parametrize_conic....");
   fflush(stdout);
 
@@ -23,7 +23,7 @@ int main()
       int res = 1;
       int k;
       slong mag_bits = 2;
-      
+
       conic = _acb_vec_init(6);
       pt = _acb_vec_init(3);
       acb_poly_init(x1);
@@ -64,7 +64,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _acb_vec_clear(conic, 6);
       _acb_vec_clear(pt, 3);
       acb_poly_clear(x1);

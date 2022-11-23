@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("cov_rescale_fmpz....");
   fflush(stdout);
 
@@ -25,7 +25,7 @@ int main()
       S = _fmpz_vec_init(nb);
       fmpz_init(scal);
       weights = flint_malloc(nb * sizeof(slong));
-      
+
       for (k = 0; k < nb; k++)
 	{
 	  weights[k] = 1 + n_randint(state, 10);
@@ -35,7 +35,7 @@ int main()
       cov_rescale_fmpz(S, I, scal, nb, weights);
 
       if (!cov_divisible_fmpz(S, scal, nb, weights))
-	{	  
+	{
 	  flint_printf("FAIL\n");
 	  flint_printf("Scalar: "); fmpz_print(scal); flint_printf("\n");
 	  for (k = 0; k < nb; k++)
@@ -53,7 +53,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _fmpz_vec_clear(I, nb);
       _fmpz_vec_clear(S, nb);
       fmpz_clear(scal);

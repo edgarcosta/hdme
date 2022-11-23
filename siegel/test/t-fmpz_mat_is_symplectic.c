@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("fmpz_mat_is_symplectic....");
   fflush(stdout);
 
@@ -46,7 +46,7 @@ int main()
 
       fmpz_mat_clear(m);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

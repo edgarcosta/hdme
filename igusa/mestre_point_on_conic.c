@@ -13,7 +13,7 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
   acb_t discr;
   acb_t lead;
   acb_ptr xx;
-  
+
   slong a2, b2, a3, b3;
   int res = 0;
 
@@ -29,7 +29,7 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
   xx = _acb_vec_init(3);
 
   acb_poly_set_coeff_si(x1, 1, 1);
-  
+
   for (a2 = 0; a2 < 5; a2++) {
     for (a3 = 0; a3 < 5; a3++) {
       for (b2 = 1; b2 < 6; b2++) {
@@ -41,7 +41,7 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
 	  acb_poly_set_coeff_si(x3, 0, b3);
 	  acb_poly_set_coeff_si(x3, 1, a3);
 	  mestre_subst_in_conic(subst_poly, x1, x2, x3, conic, prec);
-	  
+
 	  /* Are discriminant and leading term nonzero ? */
 	  acb_poly_get_coeff_acb(c0, subst_poly, 0);
 	  acb_poly_get_coeff_acb(c1, subst_poly, 1);
@@ -50,7 +50,7 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
 	  acb_mul(lead, c0, c2, prec); /* Use lead as temp */
 	  acb_submul_si(discr, lead, 4, prec);
 	  acb_poly_get_coeff_acb(lead, subst_poly, 2);
-	  
+
 	  if (!acb_contains_zero(discr)
 	      && !acb_contains_zero(lead))
 	    {
@@ -71,11 +71,11 @@ int mestre_point_on_conic(acb_ptr pt, acb_srcptr conic, slong prec)
     }
   }
   goto exit;
-  
+
  exit:
   {
     _acb_vec_set(pt, xx, 3);
-    
+
     acb_poly_clear(subst_poly);
     acb_poly_clear(x1);
     acb_poly_clear(x2);

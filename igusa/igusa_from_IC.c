@@ -8,7 +8,7 @@ igusa_I6prime_from_IC(acb_t I6prime, acb_srcptr I, slong prec)
 
   acb_init(res);
   acb_init(temp);
-  
+
   /* Get I6prime from I6 */
   acb_mul_si(res, &I[2], -3, prec);
   acb_mul(temp, &I[0], &I[1], prec);

@@ -26,6 +26,6 @@ borchardt_mean_quad_conv_is_reached(acb_srcptr a, slong prec)
   arb_clear(bound);
   arb_clear(absdiff);
   acb_clear(diff);
-  
+
   return res;
 }

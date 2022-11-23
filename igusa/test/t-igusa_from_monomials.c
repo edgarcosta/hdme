@@ -2,10 +2,10 @@
 #include "igusa.h"
 
 int main()
-{  
+{
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_from_monomials....");
   fflush(stdout);
 
@@ -43,7 +43,7 @@ int main()
 
       k = n_randint(state, 3);
       wt = wts[k];
-      
+
       if (fmpz_is_zero(igusa_psi4(I)))
 	{
 	  wt = FLINT_MAX(wt, 30);
@@ -87,7 +87,7 @@ int main()
 	  for (k = 0; k < 4; k++)
 	    {
 	      fmpz_print(&I[k]); flint_printf("\n");
-	    } 
+	    }
 	  flint_printf("test:\n");
 	  for (k = 0; k < 4; k++)
 	    {
@@ -96,14 +96,14 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _fmpz_vec_clear(I, 4);
       _fmpz_vec_clear(test, 4);
       _fmpz_vec_clear(M, nb);
       fmpz_mpoly_clear(mon, ctx);
-      fmpz_mpoly_ctx_clear(ctx);      
+      fmpz_mpoly_ctx_clear(ctx);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

@@ -19,9 +19,9 @@ int tau_theta2_from_curve(acb_mat_t tau, acb_ptr theta2, const acb_poly_t crv,
   th4 = _acb_vec_init(16);
 
   igusa_from_curve(I, crv, prec);
-  
+
   if (v) flint_printf("(tau_theta2_from_curve) Looking for correct root ordering...\n");
-	   
+
   res = thomae_roots(roots, crv, prec);
   if (res) res = thomae_correct_signs(&perm, &signs, roots, I, prec);
   if (res)

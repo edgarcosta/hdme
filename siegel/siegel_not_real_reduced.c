@@ -21,7 +21,7 @@ siegel_not_real_reduced(const acb_mat_t z, slong prec)
 	  res = res || arb_is_positive(abs);
 	}
     }
-  
+
   arb_clear(abs);
   return res;
 }

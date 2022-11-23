@@ -2,7 +2,7 @@
 #include "igusa.h"
 
 /* Following Bolza, "On binary sextics with linear transformations
-   into themselves", p. 51 ff. */   
+   into themselves", p. 51 ff. */
 
 static void fmpq_div_si(fmpq_t r, const fmpq_t n, slong d)
 {
@@ -24,11 +24,11 @@ static int bolza_conditions_11(fmpq* ABCD)
 {
   fmpq_t t1, t2, temp;
   int res;
-  
+
   fmpq_init(t1);
   fmpq_init(t2);
   fmpq_init(temp);
-  
+
   fmpq_mul(temp, &ABCD[0], &ABCD[0]);
   fmpq_mul_si(t1, &ABCD[1], 6);
   fmpq_sub(t1, t1, temp);
@@ -63,7 +63,7 @@ static int bolza_conditions_19(acb_t a, fmpq* ABCD, slong prec)
   fmpq_div_si(t1, t1, -6);
   fmpq_pow_si(temp, &ABCD[2], 2);
   fmpq_add(t1, t1, temp);
-  
+
   fmpq_mul(t4, &ABCD[0], &ABCD[1]);
   fmpq_mul_si(temp, &ABCD[2], 6);
   fmpq_add(t4, t4, temp);
@@ -152,7 +152,7 @@ static int bolza_conditions_23(acb_t a, fmpq* ABCD, slong prec)
 	  flint_printf("(mestre_fmpz: bolza_conditions_23) Error: unexpected vanishing\n");
 	  fflush(stdout);
 	  flint_abort();
-	  
+
 	}
       /* Set t4 to denominator of alpha^2 */
       fmpq_pow_si(t4, &ABCD[0], 2);
@@ -174,7 +174,7 @@ static int bolza_conditions_23(acb_t a, fmpq* ABCD, slong prec)
       borchardt_sqrt(a, a, prec);
       acb_mul_si(a, a, 10, prec);
     }
-  
+
   fmpq_clear(t1);
   fmpq_clear(t2);
   fmpq_clear(t3);
@@ -202,7 +202,7 @@ int mestre_fmpz(acb_poly_t crv, fmpz* IC, slong prec)
   igusa_ABCD_from_IC_fmpz(ABCD, IC);
   igusa_R2_from_IC_fmpz(R2, IC);
   acb_poly_zero(crv);
-  
+
   if (igusa_has_generic_automorphisms(IC_acb, prec))
     {
       res = mestre(crv, IC_acb, prec);

@@ -32,17 +32,17 @@ Installation
 Run
 ::
   ./configure
-  
+
 to create the Makefile. To compile the library, run
 ::
   make
-  
+
 This will produce a shared library in the source directory. The
 Makefile also responds to the standard commands ::
   make tests
   make check
   make clean
-  
+
 Documentation
 =============
 
@@ -63,7 +63,7 @@ Credits
 - The design and semantics of many functions are inspired from existing
   functions in the libraries Flint and Arb, maintained by William Hart
   and Fredrik Johansson.
-  
+
 .. _[K21]: https://arxiv.org/abs/2010.10094
 .. _Flint: https://flintlib.org
 .. _Arb: https://arblib.org

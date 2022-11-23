@@ -39,14 +39,14 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
       k2 = theta_newton_k2(w, tau, prec);
       siegel_reduce_real(w, real_red, w, tol, prec);
       k1 = theta_newton_k1(w, w, prec);
-      
+
       flag_naive = theta_use_naive(w, prec);
       flag_newton = theta_use_newton(w, prec);
-      
+
       res = siegel_is_weakly_reduced(w, tol, prec)
 	&& (flag_naive || flag_newton);
     }
-    
+
   /* Compute theta2 at w */
   if (res && flag_naive)
     {
@@ -74,7 +74,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
 	 aliasing */
       theta_duplication(current_th2, current_th2, prec);
     }
-  
+
   /* We're back to the end of the k2 sequence. Propagate again */
   fmpz_mat_zero(eta);
   fmpz_set_si(fmpz_mat_entry(eta, 0, 2), 1);
@@ -83,7 +83,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
   fmpz_set_si(fmpz_mat_entry(eta, 3, 3), 1);
   fmpz_mat_direct_inv(eta_inv, eta);
   fmpz_mat_one(M1);
-  
+
   /* Real reduction happens only on the y1 coordinate */
   fmpz_set(nb_real_red, fmpz_mat_entry(real_red, 0, 2));
   if (arb_is_positive(acb_realref(acb_mat_entry(tau, 0, 0))))
@@ -94,7 +94,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
     {
       fmpz_set_si(fmpz_mat_entry(M1, 0, 2), -1);
     }
-  
+
   for (i = 0; (i < k2) && res; i++)
     {
       /* Each step: apply translation if nb_real_red is currently odd;
@@ -130,7 +130,7 @@ int theta2_unif(acb_ptr th2, const acb_mat_t tau, slong prec)
       flint_printf("(theta2_unif) Warning: computation failed for the matrix\n");
       acb_mat_printd(tau, 10);
     }
-  
+
   fmpz_mat_clear(eta);
   fmpz_mat_clear(eta_inv);
   fmpz_mat_clear(real_red);

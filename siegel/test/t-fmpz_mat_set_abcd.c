@@ -5,12 +5,12 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("fmpz_mat_set_abcd....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
       slong g = 1 + n_randint(state, 5);
@@ -43,7 +43,7 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       fmpz_mat_clear(m);
       fmpz_mat_clear(a);
       fmpz_mat_clear(b);
@@ -51,7 +51,7 @@ int main()
       fmpz_mat_clear(d);
       fmpz_mat_clear(m_test);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

@@ -6,14 +6,14 @@ not_minkowski_reduced_g2(const arb_mat_t r, slong prec)
 {
   arb_t lhs, rhs;
   int res = 0;
-  
+
   arb_init(lhs);
   arb_init(rhs);
-  
+
   /* NOT 0 \leq 2y_3 */
   arb_mul_si(rhs, arb_mat_entry(r, 0, 1), 2, prec);
   res = arb_is_negative(rhs);
-  
+
   /* NOT 2y_3 \leq y_1 */
   arb_mul_si(lhs, arb_mat_entry(r, 0, 1), 2, prec);
   arb_set(rhs, arb_mat_entry(r, 0, 0));

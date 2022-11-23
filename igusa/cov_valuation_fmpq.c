@@ -6,12 +6,12 @@ void cov_valuation_fmpq(fmpq_t val, fmpq* I, const fmpz_t p, slong nb, slong* we
   fmpq_t v;
   fmpz_t r;
   slong n1, n2;
-  slong k;  
+  slong k;
   int set = 0;
 
   fmpq_init(v);
   fmpz_init(r);
-  
+
   for (k = 0; k < nb; k++)
     {
       if (!fmpq_is_zero(&I[k]))
@@ -34,5 +34,5 @@ void cov_valuation_fmpq(fmpq_t val, fmpq* I, const fmpz_t p, slong nb, slong* we
     }
 
   fmpq_clear(v);
-  fmpz_clear(r);  
+  fmpz_clear(r);
 }

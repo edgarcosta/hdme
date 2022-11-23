@@ -12,7 +12,7 @@ siegel_is_real_reduced(const acb_mat_t z, const arb_t tol, slong prec)
 
   arb_init(bound);
   arb_init(abs);
-  
+
   arb_one(bound);
   arb_mul_2exp_si(bound, bound, -1);
   arb_add(bound, bound, tol, prec);

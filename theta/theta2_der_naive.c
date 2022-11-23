@@ -21,7 +21,7 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
   theta_der_set_pert(eps, prec);
   res = theta_der_set_error(error, tau, prec);
   theta2_naive(value, tau, prec);
-  
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 0),
 	      acb_mat_entry(tau_pert, 0, 0), eps, prec);
@@ -32,7 +32,7 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
     {
       acb_set(acb_mat_entry(th2_der_tau, k, 0), &value_pert[k]);
     }
-  
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 1, 1),
 	      acb_mat_entry(tau_pert, 1, 1), eps, prec);
@@ -43,7 +43,7 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
     {
       acb_set(acb_mat_entry(th2_der_tau, k, 1), &value_pert[k]);
     }
-    
+
   acb_mat_set(tau_pert, tau);
   acb_add_arb(acb_mat_entry(tau_pert, 0, 1),
 	      acb_mat_entry(tau_pert, 0, 1), eps, prec);
@@ -56,10 +56,10 @@ int theta2_der_naive(acb_ptr th2_tau, acb_mat_t th2_der_tau,
     {
       acb_set(acb_mat_entry(th2_der_tau, k, 2), &value_pert[k]);
     }
-  
+
   _acb_vec_set(th2_tau, value, n);
   acb_mat_add_error_mag(th2_der_tau, error);
-  
+
   acb_mat_clear(tau_pert);
   arb_clear(eps);
   mag_clear(error);

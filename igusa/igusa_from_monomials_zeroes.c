@@ -60,7 +60,7 @@ void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
       else /* z6; then z4 and z10 have to be 0 */
 	{
 	  if (fmpz_is_zero(&M[i_5010]) || *z10)
-	    {	      
+	    {
 	      flint_printf("(igusa_from_monomials_zeroes) Error: psi4, chi10 must be nonzero if psi6 = 0 when weight 30 is used\n");
 	      fflush(stdout);
 	      flint_abort();
@@ -78,6 +78,6 @@ void igusa_from_monomials_zeroes(int* z4, int* z6, int* z10, int* z12,
       if (!*z6) *z4 = fmpz_is_zero(&M[i_3800]);
       else if (!*z10) *z4 = fmpz_is_zero(&M[i_5040]);
       else if (!*z12) *z4 = fmpz_is_zero(&M[i_3004]);
-      else *z4 = 0;      
-    }    
+      else *z4 = 0;
+    }
 }

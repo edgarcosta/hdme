@@ -6,7 +6,7 @@ void hilbert_transform(acb_ptr z, const fmpz_poly_mat_t m, acb_srcptr t,
 {
   acb_t a, b, c, d, temp, sqrtd;
   acb_ptr res;
-  
+
   acb_init(a);
   acb_init(b);
   acb_init(c);
@@ -22,7 +22,7 @@ void hilbert_transform(acb_ptr z, const fmpz_poly_mat_t m, acb_srcptr t,
   arb_sqrt_ui(acb_realref(sqrtd), delta, prec);
   acb_div(b, b, sqrtd, prec);
   acb_mul(c, c, sqrtd, prec);
-  
+
   acb_mul(&res[0], a, &t[0], prec);
   acb_add(&res[0], &res[0], b, prec);
   acb_mul(temp, c, &t[0], prec);
@@ -36,7 +36,7 @@ void hilbert_transform(acb_ptr z, const fmpz_poly_mat_t m, acb_srcptr t,
   acb_neg(sqrtd, sqrtd);
   acb_div(b, b, sqrtd, prec);
   acb_mul(c, c, sqrtd, prec);
-  
+
   acb_mul(&res[1], a, &t[1], prec);
   acb_add(&res[1], &res[1], b, prec);
   acb_mul(temp, c, &t[1], prec);

@@ -51,7 +51,7 @@ void humbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 
 void gundlach_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 			slong delta, const fmpq_mpoly_ctx_t ctx);
-  
+
 void hilbert_get_mpoly(fmpq_mpoly_t pol, const char** vars, const char* name,
 		       slong delta, const fmpq_mpoly_ctx_t ctx);
 

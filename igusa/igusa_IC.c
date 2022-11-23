@@ -21,9 +21,9 @@ igusa_I6_from_streng(acb_t I6, acb_srcptr S, slong prec)
   acb_mul(temp, I2, &S[0], prec);
   acb_sub(res, res, temp, prec);
   acb_div_si(res, res, -3, prec);
-  
+
   acb_set(I6, res);
-  
+
   acb_clear(I2);
   acb_clear(res);
   acb_clear(temp);

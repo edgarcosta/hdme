@@ -3,10 +3,10 @@
 
 int main()
 {
-  
+
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_modeq_eval....");
   fflush(stdout);
 
@@ -56,9 +56,9 @@ int main()
 
       _fmpz_vec_clear(I, 4);
       modeq_clear(R);
-      modeq_ctx_clear(ctx);      
+      modeq_ctx_clear(ctx);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

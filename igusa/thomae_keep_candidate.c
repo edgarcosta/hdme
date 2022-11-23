@@ -20,7 +20,7 @@ int thomae_keep_candidate(const acb_mat_t tau, acb_srcptr I, slong prec)
       if (aux && cov_distinct(test, I, 4, weights, prec)) res = 0;
       /* We can say nothing if computing test fails */
     }
-  
+
   _acb_vec_clear(test, 4);
   return res;
 }

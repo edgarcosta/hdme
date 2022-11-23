@@ -14,7 +14,7 @@ void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
   fmpz_mod_poly_init(lin, ctx);
   fmpz_init(num);
   fmpz_init(den);
-  
+
   if (v) flint_printf("(modeq_roots_Fp) Finding roots...\n");
   fmpz_mod_poly_roots(fac, pol, 1, ctx);
   *nb_roots = fac->num;
@@ -28,11 +28,11 @@ void pol_roots_Fp(slong* nb_roots, fmpz* roots, slong* mults,
       fmpz_mod_poly_get_coeff_fmpz(den, lin, 1, ctx);
       fmpz_mod_inv(den, den, ctx);
       fmpz_mod_mul(num, num, den, ctx);
-      
+
       fmpz_set(&roots[k], num);
       mults[k] = (fac->exp)[k];
     }
-  
+
   fmpz_mod_poly_factor_clear(fac, ctx);
   fmpz_mod_poly_clear(lin, ctx);
   fmpz_clear(num);

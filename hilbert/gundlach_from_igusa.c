@@ -8,7 +8,7 @@ static void complete_from_G2(acb_t F6, acb_t F10, acb_t x, acb_t y,
 {
   acb_t temp;
   acb_init(temp);
-  
+
   acb_div_si(F6, &I[1], 4, prec);
   acb_pow_si(temp, G2, 3, prec);
   acb_sub(F6, F6, temp, prec);
@@ -32,7 +32,7 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_ptr S;
   acb_t G2, F6, F10;
   acb_t x, y;
-  
+
   if (delta != 5)
     {
       flint_printf("(gundlach_from_igusa) Error: Gundlach invariants only implemented for discriminant 5\n");
@@ -51,7 +51,7 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
 
   acb_div_si(G2, &S[0], 4, prec);
   borchardt_sqrt(G2, G2, prec); /* Possible sign error */
-  
+
   /* Check sign by computing chi12 in two ways */
   complete_from_G2(F6, F10, x, y, G2, S, prec);
   if (!acb_overlaps(x, y))
@@ -69,7 +69,7 @@ void gundlach_from_igusa(acb_ptr G, acb_srcptr I, slong delta, slong prec)
   acb_set(&G[0], G2);
   acb_set(&G[1], F6);
   acb_set(&G[2], F10);
-  
+
   acb_clear(G2);
   acb_clear(F6);
   acb_clear(F10);

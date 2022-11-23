@@ -22,7 +22,7 @@ static void fmpq_div_si(fmpq_t r, fmpq_t x, slong c)
   fmpq_init(t);
   fmpq_set_si(t, c, 1);
   fmpq_div(r, x, t);
-  fmpq_clear(t);  
+  fmpq_clear(t);
 }
 
 static void igusa_X_q(fmpq* X, fmpq* I)
@@ -37,7 +37,7 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_set(X6(X), igusa_psi6(I));
   fmpq_neg(X10(X), igusa_chi10(I));
   fmpq_set(X12(X), igusa_chi12(I));
-  
+
   /* Y12 */
   fmpq_pow_si(c, X4(X), 3);
   fmpq_pow_si(temp, X6(X), 2);
@@ -61,7 +61,7 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 12);
   fmpq_set(X18(X), c);
-  
+
   /* X24 */
   fmpq_mul(c, igusa_chi12(I), igusa_chi12(I));
   fmpq_mul(temp, X10(X), X10(X));
@@ -69,14 +69,14 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 24);
   fmpq_set(X24(X), c);
-  
+
   /* X28 */
   fmpq_mul(c, X24(X), X4(X));
   fmpq_mul(temp, X10(X), X18(X));
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 6);
   fmpq_set(X28(X), c);
-  
+
   /* X30 */
   fmpq_mul(c, X6(X), X24(X));
   fmpq_mul(temp, X4(X), X10(X));
@@ -84,7 +84,7 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 6);
   fmpq_set(X30(X), c);
-  
+
   /* X36 */
   fmpq_mul(c, igusa_chi12(I), X24(X));
   fmpq_mul(temp, X10(X), X10(X));
@@ -92,14 +92,14 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 18);
   fmpq_set(X36(X), c);
-  
+
   /* X40 */
   fmpq_mul(c, X4(X), X36(X));
   fmpq_mul(temp, X10(X), X30(X));
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 4);
   fmpq_set(X40(X), c);
-  
+
   /* X42 */
   fmpq_mul(c, igusa_chi12(I), X30(X));
   fmpq_mul(temp, X4(X), X10(X));
@@ -107,7 +107,7 @@ static void igusa_X_q(fmpq* X, fmpq* I)
   fmpq_sub(c, c, temp);
   fmpq_div_si(c, c, 12);
   fmpq_set(X42(X), c);
-  
+
   /* X48 */
   fmpq_mul(c, igusa_chi12(I), X36(X));
   fmpq_mul(temp, X24(X), X24(X));
@@ -127,7 +127,7 @@ void igusa_X(fmpq* X, fmpz* I)
 
   fmpz_init(one);
   J = _fmpq_vec_init(4);
-  
+
   fmpz_one(one);
   for (k = 0; k < 4; k++) fmpq_set_fmpz_frac(&J[k], &I[k], one);
   igusa_X_q(X, J);

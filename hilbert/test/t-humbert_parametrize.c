@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("humbert_parametrize....");
   fflush(stdout);
 
@@ -27,7 +27,7 @@ int main()
       int res;
       slong delta_max = 100;
       int v = 0;
-      
+
       rs = _fmpq_vec_init(2);
       rs_acb = _acb_vec_init(2);
       I = _acb_vec_init(4);
@@ -35,7 +35,7 @@ int main()
       t = _acb_vec_init(2);
       acb_mat_init(tau, 2, 2);
       fmpz_mat_init(eta, 4, 4);
-      
+
       for (delta = 5; delta < delta_max; delta++)
 	{
 	  if (hilbert_is_fundamental(delta))
@@ -71,7 +71,7 @@ int main()
 		}
 
 	      res = hilbert_inverse(t, eta, tau, delta, prec);
-	      
+
 	      if (!res)
 		{
 		  flint_printf("FAIL (Hilbert inversion)\n");
@@ -86,7 +86,7 @@ int main()
 
 	      hilbert_map(tau, t, delta, prec);
 	      igusa_from_tau(I_test, tau, prec);
-	      
+
 	      if (cov_distinct(I, I_test, 4, weights, prec))
 		{
 		  flint_printf("FAIL (overlap)\n");

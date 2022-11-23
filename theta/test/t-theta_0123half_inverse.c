@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("theta_0123half_inverse....");
   fflush(stdout);
 
@@ -32,10 +32,10 @@ int main()
       acb_mat_init(tau_test, g, g);
       fmpz_mat_init(m, 2*g, 2*g);
       th_half = _acb_vec_init(4);
-      
+
       arb_set_si(tol, 1);
       arb_mul_2exp_si(tol, tol, -bits); /* tol is larger than 2^(-prec) */
-      
+
       siegel_halfspace_randtest(tau, state, prec);
       res = siegel_fundamental_domain(tau, m, tau, tol, prec);
       if (!res)
@@ -45,7 +45,7 @@ int main()
 	  flint_printf("tau = "); acb_mat_printd(tau, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       acb_mat_scalar_mul_2exp_si(tau_half, tau, -1);
 
       res = theta_0123_naive(th_half, tau_half, prec);
@@ -71,7 +71,7 @@ int main()
 	  flint_printf("tau_test = "); acb_mat_printd(tau_test, 30); flint_printf("\n");
 	  flint_abort();
 	}
-      
+
       arb_clear(tol);
       acb_mat_clear(tau);
       acb_mat_clear(tau_half);

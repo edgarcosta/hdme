@@ -7,14 +7,14 @@ int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta)
   fmpz_t a, b, discr;
   int stop = 0;
   int res;
-  
+
   fmpz_init(a);
   fmpz_init(b);
   fmpz_init(discr);
 
   res = n_sqrtmod(delta % ell, ell);
   if (res == 0) stop = 1;
-    
+
   fmpz_poly_zero(beta);
   while (!stop && fmpz_cmp_si(a, n_pow(10, 5)) < 0)
     {
@@ -56,8 +56,8 @@ int hilbert_splits(fmpz_poly_t beta, slong ell, slong delta)
 		}
 	    }
 	}
-    } 
-  
+    }
+
   res = hilbert_is_totally_positive(beta, delta);
 
   fmpz_clear(a);

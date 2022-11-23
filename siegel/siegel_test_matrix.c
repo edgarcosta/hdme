@@ -45,7 +45,7 @@ siegel_test_matrix_g2(fmpz_mat_t u, slong j)
       fmpz_set_si(fmpz_mat_entry(c, 1, 0), -1);
       fmpz_one(fmpz_mat_entry(c, 1, 1));
     }
-  
+
   switch(j)
     {
     case 0:
@@ -129,7 +129,7 @@ siegel_test_matrix_g2(fmpz_mat_t u, slong j)
     }
 
   fmpz_mat_set_abcd(u, a, b, c, d);
-  
+
   fmpz_mat_clear(a);
   fmpz_mat_clear(b);
   fmpz_mat_clear(c);

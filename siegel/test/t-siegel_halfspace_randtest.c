@@ -5,19 +5,19 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("siegel_halfspace_randtest....");
   fflush(stdout);
-  
+
   flint_randinit(state);
-  
+
   for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
     {
       acb_mat_t z;
       arb_mat_t re, im, ret, imt;
       arb_t det, tr;
       slong g, prec;
-      
+
       g = 1 + n_randint(state, 10);
 
       acb_mat_init(z, g, g);
@@ -49,7 +49,7 @@ int main()
 
       arb_mat_det(det, im, prec);
       arb_mat_trace(tr, im, prec);
-      
+
       if (!arb_is_positive(det) || !arb_is_positive(tr))
 	{
 	  flint_printf("FAIL\n");
@@ -69,7 +69,7 @@ int main()
       arb_clear(det);
       arb_clear(tr);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");

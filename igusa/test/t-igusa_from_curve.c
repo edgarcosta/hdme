@@ -5,7 +5,7 @@ int main()
 {
   slong iter;
   flint_rand_t state;
-  
+
   flint_printf("igusa_from_curve....");
   fflush(stdout);
 
@@ -47,13 +47,13 @@ int main()
 	  flint_printf("FAIL\n");
 	  flint_printf("Curve: "), acb_poly_printd(crv, 30), flint_printf("\n");
 	  for (k = 0; k < 4; k++)
-	    {	      
+	    {
 	      acb_printd(&I[k], 30); flint_printf("\n");
 	    }
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       /* Generate crv with less multiple roots; check that I10, R2 is zero */
       acb_randtest_precise(&roots[0], state, prec, 1);
       acb_set(&roots[1], &roots[0]);
@@ -67,7 +67,7 @@ int main()
       igusa_from_curve(I, crv, prec);
       igusa_IC(IC, I, prec);
       igusa_R2_from_IC(R2, IC, prec);
-      
+
       if (!acb_contains_zero(&IC[3])
 	  || !acb_contains_zero(R2))
 	{
@@ -81,14 +81,14 @@ int main()
 	  fflush(stdout);
 	  flint_abort();
 	}
-      
+
       _acb_vec_clear(roots, 6);
       _acb_vec_clear(I, 4);
       _acb_vec_clear(IC, 4);
       acb_poly_clear(crv);
       acb_clear(R2);
     }
-  
+
   flint_randclear(state);
   flint_cleanup();
   flint_printf("PASS\n");
@@ -96,4 +96,4 @@ int main()
 }
 
 
-      
+

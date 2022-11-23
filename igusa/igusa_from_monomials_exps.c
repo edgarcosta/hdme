@@ -68,21 +68,21 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
       e10[k] = 0;
       e12[k] = 0;
     }
-  
+
   if (z10 && z12)
-    {	      
+    {
       flint_printf("(igusa_from_monomials_exps) Error: chi10, chi12 cannot be simultaneously zero\n");
       fflush(stdout);
       flint_abort();
     }
- 
+
   if (wt == 20)
     {
       if (z4)
 	{
 	  flint_printf("(igusa_from_monomials_exps) Error: psi4 cannot be zero in case of weight 20\n");
 	  fflush(stdout);
-	  flint_abort();	  
+	  flint_abort();
 	}
       if (!z10)
 	{
@@ -104,18 +104,18 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 	{
 	  e4[i_5000] = 1;
 	  e4[i_2200] = 1;
-	  
+
 	  e6[i_2200] = 2;
 	  e6[i_5000] = 1;
-	  
+
 	  e12[i_2001] = 1;
 	  e12[i_2200] = 3;
 	  e12[i_5000] = 2;
 	}
-      else /* z10 and z6 */	    
+      else /* z10 and z6 */
 	{
 	  e4[i_5000] = 1;
-	  
+
 	  e12[i_5000] = 2;
 	  e12[i_2001] = 1;
 	}
@@ -147,7 +147,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
       else if (z4 && z10)
 	{
 	  e6[i_0500] = 1;
-	  
+
 	  e12[i_0500] = 1;
 	  e12[i_0301] = 1;
 	}
@@ -168,7 +168,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
       else if (z4 && z6 && z12)
 	{
 	  e10[i_0060] = 1;
-	}      
+	}
       else if (!z4 && !z10 && !z12)
 	{
 	  SET_VEC_60(e4, 1, 0, 0, 0, 2, 0, 0, 1, 0, 0);
@@ -219,7 +219,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 	{
 	  SET_VEC_60(e4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 	  SET_VEC_60(e12, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0);
-	}	
+	}
       else
 	{
 	  flint_printf("(igusa_from_monomials) Error: unsupported z4, z6, z10, z12 in weight 60: %i %i %i %i\n", z4, z6, z10, z12);
@@ -227,7 +227,7 @@ void igusa_from_monomials_exps(slong* e4, slong* e6, slong* e10, slong* e12,
 	  flint_abort();
 	}
     }
-  
+
   else
     {
       flint_printf("(igusa_from_monomials) Error: weight %wd not implemented\n", wt);
