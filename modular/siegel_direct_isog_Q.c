@@ -1,8 +1,9 @@
 
 #include "modular.h"
 
-int siegel_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell)
-{
+int siegel_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell) {
+  time_pair start; timestamp_mark(&start);
+
   slong prec = siegel_modeq_startprec(I, ell);
   hecke_t H;
   int stop = 0;
@@ -22,7 +23,7 @@ int siegel_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell)
     prec = modeq_nextprec_generic(prec);
     stop = modeq_stop(res, prec);
   }
-
   hecke_clear(H);
+  if (get_hecke_verbose()) report_end(start);
   return res;
 }

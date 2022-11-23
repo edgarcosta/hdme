@@ -1,7 +1,5 @@
 
 #include "modular.h"
-
-
 #include "hecke.h"
 
 int main()
