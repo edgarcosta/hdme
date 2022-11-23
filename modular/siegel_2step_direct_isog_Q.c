@@ -3,7 +3,7 @@
 
 int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell) {
   time_pair start; timestamp_mark(&start);
-  slong prec = siegel_modeq_startprec(I, ell);
+  slong prec = siegel_direct_isog_startprec(I, ell);
   hecke_t H;
   int stop = 0;
   int res = 1;

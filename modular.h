@@ -236,6 +236,8 @@ int alt_2step_all_isog_Q(slong* nb_roots, fmpz* all_I, fmpz* I, slong ell);
 
 /* Third strategy using the Hecke correspondence only */
 
+slong siegel_direct_isog_startprec(fmpz* I, slong ell);
+
 int siegel_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell);
 
 int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell);
