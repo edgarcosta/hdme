@@ -11,6 +11,12 @@ int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell) {
   int v = get_modeq_verbose();
   *nb = 0; /* we might never call hecke_all_isog_Q */
 
+  if (v) {
+    flint_printf("(siegel_2step_direct_isog_Q) ell = %wd\n", ell);
+    flint_printf("(siegel_2step_direct_isog_Q) I = ");
+    _fmpz_vec_print(I, 4);
+    flint_printf("\n");
+  }
   hecke_init(H, siegel_nb_T1_cosets(ell));
 
   while (!stop) {
@@ -25,7 +31,22 @@ int siegel_2step_direct_isog_Q(slong* nb, fmpz* all_I, fmpz* I, slong ell) {
     prec = modeq_nextprec_generic(prec);
     stop = modeq_stop(res, prec);
   }
-  if (v) flint_printf("(siegel_2step_direct_isog_Q) succeeded with prec = %wd\n", prec);
+  if (v) {
+    flint_printf("(siegel_2step_direct_isog_Q) succeeded with prec = %wd\n", prec);
+    flint_printf("(siegel_2step_direct_isog_Q) nb = %wd\n", *nb);
+    if (*nb > 0) {
+      flint_printf("(siegel_2step_direct_isog_Q) roots = [\n");
+      for(slong i=0; i < *nb; ++i) {
+        _fmpz_vec_print(&all_I[i*4], 4);
+        flint_printf("\n");
+      }
+      flint_printf("]\n");
+    } else {
+      flint_printf("(siegel_2step_direct_isog_Q) roots = []\n");
+    }
+  }
+
+
 
   hecke_clear(H);
   if (v) report_end(start);
