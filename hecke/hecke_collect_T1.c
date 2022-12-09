@@ -27,7 +27,7 @@ int hecke_collect_T1(hecke_t H, slong ell, slong prec) {
     /* Loop over all cosets to compute desired data */
 #pragma omp for schedule(static)
     for(slong k = 0; k < nb; ++k) {
-      if (!res) continue; // OpenMP doesn't allow break, and thus we continue
+      if (!res) continue; // OpenMP does not allow break, and thus we continue
       if (master && v) progress_bar(steps_completed, nb, "(hecke_collect)");
 
       siegel_T1_coset(gamma, k, ell);

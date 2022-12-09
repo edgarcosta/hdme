@@ -16,7 +16,7 @@ int mestre(acb_poly_t crv, acb_srcptr IC, slong prec)
   
   if (!igusa_has_generic_automorphisms(IC, prec))
     {
-      flint_printf("(mestre) Warning: cannot guarantee that curve doesn't have extra automorphisms\n");
+      flint_printf("(mestre) Warning: cannot guarantee that curve does not have extra automorphisms\n");
       return 0;
     }
 

@@ -282,7 +282,7 @@ fi
 
 if [ "$OPENMP" = "1" ]; then
   if [ $OS = "Darwin" ]; then
-    FLAGS="${FLAGS} -Xpreprocessor -isystem /opt/local/include/libomp"
+    FLAGS="${FLAGS} -Xpreprocessor"
     LIBS="${LIBS} -lomp"
   fi
   FLAGS="${FLAGS} -fopenmp";

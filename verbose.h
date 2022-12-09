@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "timing.h"
 
-#define time_since(s) (double) (clock() - s)/CLOCKS_PER_SEC
 #define report(message, s) {\
   double utime, wtime;\
   timestamp_report(&utime, &wtime, &s);\
@@ -14,26 +13,29 @@
 
 
 // there must be a smart way to do this with the precompiler...
-int set_modeq_verbose(int i);
-int get_modeq_verbose();
+int set_borchardt_verbose(int i);
+int get_borchardt_verbose();
 
 int set_hecke_verbose(int i);
 int get_hecke_verbose();
 
+int set_hilbert_lll_verbose(int i);
+int get_hilbert_lll_verbose();
+
+int set_modeq_verbose(int i);
+int get_modeq_verbose();
+
 int set_pol_verbose(int i);
 int get_pol_verbose();
 
-int set_thomae_verbose(int i);
-int get_thomae_verbose();
-
-int set_hilbert_lll_verbose(int i);
-int get_hilbert_lll_verbose();
+int set_siegel_verbose(int i);
+int get_siegel_verbose();
 
 int set_theta_verbose(int i);
 int get_theta_verbose();
 
-int set_borchardt_verbose(int i);
-int get_borchardt_verbose();
+int set_thomae_verbose(int i);
+int get_thomae_verbose();
 
 
 void progress_bar(slong current, slong total, const char prefix[]);
