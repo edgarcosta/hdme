@@ -1,7 +1,7 @@
 
 #include "hecke.h"
 
-slong hecke_integral_highprec(hecke_t H, slong prec)
+slong hecke_integral_highprec(const hecke_t H, slong prec)
 {
   acb_t m;
   arf_t rad;
@@ -23,7 +23,6 @@ slong hecke_integral_highprec(hecke_t H, slong prec)
       acb_get_abs_ubound_arf(rad, m, prec);
       res = FLINT_MAX(res, arf_abs_bound_lt_2exp_si(rad));
     }
-  
   acb_clear(m);
   arf_clear(rad);
   return 100*((prec + res)/90 + 1);

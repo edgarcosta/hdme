@@ -1,14 +1,14 @@
 
 #include "hecke.h"
 
-int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong prec) {
+int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, const hecke_t H, fmpz* I, slong prec) {
   time_pair start; timestamp_mark(&start);
   int res = 1;
   int v = get_hecke_verbose();
   slong nb = hecke_nb(H);
 
-  char *has_int;
-  has_int = flint_malloc(nb * sizeof(char));
+  int *has_int;
+  has_int = flint_malloc(nb * sizeof(int));
   memset(has_int, 0, nb);
   slong has_int_count = 0;
   *nb_roots = 0;
@@ -32,6 +32,10 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, hecke_t H, fmpz* I, slong pre
     if (v) flint_printf("(hecke_all_isog_Q) Chosen high precision: %wd\n", highprec);
     hecke_init(H2, nb);
     res = hecke_set_I_fmpz_with_lowprec(H2, I, hecke_theta2_tau(H), highprec);
+    if( ! acb_overlaps(acb_mat_entry(hecke_tau(H), 0, 1), acb_mat_entry(hecke_tau(H2), 0, 1)) ) {
+      acb_neg(acb_mat_entry(hecke_tau(H2), 0, 1), acb_mat_entry(hecke_tau(H2), 0, 1));
+      acb_neg(acb_mat_entry(hecke_tau(H2), 1, 0), acb_mat_entry(hecke_tau(H2), 1, 0));
+    }
 
     #pragma omp parallel
     { // this initializes the private	variables
