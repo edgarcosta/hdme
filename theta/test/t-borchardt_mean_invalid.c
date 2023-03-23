@@ -14,12 +14,14 @@ int main()
   for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
     {
       acb_ptr a;
+      arb_t x;
       slong prec = 50 + n_randint(state, 500);
       slong mag_bits = 1 + n_randint(state, 5);
       int res;
       slong k;
 
       a = _acb_vec_init(4);
+      arb_init(x);
 
       /* If all entries have positive or negative real part, then it's
 	 not invalid */
@@ -60,20 +62,17 @@ int main()
       
 
       /* If there is one entry on each half axis, then it is invalid */
-      for (k = 0; k < 4; k++) acb_zero(&a[k]);
-      arf_randtest_not_zero(arb_midref(acb_realref(&a[0])), state, prec, mag_bits);
-      arb_sqr(acb_realref(&a[0]), acb_realref(&a[0]), prec);
+      arb_zero(x);
+      arf_randtest_not_zero(arb_midref(x), state, prec, mag_bits);
+      arb_sqr(x, x, prec);
 
-      arf_randtest_not_zero(arb_midref(acb_imagref(&a[1])), state, prec, mag_bits);
-      arb_sqr(acb_imagref(&a[1]), acb_imagref(&a[1]), prec);
-      
-      arf_randtest_not_zero(arb_midref(acb_realref(&a[2])), state, prec, mag_bits);
-      arb_sqr(acb_realref(&a[2]), acb_realref(&a[2]), prec);
+      acb_set_arb(&a[0], x);
+      acb_set_arb(&a[1], x);
+      acb_mul_onei(&a[1], &a[1]);
+      acb_set_arb(&a[2], x);
       acb_neg(&a[2], &a[2]);
-      
-      arf_randtest_not_zero(arb_midref(acb_imagref(&a[3])), state, prec, mag_bits);
-      arb_sqr(acb_imagref(&a[3]), acb_imagref(&a[3]), prec);
-      acb_neg(&a[3], &a[3]);
+      acb_set_arb(&a[3], x);
+      acb_div_onei(&a[3], &a[3]);
       
       res = borchardt_mean_invalid(a, prec);
       if (!res)
@@ -88,6 +87,7 @@ int main()
 	}
 
       _acb_vec_clear(a, 4);
+      arb_clear(x);
     }
   flint_randclear(state);
   flint_cleanup();

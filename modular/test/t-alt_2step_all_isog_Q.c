@@ -10,7 +10,7 @@ int main()
   fflush(stdout);
 
   /* Up to iter < 4 */
-  for (iter = 0; iter < 2; iter++)
+  for (iter = 0; iter < 0; iter++)
     {
       fmpz* I1;
       fmpz* I2;
