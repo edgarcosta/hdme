@@ -9,8 +9,8 @@ int main()
   flint_printf("siegel_direct_isog_Q....");
   fflush(stdout);
 
-  /* Up to iter < 2 */
-  for (iter = 0; iter < 2; iter++) {
+  /* Up to iter < 3 */
+  for (iter = 0; iter < 3; iter++) {
     fmpz* I1;
     fmpz* all_I;
     slong ell;
@@ -36,6 +36,14 @@ int main()
         fmpz_set_si(&I1[1], 1249);
         fmpz_set_si(&I1[2], 129167);
         fmpz_set_si(&I1[3], 2249728);
+        ell = 3;
+        break;
+
+      case 2:
+        fmpz_set_str(&I1[0], "117322407584104", 10);
+        fmpz_set_str(&I1[1], "166443185276308771469224348", 10);
+        fmpz_set_str(&I1[2], "7813005098059830157559238453206675869220", 10);
+        fmpz_set_str(&I1[3], "36493703564806262820376912749375714135215499089814947142944384", 10);
         ell = 3;
         break;
 
