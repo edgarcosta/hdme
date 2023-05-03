@@ -4,7 +4,7 @@
 int thomae_keep_candidate(const acb_mat_t tau, acb_srcptr I, slong prec)
 {
   acb_ptr test;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights[4] = IGUSA_WEIGHTS;
   int aux, res;
 
   test = _acb_vec_init(4);

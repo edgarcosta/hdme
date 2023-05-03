@@ -24,7 +24,6 @@ int main()
       fmpq* ABCD;
       fmpq_t R2;
 
-      slong half[4] = IGUSA_HALFWEIGHTS;
       slong weights[4] = IGUSA_WEIGHTS;
       slong weights2[4] = IC_WEIGHTS;
       slong mag_bits = 10;
@@ -44,7 +43,7 @@ int main()
       fmpq_init(R2);
 
       for (k = 0; k < 4; k++) fmpz_randtest_not_zero(&I[k], state, mag_bits);
-      cov_normalize_fmpz(I, I, 4, half);
+      cov_normalize_fmpz(I, I, 4, weights);
       for (k = 0; k < 4; k++) acb_set_fmpz(&I_acb[k], &I[k]);
       acb_randtest_precise(scal, state, prec, mag_bits);
 

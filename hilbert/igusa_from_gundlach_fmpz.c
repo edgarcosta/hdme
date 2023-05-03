@@ -4,7 +4,7 @@
 void igusa_from_gundlach_fmpz(fmpz* I, fmpz* G, slong delta)
 {
   fmpz_t temp;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights[4] = IGUSA_WEIGHTS;
   
   fmpz_init(temp);
   

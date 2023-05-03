@@ -11,7 +11,7 @@ void igusa_from_monomials(fmpz* I, fmpz* M, slong wt)
   slong* e6;
   slong* e10;
   slong* e12;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights[4] = IGUSA_WEIGHTS;
   fmpz* res;
 
   fmpz_mpoly_ctx_init(ctx, nb, ORD_LEX);
