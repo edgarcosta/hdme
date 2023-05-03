@@ -7,6 +7,7 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
   acb_ptr means;
   acb_ptr a;
   acb_ptr tau_entries;
+  arb_t im;
   
   int i, j;
   int res = 1;
@@ -21,6 +22,7 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
   means = _acb_vec_init(4);
   a = _acb_vec_init(4);
   tau_entries = _acb_vec_init(3);
+  arb_init(im);
 
   /* Compute 1/theta_0^2(gamma_i tau) */
   for (i = 0; i < 4; i++)
@@ -59,7 +61,8 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
       
       borchardt_sqrt(&tau_entries[2], &tau_entries[2], prec);
       /* Adjust the sign of tau3 */
-      if (arf_cmp_si(arb_midref(acb_imagref(&tau_entries[2])), 0) < 0)
+      arb_set(im, acb_imagref(&tau_entries[2]));
+      if (arf_cmp_si(arb_midref(im), 0) < 0)
 	{
 	  acb_neg(&tau_entries[2], &tau_entries[2]);
 	}
@@ -78,5 +81,6 @@ theta2_inverse(acb_mat_t tau, acb_srcptr th, slong prec)
   _acb_vec_clear(means, 4);
   _acb_vec_clear(a, 4);
   _acb_vec_clear(tau_entries, 3);
+  arb_clear(im);
   return res;
 }

@@ -7,12 +7,14 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
   acb_ptr dens;
   acb_ptr nums;
   acb_ptr aux;
+  acb_t x;
   slong d = hecke_nb(H);
   slong j, k;
 
   dens = _acb_vec_init(d);
   nums = _acb_vec_init(d);
   aux = _acb_vec_init(d);
+  acb_init(x);
 
   modeq_nb(E) = modeq_ctx_nb(ctx);
   modeq_degree(E) = d;
@@ -26,8 +28,12 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
     }
 
   /* Compute denominator and equation */
-  acb_one(modeq_den(E));
-  for (k = 0; k < d; k++) acb_mul(modeq_den(E), modeq_den(E), &dens[k], prec);
+  acb_one(x);
+  for (k = 0; k < d; k++)
+  {
+      acb_mul(x, x, &dens[k], prec);
+  }
+  acb_set(modeq_den(E), x);
   acb_poly_product_tree_1(modeq_equation(E), dens, nums, d, prec);
 
   /* Construct equations for other monomials */
@@ -44,4 +50,5 @@ void modeq_product_trees(modeq_acb_t E, const hecke_t H,
   _acb_vec_clear(dens, d);
   _acb_vec_clear(nums, d);
   _acb_vec_clear(aux, d);
+  acb_clear(x);
 }

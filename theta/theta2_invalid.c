@@ -7,6 +7,7 @@ int theta2_invalid(acb_srcptr th2, slong prec)
   acb_ptr a;
   acb_ptr tau_entries;
   acb_mat_t tau;
+  arb_t im;
   
   int res = 0;
   int b_success = 1;
@@ -23,6 +24,7 @@ int theta2_invalid(acb_srcptr th2, slong prec)
   a = _acb_vec_init(4);
   tau_entries = _acb_vec_init(3);
   acb_mat_init(tau, 2, 2);
+  arb_init(im);
 
   /* Either one of the four Borchardt means is definitely invalid; or
      the Borchardt means succeed and the resulting matrix does not
@@ -57,10 +59,13 @@ int theta2_invalid(acb_srcptr th2, slong prec)
       acb_div(&tau_entries[2], &means[0], &means[3], prec);
       acb_addmul(&tau_entries[2], &tau_entries[0], &tau_entries[1], prec);
       acb_sqrt(&tau_entries[2], &tau_entries[2], prec);
-      if (arf_cmp_si(arb_midref(acb_imagref(&tau_entries[2])), 0) < 0)
+
+      arb_set(im, acb_imagref(&tau_entries[2]));
+      if (arf_cmp_si(arb_midref(im), 0) < 0)
 	{
 	  acb_neg(&tau_entries[2], &tau_entries[2]);
 	}
+      
       acb_set(acb_mat_entry(tau, 0, 0), &tau_entries[0]);
       acb_set(acb_mat_entry(tau, 1, 1), &tau_entries[1]);
       acb_set(acb_mat_entry(tau, 0, 1), &tau_entries[2]);
@@ -75,5 +80,6 @@ int theta2_invalid(acb_srcptr th2, slong prec)
   _acb_vec_clear(a, 4);
   _acb_vec_clear(tau_entries, 3);
   acb_mat_clear(tau);
+  arb_clear(im);
   return res;
 }
