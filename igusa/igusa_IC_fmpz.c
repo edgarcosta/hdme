@@ -52,7 +52,7 @@ void igusa_IC_fmpz(fmpz* IC, fmpz* I)
   fmpz* S;
   fmpz* resc;
   slong weights[4] = IGUSA_WEIGHTS;
-  slong weights2[4] = IC_HALFWEIGHTS;
+  slong weights2[4] = IC_WEIGHTS;
   int r;
 
   fmpz_init(I2);

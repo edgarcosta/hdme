@@ -26,9 +26,9 @@
 #include "verbose.h"
 
 #define IGUSA_WEIGHTS {4,6,10,12}
-#define IGUSA_HALFWEIGHTS {2,3,5,6}
+// #define IGUSA_HALFWEIGHTS {2,3,5,6}
 #define IC_WEIGHTS {2,4,6,10}
-#define IC_HALFWEIGHTS {1,2,3,5}
+// #define IC_HALFWEIGHTS {1,2,3,5}
 /* #define IGUSA_NB 4 would clutter the code. */
 #define X_WEIGHTS {4,6,10,12,12,16,18,24,28,30,36,40,42,48}
 #define X_NB 14

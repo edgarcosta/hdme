@@ -106,10 +106,10 @@ https://beta.lmfdb.org/Genus2Curve/Q/295/a/295/2 */
 				fmpz_set_si(&I1[2], 20835);
 				fmpz_set_si(&I1[3], 37760);
 				ell = 7;
-				fmpz_set_si(&I2[0], 198804);
+				fmpz_set_si(&I2[0], -198804);
 				fmpz_set_si(&I2[1], 305807001);
-				fmpz_set_si(&I2[2], 18482629056189);
-				fmpz_set_si(&I2[3], -37760);
+				fmpz_set_si(&I2[2], -18482629056189);
+				fmpz_set_si(&I2[3], 37760);
 				break;
 
 
@@ -140,6 +140,14 @@ https://beta.lmfdb.org/Genus2Curve/Q/295/a/295/2 */
 		if (!res)
 		{
 			flint_printf("FAIL (values)\n");
+			flint_printf("nb_roots = %wd\n", nb_roots);
+			_fmpz_vec_print(I2, 4);
+			flint_printf("\n");
+			for (k = 0; k < nb_roots; k++)
+			{
+				_fmpz_vec_print(&all_I[4*k], 4);
+				flint_printf("\n");
+			}
 			fflush(stdout);
 			flint_abort();
 		}

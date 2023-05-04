@@ -9,7 +9,7 @@ int thomae_correct_signs_with_lowprec(slong* perm, slong* signs, acb_srcptr root
   time_pair start; timestamp_mark(&start);
   slong current_prec = thomae_startprec(prec);
   slong nb_candidates = 720 * 16;
-  slong weights[4] = IGUSA_HALFWEIGHTS;
+  slong weights[4] = IGUSA_WEIGHTS;
   slong th2weights[16] = {1,1,1,1,    1,1,1,1,
     1,1,1,1,    1,1,1,1};
   slong p; /* 0 to 719 */

@@ -23,7 +23,7 @@ int main()
       slong wt;
       slong mag_bits = 10;
       slong wts[3] = {20, 30, 60};
-      slong weights[4] = IGUSA_HALFWEIGHTS;
+      slong weights[4] = IGUSA_WEIGHTS;
       int print = 0;
 
       I = _fmpz_vec_init(4);
