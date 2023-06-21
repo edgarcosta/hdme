@@ -26,7 +26,7 @@ int hecke_all_isog_Q(slong* nb_roots, fmpz* all_I, const hecke_t H, fmpz* I, slo
 
     slong highprec;
     hecke_t H2;
-    slong weights[4] = IGUSA_WEIGHTS;
+    slong weights[4] = IGUSA_HALFWEIGHTS;
 
     highprec = hecke_integral_highprec(H, prec);
     if (v) flint_printf("(hecke_all_isog_Q) Chosen high precision: %wd\n", highprec);

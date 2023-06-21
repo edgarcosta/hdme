@@ -8,7 +8,7 @@ int thomae_correct_signs(slong* perm, slong* signs, acb_srcptr roots,
   time_pair start; timestamp_mark(&start);
 	// p in {0..719} s in {0..15}
 	slong nb_candidates = 720 * 16;
-	slong weights[4] = IGUSA_WEIGHTS;
+	slong weights[4] = IGUSA_HALFWEIGHTS;
 	slong correct_perm = -1;
 	slong correct_signs = -1;
 	int res = 1;
