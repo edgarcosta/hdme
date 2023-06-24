@@ -51,7 +51,7 @@ void cov_factors(fmpz_factor_t fac, fmpz* I, slong nb)
     }
 
   stop = fmpz_factor_smooth(fac, g, COV_FACTOR_BITS, 1);
-  for (k = 0; k < cov_factor_nb(fac); k++) fmpz_remove(g, g, cov_factor_p(fac, k));
+  for (k = 0; k < cov_factor_nb(fac) + (stop ? 0 : -1); k++) fmpz_remove(g, g, cov_factor_p(fac, k));
   if (!stop) cov_factors_additional(fac, g, I, nb);
 
   fmpz_clear(g);
