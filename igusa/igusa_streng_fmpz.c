@@ -3,7 +3,7 @@
 
 void igusa_streng_fmpz(fmpz* S, fmpz* I)
 {
-  slong weights[4] = IGUSA_WEIGHTS;
+  slong weights[4] = IGUSA_HALFWEIGHTS;
   
   fmpz_mul_si(&S[0], &I[0], 4);
   fmpz_mul_si(&S[1], &I[1], 4);

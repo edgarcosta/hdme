@@ -3,7 +3,7 @@
 
 void igusa_from_streng_fmpz(fmpz* I, fmpz* S)
 {
-  slong weights[4] = IGUSA_WEIGHTS;
+  slong weights[4] = IGUSA_HALFWEIGHTS;
   
   cov_rescale_fmpz_si(I, S, 8, 4, weights);  
   fmpz_divexact_si(igusa_psi4(I), &I[0], 4);

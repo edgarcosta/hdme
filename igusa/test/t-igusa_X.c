@@ -24,6 +24,7 @@ int main()
       slong k;
       slong Xweights[X_NB] = X_WEIGHTS;
       slong Iweights[4] = IGUSA_WEIGHTS;
+      slong half[4] = IGUSA_HALFWEIGHTS;
 
       I = _fmpz_vec_init(4);
       X = _fmpq_vec_init(X_NB);
@@ -33,7 +34,7 @@ int main()
 
       for (k = 0; k < 4; k++) fmpz_randtest(&I[k], state, mag_bits);
       fmpz_randtest_not_zero(scal, state, mag_bits);
-      cov_rescale_fmpz_si(I, I, 2*3, 4, Iweights);
+      cov_rescale_fmpz_si(I, I, 2*3, 4, half);
       igusa_X(X, I);
 
       if (print)

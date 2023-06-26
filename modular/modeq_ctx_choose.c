@@ -6,7 +6,7 @@ int modeq_ctx_choose(modeq_ctx_t ctx, acb_srcptr I, slong nb, slong prec)
   slong j, k, l;
   slong j0 = -1;
   acb_srcptr ptr; /* Do not initialize */
-  slong weights[4] = IGUSA_WEIGHTS;
+  slong weights[4] = IGUSA_HALFWEIGHTS;
   slong exps[4];
   fmpz_mpoly_t num, den;
   acb_ptr evden;
