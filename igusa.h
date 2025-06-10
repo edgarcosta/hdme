@@ -11,13 +11,14 @@
 #ifndef IGUSA_H
 #define IGUSA_H
 
-#include <acb.h>
-#include <acb_mat.h>
-#include <acb_poly.h>
-#include <arb.h>
-#include <acb_modular.h>
+#include <flint/fmpq.h>
+#include <flint/fmpz_poly.h>
+#include <flint/fmpq_poly.h>
+#include <flint/acb_poly.h>
+#include <flint/acb_modular.h>
 #include <flint/fmpq_mpoly.h>
-#include <flint/ulong_extras.h>
+#include <flint/fmpz_vec.h>
+#include <flint/fmpq_vec.h>
 #include <flint/fmpz_factor.h>
 
 #include "hdme_data.h"

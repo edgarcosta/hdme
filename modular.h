@@ -11,10 +11,10 @@
 #ifndef MODULAR_H
 #define MODULAR_H
 
-#include <acb.h>
-#include <acb_mat.h>
-#include <acb_poly.h>
-#include <arb.h>
+#include <flint/acb.h>
+#include <flint/acb_mat.h>
+#include <flint/acb_poly.h>
+#include <flint/arb.h>
 #include <flint/flint.h>
 #include <flint/fmpq_vec.h>
 #include <flint/fmpz_mod.h>

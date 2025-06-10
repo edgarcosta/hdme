@@ -11,9 +11,13 @@
 #ifndef SIEGEL_H
 #define SIEGEL_H
 
-#include <acb_mat.h>
-#include <arb_mat.h>
+#include <flint/flint.h>
+#include <flint/fmpz.h>
 #include <flint/fmpz_mat.h>
+#include <flint/arb.h>
+#include <flint/arb_mat.h>
+#include <flint/acb.h>
+#include <flint/acb_mat.h>
 #include <flint/ulong_extras.h>
 #include <stdio.h>
 

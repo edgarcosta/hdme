@@ -11,9 +11,12 @@
 #ifndef THETA_H
 #define THETA_H
 
-#include <acb.h>
-#include <acb_mat.h>
-#include <arb.h>
+#include <flint/flint.h>
+#include <flint/fmpz.h>
+#include <flint/fmpz_mat.h>
+#include <flint/acb.h>
+#include <flint/acb_mat.h>
+#include <flint/arb.h>
 #include <flint/ulong_extras.h>
 #include <stdio.h>
 
