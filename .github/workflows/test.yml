@@ -1,0 +1,38 @@
+name: "Run Tests"
+
+on:
+  push:
+    branches: ['master']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: "Setup dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp-dev libmpfr-dev libflint-dev build-essential
+          echo "MAKE=make -j$(expr $(nproc) + 1) --output-sync=target" >> $GITHUB_ENV
+      
+      - name: "Setup autotools"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake libtool-bin
+          chmod +x bootstrap.sh
+          ./bootstrap.sh
+      
+      - name: "Configure and build"
+        run: |
+          ./configure
+          $MAKE
+      
+      - name: "Run tests"
+        run: |
+          $MAKE check 
