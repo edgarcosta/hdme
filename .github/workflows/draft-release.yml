@@ -18,19 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  wait-for-tests:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Wait for tests to complete
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'Run Tests'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-
   version_and_tag:
-    needs: wait-for-tests
     runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.get-version.outputs.version }}
