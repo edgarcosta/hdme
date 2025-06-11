@@ -1,5 +1,7 @@
-
+#include <stdlib.h>
+#include <gmp.h>
 #include "polynomials.h"
+#include "flint/ulong_extras.h"
 
 int main()
 {
@@ -11,7 +13,7 @@ int main()
   
   flint_randinit(state);
   
-  for (iter = 0; iter < 50 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 50 * flint_test_multiplier(); iter++)
     {
       fmpq_t c;
       fmpq_t r;

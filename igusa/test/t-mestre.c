@@ -12,7 +12,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 50 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 50 * flint_test_multiplier(); iter++)
     {
       slong weights[4] = IC_WEIGHTS;
       slong prec = 500 + n_randint(state, 1000);

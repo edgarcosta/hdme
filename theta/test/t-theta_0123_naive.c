@@ -1,4 +1,3 @@
-
 #include "theta.h"
 
 
@@ -13,7 +12,7 @@ int main()
   flint_randinit(state);
 
   /* Check duplication formula */
-  for (iter = 0; iter < 10000 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 10000 * flint_test_multiplier(); iter++)
     {
       slong g = 2;
       slong prec = 10 + n_randint(state, 200);

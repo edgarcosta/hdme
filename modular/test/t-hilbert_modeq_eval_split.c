@@ -1,4 +1,3 @@
-
 #include "modular.h"
 
 int main()
@@ -12,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 1 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1 * flint_test_multiplier(); iter++)
     {
       fmpq* mn;
       fmpz* G;

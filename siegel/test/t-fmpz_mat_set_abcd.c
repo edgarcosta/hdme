@@ -11,7 +11,7 @@ int main()
   
   flint_randinit(state);
   
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
       slong g = 1 + n_randint(state, 5);
       fmpz_mat_t m, a, b, c, d, m_test;

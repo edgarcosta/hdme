@@ -11,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 500 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 500 * flint_test_multiplier(); iter++)
     {
       fmpz* I;
       fmpz* M;

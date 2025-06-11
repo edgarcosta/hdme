@@ -12,7 +12,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 15 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 15 * flint_test_multiplier(); iter++)
     {
       fmpz* I;
       acb_ptr I_acb;

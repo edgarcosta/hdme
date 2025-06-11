@@ -1,4 +1,3 @@
-
 #include "theta.h"
 
 
@@ -12,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 10000 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 10000 * flint_test_multiplier(); iter++)
     {
       slong mag_bits = n_randint(state, 5);
       slong prec = 32 + n_randint(state, 200);

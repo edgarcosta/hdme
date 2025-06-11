@@ -11,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1000 * flint_test_multiplier(); iter++)
     {      
       slong nb = 1 + n_randint(state, 4);
       slong prec = 1000;

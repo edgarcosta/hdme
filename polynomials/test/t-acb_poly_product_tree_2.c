@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 #include "polynomials.h"
 
 int main()
@@ -11,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
       acb_poly_t Q, Q_test;
       acb_ptr xi, yi, zi;

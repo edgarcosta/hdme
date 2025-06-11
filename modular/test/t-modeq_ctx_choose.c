@@ -1,4 +1,3 @@
-
 #include "modular.h"
 
 int main()
@@ -12,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 10 * flint_test_multiplier(); iter++)
     {
       slong nb = 1 + n_randint(state, 100);
       slong i1, i2;

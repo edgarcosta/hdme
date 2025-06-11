@@ -11,7 +11,7 @@ int main()
   
   flint_randinit(state);
   
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
       acb_mat_t z;
       arb_mat_t re, im, re2, im2;

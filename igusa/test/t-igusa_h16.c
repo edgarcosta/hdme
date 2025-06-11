@@ -12,7 +12,7 @@ int main()
   flint_randinit(state);
 
   /* Test formula I6 = h16/h10 */
-  for (iter = 0; iter < 1000 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 1000 * flint_test_multiplier(); iter++)
     {
       acb_ptr theta2;
       acb_ptr I, IC;

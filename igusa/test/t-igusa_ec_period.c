@@ -1,4 +1,3 @@
-
 #include "igusa.h"
 
 int main()
@@ -12,7 +11,7 @@ int main()
 
   flint_randinit(state);
 
-  for (iter = 0; iter < 200 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 200 * flint_test_multiplier(); iter++)
     {
       acb_t j;
       acb_t tau;

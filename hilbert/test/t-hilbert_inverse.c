@@ -16,7 +16,7 @@ int main()
     {
       if (hilbert_is_fundamental(delta))
 	{
-	  for (iter = 0; iter < 10 * arb_test_multiplier(); iter++)
+	  for (iter = 0; iter < 10 * flint_test_multiplier(); iter++)
 	    {
 	      acb_ptr t, t_test;
 	      acb_mat_t tau, tau_test;

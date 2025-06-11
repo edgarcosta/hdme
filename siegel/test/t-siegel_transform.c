@@ -12,7 +12,7 @@ int main()
   flint_randinit(state);
   
   /* Check associativity */
-  for (iter = 0; iter < 100 * arb_test_multiplier(); iter++)
+  for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
       fmpz_mat_t m, n, mn;
       acb_mat_t z1, z2, z3;
