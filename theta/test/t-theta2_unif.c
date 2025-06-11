@@ -10,7 +10,7 @@ int main()
   flint_printf("theta2_unif....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 5 * flint_test_multiplier(); iter++)
     {
@@ -119,7 +119,7 @@ int main()
       fmpz_mat_clear(m);
     }
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

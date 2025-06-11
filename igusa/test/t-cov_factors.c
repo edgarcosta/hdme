@@ -10,7 +10,7 @@ int main()
   flint_printf("cov_factors....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 500 * flint_test_multiplier(); iter++)
     {
@@ -63,7 +63,7 @@ int main()
       fmpz_factor_clear(fac);
     }
 
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

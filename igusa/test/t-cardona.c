@@ -10,7 +10,7 @@ int main()
   flint_printf("cardona....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 50 * flint_test_multiplier(); iter++)
     {
@@ -95,7 +95,7 @@ int main()
       acb_clear(c);
     }
      
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

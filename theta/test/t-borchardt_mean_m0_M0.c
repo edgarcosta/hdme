@@ -10,7 +10,7 @@ int main()
   flint_printf("borchardt_mean_m0_M0....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 10000 * flint_test_multiplier(); iter++)
     {
@@ -88,7 +88,7 @@ int main()
       arb_clear(abs);
     }
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

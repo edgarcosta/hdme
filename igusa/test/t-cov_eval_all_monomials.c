@@ -10,7 +10,7 @@ int main()
   flint_printf("cov_eval_all_monomials....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
@@ -91,7 +91,7 @@ int main()
       acb_clear(test);
     }
 
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

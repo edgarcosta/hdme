@@ -11,7 +11,7 @@ int main()
   flint_printf("hilbert_inverse....");
   fflush(stdout);
   
-  flint_randinit(state);
+  flint_rand_init(state);
   
   for (delta = 5; delta < 100; delta++)
     {
@@ -95,7 +95,7 @@ int main()
 	}
     }
 
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

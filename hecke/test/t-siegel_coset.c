@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <flint/fmpq.h>
+#include <flint/fmpq_mat.h>
 
 #include "hecke.h"
 

@@ -8,7 +8,7 @@ int main()
   
   flint_printf("hecke_operator....");
   fflush(stdout);
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 1 * flint_test_multiplier(); iter++)
     {
@@ -87,7 +87,7 @@ int main()
       fmpz_clear(eig);
     }
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

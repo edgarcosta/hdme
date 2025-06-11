@@ -10,7 +10,7 @@ int main()
   flint_printf("igusa_ec_period....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 200 * flint_test_multiplier(); iter++)
     {
@@ -70,7 +70,7 @@ int main()
       arf_clear(tol);
     }
      
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

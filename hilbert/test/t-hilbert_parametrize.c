@@ -11,7 +11,7 @@ int main()
   flint_printf("hilbert_parametrize....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 2 * flint_test_multiplier(); iter++)
     {
@@ -75,7 +75,7 @@ int main()
       _acb_vec_clear(t, 2);
     }
 
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

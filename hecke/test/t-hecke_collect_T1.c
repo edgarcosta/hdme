@@ -8,7 +8,7 @@ int main()
   
   flint_printf("hecke_collect_T1....");
   fflush(stdout);
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 1 * flint_test_multiplier(); iter++)
     {      
@@ -79,7 +79,7 @@ int main()
       _fmpz_vec_clear(eig, 4);
     }
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

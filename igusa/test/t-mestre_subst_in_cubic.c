@@ -11,7 +11,7 @@ int main()
   flint_printf("mestre_subst_in_cubic....");
   fflush(stdout);
   
-  flint_randinit(state);
+  flint_rand_init(state);
   
   for (iter = 0; iter < 100 * flint_test_multiplier(); iter++)
     {
@@ -70,7 +70,7 @@ int main()
     }
 
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

@@ -10,7 +10,7 @@ int main()
   flint_printf("tau_from_igusa....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 5 * flint_test_multiplier(); iter++)
     {
@@ -73,7 +73,7 @@ int main()
       _acb_vec_clear(I, 4);
     }
   
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;

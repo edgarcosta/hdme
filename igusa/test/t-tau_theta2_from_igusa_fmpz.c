@@ -11,7 +11,7 @@ int main()
   flint_printf("tau_theta2_from_igusa_fmpz....");
   fflush(stdout);
 
-  flint_randinit(state);
+  flint_rand_init(state);
 
   for (iter = 0; iter < 15 * flint_test_multiplier(); iter++)
     {
@@ -92,7 +92,7 @@ int main()
       acb_clear(scal);
     }
 
-  flint_randclear(state);
+  flint_rand_clear(state);
   flint_cleanup();
   flint_printf("PASS\n");
   return EXIT_SUCCESS;
