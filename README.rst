@@ -23,7 +23,7 @@ in the associated paper `[K21]`_.
 Prerequisites
 =============
 
-An installation of `Flint`_ version 3.2.2 or later.
+An installation of `Flint`_ version 3 or later.
 
 Installation
 ============

@@ -12,6 +12,14 @@ if ! command -v autoreconf >/dev/null 2>&1; then
     exit 1
 fi
 
+# Check for libtoolize (part of libtool package)
+if ! command -v libtoolize >/dev/null 2>&1 && ! command -v glibtoolize >/dev/null 2>&1; then
+    echo "Error: libtoolize is not installed"
+    echo "On macOS: brew install libtool"
+    echo "On Ubuntu/Debian: sudo apt-get install libtool"
+    exit 1
+fi
+
 # Run autoreconf to generate configure script and all necessary files
 autoreconf -fiv
 

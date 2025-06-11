@@ -11,6 +11,10 @@
 #ifndef HECKE_H
 #define HECKE_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <gmp.h>
+
 #include <flint/flint.h>
 #include <flint/fmpz.h>
 #include <flint/fmpz_poly.h>
@@ -20,6 +24,8 @@
 #include <flint/acb.h>
 #include <flint/acb_mat.h>
 
+
+#include "flint_compat.h"
 #include "siegel.h"
 #include "theta.h"
 #include "igusa.h"

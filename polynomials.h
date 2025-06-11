@@ -11,6 +11,10 @@
 #ifndef HDME_POLY_H
 #define HDME_POLY_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <gmp.h>
+
 #include <flint/flint.h>
 #include <flint/fmpz.h>
 #include <flint/fmpz_poly.h>
@@ -22,6 +26,7 @@
 #include <flint/acb.h>
 #include <flint/acb_poly.h>
 
+#include "flint_compat.h"
 #include "verbose.h"
 
 

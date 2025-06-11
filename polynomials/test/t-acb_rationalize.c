@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <gmp.h>
+#include <flint/ulong_extras.h>
+
 #include "polynomials.h"
-#include "flint/ulong_extras.h"
 
 int main()
 {

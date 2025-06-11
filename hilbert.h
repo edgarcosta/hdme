@@ -11,6 +11,10 @@
 #ifndef HILBERT_H
 #define HILBERT_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <gmp.h>
+
 #include <flint/flint.h>
 #include <flint/fmpz.h>
 #include <flint/fmpq.h>
@@ -24,8 +28,8 @@
 #include <flint/acb.h>
 #include <flint/acb_mat.h>
 #include <flint/acb_poly.h>
-#include <stdio.h>
 
+#include "flint_compat.h"
 #include "hdme_data.h"
 #include "polynomials.h"
 #include "siegel.h"

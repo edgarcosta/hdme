@@ -11,6 +11,10 @@
 #ifndef IGUSA_H
 #define IGUSA_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <gmp.h>
+
 #include <flint/fmpq.h>
 #include <flint/fmpz_poly.h>
 #include <flint/fmpq_poly.h>
@@ -21,6 +25,8 @@
 #include <flint/fmpq_vec.h>
 #include <flint/fmpz_factor.h>
 
+
+#include "flint_compat.h"
 #include "hdme_data.h"
 #include "siegel.h"
 #include "theta.h"
