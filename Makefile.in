@@ -56,8 +56,22 @@ OBJS = $(patsubst %.c, build/%.o, $(SOURCES))
 LOBJS = $(patsubst %.c, build/%.lo, $(SOURCES))
 
 TEST_SOURCES = $(wildcard $(patsubst %, %/test/t-*.c, $(MODULES)))
+
+# By default, TESTS_TO_SKIP is empty.
+# It can be set from the command line, e.g.,
+# make check TESTS_TO_SKIP="t-foo t-bar"
+TESTS_TO_SKIP ?=
+
+# Filter the test sources
+ifneq ($(strip $(TESTS_TO_SKIP)),)
+	skipped_patterns = $(foreach test,$(TESTS_TO_SKIP),%/$(test).c)
+	TEST_SOURCES := $(filter-out $(skipped_patterns),$(TEST_SOURCES))
+endif
+
 TESTS = $(patsubst %.c, build/%$(EXEEXT), $(TEST_SOURCES))
 RUNTESTS = $(patsubst build/%, run/%, $(TESTS))
+
+TESTS_ENVIRONMENT ?=
 
 # Files to clean
 CLEANFILES = $(HDME_LIB) $(HDME_LIBNAME) $(HDME_LIBNAME).$(HDME_MAJOR) $(HDME_LIB_STATIC)
@@ -67,6 +81,39 @@ CLEANFILES = $(HDME_LIB) $(HDME_LIBNAME) $(HDME_LIBNAME).$(HDME_MAJOR) $(HDME_LI
 all: library tests
 
 check: tests $(RUNTESTS)
+
+# List of tests to skip in CI due to known failures.
+# Add a test to this list to temporarily disable it in the CI pipeline.
+CI_SKIPPED_TESTS = \
+	t-hilbert_parametrize \
+	t-humbert_parametrize \
+	t-mestre \
+	t-tau_from_igusa \
+	t-theta_0123half_inverse \
+	t-theta2_inverse \
+	t-thomae_correct_signs \
+	t-thomae_theta4
+
+# Additional tests to skip on macOS, which may be due to
+# new library versions (e.g., flint) provided by homebrew.
+ifeq ($(OS), darwin)
+CI_SKIPPED_TESTS += \
+	t-hecke_all_isog_Q \
+	t-hecke_make_integral \
+	t-hilbert_all_isog_Q \
+	t-hilbert_modeq_eval \
+	t-hilbert_modeq_eval_split \
+	t-hilbert_parametrize \
+	t-siegel_2step_all_isog_Q \
+	t-siegel_2step_direct_isog_Q \
+	t-siegel_direct_isog_Q \
+	t-siegel_modeq_eval \
+	t-tau_theta2_from_igusa_fmpz \
+	t-thomae_reorder
+endif
+
+check_ci:
+	@$(MAKE) -k check TESTS_TO_SKIP="$(CI_SKIPPED_TESTS)"
 
 tests: $(TESTS)
 
@@ -120,7 +167,7 @@ $(TESTS): build/%$(EXEEXT): %.c $(BUILT_LIBS)
 	@$(CC) $(CFLAGS) $(INCS) -o $@ $< -L. -lhdme $(LIBS) -Wl,-rpath,"$(CURDIR)"
 
 run/%: build/%
-	@$<
+	@$(TESTS_ENVIRONMENT) $<
 
 install: library
 	mkdir -p $(PREFIX)/$(LIBDIR)

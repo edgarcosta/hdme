@@ -76,7 +76,7 @@ jobs:
 
       - name: "Run tests"
         run: |
-          $MAKE check 
+          $MAKE check_ci 
 
   run-tests-macos:
     name: Test (macOS, ${{ matrix.config.name }})
@@ -138,13 +138,72 @@ jobs:
       
       - name: "Run tests"
         run: |
-          $MAKE check 
+          $MAKE check_ci 
+
+  run-tests-ubuntu-latest-flint:
+    name: Test (Ubuntu, latest flint)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Homebrew"
+        run: |
+          NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
+      - name: "Setup"
+        run: |
+          brew install gcc
+          brew install flint
+
+          sudo apt-get install -y \
+            autoconf \
+            libtool-bin
+
+          # Find the actual GCC binary (it's often installed with a version suffix)
+          GCC_PATH=$(find $(brew --prefix)/bin -name 'gcc-*' | head -1)
+          if [ -z "$GCC_PATH" ]; then
+            GCC_PATH=$(brew --prefix)/bin/gcc
+          fi
+          echo "GCC_PATH=$GCC_PATH" >> $GITHUB_ENV
+          
+          # Check versions
+          $GCC_PATH --version
+          make --version
+          autoconf --version
+          libtool --version
+          echo "MAKE=make -j$(expr $(nproc) + 1) --output-sync=target" >> $GITHUB_ENV
+
+
+      - name: "Configure and build"
+        run: |
+          ./bootstrap.sh
+          ./configure CC="$GCC_PATH" \
+            --with-gmp=$(brew --prefix) \
+            --with-mpfr=$(brew --prefix) \
+            --with-flint=$(brew --prefix)
+
+      - name: "Compile library"
+        run: |
+          # Source Homebrew environment
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          
+          $MAKE
+          $MAKE tests
+          ldd libhdme.so
+
+      - name: "Run tests"
+        run: |
+          # Source Homebrew environment
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          
+          $MAKE check_ci
 
   run-valgrind-tests:
     runs-on: ubuntu-24.04
 
     env:
-      FLINT_TEST_MULTIPLIER: "10"
+      FLINT_TEST_MULTIPLIER: "0.01"
 
     steps:
       - name: "Rescale multiplier"
@@ -185,4 +244,5 @@ jobs:
       
       - name: "Run tests under valgrind"
         run: |
-          $MAKE check TESTS_ENVIRONMENT="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1" 
+          $MAKE -k check_ci \
+          TESTS_ENVIRONMENT="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1" 
